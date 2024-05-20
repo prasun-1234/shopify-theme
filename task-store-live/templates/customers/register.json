@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "featured_image": {
+          "type": "section_img",
+          "settings": {
+            "image": "shopify://shop_images/contact-form-photo.jpg"
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "registerHeader": "Create a new account...",
+            "buttonText": "Create account"
+          }
+        }
+      },
+      "block_order": ["featured_image", "form"]
+    }
+  },
+  "order": ["main"]
+}

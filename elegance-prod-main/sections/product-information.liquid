@@ -1,0 +1,244 @@
+<link rel="stylesheet" href="{{ 'product-information.css' | asset_url }}">
+
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+<meta itemprop="image" content="{{ product | image_url: 'grande' }}">
+
+{% assign featured_image = product.first_available_variant.image %}
+{% render 'product-template-one', featured_image: featured_image, section: section %}
+
+{% render 'product-zoom' %}
+
+<script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "t:sections.product-information.name",
+  "settings": [
+    {
+      "type": "range",
+      "min": 40,
+      "max": 60,
+      "id": "title_font-size",
+      "step": 2,
+      "unit": "px",
+      "default": 56,
+      "label": "t:sections.product-information.settings.title_font-size.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "pick_up_enabled",
+      "default": true,
+      "label": "t:sections.product-information.settings.pick_up_enabled.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:sections.product-information.blocks.custom_liquid.name",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:sections.product-information.blocks.custom_liquid.settings.custom_liquid.label"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.product-information.blocks.title.name",
+      "type": "title",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.product-information.blocks.review_count.name",
+      "type": "review_count",
+      "limit": 1
+    },
+    {
+      "type": "sku",
+      "name": "t:sections.product-information.blocks.sku.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "name": "t:sections.product-information.blocks.description.name",
+      "type": "description",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.product-information.blocks.options.name",
+      "type": "options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "option_style",
+          "label": "t:sections.product-information.blocks.options.settings.option_style.label",
+          "default": "pill",
+          "options": [
+            {
+              "label": "t:sections.product-information.blocks.options.settings.option_style.options.pill.label",
+              "value": "pill"
+            },
+            {
+              "label": "t:sections.product-information.blocks.options.settings.option_style.options.dropdown.label",
+              "value": "dropdown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t:sections.product-information.blocks.quantity.name",
+      "type": "quantity",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.product-information.blocks.price.name",
+      "type": "price",
+      "limit": 1
+    },
+    {
+      "type": "complementary",
+      "name": "t:sections.product-information.blocks.complementary_products.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.product-information.blocks.complementary_products.settings.paragraph.content"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "default": "Pairs Well With",
+          "label": "t:sections.product-information.blocks.complementary_products.settings.heading.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "make_collapsible_row",
+          "default": false,
+          "label": "t:sections.product-information.blocks.complementary_products.settings.make_collapsible_row.label"
+        },
+        {
+          "type": "range",
+          "id": "product_list_limit",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 10,
+          "label": "t:sections.product-information.blocks.complementary_products.settings.product_list_limit.label"
+        },
+        {
+          "type": "range",
+          "id": "products_per_page",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 3,
+          "label": "t:sections.product-information.blocks.complementary_products.settings.products_per_page.label"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.product-information.blocks.payment.name",
+      "type": "payment",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "gift_card_recipient",
+          "label": "t:sections.product-information.blocks.payment.settings.gift_card_recipient.label",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    {%- if product.featured_media -%}
+      {%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
+      "image": [
+        {{ product.featured_media | image_url: media_size | prepend: "https:" | json }}
+      ],
+    {%- endif -%}
+    "description": {{ product.description | strip_html | json }},
+    {%- if product.current_variant.sku != blank -%}
+      "sku": {{ product.current_variant.sku | json }},
+    {%- endif -%}
+    "brand": {
+      "@type": "Thing",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ shop.url | append: variant.url | json }},
+          "priceValidUntil": "2020-06-20"
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+<script>
+  var product = {{ product | json }}
+  document.querySelectorAll('.prodcut-variant-option input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+
+      let selectedOption = []
+      document.querySelectorAll('.prodcut-variant-option input[type="radio"]:checked').forEach(radio => {
+        selectedOption.push(radio.value)
+      })
+
+      var matchdVariant = product.variants.find(variant => {
+        var pass = true;
+        for(var i = 0; i < selectedOption.length; i++){
+          if(selectedOption.indexOf(variant.options[i]) === -1){
+            pass = false
+            break
+          }
+        }
+        return pass;
+      })
+
+      document.querySelector('#product_id').value = matchdVariant.id
+
+      let url = window.location.href
+      console.log(url)
+    })
+  })
+
+
+
+  document.addEventListener('keydown', (e) => {
+    let pickupDrawer = document.querySelector('pickup-availability-drawer');
+
+
+    if (e.key === 'Escape') {
+      if (pickupDrawer) {
+        pickupDrawer.removeAttribute('open');
+      }
+    }
+  });
+</script>

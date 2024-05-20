@@ -1,0 +1,213 @@
+{% capture cssValue %}
+  {% if section.settings.block_background == 'even' %}
+    even
+    {% elsif section.settings.block_background == 'odd' %}
+      odd
+  {% endif %}
+{% endcapture %}
+
+{% capture direction %}
+   {% if section.settings.reverse_direction == true %}
+       from { transform: translateX(-3000px); } to { transform: translateX(0px);}
+       {% elsif section.settings.reverse_direction == false %}
+        from { transform: translateX(0px); } to { transform: translateX(-3000px);}
+      {% else %}
+   {% endif %}
+{% endcapture %}
+
+{% style %}
+  .{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom }}px;
+    }
+  .{{ section.id }} .tilt{
+    transform: rotate(-5deg) scale(1.1);
+  }
+  .{{ section.id }} .new-marquee .marquee-block:nth-child({{ cssValue }}) h3{
+    border-radius: 60px;
+    padding: 10px 40px;
+    color: {{ section.settings.content_color }}!important;
+    background-color: {{ section.settings.background_color }};
+  }
+  .{{ section.id }} .new-marquee {
+    animation: {{ section.id }} {{ section.settings.marquee_speed }}s linear infinite;
+  }
+  @keyframes {{ section.id }} {
+    {{ direction }}
+  }
+  @media screen and (max-width: 1200px){
+    .{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top | divided_by: 4 }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom | divided_by: 4 }}px;
+    }
+  }
+{% endstyle %}
+<section class="{{ section.id }}">
+  <a
+    href="{{ section.settings.link }}"
+    rel="nofollow"
+    aria-label="{{ section.settings.link }}"
+    class="w-full block overflow-x-clip"
+  >
+    <div class="tilt flex items-center overflow-x-hidden gap-7 overflow-hidden">
+      {% for i in (1..4) %}
+        <div class="flex justify-between items-center gap-7 new-marquee flex-shrink-0">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'marquee_block' %}
+                <div class="flex-shrink-0 marquee-block" {{ block.shopify_attributes }}>
+                  <div class="flex items-center justify-center gap-7">
+                    <div class="flex-shrink-0">
+                      {% if block.settings.image != blank %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 200
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '800',
+                            widths: '100, 200, 260, 400',
+                            class: 'rounded-[100px] hover:grayscale grayscale-0 object-center ease duration-300 w-[32px] h-[32px] h-auto'
+                        -}}
+                      {%- else %}
+                        {{ 'product-3' | placeholder_svg_tag: 'h-[100px] scale-[1.5]' }}
+                      {% endif %}
+                    </div>
+
+                    <h3 class="flex-shrink-0 font-semibold">
+                      {% if block.settings.title != blank %}
+                        {{ block.settings.title }}
+                      {% else %}
+                        Marquee Text
+                      {% endif %}
+                    </h3>
+                  </div>
+                </div>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.new-marquee.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.new-marquee.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.new-marquee.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "block_background",
+      "label": "t:section.new-marquee.settings.block_background.label",
+      "options": [
+        {
+          "label": "t:section.new-marquee.settings.block_background.even",
+          "value": "even"
+        },
+        {
+          "label": "t:section.new-marquee.settings.block_background.odd",
+          "value": "odd"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:section.new-marquee.settings.link"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "t:section.new-marquee.settings.marquee_speed",
+      "max": 100,
+      "min": 10,
+      "step": 10,
+      "default": 90
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_direction",
+      "label": "t:section.new-marquee.settings.reverse_direction"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.new-marquee.settings.background_color"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "t:section.new-marquee.settings.content_color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marquee_block",
+      "name": "t:section.new-marquee.blocks.marquee_block.name",
+      "limit": 7,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.new-marquee.blocks.marquee_block.settings.image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.new-marquee.blocks.marquee_block.settings.title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.new-marquee.presets.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0
+      },
+      "blocks": [
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

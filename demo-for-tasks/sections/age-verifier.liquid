@@ -1,0 +1,39 @@
+{{ 'section-age-verifier.css' | asset_url | stylesheet_tag }}
+<div class="age-container hidden">
+    <div class="age-container-inner">
+        <h1>LuxeCarry </h1>
+        <div class="age-card">
+            <div class="terms-and-conditions"><input type="checkbox" name="terms and conditions" id="terms-and-conditions"> I agree with <a href="#">term of service</a> </div>
+            <h1 class="heading">Are you 16 or older?</h1>
+            <div class="yes-no-buttons">
+                <button id="buttonNo" class="choose-button button button--secondary" type="submit">No</button>
+                <button id="buttonYes" class="button" type="submit">Yes</button>
+            </div>
+            <p class="card-description">You Must verify that you are 16 years of age or above to enter this site</p>
+        </div>
+    </div>
+</div>
+
+<script defer>
+    let isAgeVerifierOpen = localStorage.getItem("isAgeVerifierOpen") || null;
+    const ageContainer = document.querySelector('.age-container');
+
+    //yes-button event
+    document.querySelector('#buttonYes').addEventListener('click', ()=> {
+        ageContainer.classList.add("hidden");
+        localStorage.setItem("isAgeVerifierOpen", "open"); 
+    })
+    //no-button event
+    document.querySelector('#buttonNo').addEventListener('click', ()=> {
+        window.history.back();
+    })
+
+    //load the modal when isAgeVerifierOpen is null.
+    window.addEventListener('load', ()=> {
+        if (!isAgeVerifierOpen) {
+            setTimeout(()=> {
+                ageContainer.classList.remove('hidden');
+            }, 3000)
+        }
+    })
+</script>

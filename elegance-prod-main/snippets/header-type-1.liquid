@@ -1,0 +1,196 @@
+{% if top_bar_active %}
+  {% render 'header-top-bar' %}
+{% endif %}
+<div class="header-top header-one {% if settings.enable_animation %}scrollmagic-element{% endif %} {% if template.name == 'index' %}{{ template.name }}{% endif %}">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g align-center">
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-4">
+        <div class="l-box">
+          <div class="header-center">
+            <div class="logo-container {% if settings.enable_animation %}scrollmagic-element-fade-in-1{% endif %}">
+              {%- if settings.logo -%}
+                <h1>
+                  <a
+                    id="logo"
+                    href="/"
+                    style="width: {{ settings.logo_max_width }}px"
+                    rel="nofollow"
+                    title="{{ shop.name }}"
+                  >
+                    <img
+                      src="{{ settings.logo | image_url }}"
+                      alt="{{ shop.name }}"
+                      width="100"
+                      height="100"
+                      loading="lazy"
+                    >
+                  </a>
+                </h1>
+              {%- else -%}
+                <h1>
+                  <a rel="nofollow" id="title" href="/">
+                    {{ shop.name }}
+                  </a>
+                </h1>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2">
+        <div class="l-box">
+          <div class="header-left {% if settings.enable_animation %}scrollmagic-element-fade-in-2{% endif %}">
+            <nav
+              role="navigation"
+              class="main-navigation {% if settings.select_menu == 'normal-menu' %}default-site-nav{% endif %} {% if settings.select_menu == 'mega-menu' %}mega-menu-enabled{% endif %}"
+            >
+              {% assign header_menu = section.settings.menu_list %}
+              <ul class="menu" id="header_menu">
+                {% for link in linklists[header_menu].links limit: 6 %}
+                  <li
+                    class="
+                      mega-menu-main-{{ forloop.index }}
+                      {% if link.links != empty and settings.select_menu == 'normal-menu' %}simple-dropdown{% endif %}
+                    "
+                    data-mega="{{ forloop.index }}"
+                  >
+                    <a
+                      href="{{ link.url }}"
+                      rel="nofollow"
+                      class="menu_link"
+                      aria-controls="menu_item_{{ forloop.index }}"
+                    >
+                      {{- link.title -}}
+                    </a>
+                    {% if link.links != empty and settings.select_menu == 'normal-menu' %}
+                      <span class="small-arrow">{% render 'icon-small-arrow' %}</span>
+                      <ul class="dropdown-menu" id="menu_item_{{ forloop.index }}">
+                        {% for child_menu_2 in link.links %}
+                          <li class="simple-dropdown-submenu {% if child_menu_2.links != empty and settings.select_menu == 'normal-menu' %}submenu-active{% endif %}">
+                            <a
+                              href="{{ child_menu_2.url }}"
+                              rel="nofollow"
+                              class="menu_sublink"
+                              aria-label="{{ child_menu_2.title }}"
+                              aria-controls="submenu_item_{{ forloop.index }}"
+                            >
+                              {{- child_menu_2.title -}}
+                            </a>
+                            {% if child_menu_2.links != empty %}
+                              <span class="small-arrow">{% render 'icon-small-arrow' %}</span>
+                              <ul class="simple-dropdown-menu" id="submenu_item_{{ forloop.index }}">
+                                {% for child_menu_3 in child_menu_2.links %}
+                                  <li class="">
+                                    <a
+                                      href="{{ child_menu_3.url }}"
+                                      rel="nofollow"
+                                      aria-label="{{ child_menu_3.title }}"
+                                    >
+                                      {{- child_menu_3.title -}}
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+
+                    {% elsif settings.select_menu == 'mega-menu' %}
+                      {% render 'mega-menu-main', section: section, index: forloop.index, class: 'mega-menu-desktop' %}
+                    {% endif %}
+                    {% render 'chevron-down' %}
+                  </li>
+                {% endfor %}
+              </ul>
+              {% if settings.select_menu == 'mega-menu' %}
+                <ul id="mega_menu_list">
+                  {% for block in section.blocks %}
+                    {% case block.type %}
+                      {% when 'menu-item' %}
+                        {% render 'mega-menu-main', block: block, index: forloop.index %}
+                      {% else %}
+
+                    {% endcase %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-4">
+        <div class="l-box">
+          <div class="header-right  {% if settings.enable_animation %}scrollmagic-element-fade-in-3{% endif %}">
+            <ul>
+              <li class="search-user" title="Search" aria-label="Search" aria-controls="search-box-main">
+                <button type="button">
+                  {% render 'icon-search' %}
+                </button>
+              </li>
+              {%- if shop.customer_accounts_enabled -%}
+                <li
+                  title="{% if customer.first_name %}{{ customer.first_name }}'s Account {% else %}Login{% endif %}"
+                >
+                  {%- if customer -%}
+                    <span class="acc-log">
+                      <span
+                        ><a href="/account" rel="nofollow" aria-label="My Account"> {{ customer.first_name }}</a></span
+                      >
+                      <span class="icon-log"
+                        ><a href="/account/logout" rel="nofollow" aria-label="Logout">
+                          {%- render 'icon-log-out' -%}
+                        </a></span
+                      >
+                    </span>
+                  {% else %}
+                    <a aria-label="My Account" href="/account/login" rel="nofollow">{% render 'icon-user' %}</a>
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+              <li class="cart-icon" title="{{ 'header.my_cart' | t }}">
+                {%- if settings.enable_cart_drawer -%}
+                  <a
+                    {% if settings.cart_settings == 'page' %}
+                      href="/cart"
+                    {% else %}
+                      href="#"
+                    {% endif %}
+                    class="open-drawer"
+                    rel="nofollow"
+                    aria-label="My Cart"
+                    aria-controls="cart-drawer-main"
+                  >
+                    {% render 'icon-cart' %}
+                    <span hidden>{{ 'header.my_cart' | t }}</span>
+                    <span class="cart-count">{{ cart.item_count }}</span>
+                  </a>
+                {%- else -%}
+                  <a
+                    {% if settings.cart_settings == 'page' %}
+                      href="/cart"
+                    {% else %}
+                      href="#"
+                    {% endif %}
+                    {% if settings.cart_settings != 'page' %}
+                      class="open-drawer"
+                    {% endif %}
+                    rel="nofollow"
+                    aria-label="My Cart"
+                  >
+                    {% render 'icon-cart' %}
+                    <span hidden>{{ 'header.my_cart' | t }}</span>
+                    <span class="cart-count">{{ cart.item_count }}</span>
+                  </a>
+                {%- endif -%}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

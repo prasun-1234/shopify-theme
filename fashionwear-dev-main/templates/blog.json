@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3A3A3A"
+      }
+    },
+    "main_blog": {
+      "type": "main-blog",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 60,
+        "background_color": "#ffffff",
+        "featured_blog": "news",
+        "show_date": true,
+        "show_author": true,
+        "post_row_limit": 2,
+        "item_limit": 12,
+        "section_title": "Read what excites you more, visit our blog",
+        "content_color": "#000"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main_blog"
+  ]
+}

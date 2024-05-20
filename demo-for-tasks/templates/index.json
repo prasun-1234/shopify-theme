@@ -1,0 +1,218 @@
+{
+  "sections": {
+    "custom_section_hero": {
+      "type": "custom-section-hero",
+      "settings": {
+        "featured_image": "shopify:\/\/shop_images\/bag.webp",
+        "product": "hand-purse",
+        "collection": ""
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "quantity-selector": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "variant-selector": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "buy-button": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": false
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "inventory",
+        "description",
+        "variant-selector",
+        "quantity-selector",
+        "buy-button",
+        "share"
+      ],
+      "settings": {
+        "product": "gucci-bag",
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "none",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "logo-list": {
+      "type": "logo-list",
+      "blocks": {
+        "slide-1": {
+          "type": "logo-list-block",
+          "settings": {
+            "logo_image": "shopify:\/\/shop_images\/urban.svg"
+          }
+        },
+        "slide-2": {
+          "type": "logo-list-block",
+          "settings": {
+            "logo_image": "shopify:\/\/shop_images\/backyard.svg"
+          }
+        },
+        "slide-3": {
+          "type": "logo-list-block",
+          "settings": {
+             "logo_image": "shopify:\/\/shop_images\/iconic.svg"
+          }
+        },
+        "slide-4": {
+          "type": "logo-list-block",
+          "settings": {
+             "logo_image": "shopify:\/\/shop_images\/studio.svg"
+          }
+        },
+        "slide-5": {
+          "type": "logo-list-block",
+          "settings": {
+             "logo_image": "shopify:\/\/shop_images\/retro.svg"
+          }
+        },
+        "slide-6": {
+          "type": "logo-list-block",
+          "settings": {
+             "logo_image": "shopify:\/\/shop_images\/wave.svg"
+          }
+        },
+        "slide-7": {
+          "type": "logo-list-block",
+          "settings": {
+             "logo_image": "shopify:\/\/shop_images\/everyday.svg"
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2", "slide-3", "slide-4", "slide-5", "slide-6", "slide-7"],
+      "settings": {
+        "logo_list_header": "Featured in"
+      }
+    },
+    "instagram-section":{
+      "type": "instagram-section",
+      "settings": {
+        "header_title": "Follow us on Instagram",
+        "insta_link": "https://www.instagram.com"
+      },
+      "blocks": {
+        "insta-banner-1":{
+          "type": "instagram-block",
+          "settings":{
+            "image": "shopify:\/\/shop_images\/lady_bag.jpg"
+          }
+        },
+        "insta-banner-2":{
+          "type": "instagram-block",
+          "settings":{
+            "image": "shopify:\/\/shop_images\/male_bag.jpg"
+          }
+        },
+        "insta-banner-3":{
+          "type": "instagram-block",
+          "settings":{
+            "image": "shopify:\/\/shop_images\/male_purse.jpg"
+          }
+        }
+
+      },
+      "block_order": ["insta-banner-1", "insta-banner-2", "insta-banner-3"]
+    },
+    "new-arrivals":{
+      "type":"new-arrivals",
+      "settings": {
+        "collection": "bagpacks",
+        "heading": "Product slide show"
+      }
+    },
+    "delivery-icon-section":{
+      "type": "delivery-icon-section",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom_section_hero",
+    "featured_collection",
+    "featured-product",
+    "logo-list",
+    "instagram-section",
+    "new-arrivals",
+    "delivery-icon-section"
+  ]
+}

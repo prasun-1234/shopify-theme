@@ -1,0 +1,162 @@
+{% style %}
+  .collection_card_main {
+    height: {{ section.settings.cards_height }}px;
+  }
+
+  @media only screen and (max-width: 980px) {
+    .collection_card_main {
+      height: 400px;
+    }
+  }
+{% endstyle %}
+{% if card_collection != blank %}
+  <div class="collection_card_main group/collection block overflow-hidden bg-[#ccc] card_1">
+    <div class="overflow-hidden relative h-full flex justify-center items-center bg-gray-500">
+      {% assign image = block.settings.featured_image %}
+      {%- if image != blank -%}
+        <img
+          srcset="
+            {%- if image.width >= 165 -%}
+              {{ image | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if image.width >= 330 -%}
+              {{ image | image_url: width: 330 }} 330w,{%- endif -%}
+            {%- if image.width >= 535 -%}
+              {{ image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if image.width >= 750 -%}
+              {{ image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if image.width >= 1000 -%}
+              {{ image | image_url: width: 1000 }} 1000w,{%- endif -%}
+            {%- if image.width >= 1500 -%}
+              {{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {%- if image.width >= 3000 -%}
+              {{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+            {{ image | image_url }} {{ image.width }}w
+          "
+          src="{{ image | image_url: width: 1500 }}"
+          alt="{{ image.alt }}"
+          height="{{ image.height }}"
+          width="{{ image.width }}"
+          loading="lazy"
+          class="{% if card_bg == true %}md:w-1/2 h-[250px] md:h-full{% else %} w-full h-full{% endif %} object-cover z-[10] "
+          style="object-position: {{ block.settings.image_position }}% center;"
+        >
+      {% else %}
+        {% if card_collection.image != blank %}
+          <img
+            srcset="
+              {%- if card_collection.image.width >= 165 -%}
+                {{ card_collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if card_collection.image.width >= 330 -%}
+                {{ card_collection.image | image_url: width: 330 }} 330w,{%- endif -%}
+              {%- if card_collection.image.width >= 535 -%}
+                {{ card_collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if card_collection.image.width >= 750 -%}
+                {{ card_collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if card_collection.image.width >= 1000 -%}
+                {{ card_collection.image | image_url: width: 1000 }} 1000w,{%- endif -%}
+              {%- if card_collection.image.width >= 1500 -%}
+                {{ card_collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if card_collection.image.width >= 3000 -%}
+                {{ card_collection.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {{ card_collection.image | image_url }} {{ card_collection.image.width }}w
+            "
+            src="{{ card_collection.image | image_url: width: 1500 }}"
+            alt="{{ card_collection.image.alt }}"
+            height="{{ card_collection.image.height }}"
+            width="{{ card_collection.image.width }}"
+            loading="lazy"
+            class="{% if card_bg == true %}md:w-1/2 h-[250px] md:h-full{% else %} w-full h-full{% endif %} object-cover z-[10] brightness-75"
+            style="object-position: {{ section.settings.image_position }}%;"
+          >
+        {% else %}
+          {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full bg-[#ccc]' }}
+        {% endif %}
+      {%- endif -%}
+      <div
+        class="collection_card_content absolute w-full h-full left-0 bottom-0 z-[50]"
+      >
+        <div
+          class="collection_card_inner flex items-start h-full w-full"
+        >
+          <div
+            class="flex flex-col justify-between pt-[80px] pb-[40px] px-[20px] h-full w-full"
+            style="{% case settings.collection_card_text_alignment %}{% when 'left' %}align-items: flex-start;text-align:left;{% when 'center' %}align-items: center;text-align:center;{% when 'right' %}align-items: flex-end;text-align:right;{% else %}{% endcase %}"
+          >
+            <span
+              class="w-full flex"
+              style="justify-content:{% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% else %}{% endcase %} !important;"
+            >
+              <span class="inline-block bg-white py-[5px] px-4 uppercase font-semibold">
+                {%- if card_collection.title != blank -%}
+                  <h5
+                    class="duration-200 ease-in-out card-title capitalize !font-normal"
+                  >
+                    {{- card_collection.title | escape -}}
+                  </h5>
+                {%- else -%}
+                  <h3
+                    {% if settings.enable_hover_collection == true %}
+                      class="group-hover/collection:!text-2xl duration-200 ease-in-out !text-xl card-title uppercase"
+                    {% endif %}
+                  >
+                    {{ 'card-collection.no_title' | t }}
+                  </h3>
+                {%- endif -%}
+              </span>
+            </span>
+            <div class="lg:group-hover/collection:translate-y-0 lg:translate-y-[200px] duration-300 ease-in-out">
+              <a href="{{ card_collection.url }}" rel="nofollow">
+                {% render 'btn-primary', src: 'Shop Now' %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="collection_card_main group/collection block overflow-hidden bg-[#ccc]">
+    <div class="overflow-hidden relative h-full flex justify-center items-center">
+      {% if settings.enable_hover_collection == true %}
+        <div class="absolute top-0 left-0 flex justify-center items-center w-full h-full z-[20]">
+          <span
+            class=" rounded-full w-0 h-0 block duration-500 ease-in-out group-hover/collection:w-[800px] group-hover/collection:h-[800px] group-hover/collection:rounded-none"
+            style="background-color: {{ section.settings.overlay_color }}; opacity:calc({{ section.settings.overlay_opacity }}/10);"
+          ></span>
+        </div>
+      {% endif %}
+      <div>
+        {{ 'collection-1' | placeholder_svg_tag: 'w-full' }}
+      </div>
+      <div
+        class="collection_card_content absolute w-full h-full left-0 bottom-0 z-[50]"
+      >
+        <div
+          class="collection_card_inner flex items-start h-full w-full"
+          style="justify-content: {% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% else %}{% endcase %};"
+        >
+          <div class="flex flex-col justify-between pt-[80px] pb-[40px] px-[20px] h-full">
+            <span
+              class="w-full"
+              style="text-align:{% case settings.collection_card_text_alignment %}{% when 'left' %}left{% when 'center' %}center{% when 'right' %}right{% else %}{% endcase %} !important;"
+            >
+              <h3
+                {% if settings.enable_hover_collection == true %}
+                  class="group-hover/collection:!text-2xl duration-200 ease-in-out !text-xl card-title"
+                {% endif %}
+              >
+                {{ 'card-collection.sample_title' | t }}
+              </h3>
+              <p>{{ 'card-collection.sample_description' | t }}</p>
+            </span>
+            <div class="lg:group-hover/collection:translate-y-0 lg:translate-y-[200px] duration-300 ease-in-out">
+              <a href="#" rel="nofollow">
+                {% render 'btn-primary', src: 'Shop Now' %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

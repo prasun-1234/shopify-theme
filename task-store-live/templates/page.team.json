@@ -1,0 +1,344 @@
+{
+  "sections": {
+    "team-hero-section": {
+      "type": "team-hero-section",
+      "blocks": {
+        "link_text": {
+          "type": "animate_text",
+          "settings": {
+            "link_text": "unlock the power of collaboration with our agency, where team work isn't our agency, where team work isn't just a concept – it's the driving force that transforms ideas"
+          }
+        },
+        "marquee_block-1": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Supr",
+            "image": "shopify:\/\/shop_images\/marquee-arrow-team.svg"
+          }
+        },
+        "marquee_block-2": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "task",
+            "image": "shopify:\/\/shop_images\/marquee-arrow-team.svg"
+          }
+        },
+        "marquee_block-3": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Store",
+            "image": "shopify:\/\/shop_images\/marquee-arrow-team.svg"
+          }
+        },
+        "marquee_block-4": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Supr",
+            "image": "shopify:\/\/shop_images\/marquee-arrow-team.svg"
+          }
+        },
+        "marquee_block-5": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "task",
+            "image": "shopify:\/\/shop_images\/marquee-arrow-team.svg"
+          }
+        }
+      },
+      "block_order": [
+        "link_text",
+        "marquee_block-1",
+        "marquee_block-2",
+        "marquee_block-3",
+        "marquee_block-4",
+        "marquee_block-5"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "bg_text_color": "#1e293b",
+        "slide_text_color": "#ffffff",
+        "heading-line-1": "unlock the power of collaboration with",
+        "heading-line-2": "our agency, where team work isn't",
+        "heading-line-3": "just a concept – it's the driving",
+        "heading-line-4": "force that transforms ideas",
+        "video": "shopify:\/\/files\/videos\/team_hero.mp4"
+      }
+    },
+    "team-hire-section": {
+      "type": "team-hire-section",
+      "blocks": {
+        "card-1": {
+          "type": "cards",
+          "settings": {
+            "title": "Design",
+            "background_image": "shopify:\/\/shop_images\/writing.jpg",
+            "gradient": "linear-gradient(90deg, rgba(109,255,193,1) 0%, rgba(189,158,255,1) 100%)"
+          }
+        },
+        "card-2": {
+          "type": "cards",
+          "settings": {
+            "title": "Developer",
+            "background_image": "shopify:\/\/shop_images\/developer.jpg",
+            "gradient": "linear-gradient(90deg, rgba(109,255,193,1) 0%, rgba(189,158,255,1) 100%)"
+          }
+        },
+        "card-3": {
+          "type": "cards",
+          "settings": {
+            "title": "consult",
+            "background_image": "shopify:\/\/shop_images\/consult.jpg",
+            "gradient": "linear-gradient(90deg, rgba(109,255,193,1) 0%, rgba(189,158,255,1) 100%)"
+          }
+        },
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "body_text": "<h5>“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.”<\/h5>",
+            "star": 4.5,
+            "author": "James Gun"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "body_text": "<h5>“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.”<\/h5>",
+            "star": 4,
+            "author": "James Gun"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "body_text": "<h5>“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.”<\/h5>",
+            "star": 5,
+            "author": "James Gun"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3"
+      ],
+      "settings": {
+        "form_heading": "Your own Shopify Design & Development Team"
+      }
+    },
+    "task-showcase": {
+      "type": "task-showcase",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/task-slider-1.jpg",
+            "product": "focal-banner"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/task-slider-2.jpg",
+            "product": "shopify-2-0-conversion"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/task-slider-3.jpg",
+            "product": "shopify-2-0-conversion"
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/task-slider-1.jpg",
+            "product": "shopify-2-0-conversion"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3",
+        "slide-4"
+      ],
+      "settings": {
+        "title": "Task Showcase",
+        "button_url": ""
+      }
+    },
+    "team-challenge-section": {
+      "type": "team-challenge-section",
+      "blocks": {
+        "card-1": {
+          "type": "cards",
+          "settings": {
+            "cardHeader": "As your strategic partner & advisor",
+            "cardTitle": "Pharetra convallis posuere morbi leo urna molestie. Viverra suspendisse potenti nullam ac tortor vitae. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Eu nisl nunc mi ipsum faucibus vitae aliquet nec."
+          }
+        },
+        "card-2": {
+          "type": "cards",
+          "settings": {
+            "cardHeader": "As your strategic partner & advisor",
+            "cardTitle": "Pharetra convallis posuere morbi leo urna molestie. Viverra suspendisse potenti nullam ac tortor vitae. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Eu nisl nunc mi ipsum faucibus vitae aliquet nec."
+          }
+        },
+        "card-3": {
+          "type": "cards",
+          "settings": {
+            "cardHeader": "As your strategic partner & advisor",
+            "cardTitle": "Pharetra convallis posuere morbi leo urna molestie. Viverra suspendisse potenti nullam ac tortor vitae. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Eu nisl nunc mi ipsum faucibus vitae aliquet nec."
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/challenge-rectengle.png",
+        "icon": "shopify:\/\/shop_images\/thunder.svg",
+        "video": "shopify:\/\/files\/videos\/team_hero.mp4",
+        "heading": "Together, there’s no challenge we cannot solve",
+        "bannerImg": "shopify:\/\/shop_images\/challenge-banner.png"
+      }
+    },
+    "custom-blog": {
+      "type": "custom-blog",
+      "blocks": {
+        "marquee_block-1": {
+          "type": "custom-url-blocks",
+          "settings": {
+            "selectStyle": "style1",
+            "article": "news\/dummy-blog",
+            "customURL": "shopify:\/\/blogs\/news\/dummy-blog"
+          }
+        },
+        "custom-image": {
+          "type": "custom-image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/custom-blog-img.jpg"
+          }
+        },
+        "custom_url_blocks_1": {
+          "type": "custom-url-blocks",
+          "settings": {
+            "selectStyle": "style2",
+            "article": "news\/maximizing-your-stores-potential-shopify-theme-optimization-tips",
+            "customURL": "shopify:\/\/blogs\/news\/maximizing-your-stores-potential-shopify-theme-optimization-tips"
+          }
+        },
+        "custom_url_blocks_2": {
+          "type": "custom-url-blocks",
+          "settings": {
+            "selectStyle": "style3",
+            "article": "news\/dummy-blog",
+            "customURL": "shopify:\/\/blogs\/news\/dummy-blog"
+          }
+        },
+        "custom-image-copy": {
+          "type": "custom-image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/custom-blog-img-2.jpg"
+          }
+        },
+        "custom-image-3": {
+          "type": "custom-image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/custom-blog-img-2.jpg"
+          }
+        },
+        "custom_url_blocks_3": {
+          "type": "custom-url-blocks",
+          "settings": {
+            "selectStyle": "style1",
+            "article": "news\/top-5-shopify-product-review-apps-2021",
+            "customURL": "shopify:\/\/blogs\/news\/top-5-shopify-product-review-apps-2021"
+          }
+        },
+        "custom_url_blocks_4": {
+          "type": "custom-url-blocks",
+          "settings": {
+            "selectStyle": "style3",
+            "article": "news\/blog3",
+            "customURL": "shopify:\/\/blogs\/news\/blog3"
+          }
+        }
+      },
+      "block_order": [
+        "custom_url_blocks_2",
+        "custom_url_blocks_3",
+        "custom-image",
+        "custom_url_blocks_1",
+        "custom_url_blocks_4",
+        "custom-image-copy",
+        "marquee_block-1"
+      ],
+      "settings": {
+        "heading": "Dive into our journal for insightful content that enhances your theme",
+        "heading_size": "h1",
+        "blog": "news",
+        "post_row": 3,
+        "post_limit": 6,
+        "color_scheme": "",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "show_view_all": true,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "marquee_speed": 80,
+        "reverse_direction": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "New era of design & development starts now"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Get A Quote , put your email we will get back to you<\/p>"
+          }
+        },
+        "email_form": {
+          "type": "email_form",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
+      "settings": {
+        "gradient": "shopify:\/\/shop_images\/newsletter-gradient.svg",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "team-hero-section",
+    "team-hire-section",
+    "task-showcase",
+    "team-challenge-section",
+    "custom-blog",
+    "newsletter"
+  ]
+}

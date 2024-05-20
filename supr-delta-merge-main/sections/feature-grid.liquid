@@ -1,0 +1,163 @@
+{% style %}
+    .feature_grid_main *{
+      color:{{ section.settings.content_color }} !important;
+    }
+    .{{ section.id }}{
+      margin-bottom: {{ section.settings.margin_bottom }}px; 
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+    @media only screen and (max-width: 1024px){
+    .{{ section.id }}{
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px; 
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px;
+    } 
+    }
+  {% endstyle %}
+  <section
+    id="image-{{ section.id }}-banner"
+    class="!bg-cover !bg-center scroll-animation feature_grid_main {{ section.id }}">
+    <div style="background: {{ section.settings.background_color }};">
+      <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+        <div
+          class="flex lg:justify-between justify-around flex-wrap gap-10"
+          style="padding-block:{{ section.settings.section_padding }}px;"
+        >
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'card' %}
+                <div
+                  class="w-[340px] flex items-center justify-center text-center flex-col"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="mb-5">
+                    {% if block.settings.card_img != blank %}
+                      {{
+                        block.settings.card_img
+                        | image_url: width: 1500
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '100',
+                          widths: '165, 360, 535, 750, 1070, 1500',
+                          class: 'object-cover md:w-[100px] w-20'
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'md:w-[100px]  scale-[1.5]' }}
+                    {% endif %}
+                  </div>
+                  <div class="mb-3">
+                    <h3 class="body-font !text-[1.25rem] lg:!text-[2rem]">
+                      {% if block.settings.title != blank %}
+                        {{ block.settings.title }}
+                      {% else %}
+                        Feature Title
+                      {% endif %}
+                    </h3>
+                  </div>
+                  <div>
+                    {% if block.settings.description != blank %}
+                      {{ block.settings.description }}
+                    {% else %}
+                      Feature Text
+                    {% endif %}
+                  </div>
+                </div>
+              {% else %}
+  
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  {% schema %}
+  {
+    "name": "Feature Grid",
+    "settings": [
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "px",
+        "label": "t:section.info-grid.settings.margin_top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "px",
+        "label": "t:section.info-grid.settings.margin_bottom",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "section_padding",
+        "max": 100,
+        "min": 10,
+        "step": 10,
+        "default": 80,
+        "unit": "px",
+        "label": "Section Padding"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#F2EFEB"
+      },
+      {
+        "type": "color",
+        "id": "content_color",
+        "label": "Content Color",
+        "default": "#3F2E3E"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "card",
+        "type": "card",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "card_img",
+            "label": "Card Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Free Shipping"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Feature Grid",
+        "settings": {
+          "margin_top": 0,
+          "margin_bottom": 60,
+          "background_color": "#F2EFEB",
+          "section_padding": 80
+        },
+        "blocks": [
+          {
+            "type": "card"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+  

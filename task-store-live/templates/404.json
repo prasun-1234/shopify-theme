@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "blocks": {
+        "featured_image": {
+          "type": "featured_image",
+          "settings": {
+            "enable_bg": true,
+            "bg_color": "#143092",
+            "image": "shopify:\/\/shop_images\/404_image_main.png",
+            "video": "shopify:\/\/files\/videos\/404_video.mp4",
+            "overlay_image": "shopify:\/\/shop_images\/404.png"
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/404_icon2.svg",
+            "heading": "<h2>Oops 404 Error, Page not found!<\/h2>",
+            "para": "Oops! Looks like you've taken a wrong turn. Let's get you back on track. Please try again!",
+            "button_text": "BACK TO HOME PAGE",
+            "button_url": "\/"
+          }
+        }
+      },
+      "block_order": [
+        "featured_image",
+        "content"
+      ],
+      "settings": {
+        "padding_top": 140,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,32 @@
+<div class="social-info">
+  <ul>
+    {%- if settings.social_facebook_link.size > 10 -%}
+      <li>
+        <a aria-label="Facebook" href="{{ settings.social_facebook_link }}" target="_blank" rel="nofollow">
+          {%- render 'icon-facebook' -%}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- if settings.social_twitter_link.size > 10 -%}
+      <li>
+        <a aria-label="Twitter" href="{{ settings.social_twitter_link }}" target="_blank" rel="nofollow">
+          {%- render 'icon-twitter' -%}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- if settings.social_pinterest_link.size > 10 -%}
+      <li>
+        <a aria-label="Pinterest" href="{{ settings.social_pinterest_link }}" target="_blank" rel="nofollow">
+          {%- render 'icon-pinterest' -%}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- if settings.social_instagram_link.size > 10 -%}
+      <li>
+        <a aria-label="Instagram" href="{{ settings.social_instagram_link }}" target="_blank" rel="nofollow">
+          {%- render 'icon-instagram' -%}
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+</div>

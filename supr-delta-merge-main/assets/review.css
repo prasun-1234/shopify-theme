@@ -1,0 +1,131 @@
+
+
+.spr-form form .spr-form-input{
+  border: none;
+  border: 1px solid #686868;
+  border-radius: 5px;
+  color: black;
+  padding: 10px;
+}
+.spr-form form .spr-form-input.spr-starrating{
+  height: 50px;
+}
+.spr-header-title{
+font-size: 3rem !important;
+font-size: 600;
+}
+.spr-review-header-title{
+font-size: 2rem !important;
+font-family: var(--body-font-family);
+font-weight: 400;
+}
+.spr-review .spr-review-header{
+display: flex;
+flex-direction: column;
+gap:7px;
+}
+.spr-review-header-byline{
+margin-bottom: 0 !important;
+font-size: 1rem !important;
+}
+.spr-review-content{
+margin-top: 10px;
+}
+.spr-review-content .spr-review-content-body ,.spr-review-reportreview{
+font-size: 1rem !important;
+}
+.spr-review .spr-review-header .spr-review-header-title{
+order: 0;
+}
+.spr-review .spr-review-header .spr-review-header-starratings{
+order: 1;
+}
+/* .spr-form form .spr-form-input-textarea{
+  border: none;
+  outline: none;
+}  */
+
+.spr-form-title{
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.spr-form form .spr-form-input-textarea{
+padding: 0px;
+border: none !important;
+outline: none !important;
+height: 80px;
+}
+
+.textarea{
+overflow: auto;
+-webkit-appearance: none;
+}
+
+.spr-reviews{
+max-height: 200px;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+#shopify-product-reviews{
+margin-top: 0px;
+}
+
+.spr-container{
+padding: 0px !important;
+margin-bottom: 30px;
+border: none;
+}
+
+.spr-form-title{
+font-size: 1.5rem !important;
+font-weight: 600;
+}
+
+.spr-button, .spr-button-primary {
+padding: 0 20px;
+height: 50px;
+background: var(--primary-btn-bg) !important;
+border-radius: var(--button-radius);
+color: var(--primary-btn-text);
+border: none;
+cursor: pointer;
+transition: .5s ease;
+}
+.spr-button:hover, .spr-button-primary:hover{
+transform: scale(.95);
+}
+
+.spr-summary-actions-newreview:hover{
+text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px) {
+
+.spr-button, .spr-button-primary{
+  width: 20%;
+}
+.spr-header-title{
+  font-size: 1.5rem !important;
+}
+.spr-review-header-title{
+  font-size: 1.5rem !important;
+}
+}
+
+@media screen and (max-width: 640px) {
+
+  .spr-button, .spr-button-primary{
+    width: 30%;
+  }
+  
+  }
+
+  @media screen and (max-width: 480px) {
+
+    .spr-button, .spr-button-primary{
+      width: 100%;
+    }
+    
+    }

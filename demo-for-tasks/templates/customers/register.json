@@ -1,0 +1,24 @@
+{
+    "sections": {
+      "breadcrumb": {
+        "type": "breadcrumb",
+        "settings": {
+          "section_margin_top": 40,
+          "section_margin_bottom": 40,
+          "text_color": "#cbd5e1"
+        }
+      },
+      "main": {
+        "type": "main-register",
+        "settings": {
+          "padding_top": 36,
+          "padding_bottom": 100,
+          "featured_image": "shopify://shop_images/task-contact.jpg"
+        }
+      }
+    },
+    "order": [
+      "breadcrumb",
+      "main"
+    ]
+  }

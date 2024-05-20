@@ -1,0 +1,54 @@
+.team-marquee-section {
+  width: 100%;
+  height: auto;
+}
+.team-marquee-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.team-marquee-main h3 {
+  font-family: Inter;
+  font-size: 5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  color: #1e293b;
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .team-marquee-main h3 {
+    font-size: 19.2rem;
+    margin: 0px;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .team-marquee-main h3 {
+    font-size: 12rem;
+    margin: 0px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .team-marquee-main h3 {
+    font-size: 12rem;
+    margin: 0px;
+  }
+}
+@media screen and (min-width: 640px) and (max-width: 767px) {
+  .team-marquee-main h3 {
+    font-size: 12rem;
+    margin: 0px;
+  }
+}
+@media screen and (min-width: 420px) and (max-width: 639px) {
+  .team-marquee-section {
+    margin-top: 1.25rem;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 419px) {
+  .team-marquee-section {
+    margin-top: 1.25rem;
+  }
+}

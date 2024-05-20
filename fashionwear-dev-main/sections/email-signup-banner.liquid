@@ -1,0 +1,232 @@
+{%- style -%}
+  #Banner-{{ section.id }}{
+    {% if section.settings.image != blank %}
+      background: url('{{ section.settings.image | image_url }}') no-repeat center center;
+      background-size: cover;
+    {% endif %}
+    justify-content: {{ section.settings.text_box_alignment }};
+  }
+  #Banner-{{ section.id }}::after {
+    content:'';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    background-color: {{ section.settings.overlay_color }};
+  }
+  .text-box{
+    {% if section.settings.show_text_box == true %}
+      background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.32) 289.58%);
+    {% endif %}
+  }
+{%- endstyle -%}
+
+<div id="Banner-{{ section.id }}" class="relative h-[100dvh] flex justify-center items-center overflow-hidden {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %}">
+    {%- if section.settings.image == blank -%}
+      <span class="w-full h-full absolute top-0 left-0" style="background: url('https://cdn.shopify.com/s/files/1/2096/8839/files/coming-soon-banner.jpg?v=1703135618') no-repeat center center; background-size: cover;">{% comment %} {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-full' }} {% endcomment %}</span>
+    {%- endif -%}
+    <div class="flex flex-col gap-2 items-center z-10 text-box rounded-xl md:px-16 px-5 py-5 md:py-10 md:w-auto w-full">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h3 class="" {{ block.shopify_attributes }}>
+              {{ block.settings.heading | escape }}
+            </h3>
+          {%- when 'paragraph' -%}
+            <div class="lg:mb-14 mb-5 password-body-text" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+              {%- if shop.password_message != blank -%}
+                <div class="password-content text-center">
+                  {{ shop.password_message }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- when 'email_form' -%}
+            <div class="lg:min-w-[600px] md:min-w-[400px] min-w-full" {{ block.shopify_attributes }}>
+              {% form 'customer', class: 'relative' %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="w-full comming-soon-input">
+                  <div class="field">
+                    <label class="mb-2" for="NewsletterForm--{{ section.id }}">
+                        Email
+                    </label>
+                    <input
+                      id="NewsletterForm--{{ section.id }}"
+                      type="email"
+                      name="contact[email]"
+                      class="w-full border lg:mb-10 mb-5"
+                      value="{{ form.email }}"
+                      aria-required="true"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="Newsletter-error--{{ section.id }}"
+                      {% elsif form.posted_successfully? %}
+                        aria-describedby="Newsletter-success--{{ section.id }}"
+                      {% endif %}
+                      placeholder="email"
+                      required
+                    >
+                    {% comment %} <button type="submit" class="" name="commit" id="Subscribe" aria-label="button_label">submit</button> {% endcomment %}
+                    {% render 'btn-primary', src: 'Sign In', type: 'submit', class: 'w-full' %}
+                  </div>
+                  {%- if form.errors -%}
+                    <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                        icon-error
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </small>
+                  {%- endif -%}
+                </div>
+                {%- if form.posted_successfully? -%}
+                  {% style %}
+                    .password-body-text, .comming-soon-input{
+                      display: none;
+                    }
+                  {% endstyle %}
+                  <h4 class="w-full h-full  flex flex-col items-center justify-center text-center gap-5 max-w-lg mx-auto"
+                    id="Newsletter-success--{{ section.id }}"
+                    tabindex="-1"
+                    autofocus>
+                    {% render 'icon-success', class: 'w-8' -%}
+                    We will be opening shortly and  appreciate your patience. Thank You :)
+                  </h4>
+                  {%- elsif form.errors -%}
+                    <div class="">
+                      <h5 class="text-red-400 text-body " role="alert" tabindex="-1" autofocus>
+                        Submitted Failed !
+                      </h5>
+                    </div>
+                    <ul>
+                      {% for error in form.errors %}
+                         <li class="error_main">
+                           {% if error == 'form' %}
+                             {{ form.errors.messages[error] }}
+                           {% else %}
+                             {{ form.errors.translated_fields[error] }} - {{ form.errors.messages[error] }}
+                           {% endif %}
+                         </li>
+                      {% endfor %}
+                    </ul>
+                {%- endif -%}
+              {% endform %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Email signup banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Each email subscription creates a customer account."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 0
+    },    
+    {
+      "type": "checkbox",
+      "id": "show_text_box",
+      "default": true,
+      "label": "Show container on desktop"
+    },
+    {
+      "type": "select",
+      "id": "text_box_alignment",
+      "label": "Text box alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Comming soon ",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Enter your email to get  notifications on latest updates.</p>",
+          "label": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "email_form",
+      "name": "Email form",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "email-signup-banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "email_form"
+        }
+      ]
+    }
+  ],
+  "templates": ["password"]
+}
+{% endschema %}

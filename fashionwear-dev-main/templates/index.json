@@ -1,0 +1,584 @@
+{
+  
+  "sections": {
+    "hero-section": {
+      "type": "hero-section",
+      "blocks": {
+        "title-one": {
+          "type": "title",
+          "settings": {
+            "title": "Fashion",
+            "color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 2,
+            "card_background": "shopify:\/\/shop_images\/hero_section_image.jpg",
+            "button": "",
+            "button_url": "",
+            "adr_text": "<p>New Drop Coming -<\/p>",
+            "link_text": "Shop Now",
+            "adr_text_color": "#ffffff",
+            "adr_bg": "#27272a",
+            "url": "shopify:\/\/collections\/lingerie"
+          }
+        },
+        "title-two": {
+          "type": "title",
+          "settings": {
+            "title": "For",
+            "color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 2,
+            "card_background": "shopify:\/\/shop_images\/hero_section_image_2.jpg",
+            "button": "",
+            "button_url": "",
+            "adr_text": "<p>New Drop Coming - <\/p>",
+            "link_text": "Shop Now",
+            "adr_text_color": "#ffffff",
+            "adr_bg": "#27272a",
+            "url": "shopify:\/\/collections\/bikini"
+          }
+        },
+        "video-one": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/pexels-anna-shvets-5496839 (2160p).mp4",
+            "title": "Everyone",
+            "title_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 4,
+            "button_text": "",
+            "button_url": "",
+            "adr_text": "<p>New Drop Coming - <\/p>",
+            "link_text": "Shop Now",
+            "adr_text_color": "#ffffff",
+            "adr_bg": "#27272a",
+            "url": "shopify:\/\/collections\/swimwear"
+          }
+        }
+      },
+      "block_order": [
+        "title-one",
+        "title-two",
+        "video-one"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "text_alignment": "center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 2
+      }
+    },
+    "feature-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "Arrivals",
+        "section_margin_top": 100,
+        "section_margin_bottom": 100,
+        "padding": 0,
+        "collection": "bikini",
+        "background_color": "",
+        "products_to_show": 6,
+        "products_per_row": 3,
+        "enable_collection_button": false,
+        "button_text": "Button",
+        "url": ""
+      }
+    },
+    "main-banner-1": {
+      "type": "main-banner-1",
+      "blocks": {
+        "image-block-2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/feature_image_2.jpg"
+          }
+        },
+        "text-block": {
+          "type": "text_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/feature_img.jpg",
+            "text_content": "<p>Whether you're looking for everyday essentials that seamlessly disappear beneath your clothing or statement pieces that command attention, our Modern Lingerie Collection has you covered. Elevate your intimate wardrobe with a touch of modern luxury, where every detail is a celebration of your individuality and strength. <\/p>",
+            "button_text": "Shop Our Collections",
+            "button_url": "shopify:\/\/collections"
+          }
+        },
+        "image-block-1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/pexels-tubarones-photography-8964698.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image-block-2",
+        "text-block",
+        "image-block-1"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "background_color": "#27272a",
+        "content_color": "#ffffff",
+        "banner_text": "Modern"
+      }
+    },
+    "video": {
+      "type": "video",
+      "settings": {
+        "container_height": 800,
+        "margin_top": 0,
+        "margin_bottom": 100,
+        "overlay_opacity": 4,
+        "overlay_color": "#27272a",
+        "background_image": "shopify:\/\/shop_images\/video-feature-img.jpg",
+        "demo_video": "shopify:\/\/files\/videos\/hero_section_video.mp4",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+      }
+    },
+    "collection-card": {
+      "type": "main-collection-card",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "collection": "bikini",
+            "image_position": "right"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "collection": "lingerie",
+            "image_position": "right"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "collection": "swimwear",
+            "image_position": "right"
+          }
+        },
+        "49a56da3-6b7c-4a2c-8ade-672e7e3293bf": {
+          "type": "card",
+          "settings": {
+            "collection": "shapewear",
+            "image_position": "right"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "49a56da3-6b7c-4a2c-8ade-672e7e3293bf"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 100,
+        "heading_style": "style1",
+        "section_heading": "<h2>Collection<\/h2>",
+        "border_top": false,
+        "cards_height": 800,
+        "cards_to_show": 2,
+        "slider_arrows": true,
+        "button_text": ""
+      }
+    },
+    "brands": {
+      "type": "brands",
+      "blocks": {
+        "icon-one": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/urban.png"
+          }
+        },
+        "icon-two": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/iconic.png"
+          }
+        },
+        "icon-three": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/wave.png"
+          }
+        },
+        "icon-four": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/studio.png"
+          }
+        },
+        "icon-five": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/backyard.png"
+          }
+        },
+        "icon-six": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/everyday.png"
+          }
+        },
+        "icon-ten": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/retro.png"
+          }
+        },
+        "icon-seven": {
+          "type": "icon",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/organic.png"
+          }
+        }
+      },
+      "block_order": [
+        "icon-one",
+        "icon-two",
+        "icon-three",
+        "icon-four",
+        "icon-five",
+        "icon-six",
+        "icon-ten",
+        "icon-seven"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 100,
+        "section_heading": "Brands"
+      }
+    },
+    "collection-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "section_margin_top": 100,
+        "section_margin_bottom": 100,
+        "image": "shopify:\/\/shop_images\/banner_bg-min.jpg",
+        "section_padding": 280,
+        "custom_title": "<h3>Bikini Up to 30% Off<\/h3>",
+        "title": false,
+        "description": false,
+        "collection": "bikini",
+        "text_color": "#ffffff",
+        "overlay_color": "#3a3a3a",
+        "overlay_opacity": 2,
+        "text_align": "center",
+        "button_text": "Shop Now"
+      }
+    },
+    "focal-banner": {
+      "type": "focal-banner",
+      "blocks": {
+        "focal-point": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Product-1.jpg",
+            "focal_product": "body-shaper-chocolate"
+          }
+        },
+        "focal-point-two": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/focalpoint_image_1.jpg",
+            "focal_product": "women-body-shaper-taupe"
+          }
+        }
+      },
+      "block_order": [
+        "focal-point",
+        "focal-point-two"
+      ],
+      "settings": {
+        "margin-top": 0,
+        "margin-bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/focalpoint_image_1.jpg"
+      }
+    },
+    "new-marquee": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-two",
+        "marquee-one",
+        "marquee-four",
+        "marquee-three",
+        "marquee-six",
+        "marquee-seven",
+        "marquee-five"
+      ],
+      "settings": {
+        "section_margin_top": 200,
+        "section_margin_bottom": 40,
+        "block_background": "even",
+        "link":"shopify:\/\/pages\/about-us",
+        "marquee_speed": 40,
+        "reverse_direction": false,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "new-marquee-two": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-one",
+        "marquee-two",
+        "marquee-three",
+        "marquee-four",
+        "marquee-five",
+        "marquee-six",
+        "marquee-seven"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 200,
+        "block_background": "odd",
+        "link":"shopify:\/\/pages\/about-us",
+        "marquee_speed": 50,
+        "reverse_direction": true,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "latest-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "Latest",
+        "section_margin_top": 40,
+        "section_margin_bottom": 100,
+        "padding": 0,
+        "collection": "lingerie",
+        "background_color": "",
+        "products_to_show": 5,
+        "products_per_row": 3,
+        "enable_collection_button": true,
+        "button_text": "Shop Collection",
+        "url": ""
+      }
+    },
+    "home_blog": {
+      "type": "home-blog",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 100,
+        "background_color": "#27272a",
+        "featured_blog": "news",
+        "show_date": true,
+        "show_author": true,
+        "post_row_limit": 2,
+        "slider_or_grid": "grid",
+        "product_limit": 9,
+        "sticky_content": "Read what excites you more, visit our blog",
+        "content_color": "#ffffff"
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "slide-one": {
+          "type": "slide",
+          "settings": {
+            "text_content": "Fashion Wear lingerie redefines confidence. Perfect fit, exquisite details every piece celebrates femininity with comfort and style.",
+            "rating": 4,
+            "name": "Meggy Muffin"
+          }
+        },
+        "slide-two": {
+          "type": "slide",
+          "settings": {
+            "text_content": "Indulge in elegance with Fashion Wear lingerie. Impeccable fit, delicate details each piece is a celebration of confidence, style, and femininity.",
+            "rating": 4,
+            "name": "Mannie Quinn"
+          }
+        },
+        "slide-three": {
+          "type": "slide",
+          "settings": {
+            "text_content": "Fashion Wear lingerie collection redefines allure. From delicate lace to bold designs, experience confidence with every wear",
+            "rating": 4,
+            "name": "Luna Loony"
+          }
+        },
+        "slide-four": {
+          "type": "slide",
+          "settings": {
+            "text_content": "Discover the epitome of elegance with Fashion Wear lingerie. Impeccable craftsmanship, diverse styles—empowering women in every moment.",
+            "rating": 4,
+            "name": "Miss Knickers"
+          }
+        }
+      },
+      "block_order": [
+        "slide-one",
+        "slide-two",
+        "slide-three",
+        "slide-four"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 100,
+        "section_height": 40
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "blocks": {
+        "image1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_1.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_2.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image3": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_3.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        }
+      },
+      "block_order": [
+        "image1",
+        "image2",
+        "image3"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 100,
+        "section_heading": "Instagram",
+        "social_tag": "@womenswear",
+        "social_url": "https:\/\/www.instagram.com\/"
+      }
+    }
+  },
+  "order": [
+    "hero-section",
+    "feature-collection",
+    "main-banner-1",
+    "video",
+    "collection-card",
+    "brands",
+    "collection-banner",
+    "focal-banner",
+    "new-marquee",
+    "new-marquee-two",
+    "latest-collection",
+    "home_blog",
+    "testimonial",
+    "instagram"
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Naar de inhoud gaan",
+      "error": "Te doen",
+      "close": "Te doen",
+      "link_messages": {
+        "new_window": "Nieuw venster"
+      }
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Cadeaubon",
+      "subtext": "Hier is je gratis cadeaubon",
+      "expired": "Deze cadeaubon is verlopen",
+      "remaining_html": "Je cadeaubalans is: ",
+      "add_to_apple_wallet": "apple-wallet-afbeelding",
+      "gift_card_code": "Cadeauboncode",
+      "copy_code": "Hier claimen",
+      "copy_code_success": "Code Gekopieerd",
+      "shop_link": "Nu winkelen",
+      "print_gift_card": "Cadeaubon afdrukken",
+      "qr_image_alt": "QR-code cadeaubon"
+    }
+  },
+  "breadcrumb": {
+    "nav": {
+      "home": "Home"
+    }
+  },
+  "about-us": {
+    "title": "Titel"
+  },
+  "instagram": {
+    "follow_us": "Volg ons op Instagram"
+  },
+  "cart-drawer": {
+    "items": "artikelen",
+    "cart": "Winkelwagen",
+    "add_item_to_free_shipping": "Voeg artikelen toe aan je winkelwagen om gratis verzending te ontvangen.",
+    "free_shipping": "Je hebt gratis verzending",
+    "You_are_only": "Je bent nog maar",
+    "cost_shipping": "verwijderd van gratis verzending.",
+    "in_stock": "op voorraad",
+    "discount": "Korting:",
+    "total": "Totaal:",
+    "checkout_calculation": "Verzending en korting berekend bij het afrekenen.",
+    "order_note": "Voeg een opmerking toe aan je bestelling",
+    "remove_item": "Item verwijderen",
+    "your_cart": "JE WINKELWAGEN"
+  },
+  "collection-banner": {
+    "title": "Collectietitel",
+    "text": "Collectietekst"
+  },
+  "feature-collection": {
+    "card_title": "Kaarttitel"
+  },
+  "featured-product": {
+    "title": "Titel",
+    "body_text": "Lichaamstekst ....!"
+  },
+  "main-search": {
+    "search_products": "Producten zoeken",
+    "not_found": "Oeps... Item niet gevonden",
+    "search_term": "Geen items gevonden met zoekterm",
+    "results": "Resultaten gevonden voor"
+  },
+  "main-register": {
+    "first_name": "Voornaam",
+    "last_name": "Achternaam",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "sign_in": "Aanmelden.",
+    "account_status": "Heb je al een account?",
+    "errors": "Fouten:"
+  },
+  "main-product": {
+    "by": "Door",
+    "product_description": "Productomschrijving",
+    "quantity": "Hoeveelheid :",
+    "for": "Voor",
+    "taxes": "Belastingen",
+    "not": "NIET",
+    "included": "Inbegrepen",
+    "out_of_stock": "Niet op voorraad",
+    "unavailable": "Producten niet beschikbaar",
+    "add_cart": "Toevoegen aan winkelwagen",
+    "buy_now": "Nu kopen"
+  },
+  "main-password": {
+    "enter": "Betreden met wachtwoord",
+    "email": "E-mail"
+  },
+  "main-order": {
+    "my_orders": "Mijn bestellingen",
+    "product": "Product:",
+    "sku": "SKU",
+    "price": "Prijs",
+    "quantity": "Hoeveelheid",
+    "total": "Totaal",
+    "track_shipment": "Volg zending",
+    "regular_price": "Normale prijs",
+    "sale_price": "Verkoopprijs",
+    "unit_price": "Eenheidsprijs",
+    "subtotal": "Subtotaal",
+    "discount": "Korting",
+    "shipping": "Verzending:",
+    "tax": "Belasting",
+    "total_duties": "Totaal invoerrechten:",
+    "total_refund": "Totaal terugbetaald",
+    "billing_address": "Factuuradres",
+    "payment_status": "Betalingsstatus:",
+    "shipping_address": "Verzendadres:",
+    "fulfilling_status": "Status van uitvoering:"
+  },
+  "main-login": {
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "forgot_pw": "Wachtwoord vergeten?",
+    "new_customer": "Nieuwe klant?",
+    "create_new": "Maak een nieuw account aan",
+    "send_instructions": "Geen zorgen, we sturen je resetinstructies.",
+    "back_to_login": "Terug naar inloggen"
+  },
+  "main-reset-password": {
+    "password": "Wachtwoord",
+    "confirm_pw": "Bevestig wachtwoord",
+    "reset_pw": "Wachtwoord resetten"
+  },
+  "main-activate-account": {
+    "password": "Voer wachtwoord in",
+    "confirm_pw": "Bevestig wachtwoord"
+  },
+  "main-customer-account": {
+    "home": "Home",
+    "my_account": "Mijn account",
+    "name": "Naam",
+    "email": "E-mail",
+    "phone_no": "Telefoonnummer",
+    "shipping_address": "Verzendadres",
+    "orders": "Bestellingen",
+    "order_id": "Bestel-ID",
+    "order": "Bestelling",
+    "price": "Prijs",
+    "status": "Status",
+    "no_orders": "Nog geen bestellingen!"
+  },
+  "main-contact": {
+    "name": "Naam",
+    "first_name": "Voornaam",
+    "email": "E-mail",
+    "phone_no": "Telefoonnummer",
+    "message": "Bericht"
+  },
+  "image-banner": {
+    "banner_title": "Titel",
+    "banner_para": "Tekst van de banner alinea"
+  },
+  "main-collection": {
+    "filter_collection": "Filteren op collectie",
+    "no_products": "Geen producten gevonden",
+    "filter": "Filter"
+  },
+  "main-cart-item": {
+    "cart": "Winkelwagen",
+    "leave_note": "Laat een opmerking achter bij je bestelling",
+    "add_items": "Meer items toevoegen",
+    "shipping_placeholder": "Je bent $10 verwijderd van gratis verzending",
+    "total": "Totaal",
+    "shipping_msg": "Verzendkosten en korting berekend bij het afrekenen.",
+    "checkout": "Afrekenen",
+    "items": "artikelen"
+  },
+  "main-cart-body": {
+    "your_cart": "Je winkelwagen",
+    "items": "artikelen",
+    "discounts": "Kortingen",
+    "discount": "Korting",
+    "total": "Totaal",
+    "free_shipping": "Je komt in aanmerking voor gratis verzending!",
+    "only": "Je bent nog maar",
+    "away_from": "verwijderd van gratis verzending.",
+    "shipping_msg": "Verzendkosten en korting berekend bij het afrekenen.",
+    "add_note": "Voeg een opmerking toe aan je bestelling",
+    "accepted_payment": "Geaccepteerde betaalmethoden"
+  },
+  "main-banner": {
+    "heading": "Tekst voor sectiekop"
+  },
+  "main-blog": {
+    "no_items": "Geen artikelen beschikbaar voor deze pagina"
+  },
+  "article-card": {
+    "read_more": "Lees meer"
+  },
+  "main-list-collections": {
+    "no_items": "Geen collecties beschikbaar"
+  },
+  "main-banner-1": {
+    "heading": "Titel",
+    "text": "Banner Titel"
+  },
+  "main-article": {
+    "editor": "Redacteur",
+    "share": "Delen",
+    "no_comment": "Er zijn geen opmerkingen in dit artikel",
+    "post_comments": "Plaats uw reacties"
+  },
+  "card-collection": {
+    "no_title": "Geen titel",
+    "no_description": "Geen beschrijving",
+    "sample_title": "Voorbeeld Titel",
+    "sample_description": "Voorbeeld beschrijving"
+  },
+  "selling_plan": {
+    "name": "Verkoopplan",
+    "purchase_options": "Aankoopopties",
+    "sale": "Uitverkoop"
+  },
+  "slide-show": {
+    "placeholder": {
+      "slide_title": "Titel",
+      "paragraph": "Tekst van de dia alinea",
+      "video_title": "Videotitel",
+      "video_para": "Tekst van de videoparagraaf"
+    }
+  },
+  "testimonial": {
+    "title": "Getuigenis",
+    "customer": "Jan Jansen",
+    "item_title": "Titel",
+    "para": "Tekst van de banner alinea",
+    "date": "01 januari 2023"
+  },
+  "footer": {
+    "visit_store": "Bezoek onze winkel",
+    "view_map": "Bekijk op de kaart",
+    "all_collection": "Alle collecties",
+    "follow_us": "Volg ons:",
+    "product_queries": "Productgerelateerde vragen",
+    "call_us": "Bel ons",
+    "contact_us": "Neem contact met ons op",
+    "all_rights_reserved": "Alle rechten voorbehouden.",
+    "back_to_top": "Terug naar boven",
+    "support_column": "Ondersteuning"
+  },
+  "copyright": {
+    "copyright": "Auteursrecht"
+  },
+  "header": {
+    "follow_us": "Volg ons:",
+    "mega-menu-main": {
+      "read_article": "Lees meer"
+    }
+  },
+  "home-blog": {
+    "no_blogs": "Geen blogs beschikbaar om weer te geven"
+  },
+  "info-grid": {
+    "no_info": "Geen info_grid geselecteerd",
+    "button_default": "Link",
+    "title_default": "Titel"
+  },
+  "multicolumn": {
+    "heading_text": "Tekst voor sectiekop",
+    "para_text": "Tekst voor sectie alinea"
+  },
+  "newsletter": {
+    "success": "Formulier succesvol geplaatst"
+  },
+  "legal": {
+    "FAQ": "Veelgestelde vragen",
+    "privacy_policy": "Privacybeleid"
+  },
+  "pickup": {
+    "available_at": "Afhalen beschikbaar bij",
+    "store_info": "Bekijk winkelinformatie",
+    "no_store_info": "Winkelinformatie niet beschikbaar",
+    "product": "product"
+  },
+  "product-details": {
+    "no_products": "Geen productdetails beschikbaar"
+  },
+  "main-addresses": {
+    "addresses": "Adressen",
+    "name": "Naam",
+    "first_name": "Voornaam",
+    "set_default": "Instellen als standaardadres",
+    "last_name": "Achternaam",
+    "phone_number": "Telefoonnummer",
+    "email_id": "E-mailadres",
+    "company_name": "Bedrijfsnaam",
+    "contact": "Contactnummer",
+    "shipping_addresses": "Verzendadres",
+    "address_line_one": "Adresregel 1",
+    "address_line_two": "Adresregel 2",
+    "city": "Stad",
+    "country": "Land",
+    "zip": "Postcode",
+    "edit_details": "Details bewerken",
+    "first_address": "1e Adres",
+    "cancel": "Annuleren",
+    "new_address": "Nieuw adres toevoegen"
+  },
+  "search-bar": {
+    "title": "Producten zoeken"
+  },
+  "new-marquee": {
+    "title": "Marquee tekst"
+  },
+  "main-image-video-banner": {
+    "video_title": "Video afspelen"
+  }
+}

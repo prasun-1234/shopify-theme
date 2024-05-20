@@ -1,0 +1,632 @@
+{
+  "general": {
+    "404": {
+      "title": "404",
+      "subtext_html": "We can't find the page that you are looking for",
+      "continue_shopping": "Go to search",
+      "return_store": "Back to home"
+    },
+    "search": {
+      "label": "Search",
+      "results_for_html": "Your search for {{ search.terms }} revealed the following:",
+      "title": "Search for products on our site",
+      "placeholder": "Search our store",
+      "submit": "Search",
+      "button": "View Results",
+      "no_results_found": "No results found",
+      "products": "Products",
+      "collection_label": "Collections",
+      "page_label": "Pages",
+      "blog_label": "Blog",
+      "by": "By",
+      "blog_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      "no_search": "Nothing to show"
+    },
+    "footer": {
+      "resrve": "All Rights Reserved."
+    },
+    "get_quote": "Get a Quote",
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "error": "Todo",
+      "close": "Todo",
+      "link_messages": {
+        "new_window": "New Window"
+      }
+    },
+    "mega_menu": {
+      "collection": {
+        "title": "Men's Wear",
+        "body_text": "Just like women's fashion, men's fashion has evolved through the ages. Previously, men's clothing was all about comfort wear that could endure anything. But now, men are turning to brands to not only get that comfort factor but also the style-quotient that they want. So, take a look at our trend-setting men's section of clothing, shoes and accessories - that can help any man look like he walked straight out of a magazine. From hip and modern to the timeless classic black shirt, choose the style that suits you best."
+      }
+    }
+  },
+  "header": {
+    "my_cart": "My Cart"
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "I want to send this as a gift",
+      "expanded": "Gift card recipient form expanded",
+      "collapsed": "Gift card recipient form collapsed",
+      "email_label": "Recipient email",
+      "email_label_optional_for_no_js_behavior": "Recipient email (optional)",
+      "email": "Email",
+      "name_label": "Recipient name (optional)",
+      "name": "Name",
+      "message_label": "Message (optional)",
+      "message": "Message",
+      "max_characters": "{{ max_chars }} characters max",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "Send on (optional)"
+    }
+  },
+  "password": {
+    "password": "Password",
+    "email": "Email",
+    "password-link-text": "Enter using password",
+    "password-modal-heading-text": "Enter store using password",
+    "password-modal-input-label": "Password",
+    "password-modal-submit": "Enter",
+    "error-message": "Wrong Password!",
+    "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"link \">Log in here<\/a>",
+    "footer-text": "This shop will be powered by",
+    "success-message": "Submitted Successfully !"
+  },
+  "bread-crumb": {
+    "bread_crumb_item_list": "Home"
+  },
+  "home-collection-product": {
+    "view_product": {
+      "primary-btn": "view product options"
+    },
+    "button": {
+      "title": "Add to cart"
+    },
+    "product-button": {
+      "view_product": "view product options",
+      "btn-text": "view product options",
+      "no-product-found": "No Featured Products Available"
+    }
+  },
+  "products": {
+    "product": {
+      "ar_button_text":"View in your space",
+      "title": "Sample Product",
+      "regular_price": "Regular price",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "availability": "Availability",
+      "on_sale": "Sale",
+      "review_single": "Review",
+      "reviews": "Reviews",
+      "from_lowest_price": "from {{ lowest_price }}",
+      "sale_price": "Sale price",
+      "quantity": "Quantity",
+      "add_to_cart": "Add to cart",
+      "added": "Added",
+      "filter": "Filters",
+      "loader_label": "Adding product to your cart",
+      "item_added": "Item added to cart",
+      "no_stock": "No Stock Available",
+      "back_to_collection": "Back to {{ title }}",
+      "vendor": "Vendor",
+      "quantity_minimum_message": "Quantity must be 1 or more",
+      "include_taxes": "Tax included.",
+      "shipping_policy_html": "<a rel='nofollow' href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+      "unit_price_label": "Unit price",
+      "view_cart": "View cart",
+      "featured_quantity": "Select Quantity",
+      "product_title": "Product title",
+      "product_review": "2 Reviews",
+      "product_desc": "featured product section description text",
+      "view_in_space": "View in your space",
+      "view_in_space_label": "View in your space, loads item in augmented reality window",
+      "pickup_availability": {
+        "view_store_info": "View store information",
+        "check_other_stores": "Check availability at other stores",
+        "pick_up_available": "Pickup available",
+        "pick_up_available_at_html": "Pickup available at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "unavailable": "Couldn't load pickup availability",
+        "refresh": "Refresh"
+      },
+      "selling_plan": {
+        "legend": "Purchase options",
+        "one_time_purchase": "One Time Purchase"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "My Cart",
+      "sub-title": "Summary",
+      "remove": "Remove",
+      "note": "Special instructions for seller",
+      "subtotal": "Subtotal",
+      "total": "Order total",
+      "total_cart_price": "Total Cart Price",
+      "total_price": "Total Price",
+      "shipping_at_checkout": "Shipping and taxes calculated at checkout",
+      "update": "Update Cart",
+      "checkout": "Checkout",
+      "empty": "Your cart is currently empty!",
+      "cookies_required": "Enable cookies to use the shopping cart",
+      "continue_browsing_html": "Continue browsing <a rel='nofollow' href=\"\/collections\/all\">here<\/a>.",
+      "item_quantity": "Item quantity",
+      "savings": "You're saving",
+      "subtitle": "Total Item With Price",
+      "write_note": "Write a note",
+      "total-discount": "Total Discount"
+    },
+    "label": {
+      "product": "Product",
+      "title": "Title",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "discounted_price": "Discounted price",
+      "original_price": "Original price"
+    },
+    "table": {
+      "headings": {
+        "product": "Product",
+        "price": "Price",
+        "quantity": "Quantity",
+        "total": "Total"
+      },
+      "discounts": "Sale Discount",
+      "save": "Save"
+    },
+    "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
+    "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
+    "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+    "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout"
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "message": "How can we help?",
+      "send": "Send",
+      "quote": "Add to Cart",
+      "quote-level": "Your Email",
+      "product": "Product Name",
+      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "Sorry, there are no items in this collection",
+      "link_title": "Browse our {{ title }} collection",
+      "title": "Collection Title",
+      "description": "Collection description text",
+      "button": "view collection",
+      "hide_title": "Hide out of stock product",
+      "apply": "Apply",
+      "all": "All"
+    }
+  },
+  "complete_your_look": {
+    "general": {
+      "header": "Complete Your Look"
+    }
+  },
+  "contact-backup": {
+    "contact_details": {
+      "contact_details_p1": "Have a question or comment?",
+      "contact_details_p2": "Use the form below to send us a message or contact us by mail:"
+    },
+    "input-field": {
+      "name": "Name",
+      "subject": "Subject",
+      "message": "Message"
+    }
+  },
+  "cartdrawer": {
+    "title": "shopping cart",
+    "subtotal": "Subtotal",
+    "quantity": "Product Quantity",
+    "estimated_total": "Estimated Total",
+    "checkout_btn": "Proceed to Checkout",
+    "empty_state": "Your cart is empty",
+    "btn-text": "Shop Now",
+    "checkout": "Checkout",
+    "go_to_cart": "Go to Cart",
+    "cart_note": "Add a note to your order",
+    "total_discount": "Total Discount",
+    "total_amount": "Total Amount"
+  },
+  "color-swatch": {
+    "label": "Choose Color:"
+  },
+  "featured_product": {
+    "no_stock": "Sorry, 1 stock available",
+    "button_label": {
+      "addtocart": "Add to Cart",
+      "buynow": "Buy Now",
+      "soldout": "Sold Out",
+      "out_of_stock": "Out of Stock"
+    },
+    "product_option": "Choose ",
+    "review": "review",
+    "reviews": "reviews",
+    "quantity": "Product Quantity",
+    "out_of_stock": "Out of Stock"
+  },
+  "filter": {
+    "general": {
+      "title": "Filter By Type",
+      "types": "Product Type",
+      "vendors": "Vendor",
+      "collection": "Collection"
+    }
+  },
+  "filter_options": {
+    "header-selected": "selected",
+    "header-reset": "Reset",
+    "price-range-from": "From",
+    "price-range-to": "To",
+    "active-filters__clear": "Clear all"
+  },
+  "footer": {
+    "social_links": {
+      "ig": "instagram",
+      "fb": "facebook",
+      "tweet": "twitter",
+      "pin": "pinterest",
+      "tiktok": "tiktok"
+    },
+    "copyright": {
+      "copyright-text": "All Rights Reserved - "
+    }
+  },
+  "add_to_cart": "Add to cart",
+  "location": {
+    "location_title": "Location",
+    "location_hour": "Hour"
+  },
+  "marquee": {
+    "marquee_text_1": "+",
+    "marquee_text_2": "+",
+    "marquee_text_3": "+",
+    "marquee_text_4": "+",
+    "marquee_text_5": "+",
+    "marquee_text_6": "+",
+    "marquee_text_7": "+",
+    "marquee_text_8": "+",
+    "marquee_text_9": "+"
+  },
+  "menu": {
+    "button_label": {
+      "view_collection": "View collection",
+      "view_article": "View article",
+      "view_more": "View more"
+    }
+  },
+  "main_account": {
+    "name": "Name",
+    "address1": "Address 1",
+    "address2": "Address 2",
+    "phone": "Phone",
+    "city": "City",
+    "province": "Province",
+    "country": "Country",
+    "zip": "Zip",
+    "admin_header": {
+      "section-title": "Welcome"
+    },
+    "acc-info": {
+      "name": "Name:",
+      "email_note": "Email:"
+    },
+    "addresses": {
+      "address": "My Addresses:",
+      "default_address": "Default Address"
+    },
+    "btn-text": "Logout"
+  },
+  "main_address": {
+    "address_table": {
+      "name": "Name: ",
+      "company": "Company: ",
+      "phone": "Phone Number: ",
+      "street": "Address: ",
+      "city": "City: ",
+      "country": "Country: "
+    }
+  },
+  "main_article": {
+    "placeholder": {
+      "title": "Sample Article",
+      "para": "home blog section description text"
+    },
+    "about-writer": {
+      "author_info": "Written by"
+    },
+    "article_info": {
+      "about-article": "Tags:",
+      "blog_title": "Category:"
+    },
+    "comments": "Comments",
+    "commentform": "Leave a comment",
+    "btn-text": "Post Comment",
+    "article-pagination-prev": "Previous Post",
+    "article-pagination-next": "Next Post"
+  },
+  "main_blog": {
+    "article_link": "Read More"
+  },
+  "main_cart": {
+    "cart-buttons": "Update Cart",
+    "total_discount": "Total Discount",
+    "subtotal": "Subtotal"
+  },
+  "main_order": {
+    "note": "Fulfilled"
+  },
+  "main_search": {
+    "btn-text": "Search",
+    "search_result_1": "Your search for",
+    "search_result_2": "did not yield any results.",
+    "filter": "Filters"
+  },
+  "main_wishlist": {
+    "wishlist-empty": "No items added to wishlist",
+    "btn-text": "Shop Now"
+  },
+  "newsletter": {
+    "label_title": "Newsletter",
+    "email": "Email",
+    "success_msg": "Thanks for subscribing!",
+    "email_error": "There was an error submitting the form. Please try again."
+  },
+  "sold_out": "Sold Out",
+  "header-mobile": {
+    "location-currency": "Currency",
+    "location-language": "Language"
+  },
+  "header-top-bar": {
+    "location-currency": "Currency",
+    "location-language": "Language",
+    "btn-text": "submit"
+  },
+  "homepage": {
+    "onboarding": {
+      "article_title": "Your article's title",
+      "blog_title": "Your blog's title",
+      "product_title": "Your product's title",
+      "loading": "Loading...",
+      "blog": {
+        "category": "Blog category",
+        "title_url": "Blog Title",
+        "author": "By Article Author, Jul 24, 20",
+        "excerpt": "Article Excerpt",
+        "read_more": "Read More"
+      },
+      "slider_title": "Heading",
+      "slider_subtitle": "Subheading",
+      "slider_btn": "Button label",
+      "stories_title": "Lorem Ipsum",
+      "stories_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas aliquam cursus sit morbi.",
+      "stories_btn": "Discover More",
+      "testimonial_text": "Add customer reviews and testimonials to showcase your store&rsquo;s happy customers."
+    }
+  },
+  "article": {
+    "form": {
+      "label": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message"
+      }
+    },
+    "article-products": {
+      "button-texts": "view product options"
+    },
+    "article_review_links": {
+      "singel_review": "Review",
+      "multiple_reviews": "Reviews"
+    }
+  },
+  "customer": {
+    "title": {
+      "pagetitle": "Signup",
+      "label": "Signin",
+      "form-label": "Please fill up the form below:"
+    },
+    "form": {
+      "title": "Create Account",
+      "login-title": "Welcome Back",
+      "login-description": "Log in now !",
+      "register-title": "Create Account",
+      "register-description": "Let’s get started!",
+      "activate-title": "Activate Account",
+      "activate-description": "Create your password to activate your account.",
+      "accept": "Activate account",
+      "decline": "Decline invitation",
+      "guest-login-title": "Login to Your Account",
+      "name": "Name",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "email": "Email Address",
+      "password": "Password",
+      "confirm-password": "Confirm Password",
+      "return": "Return to Store",
+      "reset-pass-title": "Reset Password",
+      "reset-pass-note": "We will send you an email to reset your password",
+      "my-account": "Todo"
+    },
+    "order": {
+      "name":"Name",
+      "company":"Company",
+      "address":"Address",
+      "city":"City",
+      "phone":"Phone Number",
+      "province":"Province",
+      "country":"Country",
+      "zip":"Zip",
+      "title": "Account Details and Order History",
+      "view_addresses": "View Addresses",
+      "empty": "You haven't placed any orders yet.",
+      "return": "Return to Store",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_at": "Fulfilled {{ date }}",
+      "subtotal": "Subtotal",
+      "order_cancle": "Order Cancelled",
+      "on": "on",
+      "placed_on": "Placed on",
+      "return_page": "Return to Account page",
+      "label": {
+        "order": "Order",
+        "date": "Date",
+        "total": "Total",
+        "payment_status": "Todo",
+        "fulfillment_status": "Todo"
+      }
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Password Confirmation",
+      "or": "Or",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "addresses": {
+      "create": "Create new address",
+      "title": "Your Addresses",
+      "default": "Default",
+      "add_new": "Add a New Address",
+      "edit_address": "Edit address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address1",
+      "address2": "Address2",
+      "city": "City",
+      "country": "Country",
+      "province": "Province",
+      "zip": "Postal\/Zip Code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add Address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?",
+      "return": "Return to Account page"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "forgot_subtext": "Enter your email and we will send you a password reset link.",
+      "sign_in": "Sign In",
+      "sign_up": "Register",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue",
+      "button_text": "Login",
+      "account": "Don't have an account?",
+      "success": "Success! Check your email for a link to reset your password."
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password"
+    },
+    "register": {
+      "login_text": "Already have an account?",
+      "login_link_text": "Login"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift Card",
+      "subtext": "Here's your free Gift Card",
+      "expired": "This Gift card has expired",
+      "remaining_html": "Your gift card balance is: ",
+      "add_to_apple_wallet": "apple-wallet-image ",
+      "gift_card_code": "Gift Card Code",
+      "copy_code": "Copy Code",
+      "copy_code_success": "Code Copied",
+      "shop_link": "Shop Now",
+      "print_gift_card": "Print Gift Card",
+      "qr_image_alt": "Gift Card QR Code"
+    }
+  },
+  "compare": {
+    "cancle": "Clear All",
+    "compare_title": "Compare"
+  },
+  "blogs": {
+    "comments": {
+      "moderated": "Todo"
+    },
+    "blog_listing": {
+      "empty": "There are no blogs available yet"
+    }
+  },
+  "about-us": {
+    "low_cost": "Low Cost:",
+    "banner-para": "Klavio"
+  },
+  "single_story": {
+    "text-block": "Lorem Ipsum is simply dummy text of the printing",
+    "box": "Lorem Ipsum is simply dummy text of the printing and typesetting industryLorem Ipsum has been the industry"
+  },
+  "template_collection": {
+    "filter-group": "Collection",
+    "empty-collection": "Sorry! No products available in collection."
+  },
+  "product-item": {
+    "primary-btn": "view product options",
+    "secondary-btn": "Add to cart",
+    "btn-text": "Added",
+    "stock-avail": "No Stock Available",
+    "sold-btn": "Sold Out"
+  },
+  "product-template-one": {
+    "product_option": "Choose",
+    "single-prodcut-dropdown": "Choose ",
+    "quantity": "Select Quantity",
+    "btn-text": "Out of Stock",
+    "tax-included": "(Taxes Included)",
+    "no-tax": "(Taxes not included)",
+    "prod-quantity": "Product Quantity",
+    "sold-out": "Sold Out"
+  },
+  "home-blog": {
+    "article_link": "read more"
+  },
+  "focal-banner": {
+    "view": "View Product"
+  },
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "filters": {
+    "from": "From",
+    "to": "to",
+    "clear":"Clear all"
+  }
+}

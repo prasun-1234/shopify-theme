@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="{{ 'announcement-bar.css' | asset_url }}">
+
+{% style %}
+  section#top_bar *:focus-visible{
+    outline:2px solid {{ section.settings.text_color }};
+  }
+{% endstyle %}
+
+{% if section.settings.enable_top_bar %}
+  <section
+    id="top_bar"
+    class="top-bar"
+    {% if section.settings.top_bar_bg %}
+      style="background-image: url('{{ section.settings.top_bar_bg | image_url }}');"
+    {% endif %}
+  >
+    <div
+      class="top-bar-overlay"
+      style="background-color: {{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10)"
+    ></div>
+    <div class="placeholder_main">
+      {% unless section.settings.top_bar_bg %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-img' }}
+      {% endunless %}
+    </div>
+    <div
+      class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+    >
+      <div
+        class="top-bar-inner"
+        style="
+          justify-content: {% case section.settings.text_align %}
+            {% when 'left' %}
+              flex-start
+              {% when 'center' %}
+                center
+                {% when 'right' %}
+                  flex-end
+                {% else %}
+
+          {% endcase %};
+        "
+      >
+        <div
+          class="bar-text"
+        >
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'text' %}
+                <p style="color:{{ section.settings.text_color }}" {{ block.shopify_attributes }}>
+                  {{ block.settings.custom_text | truncate: 35 }}
+                  <span style="background-color: {{ section.settings.text_color }};"></span>
+                </p>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+          
+          <a
+            rel="nofollow"
+            href="{{ section.settings.button_link }}"
+            style="color:{{ section.settings.text_color }}"
+            tabindex="0"
+          >
+            {{- section.settings.button_text | truncate: 15 -}}
+            <span style="background-color: {{ section.settings.text_color }};"></span>
+          </a>
+          
+        </div>
+        <button type="button" id="close_btn" aria-label="Close">
+          {% render 'icon-close', color: section.settings.text_color %}
+        </button>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.announce-bar.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_top_bar",
+      "label": "t:sections.announce-bar.settings.enable_top",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "top_bar_bg",
+      "label": "t:sections.announce-bar.settings.background_image"
+    },
+    {
+      "type": "color",
+      "default": "#000",
+      "id": "overlay_color",
+      "label": "t:sections.announce-bar.settings.overlay_color"
+    },
+    {
+      "type": "range",
+      "label": "t:sections.announce-bar.settings.overlay_opacity",
+      "id": "overlay_opacity",
+      "default": 6,
+      "max": 10,
+      "min": 0,
+      "step": 1
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:sections.announce-bar.settings.button_text_label",
+      "default": "t:sections.announce-bar.settings.button_text_text"
+    },
+    {
+      "type": "url",
+      "label": "t:sections.announce-bar.settings.button_link_label",
+      "id": "button_link"
+    },
+    {
+      "type": "color",
+      "default": "#fff",
+      "id": "text_color",
+      "label": "t:sections.announce-bar.settings.text_color"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "t:sections.announce-bar.settings.text_alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.announce-bar.settings.left_Align_text"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.announce-bar.settings.center_align_text"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.announce-bar.settings.right_align_text"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.announce-bar.blocks.top_text.title",
+      "type": "text",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_text",
+          "default": "t:sections.announce-bar.blocks.block_text_1",
+          "label": "t:sections.announce-bar.blocks.top_text.text_label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let close = document.querySelector('#close_btn');
+  let topBar = document.querySelector('#top_bar');
+
+  if (topBar) {
+    close.addEventListener('click', (e) => {
+      topBar.classList.add('hide-bar');
+    });
+  }
+{% endjavascript %}

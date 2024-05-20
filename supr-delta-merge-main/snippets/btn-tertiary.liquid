@@ -1,0 +1,29 @@
+<button
+  {{ attr }}
+  type="{% if type == 'submit' %}submit{% else %}button{% endif %}"
+  class="{{ class }} flex items-center justify-center py-[12px] px-[32px] font-medium duration-300 ease-in-out overflow-hidden group/btn-primary btn-primary btn-tertiary h-[52px]"
+>
+  {{ src }}
+  <span class="pl-4 relative">
+    {% for i in (1..2) %}
+      {% liquid
+        if forloop.index == 1
+          assign class = 'absolute top-0 left-0 opacity-0 group-hover/btn-primary:left-6 group-hover/btn-primary:opacity-100 transiton w-[18px] h-[18px] duration-300 ease stroke'
+        else
+          assign class = 'group-hover/btn-primary:opacity-0 group-hover/btn-primary:translate-x-16 duration-300 ease-in-out w-[18px] h-[18px] stroke'
+        endif
+      %}
+      {% if icon == blank %}
+        <span>
+          {{ settings.btn_primary_icon | image_url: width: 100 | image_tag: class: class }}
+        </span>
+      {% else %}
+        {% if icon != blank %}
+        <img src="{{ icon | asset_url }}" alt="icon" width="100" height="100" loading="lazy" class="{{ class }}">
+        {% else %}
+          {% render 'icon-btn-primary', class: class %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </span>
+</button>

@@ -1,0 +1,172 @@
+<section class="mb-[60px]">
+  <div class="flex flex-col gap-[60px]">
+    {% if section.settings.enable_nav == true %}
+      <!-- nav section -->
+      <div class="flex flex-row relative">
+        {% if page.handle == 'refund' %}
+          <div class="flex w-full py-3 items-center justify-center">
+            <ol class="list-reset flex items-center justify-center flex-wrap gap-[2.5rem] md:gap-[7rem]">
+              <li>
+                <a
+                  href="/pages/refund"
+                  class="
+                    text-white md:text-xl font-medium px-6 py-3 bg-primary leading-tight flex-shrink-0
+                    rounded-full shadow-md hover:bg-breadcrumb hover:shadow-lg active:bg-primary active:shadow-lg transition duration-150 ease-in-out
+                  "
+                >
+                  {{- pages.refund.title -}}
+                </a>
+              </li>
+
+              <li>
+                <a href="/pages/faq" class="text-primary md:text-xl font-medium"> {{ 'legal.FAQ' | t }} </a>
+              </li>
+              <li>
+                <a href="/pages/privacy-policy" class="text-primary md:text-xl font-medium">
+                  {{ 'legal.privacy_policy' | t }}
+                </a>
+              </li>
+            </ol>
+          </div>
+        {% elsif page.handle == 'privacy-policy' %}
+          <div class="flex w-full py-3 items-center justify-center">
+            <ol class="list-reset flex items-center justify-center flex-wrap gap-[2.5rem] md:gap-[7rem]">
+              <li>
+                <a href="/pages/refund" class="text-primary md:text-xl font-medium">{{ pages.refund.title }}</a>
+              </li>
+
+              <li>
+                <a href="/pages/faq" class="text-primary md:text-xl font-medium"> {{ 'legal.FAQ' | t }} </a>
+              </li>
+              <li>
+                <a
+                  href="/pages/privacy-policy"
+                  class=" text-white md:text-xl font-medium px-6 py-3 bg-primary leading-tight flex-shrink-0  rounded-full shadow-md hover:bg-breadcrumb hover:shadow-lg active:bg-primary active:shadow-lg transition duration-150 ease-in-out"
+                >
+                  {{ 'legal.privacy_policy' | t }}
+                </a>
+              </li>
+            </ol>
+          </div>
+        {% else %}
+          <div class="flex w-full py-3 items-center justify-center">
+            <ol class="list-reset flex items-center justify-center flex-wrap gap-[2.5rem] md:gap-[7rem]">
+              <li>
+                <a href="/pages/refund" class="text-primary md:text-xl font-medium">{{ pages.refund.title }}</a>
+              </li>
+
+              <li>
+                <a
+                  href="/pages/faq"
+                  class="
+                    text-white md:text-xl font-medium px-6 py-3 bg-primary leading-tight flex-shrink-0
+                    rounded-full shadow-md hover:bg-breadcrumb hover:shadow-lg active:bg-primary active:shadow-lg transition duration-150 ease-in-out
+                  "
+                >
+                  {{- pages.faq.title -}}
+                </a>
+              </li>
+              <li>
+                <a href="/pages/privacy-policy" class="md:text-xl font-medium">
+                  {{- pages['privacy-policy'].title -}}
+                </a>
+              </li>
+            </ol>
+          </div>
+        {% endif %}
+      </div>
+      <!-- nav section -->
+    {% endif %}
+
+    <!-- main sections -->
+    {% if page.handle == 'refund' %}
+      <div class="md:text-left text-center  {% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+        <h2 class=" mb-[30px]">
+          {{ pages.refund.title }}
+        </h2>
+        <span>
+          {{ pages.refund.content }}
+        </span>
+
+        {% if section.settings.enable_copyright == true %}
+          <div class="flex flex-col mt-[40px]">
+            <h2 class="!text-[1.54rem]">{{ shop.name }}</h2>
+            <span class="" style="color: {{ section.settings.content_color }}"
+              >&copy; {{ 'copyright.copyright' | t }}
+              {{ 'now' | date: '%Y' }}
+              {{ shop.name }}.</span
+            >
+          </div>
+        {% endif %}
+      </div>
+
+    {% elsif page.handle == 'privacy-policy' %}
+      <div class="md:text-left text-center  {% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+        <h2 class="font-semibold mb-[30px]">
+          {{ pages['privacy-policy'].title }}
+        </h2>
+
+        <span>
+          {{ pages['privacy-policy'].content }}
+        </span>
+
+        {% if section.settings.enable_copyright == true %}
+          <div class="flex  flex-col   mt-[40px]">
+            <h2 class="!text-[1.5rem]">{{ shop.name }}</h2>
+            <span class="" style="color: {{ section.settings.content_color }}"
+              >&copy; {{ 'copyright.copyright' | t }}
+              {{ 'now' | date: '%Y' }}
+              {{ shop.name }}.</span
+            >
+          </div>
+        {% endif %}
+      </div>
+
+    {% elsif page.handle == 'faq' %}
+      <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+        <h2 class="font-semibold md:text-left text-center">{{ pages.faq.title }}</h2>
+      </div>
+    {% endif %}
+    <!-- main sections -->
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.legal.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.legal.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.legal.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_nav",
+      "label": "t:section.legal.settings.enable_nav",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_copyright",
+      "label": "t:section.legal.settings.enable_copyright",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

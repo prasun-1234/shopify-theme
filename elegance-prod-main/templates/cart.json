@@ -1,0 +1,15 @@
+{
+    "sections": {
+        "main": {
+            "type": "main-cart",
+            "settings": {
+                "title":"Cart Title",
+                "btn_text":"button text",
+                "btn_link":""
+            }
+        }
+    },
+    "order": [
+        "main"
+    ]
+}

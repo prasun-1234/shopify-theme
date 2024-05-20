@@ -1,0 +1,253 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "enable_box_shadow": true,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "pickup": {
+          "type": "pickup",
+          "settings": {
+            "pickup_style": "pickup-style-one"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "options": {
+          "type": "options",
+          "settings": {
+            "option_style": "pill"
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+          }
+        },
+        "sizing": {
+          "type": "sizing",
+          "settings": {
+          }
+        },
+        "payment_buttons": {
+          "type": "payment",
+          "settings": {
+            "btn_style": "btn-style-one"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "vendor",
+        "price",
+        "pickup",
+        "description",
+        "options",
+        "quantity",
+        "sizing",
+        "payment_buttons"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 40,
+        "products_per_row": 3,
+        "style_option": "style-one"
+      }
+    },
+    "product_details": {
+      "type": "product-details",
+      "settings": {
+        "title": "Detail Info"
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "item1": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/customer1.png",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Loved it!!",
+            "text": "<p>Nisl pretium fusce id velit ut tortor pretium. Nunc sed velit dignissim sodales ut eu sem integer. Lacus vestibulum sed arcu non odio euismod lacinia at. Nunc sed velit dignissim<\/p>",
+            "customer": "William Dafoe",
+            "date": "22 Dec,2022"
+          }
+        },
+        "item2": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/customer1.png",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Loved it!!",
+            "text": "<p>Nisl pretium fusce id velit ut tortor pretium. Nunc sed velit dignissim sodales ut eu sem integer. Lacus vestibulum sed arcu non odio euismod lacinia at. Nunc sed velit dignissim<\/p>",
+            "customer": "William Dafoe",
+            "date": "22 Dec,2022"
+          }
+        },
+        "item3": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/customer1.png",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Loved it!!",
+            "text": "<p>Nisl pretium fusce id velit ut tortor pretium. Nunc sed velit dignissim sodales ut eu sem integer. Lacus vestibulum sed arcu non odio euismod lacinia at. Nunc sed velit dignissim<\/p>",
+            "customer": "William Dafoe",
+            "date": "22 Dec,2022"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 80,
+        "padding": 60,
+        "style": "style1",
+        "featured_image": "shopify:\/\/shop_images\/testimonial_vector.svg"
+      }
+    },
+    "product-review": {
+      "type": "product-review",
+      "blocks": {
+        "review": {
+          "type": "review",
+          "settings": {
+           
+          }
+        },
+        "featured-image": {
+          "type": "featured-image",
+          "settings": {           
+          "image": "shopify:\/\/shop_images\/vector-black.svg",
+          "title_text": "Friday sale 25% off",
+          "btn_text": "Shop Now",
+          "btn_url": "shopify:\/\/collections"
+          }
+        }
+      },
+      "block_order": [
+        "review",
+        "featured-image"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/product_review_banner.jpg",
+        "text_color": "#ffffff"
+      }
+    },
+    "related-product": {
+      "type": "product-recommendation",
+      "settings": {
+        "section_title": "Related Products",
+        "product_type": "related",
+        "product_view": "slider",
+        "items_number": 6,
+        "post_row_limit": 4,
+        "slider_arrows": true
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "breadcrumb",
+    "main-product",
+    "product_details",
+    "testimonial",
+    "product-review",
+    "related-product"
+  ]
+}

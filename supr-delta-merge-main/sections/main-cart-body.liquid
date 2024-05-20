@@ -1,0 +1,364 @@
+{% style %}
+    .active{
+     height: auto;
+    }
+    .accordian-content{
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+    .rotate{
+      transform :rotate(45deg);
+    }
+    .empty-cart{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom: {{ section.settings.section_margin_bottom }}px;
+    }
+
+    .icon-div svg path{
+      fill:var(--global-font-color);
+    }
+
+    .overflow-y-scroll::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+  }
+
+  /* Track */
+  .overflow-y-scroll::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+
+  /* Handle */
+  .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background: #666666;
+  }
+
+  /* Handle on hover */
+  .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777777;
+  }
+{% endstyle %}
+
+<section class="cart_main_sec my-[40px]">
+  {% if cart.item_count > 0 %}
+    <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid {% endif %} mx-auto cart-header">
+      <h3 class="flex items-center gap-[10px] font-medium uppercase sm:justify-start justify-center">
+        {{ 'main-cart-body.your_cart' | t }}
+        <span class="font-normal text-[18px] opacity-80 tracking-[0em] capitalize"
+          >(<span id="item-count">{{ cart.item_count }}</span> {{ 'main-cart-body.items' | t }})</span
+        >
+      </h3>
+    </div>
+    <div class="cart" data-money-format="{{ shop.money_format }}">
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-form-main">
+        <!-- cart section -->
+        <div class="container mx-auto mt-10 lg:mt-[60px]">
+          <!-- cart & total -->
+          <div class="grid grid-cols-12 gap-0 md:gap-[40px] w-full">
+            <!-- products -->
+            <div class="flex flex-col col-span-12 lg:col-span-6">
+              <div class="max-h-[500px] overflow-y-auto mb-[40px] lg:pr-[30px] scrollbar-none">
+                {% for item in cart.items %}
+                  <div class="cart-item-main" data-key="{{ item.key }}">
+                    <div class="border-b mb-10">
+                      <div class="grid grid-cols-12 pb-10 md:gap-x-5 gap-x-[10px] relative">
+                        <div class="sm:col-span-4 col-span-12 w-full">
+                          <a href="{{ item.url }}" rel="nofollow">
+                            {% if item.image %}
+                              {{
+                                item.image
+                                | image_url: width: 1500
+                                | image_tag:
+                                  loading: 'lazy',
+                                  sizes: '100',
+                                  widths: '165, 360, 535, 750, 1070, 1500',
+                                  class: 'object-contain w-full max-h-[320px]'
+                              }}
+                            {% else %}
+                              {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 object-cover border' }}
+                            {% endif %}
+                          </a>
+                        </div>
+                        <div class="sm:col-span-6 col-span-12 sm:mt-0 mt-5">
+                          <h5>
+                            <a class="!text-lg font-semibold" href="{{ item.url }}" rel="nofollow">
+                              {{- item.product.title | truncatewords: 6 -}}
+                            </a>
+                          </h5>
+
+                          <div class="mb-3 variant-title">
+                            <p class="theme-color">{{ item.variant.inventory_quantity }} in stock</p>
+                            <p class="text-sm md:text-base">{{ item.variant.title }}</p>
+                          </div>
+                          <div>
+                            <div class="quantity-counter">
+                              <div class="wrapper">
+                                <button
+                                  type="button"
+                                  class="decrease rounded-l-lg bg-transparent outline-none inline-flex"
+                                >
+                                  <span class="aria-label !text-[0px] !leading-[0px]">Decrease Quantity</span>
+                                  {% render 'icon-minus' %}
+                                </button>
+                                <input
+                                  class="quantity max-w-[40px]"
+                                  type="number"
+                                  name="updates[]"
+                                  value="{{ item.quantity }}"
+                                  min="1"
+                                  max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+                                >
+                                <button
+                                  type="button"
+                                  class="increase rounded-r-lg bg-transparent outline-none inline-flex"
+                                >
+                                  <span class="aria-label !text-[0px] !leading-[0px]">Increase Quantity</span>
+                                  {% render 'icon-plus' %}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sm:col-span-2 col-span-4 absolute sm:relative h-[100px] sm:h-auto bottom-[40px] right-0 sm:bottom-auto sm:right-auto flex justify-end">
+                          <div class="flex justify-between flex-col">
+                            <div class="flex justify-end trash-item">
+                              <a
+                                href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                                rel="nofollow"
+                                aria-label="Delete {{ item.product.title }}"
+                              >
+                                {%- render 'icon-trash', class: 'stroke w-[20px] h-[20px]' -%}
+                              </a>
+                            </div>
+                            <div>
+                              <p>
+                                {% if item.original_price > item.final_price %}
+                                  <s class="line-through">{{ item.original_price | money }}</s>
+                                {% endif %}
+                                <span class="line_item_price font-semibold text-[18px] md:text-[20px]">
+                                  {{ item.final_price | money }}
+                                </span>
+                                {% if item.unit_price_measurement %}
+                                  {{ item.unit_price | money }}
+
+                                  {% if item.unit_price_measurement.reference_value != 1 %}
+                                    {{ item.unit_price_measurement.reference_value }}
+                                  {% endif %}
+
+                                  {{ item.unit_price_measurement.reference_unit }}
+                                {% endif %}
+                              </p>
+                              {% if item.line_level_discount_allocations.size > 0 %}
+                                <strong> {{ 'main-cart-body.discounts' | t }}: </strong>
+                                <ul>
+                                  {% for discount_allocation in item.line_level_discount_allocations %}
+                                    <li class="total-discount">
+                                      {{ discount_allocation.discount_application.title }}
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+              <!-- product -->
+            </div>
+            <!-- billing section -->
+            <div class="lg:mb-10 col-span-12 lg:col-span-6">
+              <div class="cart-goal" data-free="{{ settings.free_shipping | times: 100 }}">
+                {% if cart.requires_shipping == true %}
+                  {% assign cart_total = cart.total_price %}
+                  {% assign free_shipping = settings.free_shipping | times: 100 %}
+                  <div class="mb-[20px] text-center xl:px-[60px] sm:px-[50px] px-[20px]">
+                    <div class="goal-msg">
+                      {% if cart.items.size == 0 %}Add items to your cart to receive free shipping.{% endif -%}
+                      {%- if cart.items.size != 0 -%}
+                        {%- if cart_total >= free_shipping %}
+                          {{ 'main-cart-body.free_shipping' | t }}
+                        {%- elsif cart_total < free_shipping -%}
+                          {% assign amount_left = free_shipping | minus: cart_total %}
+                          {{ 'main-cart-body.only' | t }}
+                          {{ amount_left | money_with_currency }}
+                          {{ 'main-cart-body.away_from' | t }}
+                        {%- endif -%}
+                      {%- endif %}
+                    </div>
+                    <progress
+                      class="w-full rounded-full h-[5px]"
+                      max="{{ free_shipping }}"
+                      value="{{ cart_total }}"
+                    ></progress>
+                  </div>
+                {% endif %}
+              </div>
+
+              <div
+                class="py-[40px] xl:px-[60px] sm:px-[50px] px-[20px] mt-[40px] rounded-md"
+                style="background-color:{{ section.settings.cart_total_bg }};"
+              >
+                <div class="flex flex-col gap-[10px]">
+                  <p>
+                    <strong>{{ 'main-cart-body.discount' | t }}:</strong>
+                    <span id="total-discount">{{ cart.total_discount | money }}</span>
+                  </p>
+                  <p>
+                    <strong>{{ 'main-cart-body.total' | t }}:</strong>
+                    <span id="total-price">{{ cart.total_price | money }}</span>
+                  </p>
+                </div>
+                {% if item.line_level_discount_allocations.size > 0 %}
+                  {{ 'main-cart-body.discounts' | t }}:
+                  <ul>
+                    {% for discount_allocation in item.line_level_discount_allocations %}
+                      <li>
+                        {{ discount_allocation.discount_application.title }}-{{ discount_allocation.amount | money }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+
+                <div class="flex flex-col justify-center mt-[20px]">
+                  <p class="opacity-80">{{ 'main-cart-body.shipping_msg' | t }}</p>
+                  <div class="flex flex-col gap-[15px] py-5">
+                    {% if settings.show_cart_note != false %}
+                      <!-- leave a note -->
+                      <div class="bg-opacity-20 w-full rounded-t-md accordion">
+                        <div class="flex justify-between w-full">
+                          <p class="underline font-medium !text-sm">{{ 'main-cart-body.add_note' | t }}</p>
+                          <button
+                            type="button"
+                            aria-label="Add a note"
+                            class="flex cursor-pointer"
+                            aria-controls="cartNote"
+                          >
+                            {%- render 'icon-plus', class: 'accor-plus-img transition duration-300 ease' -%}
+                          </button>
+                        </div>
+                      </div>
+                      <div class="accordion-content w-full bg-opacity-20 h-0 overflow-hidden">
+                        <textarea
+                          id="cartNote"
+                          name="note"
+                          placeholder="Your Note"
+                          rows="10"
+                          class="w-full p-5 min-h-[80px] max-h-[200px] border note-form"
+                        ></textarea>
+                      </div>
+                      <!-- leave a note -->
+                    {% endif %}
+                  </div>
+                  {% render 'btn-primary', attr: "name='checkout'", src: 'Checkout', type: 'submit', class: 'w-full' %}
+                  <div class="pt-[40px] flex flex-col gap-[15px]">
+                    <p class="!text-sm">{{ 'main-cart-body.accepted_payment' | t }}</p>
+                    <span class="flex flex-wrap gap-[5px] justify-center lg:justify-start">
+                      {% assign enabled_payment_types = 'visa,master,american_express,paypal,discover'
+                        | remove: ' '
+                        | split: ','
+                      %}
+                      {% for type in enabled_payment_types %}
+                        {{ type | payment_type_svg_tag: class: 'w-[40px]' }}
+                      {% endfor %}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- billing section -->
+            <!-- cart & total -->
+          </div>
+        </div>
+        <!-- cart section -->
+      </form>
+    </div>
+
+    <div class="justify-center my-[40px] cart-empty">
+      <div class="flex flex-col">
+        <h3 class="my-5 text-2xl">{{ section.settings.empty_cart_title }}</h3>
+        <div class="my-5 flex justify-center">
+          <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+            {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+          </a>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="flex justify-center my-[40px]">
+      <div class="flex flex-col">
+        <h3 class="my-5 text-2xl">{{ section.settings.empty_cart_title }}</h3>
+        <div class="my-5 flex justify-center">
+          <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+            {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<script src="{{ 'axios.min.js' | asset_url }}" defer></script>
+
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:section.main-cart-body.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 40,
+      "label": "t:section.main-cart-body.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-cart-body.settings.section_margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "cart_total_bg",
+      "default": "#F2F2F2",
+      "label": "t:section.main-cart-body.settings.cart_total_bg"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "t:section.main-cart-body.settings.empty_cart_title",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "t:section.main-cart-body.settings.banner_button_text",
+      "default": "Add Item"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const accordion = document.querySelector('.accordion');
+  const accordionContent = document.querySelector('.accordion-content');
+  const accorpositive = document.querySelector('.accor-plus-img');
+  if (accordion) {
+    accordion.addEventListener('click', () => {
+      accorpositive.classList.toggle('rotate');
+      accordionContent.classList.toggle('active');
+    });
+  }
+{% endjavascript %}

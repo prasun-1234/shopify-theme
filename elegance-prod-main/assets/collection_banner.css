@@ -1,0 +1,189 @@
+.collection-grid {
+  padding-top: 0;
+}
+.collection-grid .coll-top-block {
+  padding: 0 0 40px;
+}
+.collection-grid .coll-top-block h3 {
+  margin:0;
+  line-height: 40px;
+  letter-spacing: 0.6px;
+  font-weight: 400;
+  color: var(--secondary-theme-color);
+}
+.collections-wrapper h2{
+  color: var(--secondary-theme-color);
+  text-transform: lowercase;
+}
+.collections-wrapper p{
+  margin: 20px 0 30px;
+}
+.collection-grid .col-list-wrap .collection-block:last-child {
+  margin-bottom: 100px;
+}
+.collection-block {
+  margin-bottom: 80px;
+}
+.collection-block .img-box {
+  display: block;
+}
+.collection-grid .theme-btn{
+  margin: auto;
+  width: fit-content;
+  display: flex;
+  position: relative;
+  color: var(--color-btn-primary-text);
+}
+.collection-block h5{
+  padding: 30px 0 40px;
+  color: var(--primary-font-color) !important;
+  font-family: var(--primary-font-family);
+  font-weight: 400;
+  line-height: 1.7;
+}
+.collection-block .img-box a {
+  display: block;
+  height: 600px;
+  overflow: hidden;
+}
+.collection-block img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.collection-block placeholder-svg {
+  margin: 0 0 40px 0;
+}
+.collection-block h3 {
+  line-height: 30px;
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+.collection-block .text-btn a {
+    font-weight: 600;
+    color: var(--tertiary-theme-color) !important;
+    font-size:var(--large-font-size) !important;
+}
+.collection-block .text-btn a:after{
+  background-color: var(--tertiary-theme-color) !important;
+}
+.collection-block .placeholder{
+      width: 100%;
+      height: 400px;
+      position: relative;
+      margin-bottom: 16px;
+}
+.collection-block .placeholder_div .placeholder-img{
+  border: 1px solid var(--primary-font-color);
+}
+.collection-block-1{
+  flex-direction: row-reverse;
+}
+.collection-block-1 .collections-wrapper{
+  padding: 40px 40px 0 0;
+}
+.collection-block-2 .collections-wrapper{
+  padding: 40px 0 0 40px;
+}
+.collection-banner {
+  position: relative;
+  margin: 20px 0;
+}
+.collection-banner img {
+  width: 100vw;
+  background-size: cover;
+}
+.collection-banner .collection-banner-content {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+.collection-banner .image-overlay {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+}
+
+@media screen and (max-width:1366px){
+  .collections-wrapper h2{
+    font-size: 40px !important;
+  }
+}
+
+@media screen and (max-width:1024px){
+  .collection-block .img-box a{
+    height: 500px;
+  }
+}
+
+
+@media screen and (max-width:768px){
+  .collections-wrapper h2 {
+    font-size: 30px !important;
+  }
+}
+
+@media screen and (max-width:767px){
+  .collection-block .img-box a {
+    height: 400px;
+    width: 100%;
+    margin: auto;
+  }
+  .collection-block-2 .collections-wrapper {
+    padding: 40px 0 0;
+  }
+}
+
+
+@media screen and (max-width:576px){
+  .collection-grid {
+    padding-top: 0;
+  }
+
+  .collection-block .img-box a{
+    width: 100%;
+  }
+
+  .collection-grid .coll-top-block {
+    padding: 10px 0;
+  }
+
+  .collection-grid  h3 {
+    font-size: 24px;
+    line-height: initial;
+  }
+
+  .collection-grid  .button-grid {
+    padding: 20px 0 0 0;
+  }
+
+  .collection-grid .collection-block {
+    margin-bottom: 40px;
+  } 
+
+  .collection-grid .collection-block h2{
+    font-size: 30px;
+  }
+  .collection-grid .collection-block img{
+    margin: 0 0 40px 0;
+  }
+  .collection-grid .collection-block:last-child{
+    margin-bottom: 40px;
+  }
+  .collection-block-1 .collections-wrapper {
+    padding: 40px 0px 0 0;
+  }
+  .collection-block h5{
+    font-size: 18px;
+  }
+  .collection-block .text-btn a{
+    font-size: 18px !important;
+  }
+}

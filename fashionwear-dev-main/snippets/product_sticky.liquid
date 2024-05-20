@@ -1,0 +1,173 @@
+{% style %}
+  #product_sticky_main.minimize_sticky {
+    width: 40px;
+    display: flex;
+    height: 40px;
+    bottom: 40px;
+    right: 8px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+  }
+  #product_sticky_main.minimize_sticky form {
+    display: none;
+  }
+  #product_sticky_main.minimize_sticky .close_sticky {
+    transform: rotate(45deg);
+    position: relative;
+    top: auto;
+    right: auto;
+  }
+  #variant_select_sticky {
+    -webkit-appearance: none;
+    position: relative;
+  }
+  .rightToggle {
+    right: auto;
+  }
+  .down-arrow::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    z-index: 30;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: url({{ 'arrow-down.svg' | asset_url }}) no-repeat center right 10px;
+  }
+  .varient-selector #variant_select_sticky{
+    padding: 10px 30px 10px 10px !important;
+  }
+  @media screen and (max-width: 1024px) {
+    #product_sticky_main {
+      display: none !important;
+    }
+  }
+{% endstyle %}
+<div
+  id="product_sticky_main"
+  class="fixed flex justify-center items-center py-[10px] bottom-0 right-0 w-full z-[899]"
+  style="background-color: {{ section.settings.bar_bg }};"
+>
+  <div class="absolute right-5 top-0 flex justify-center items-center h-full iconBox">
+    {% render 'icon-close-thin', class: 'w-4 h-4 cursor-pointer close_sticky z-50 ease-in-out duration-150' %}
+  </div>
+  {% form 'product', product, class: 'w-full relative' %}
+    <div class="container mx-auto flex items-center 2xl:justify-evenly justify-between gap-5">
+      <div class="flex items-center gap-3">
+        <figure class="w-[80px] h-[100px] overflow-hidden relative">
+          {% if product.featured_image != blank %}
+            {{
+              product.featured_image
+              | image_url: width: 100
+              | image_tag: class: 'w-full h-full object-cover', loading: 'lazy'
+            }}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full bg-gray-300' }}
+          {% endif %}
+        </figure>
+        <div class="flex flex-col gap-2">
+          <h6 class="!text-lg">
+            {{ product.title }}
+          </h6>
+          <p>
+            {{ product.selected_or_first_available_variant.price | money_with_currency }}
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 xl:gap-10 2xl:gap-20 pr-8">
+        <div class="varient-selector">
+          <input
+            id="product_id_sticky"
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+          >
+          <div class="relative inline-flex overflow-hidden form-radius down-arrow">
+            <select name="id" id="variant_select_sticky" class="!h-[48px] min-w-[208px] !border-none z-20 relative">
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == product.selected_or_first_available_variant %}
+                    selected="selected"
+                  {% endif %}
+                >
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+            <span class="absolute left-0 top-0 w-full h-full sticky_content opacity-20"></span>
+          </div>
+        </div>
+        <div id="quantity_sticky">
+          <div class="quantity-counter">
+            <div class="inner-wrapper min-w-[208px] !border-none">
+              <span class="sticky_content absolute left-0 top-0 w-full h-full opacity-20"></span>
+              <button
+                type="button"
+                class="decrease h-full bg-transparent outline-none cursor-pointer relative z-20 px-4"
+                id="decrement-count"
+              >
+                {% render 'icon-minus' %}
+              </button>
+              <input
+                class="quantity max-w-[40px] !border-none !bg-transparent h-full !m-0 relative z-20"
+                type="number"
+                name="{% if name != blank %}{{ name }}{% else %}quantity{% endif %}"
+                value="1"
+                min="1"
+                max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+              >
+              <button
+                type="button"
+                id="increment-count"
+                class="increase h-full bg-transparent outline-none cursor-pointer z-20 relative px-4"
+              >
+                {% render 'icon-plus' %}
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          id="sticky_add"
+          class="product-add flex items-center btn-main font-semibold justify-center py-[12px] px-[32px] duration-300 ease-in-out overflow-hidden group/btn-secondary btn-secondary 2xl:min-w-[240px] min-w-[208px] h-[48px]"
+        >
+          <span class="overlay"></span>
+          <span class="text">
+            {% if product.selected_or_first_available_variant.available == true %}
+              {{ 'main-product.add_cart' | t }}
+            {% else %}
+              {{ 'main-product.out_of_stock' | t }}
+            {% endif %}
+          </span>
+        </button>
+      </div>
+    </div>
+  {% endform %}
+</div>
+<script>
+  let variantSelect = document.querySelector('#variant_select_sticky');
+  let variantVal = '';
+  variantSelect.addEventListener('change', (e) => {
+    variantVal = e.target.value;
+    let stickyMatchVariant = product.variants.find((variant) => {
+      return variant.id == variantVal;
+    });
+    if (stickyMatchVariant.available != true) {
+      document.querySelector('#sticky_add').setAttribute('disabled', 'disabled');
+      document.querySelector('#sticky_add .text').innerText = 'Out of Stock';
+      document.querySelector('#sticky_add').style.opacity = 0.7;
+    } else {
+      document.querySelector('#sticky_add').removeAttribute('disabled');
+      document.querySelector('#sticky_add').style.opacity = 1;
+      document.querySelector('#sticky_add .text').innerText = 'Add to Cart';
+    }
+  });
+  let closeSticky = document.querySelector('.close_sticky');
+  closeSticky.addEventListener('click', (e) => {
+    document.querySelector('#product_sticky_main').classList.toggle('minimize_sticky');
+    document.querySelector('.iconBox').classList.toggle('rightToggle');
+  });
+</script>

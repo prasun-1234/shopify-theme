@@ -1,0 +1,129 @@
+.modal-main{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    z-index: 9999;
+    visibility: hidden;
+    pointer-events: none;
+    display: flex;
+    margin: 0 !important;
+    transition: .7s ease;
+}
+.modal-main.modal-active{
+    width: 100%;
+    visibility: visible;
+    pointer-events: all;
+}
+.modal-main.hide-modal{
+    opacity: 0 !important;
+    visibility: hidden;
+    pointer-events: none !important;
+}
+
+.modal-main.hide-modal .modal-inner{
+    transform: translateX(200%);
+}
+
+.modal-main .modal-overlay{
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+}
+
+.modal-main .placeholder_div{
+    height: 100%;
+}
+
+.modal-inner{
+    width: 700px;
+    height: 450px;
+    overflow: hidden;
+    margin: 40px;
+    position: relative;
+    z-index: 99;    
+    transition: 1s ease;
+}
+
+.modal-col,.modal-inner figure,.modal-inner img{
+    height: 100%;
+}
+.modal-inner img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.modal-inner .close-btn{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background-color: #F7F9FC;
+    border-radius: var(--button-radius);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal-inner .close-btn svg path{
+    stroke: var(--primary-font-color);
+    stroke-width: 3px;
+}
+
+.modal-info p{
+    color: inherit;
+}
+
+.modal-info{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+.modal-info form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-info form .form-input{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-info form input{
+    padding: 10px 15px;
+    line-height: 1 !important;
+}
+
+.modal-info form button{
+    padding: 15px 30px !important;
+}
+
+@media screen and (max-width:768px){
+    .modal-info button.theme-btn{
+        min-width: 100% !important;
+        max-width:100% !important;
+    }
+}
+
+@media screen and (max-width:767px){
+    .modal-inner{
+        height: 420px;
+    }
+    .modal-info{
+       height: 100%;
+    }
+    .modal-image{
+        display: none !important;
+    }
+}

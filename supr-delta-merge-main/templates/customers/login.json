@@ -1,0 +1,102 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "enable_box_shadow": true,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "main": {
+      "type": "main-login",
+      "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "form_image": "shopify:\/\/shop_images\/formimage.png"
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "title": "Log In",
+            "description": "<p>If You have created  an account with us, Please log in<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "form"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "breadcrumb",
+    "main"
+  ]
+}

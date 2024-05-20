@@ -1,0 +1,85 @@
+.age-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 399;
+    background: url('../assets/Age-verifier.jpg') center center no-repeat;
+    background-size: cover;
+}
+.age-container.hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+.age-container-inner{
+    width: 100%;
+    position: relative;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+}
+.age-container-inner h1, .age-card{
+    position: relative;
+} 
+.age-container-inner .age-card{
+    border-radius: 20px;
+    border: 2px solid var(--demo-stroke, rgba(255, 255, 255, 0.30));
+    background: var(--Demo-gradient, linear-gradient(180deg, rgba(232, 232, 232, 0.43) -13.32%, rgba(232, 232, 232, 0.26) 135.33%));
+    backdrop-filter: blur(5.300000190734863px);
+    padding: 50px 130px;
+    align-items: flex-start;
+    gap: 10px;
+}
+.age-container-inner::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff3c;
+}
+.terms-and-conditions{
+    margin-bottom: 24px;
+}
+.terms-and-conditions .heading{
+    margin-bottom: 40px;
+}
+.yes-no-buttons{
+    margin-bottom: 40px;
+}
+.yes-no-buttons{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.age-container-inner .card-description{
+    max-width: 380px;
+    margin: auto;
+}
+.terms-and-conditions a{
+    color: #313131;
+    font-weight: 600;
+    line-height: 180%;
+    letter-spacing: 0.16px;
+    opacity: 0.8;
+}
+.age-card .heading{
+    margin-bottom: 40px;
+}
+@media screen and (max-width: 1024px) {
+    .age-container-inner .age-card{
+        padding: 25px 60px;
+        margin: 12px;
+    }
+}
+@media screen and (max-width: 640px) {
+    .age-container-inner .age-card{
+        padding: 24px 24px;
+    }
+}

@@ -1,0 +1,227 @@
+{% style %}
+  .reset-password-container {
+    background-color: var(--body-background);
+  }
+  #section-{{ section.id }}-banner{
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  @media screen and (max-width:980px) {
+    #section-{{ section.id }}-banner{
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  }
+{% endstyle %}
+
+<section class="main-login relative mx-auto w-full" id="section-{{ section.id }}-banner">
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    <div class="w-full flex lg:flex-row flex-col-reverse justify-around items-center gap-[20px] lg:gap-[80px]">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image' %}
+            <div class="lg:w-1/2 w-full" {{ block.shopify_attributes }}>
+              <div>
+                {% if block.settings.form_image %}
+                  {{
+                    block.settings.form_image
+                    | image_url: width: 1500
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '100',
+                      widths: '165, 360, 535, 750, 1070, 1500',
+                      class: 'object-cover w-full lg:h-[700px] md:h-[400px] h-[320px]'
+                  }}
+                {% else %}
+                  {{
+                    'lifestyle-1'
+                    | placeholder_svg_tag: 'object-contain w-full lg:h-[700px] md:h-[400px] h-[320px] bg-[#ccc]'
+                  }}
+                {% endif %}
+              </div>
+            </div>
+          {% when 'form' %}
+            <div {{ block.shopify_attributes }} class="lg:w-1/2 w-full">
+              <div class="w-full relative overflow-hidden px-[1px]" id="login_form">
+                <div class="flex flex-col gap-2 lg:gap-3 lg:max-w-lg text-left">
+                  <h4 class="text-[1.5rem] md:!text-[2rem]  xl:!text-[2.5rem] ">
+                    {{ block.settings.title }}
+                  </h4>
+                  {{ block.settings.description }}
+                </div>
+
+                {%- form 'customer_login',
+                  novalidate: 'novalidate',
+                  class: 'flex flex-col my-[20px] w-full lg:max-w-lg'
+                -%}
+                  {% if form.errors %}
+                    <span class="mb-[20px] error_main">
+                      {{ form.errors | default_errors }}
+                    </span>
+                  {% endif %}
+
+                  <div class="field pb-6">
+                    <label for="email" class="">{{ 'main-login.email' | t }}</label>
+                    <input
+                      type="email"
+                      name="customer[email]"
+                      id="CustomerEmail"
+                      autocomplete="email"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      {% if form.errors contains 'form' %}
+                        aria-invalid="true"
+                      {% endif -%}
+                      placeholder="Email"
+                      class="w-full mt-2 py-[11.5px] pl-[12px] border rounded-[6px] "
+                    >
+                  </div>
+
+                  {%- if form.password_needed -%}
+                    <div class="field">
+                      <label for="password" class="">{{ 'main-login.password' | t }}</label>
+                      <input
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="CustomerPassword"
+                        autocomplete="current-password"
+                        {% if form.errors contains 'form' %}
+                          aria-invalid="true"
+                        {% endif -%}
+                        placeholder="Password"
+                        class="w-full mt-2 py-[11.5px] pl-[12px] border rounded-[6px]"
+                      >
+                    </div>
+                  {%- endif -%}
+                  <div class="mt-[40px] md:flex justify-end block">
+                    {% render 'btn-primary', src: 'Login', class: 'md:w-auto w-full', type: 'submit' %}
+                  </div>
+                  {% capture forgot_pw %} {{ 'main-login.forgot_pw' | t }} {% endcapture %}
+                  <div class="flex lg:justify-end justify-start py-6">
+                    {% render 'hover-link', src: forgot_pw, id: 'forget-button', class: 'inline-block font-semibold' %}
+                  </div>
+                  <div class="flex items-baseline gap-[15px] lg:justify-end justify-start flex-row flex-wrap">
+                    <span class="register_link opacity-80 text-sm md:text-base">
+                      {{- 'main-login.new_customer' | t -}}
+                    </span>
+                    {% capture create_new %}
+                    {{ 'main-login.create_new' | t }}
+                  {% endcapture %}
+                    {% render 'hover-link',
+                      src: create_new,
+                      class: 'font-semibold',
+                      link: routes.account_register_url
+                    %}
+                  </div>
+                {%- endform -%}
+              </div>
+              <div class="reset-password-container hidden w-full h-full z-[99] md:px-0 py-[20px] lg:max-w-md">
+                {% form 'recover_customer_password' %}
+                  <h3 class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mb-4">
+                    {{ 'main-login.forgot_pw' | t }}
+                  </h3>
+                  <p class="text-sm md:text-base leading-[1.8] mb-[20px]">
+                    {{ 'main-login.send_instructions' | t }}
+                  </p>
+                  {{ form.errors | default_errors }}
+                  <label for="email" class="">{{ 'main-login.email' | t }}</label>
+                  <input
+                    type="email"
+                    class="w-full mt-2 border rounded-[6px] py-[12px] pl-2 mb-[20px]"
+                    placeholder="Email"
+                    name="email"
+                    required
+                  >
+                  <div class="w-full lg:flex justify-end">
+                    {% render 'btn-primary', src: 'Reset Password', class: 'md:w-auto w-full', type: 'submit' %}
+                  </div>
+                  {% capture back_to_login %} {{ 'main-login.back_to_login' | t }} {% endcapture %}
+                  <div class="flex justify-center lg:justify-end mt-[20px]">
+                    {% render 'hover-link', class: 'font-semibold', src: 'Back To Login', id: 'back-to-login' %}
+                  </div>
+                {% endform %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-login.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "limit": 1,
+      "name": "t:section.main-login.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "form_image",
+          "label": "t:section.main-login.blocks.image.settings.form_image"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "limit": 1,
+      "name": "t:section.main-login.blocks.form.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Log In",
+          "label": "t:section.main-login.blocks.form.settings.title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:section.main-login.blocks.form.settings.description",
+          "default": "<p>If You have created  an account with us, Please log in</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let resetContainer = document.querySelector('.reset-password-container');
+  let forgetButton = document.querySelector('#forget-button');
+  let backButton = document.querySelector('#back-to-login');
+  let logInContainer = document.querySelector('#login_form');
+
+  forgetButton.addEventListener('click', () => {
+    resetContainer.style.display = 'block';
+    logInContainer.style.height = '0';
+  });
+  backButton.addEventListener('click', () => {
+    resetContainer.style.display = 'none';
+    logInContainer.style.height = '100%';
+  });
+{% endjavascript %}

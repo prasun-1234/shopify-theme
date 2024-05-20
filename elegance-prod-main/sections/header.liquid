@@ -1,0 +1,364 @@
+<!-- // section/header.liquid -->
+<link rel="stylesheet" href="{{ 'header.css' | asset_url }}">
+
+{% style %}
+  .location-currency-wrapper .location-currency-tracker .location-wrap .select-wrap:after {
+    background-image:url('{{ 'down-arrow.svg' | asset_url }}');
+  }
+
+  #search-field::-webkit-search-cancel-button{
+    background: url('{{ 'icon-cross.svg' | asset_url }}') no-repeat 0px 0px;
+  }
+{% endstyle %}
+
+<section class="header_main {% if settings.enable_animation %}scrollmagic-element{% endif %} fade-in {% if section.settings.header_type == 'header_3' %}header-overlay-left{% endif %} {% if section.settings.header_type == 'header_4' %}header-overlay-middle{% endif %}">
+  {% liquid
+    if section.settings.header_type == 'header_1'
+      render 'header-type-1', top_bar_active: section.settings.top_bar_active, section: section
+    endif
+    if section.settings.header_type == 'header_2'
+      render 'header-type-2', top_bar_active: section.settings.top_bar_active, section: section
+    endif
+  %}
+
+  {% render 'header-mobile', section: section %}
+</section>
+
+<div class="search-box-wrap" id="search-box-main">
+  <div class="search-wrapper fade-in-up">
+    <div class="container">
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <form action="/search" method="get" class="search-form" role="search">
+            <div class="search">
+              <label for="search-field">{{ 'general.search.label' | t }}</label>
+              <input
+                name="q"
+                type="search"
+                id="search-field"
+                autofocus
+                class="search-box"
+                data-type="{{ settings.search_only }}"
+              >
+              <input type="hidden" name="type" value="{{ settings.search_only }}">
+              <input type="hidden" name="options[prefix]" value="last">
+              <button class="arrow">{% render 'arrow-next' %}</button>
+            </div>
+            {% render 'ajax-search', id: 'search-result-wrapper-desktop' %}
+          </form>
+        </div>
+      </div>
+    </div>
+    <span class="search-remove">
+      <a href="#" rel="nofollow" title="close" class="close" data-close-header-top="">
+        <svg
+          aria-hidden="true"
+          data-prefix="fal"
+          data-icon="times"
+          role="img"
+          width="12px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 320 512"
+          class="svg-inline--fa fa-times fa-w-10 fa-2x"
+        >
+          <path fill="#fff" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z" class=""></path>
+        </svg>
+      </a>
+    </span>
+  </div>
+</div>
+
+{% if settings.cart_settings == 'drawer' %}
+  {%- render 'cart-drawer' -%}
+{% endif %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if settings.logo %}
+      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tiktok_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ request.origin | append: page.url | json }}
+  }
+</script>
+
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ request.origin | append: page.url | json }}
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "header_type",
+      "options": [
+        {
+          "value": "header_1",
+          "label": "t:sections.header.settings.header_type.options.header_1.label"
+        },
+        {
+          "value": "header_2",
+          "label": "t:sections.header.settings.header_type.options.header_2.label"
+        }
+      ],
+      "label": "t:sections.header.settings.header_type.label",
+      "default": "header_1"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_bar_active",
+      "label": "t:sections.header.settings.top_bar_active.label",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "currency_wrapper_bg",
+      "default": "#F5F5EC",
+      "label": "t:sections.header.settings.currency_wrapper_bg.label"
+    },
+    {
+      "type": "link_list",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu_list.label",
+      "id": "menu_list"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "default": "#3D8361",
+      "label": "t:sections.header.settings.title_color.label"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.header.blocks.name",
+      "type": "menu-item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.settings.headers.mega_menu"
+        },
+        {
+          "type": "select",
+          "id": "menu_index",
+          "label": "t:sections.header.blocks.settings.menu_index.label",
+          "default": "2",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.header.blocks.settings.menu_index.options.1.label"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.header.blocks.settings.menu_index.options.2.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.header.blocks.settings.menu_index.options.3.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.header.blocks.settings.menu_index.options.4.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.header.blocks.settings.menu_index.options.5.label"
+            },
+            {
+              "value": "6",
+              "label": "t:sections.header.blocks.settings.menu_index.options.6.label"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.settings.headers.mega_settings"
+        },
+        {
+          "type": "link_list",
+          "id": "mega_menu",
+          "label": "t:sections.header.blocks.settings.mega_menu.label"
+        },
+        {
+          "type": "select",
+          "id": "select_block",
+          "label": "t:sections.header.blocks.settings.select_block.label",
+          "options": [
+            {
+              "value": "collection",
+              "label": "t:sections.header.blocks.settings.select_block.options.collection.label"
+            },
+            {
+              "value": "article",
+              "label": "t:sections.header.blocks.settings.select_block.options.article.label"
+            }
+          ],
+          "default": "collection"
+        },
+        {
+          "type": "collection",
+          "id": "menu_collection",
+          "label": "t:sections.header.blocks.settings.menu_collection.label"
+        },
+        {
+          "type": "article",
+          "id": "menu_article",
+          "label": "t:sections.header.blocks.settings.menu_article.label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+  // Responsive Nav
+
+  let menuItems = document.querySelectorAll('#header_mobile > li');
+
+  if (menuItems) {
+    menuItems.forEach((item) => {
+      if (item.querySelector('.menu_dropdown')) {
+        item.addEventListener('click', (e) => {
+          if (
+            e.target == item.querySelector('.menu_dropdown') ||
+            e.target == item.querySelector('.menu_dropdown svg')
+          ) {
+            item.classList.toggle('dropdown-active');
+          }
+        });
+      }
+    });
+
+    let submenuDropdown = document.querySelectorAll('.simple-dropdown-submenu').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if (item.querySelector('.simple-dropdown-menu')) {
+          item.querySelector('.simple-dropdown-menu').classList.toggle('dropdown-active');
+        }
+      });
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    let searchBar = document.querySelector('.search-wrapper');
+
+    if (e.key === 'Escape') {
+      if (searchBar) {
+        searchBar.setAttribute('class', 'search-wrapper fade-in-up');
+      }
+    }
+
+    if (e.key === 'Enter') {
+      let searchButton = document.querySelector('.header-right .search-user');
+
+      if (searchButton && e.target == searchButton) {
+        searchBar.setAttribute('class', 'search-wrapper fade-in-up show-search');
+      }
+    }
+  });
+
+  // Aria Modals
+
+  function ariaClose(closeEl, btnEl) {
+    let close = document.querySelector(`${closeEl}`);
+
+    if (close) {
+      let btn = document.querySelector(`${btnEl}`);
+      close.addEventListener('click', (e) => {
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  }
+
+  ariaClose('.tracker-close', '.top-location-currency .small-box');
+  ariaClose('.cart-drawer .cart-drawer-close', '.cart-icon .open-drawer');
+  ariaClose('.search-box-wrap .close', '.search-user');
+
+  let menuMain = document.querySelector('#header_menu');
+
+  if (menuMain) {
+    menuMain.querySelectorAll('li').forEach((item) => {
+      if (item.querySelector('.dropdown-menu')) {
+        let link = item.querySelector('.menu_link');
+        link.addEventListener('keyup', (e) => {
+          if (e.key == 'ArrowDown') {
+            item.querySelector('.dropdown-menu').classList.add('menu_active');
+            link.setAttribute('aria-expanded', 'true');
+          } else if (e.key == 'ArrowUp') {
+            item.querySelector('.dropdown-menu').classList.remove('menu_active');
+            link.setAttribute('aria-expanded', 'false');
+          }
+        });
+        item.querySelectorAll('ul li').forEach((subItem) => {
+          let subLink = subItem.querySelector('.menu_sublink');
+          if (subItem.querySelector('.simple-dropdown-menu')) {
+            subLink.addEventListener('keyup', (e) => {
+              if (e.key == 'ArrowDown') {
+                subLink.setAttribute('aria-expanded', 'true');
+                subItem.querySelector('.simple-dropdown-menu').classList.add('submenu_active');
+              } else if (e.key == 'ArrowUp') {
+                subLink.setAttribute('aria-expanded', 'false');
+                subItem.querySelector('.simple-dropdown-menu').classList.remove('submenu_active');
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+{% endjavascript %}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if settings.logo %}
+      {% assign image_size = settings.logo.width | append: 'x' %}
+      "logo": {{ settings.logo | image_url: image_size | prepend: "https:" | json }},
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>

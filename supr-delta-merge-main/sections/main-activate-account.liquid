@@ -1,0 +1,143 @@
+<section class="main-register">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div class="w-full flex lg:flex-row flex-col-reverse justify-around items-center">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image' %}
+            <div class="w-full mt-[40px]">
+              {% if block.settings.form_image %}
+                {{
+                  block.settings.form_image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'object-contain w-full lg:h-[700px] md:h-[400px] h-[320px]'
+                }}
+              {% else %}
+                {{
+                  'lifestyle-2'
+                  | placeholder_svg_tag: 'object-cover w-full lg:h-[700px] md:h-[400px] h-[320px] bg-[#ccc]'
+                }}
+              {% endif %}
+            </div>
+          {% when 'form' %}
+            <div class="w-full mt-[60px] lg:mt-0">
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.description }}</p>
+
+              {%- form 'activate_customer_password', class: 'max-w-lg mt-[20px] flex flex-col gap-[20px]' -%}
+                {%- if form.errors -%}
+                  <ul class="mb-[20px]">
+                    {%- for field in form.errors -%}
+                      <li class="error_main">
+                        {%- if field == 'form' -%}
+                          {{ form.errors.messages[field] }}
+                        {%- else -%}
+                          <a rel="nofollow" href="#RegisterForm-{{ field }}">
+                            {{ form.errors.translated_fields[field] | capitalize }}
+                            {{ form.errors.messages[field] }}
+                          </a>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+                <div class="field">
+                  <label for="password" class="hidden">{{ 'main-activate-account.password' | t }}</label>
+                  <input
+                    type="password"
+                    name="customer[password]"
+                    id="password"
+                    class="rounded-[5px]"
+                    placeholder="Enter New Password"
+                  >
+                </div>
+
+                <div class="field">
+                  <label for="password_confirmation" class="hidden">{{ 'main-activate-account.confirm_pw' | t }}</label>
+                  <input
+                    type="password"
+                    name="customer[password_confirmation]"
+                    id="password_confirmation"
+                    class="rounded-[5px]"
+                    placeholder="Confirm Password"
+                  >
+                </div>
+                <span class="flex w-full gap-[20px] items-center flex-wrap">
+                  {% render 'btn-primary', src: 'Activate Account', type: 'submit', class: 'w-full sm:w-fit' %}
+                  {% render 'btn-secondary',
+                    src: 'Decline',
+                    class: 'w-full sm:w-fit',
+                    attr: 'name="decline" value="Decline invitation"'
+                  %}
+                </span>
+              {%- endform -%}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-register.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "limit": 1,
+      "name": "t:section.main-register.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "form_image",
+          "label": "t:section.main-register.blocks.image.settings.form_image"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "limit": 1,
+      "name": "t:section.main-register.blocks.form.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Activate Account",
+          "label": "t:section.main-register.blocks.form.settings.title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:section.main-register.blocks.form.settings.description",
+          "default": "<p>Enter the following details to activate your account</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

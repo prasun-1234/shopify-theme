@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="{{ 'cta.css' | asset_url }}">
+
+<section
+  class="cta"
+  style="margin-bottom:{{ section.settings.margin_bottom }}px;text-align: {% case section.settings.text_align %}{% when 'left' %}left{% when 'center' %}center{% when 'right' %}right{% else %}{% endcase %};"
+>
+  <div
+    class="cta-bg"
+    style="background: {{ section.settings.cta_bg_color }};transform:translateX({% case section.settings.cta_bg_align %}{% when 'left' %}-10{% when 'center' %}0{% when 'right' %}10{% endcase %}%);"
+  ></div>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} cta-container"
+  >
+    <div class="cta-inner">
+      <h3 style="font-size: {{ section.settings.title_size }}px;">{{ section.settings.title }}</h3>
+      <p>{{ section.settings.cta_text }}</p>
+      {% if section.settings.btn_url != blank -%}
+        <a rel="nofollow" href="{{ section.settings.btn_url }}" class="theme-btn primary-btn"
+          ><span class="btn-bg"></span><span class="btn-text">{{ section.settings.btn_text }}</span></a
+        >
+      {%- endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.cta.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "min": 0,
+      "max": 60,
+      "label": "t:sections.cta.settings.margin_bottom.label",
+      "step": 10,
+      "default": 60,
+      "unit": "px",
+      "id": "margin_bottom"
+    },
+    {
+      "type": "color_background",
+      "id": "cta_bg_color",
+      "label": "t:sections.cta.settings.cta_bg_color.label",
+      "default": "linear-gradient(300deg,#A9AF7E, #D9D9D900)"
+    },
+    {
+      "type": "select",
+      "id": "cta_bg_align",
+      "default": "right",
+      "label": "t:sections.cta.settings.cta_bg_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.cta.settings.cta_bg_align.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.cta.settings.cta_bg_align.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.cta.settings.cta_bg_align.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "min": 70,
+      "max": 100,
+      "label": "t:sections.cta.settings.title_size.label",
+      "step": 5,
+      "default": 100,
+      "id": "title_size",
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "default": "Reserve Your Spot",
+      "id": "title",
+      "label": "t:sections.cta.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "t:sections.cta.settings.cta_text.label",
+      "default": "Did you ever joined a Cosmetic Testing Session to get the first test of all best a brand to offer for your skin and hair health."
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "default": "center",
+      "label": "t:sections.cta.settings.text_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.cta.settings.text_align.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.cta.settings.text_align.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.cta.settings.text_align.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "t:sections.cta.settings.btn_url.label"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "t:sections.cta.settings.btn_text.label",
+      "default": "Reserve Now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.cta.presets.name",
+      "settings": {
+        "margin_bottom": 60,
+        "cta_bg_color": "linear-gradient(300deg,#A9AF7E, #D9D9D900)",
+        "cta_bg_align": "right",
+        "title_size": 100,
+        "title": "",
+        "cta_text": "",
+        "text_align": "center",
+        "btn_url": "#",
+        "btn_text": ""
+      }
+    }
+  ]
+}
+{% endschema %}

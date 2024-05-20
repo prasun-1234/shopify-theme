@@ -1,0 +1,26 @@
+{% style %}
+  .btn-swiper svg path {
+    fill: transparent !important;
+    stroke: var(--global-font-color) !important;
+  }
+
+  .btn-swiper {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, var(--body-background) 70%) !important;
+  }
+
+  .swiper-button-next .btn-swiper {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .swiper-button-prev .btn-swiper {
+    box-shadow: 0 -10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+{% endstyle %}
+<div class="{{ class }} btn-swiper px-2 py-2 lg:px-4 lg:py-4 rounded-full flex items-center justify-center relative group transition duration-300 ease overflow-hidden h-[50px] w-[50px] lg:w-[60px] lg:h-[60px] flex-shrink-0">
+  {% render 'icon-swiper',
+    class: 'group-hover:translate-x-[10rem] transition duration-300 ease w-5 h-5 lg:w-auto lg:h-auto'
+  %}
+  {% render 'icon-swiper',
+    class: 'absolute lg:top-4 translate-x-[-10rem] group-hover:translate-x-[0rem] w-5 h-5 lg:w-auto lg:h-auto transition duration-300 ease'
+  %}
+</div>

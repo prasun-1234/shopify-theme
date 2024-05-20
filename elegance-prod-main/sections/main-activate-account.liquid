@@ -1,0 +1,241 @@
+<link rel="stylesheet" href="{{ 'main-activate-account.css' | asset_url }}">
+
+{% layout settings.customer_layout %}
+
+<section id="template" class="account-form">
+  <div class="account-form-inner">
+    <div class="pure-g form-row">
+      <div class="pure-u-1 pure-u-lg-1-2">
+        <div class="l-box">
+          <div id="customer" class="login_left">
+            <div id="create-customer">
+              <div class="template_header">
+                <h3 class="form-title">{{ 'customer.form.activate-title' | t }}</h3>
+                <p>{{ 'customer.form.activate-description' | t }}</p>
+              </div>
+              {% form 'activate_customer_password', class: 'pure-form' %}
+                <fieldset>
+                  <div class="pure-u-1">
+                    <div class="large_form form_password">
+                      <label for="password" class="login">{{ 'customer.form.password' | t }}</label>
+                      <input
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="password"
+                        class=" password pure-input-1"
+                        size="30"
+                        placeholder="Password"
+                      >
+                      <button type="button" class="pw-show" data-show="false">
+                        {% render 'icon-show-pw' %}
+                        {% render 'icon-hide-pw' %}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="pure-u-1">
+                    <div class="large_form form_password">
+                      <label for="confirm-password" class="login">{{ 'customer.form.confirm-password' | t }}</label>
+                      <input
+                        type="password"
+                        name="customer[password_confirmation]"
+                        id="confirm-password"
+                        class="password large pure-input-1"
+                        size="30"
+                        placeholder="Confirm Password"
+                      >
+                      <button type="button" class="pw-show" data-show="false">
+                        {% render 'icon-show-pw' %}
+                        {% render 'icon-hide-pw' %}
+                      </button>
+                    </div>
+                  </div>
+
+                  {{ form.errors | default_errors }}
+
+                  <div class="action_bottom">
+                    <button class="theme-btn primary-btn" type="submit" value="Activate account">
+                      <div class="btn-bg"></div>
+                      <div class="btn-text">{{ 'customer.form.accept' | t }}</div>
+                    </button>
+                    <button class="theme-btn secondary-btn" type="submit" name="decline" value="Decline invitation">
+                      <div class="btn-overlay"></div>
+                      <div class="btn-text">{{ 'customer.form.decline' | t }}</div>
+                    </button>
+                  </div>
+                </fieldset>
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-lg-1-2">
+        <div class="contact-img" style="background-image: url('{{ section.settings.image_bg | image_url }}');">
+          <div class="img-overlay" style="background-color: {{ section.settings.overlay_color }};"></div>
+          {% if section.settings.image_bg == blank %}
+            <div class="placeholder_main">
+              {{ 'lifestyle-2' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          <div class="image-content">
+            {% if settings.footer_logo %}
+              <img
+                alt="Footer Logo"
+                srcset="
+                  {%- if settings.footer_logo.width >= 375 -%}
+                    {{ settings.footer_logo | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 550 -%}
+                    {{ settings.footer_logo | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 750 -%}
+                    {{ settings.footer_logo | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1100 -%}
+                    {{ settings.footer_logo | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1500 -%}
+                    {{ settings.footer_logo | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1780 -%}
+                    {{ settings.footer_logo | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 2000 -%}
+                    {{ settings.footer_logo | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 3000 -%}
+                    {{ settings.footer_logo | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 3840 -%}
+                    {{ settings.footer_logo | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ settings.footer_logo | image_url }} {{ settings.footer_logo.width }}w
+                "
+                sizes="auto"
+                src="{{ settings.footer_logo | image_url }}"
+                loading="lazy"
+                class="contact-logo"
+                alt="{{ settings.footer_logo.alt | escape }}"
+                width="100"
+                height="100"
+              >
+            {% else %}
+              <h1>{{ shop.name }}</h1>
+            {% endif %}
+            <div class="address-div">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'address' %}
+                    <div class="address">
+                      <p style="color:{{ section.settings.image_content_color }}" class="address_title">
+                        {{ block.settings.location_name }}
+                      </p>
+                      <p style="color:{{ section.settings.image_content_color }}" class="address_location">
+                        {{ block.settings.location_address }}
+                      </p>
+                      <p style="color:{{ section.settings.image_content_color }}">
+                        <span class="address_city">
+                          {{- block.settings.location_city }},
+                          <span class="address_pin">{{ block.settings.location_pin }}</span>
+                        </span>
+                      </p>
+                    </div>
+                  {% else %}
+
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.contact.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Let’s partner up",
+      "label": "t:sections.contact.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Tell us more about yourself and what you have in mind",
+      "label": "t:sections.contact.settings.description.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "t:sections.contact.settings.image_bg.label"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000",
+      "label": "t:sections.contact.settings.overlay_color.label"
+    },
+    {
+      "type": "color",
+      "id": "image_content_color",
+      "default": "#fff",
+      "label": "t:sections.contact.settings.image_content_color.label"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.contact.blocks.name",
+      "type": "address",
+      "settings": [
+        {
+          "type": "text",
+          "id": "location_name",
+          "default": "Mid-town Mall",
+          "label": "t:sections.contact.blocks.settings.location_name.label"
+        },
+        {
+          "type": "text",
+          "id": "location_address",
+          "label": "t:sections.contact.blocks.settings.location_address.label",
+          "default": "Lorem street,  Lorem Corner"
+        },
+        {
+          "type": "text",
+          "id": "location_city",
+          "default": "New York",
+          "label": "t:sections.contact.blocks.settings.location_city.label"
+        },
+        {
+          "type": "number",
+          "id": "location_pin",
+          "default": 83023,
+          "label": "t:sections.contact.blocks.settings.location_pin.label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2
+}
+{% endschema %}
+
+<script>
+  function pwShow() {
+    let pwDiv = document.querySelectorAll('.form_password');
+    console.log('pw Working!!!');
+    for (let i = 0; i < pwDiv.length; i++) {
+      let btnShow = pwDiv[i].querySelector('button.pw-show');
+      let pwShow = btnShow.getAttribute('data-show');
+      let pwInput = pwDiv[i].querySelector('input.password');
+
+      btnShow.addEventListener('click', (e) => {
+        btnShow.classList.toggle('show-active');
+        if (btnShow.classList.contains('show-active')) {
+          btnShow.setAttribute('data-show', 'true');
+          pwInput.setAttribute('type', 'text');
+        } else if (!btnShow.classList.contains('show-active')) {
+          btnShow.setAttribute('data-show', 'false');
+          pwInput.setAttribute('type', 'password');
+        }
+        console.log(pwShow);
+      });
+    }
+  }
+
+  pwShow();
+</script>

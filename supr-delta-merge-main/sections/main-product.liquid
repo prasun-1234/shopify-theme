@@ -1,0 +1,331 @@
+{% style %}
+  @media screen and (max-width:980px){
+     #main-product{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+   }
+{% endstyle %}
+<section id="main-product" style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom: {{ section.settings.section_margin_bottom }}px;">
+  {% render 'product-template-one', section: section %}
+</section>
+{% schema %}
+{
+  "name": "t:section.main-product.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-product.settings.section_margin_top"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 40,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-product.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "t:section.main-product.settings.products_per_row",
+      "default": 3,
+      "max": 4,
+      "min": 2,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+          "type": "select",
+          "id": "section_style",
+          "label": "t:section.main-product.blocks.options.settings.option_style.label",
+          "default": "style-one",
+          "options": [
+            {
+              "value": "style-one",
+              "label": "Style 1"
+            },
+            {
+              "value": "style-two",
+              "label": "Style 2"
+            }
+          ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-product.blocks.title",
+      "limit": 1,
+      "type": "title"
+    },
+    {
+      "name": "t:section.main-product.blocks.vendor",
+      "limit": 1,
+      "type": "vendor"
+    },
+    {
+      "name": "t:section.main-product.blocks.description",
+      "limit": 1,
+      "type": "description"
+    },
+    {
+      "name": "t:section.main-product.blocks.options.name",
+      "limit": 1,
+      "type": "options",
+      "settings": [
+        {
+          "type": "select",
+          "id": "option_style",
+          "label": "t:section.main-product.blocks.options.settings.option_style.label",
+          "options": [
+            {
+              "value": "pill",
+              "label": "t:section.main-product.blocks.options.settings.option_style.options.pill"
+            },
+            {
+              "value": "dropdown",
+              "label": "t:section.main-product.blocks.options.settings.option_style.options.dropdown"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "size_style",
+          "label": "Size Style",
+          "options": [
+            {
+              "value": "style-one",
+              "label": "Style 1"
+            },
+            {
+              "value": "style-two",
+              "label": "Style 2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-product.blocks.quantity",
+      "limit": 1,
+      "type": "quantity"
+    },
+    {
+      "name": "t:section.main-product.blocks.price",
+      "limit": 1,
+      "type": "price"
+    },
+    {
+      "name": "t:section.main-product.blocks.sizing",
+      "limit": 1,
+      "type": "sizing"
+    },
+    {
+      "name": "t:section.main-product.blocks.pickup",
+      "limit": 1,
+      "type": "pickup",
+      "settings": [
+        {
+          "type": "select",
+          "id": "pickup_style",
+          "label": "t:section.main-product.blocks.options.settings.option_style.label",
+          "options": [
+            {
+              "value": "pickup-style-one",
+              "label": "Style 1"
+            },
+            {
+              "value": "pickup-style-two",
+              "label": "Style 2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-product.blocks.payment",
+      "limit": 1,
+      "type": "payment",
+      "settings": [
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button Style",
+          "options": [
+            {
+              "value": "btn-style-one",
+              "label": "Style 1"
+            },
+            {
+              "value": "btn-style-two",
+              "label": "Style 2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-product.presets.name",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "vendor"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "options"
+        },
+        {
+          "type": "quantity"
+        },
+        {
+          "type": "sizing"
+        },
+        {
+          "type": "price"
+        },
+        {
+          "type": "payment"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% javascript %}
+let swiperDiv = document.querySelector("#product_swiper_div")
+if(swiperDiv.classList.contains("style-one")){
+const swiperSingleThumbs = new Swiper('.singleProductThumbs', {
+    slidesPerView: document.getElementById('single_product_thumbs').getAttribute('data-col'),
+    spaceBetween: 10,
+    freeMode: true,
+    watchSlidesProgress: true,
+  });
+  const swiperSingle = new Swiper('.singleProductSwiper', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    observer: true,
+    observeParents: true,
+    loop: true,
+    zoom: {
+          maxRatio: 4,
+        },
+    navigation: {
+      nextEl: '.singleProductSwiper .swiper-button-next',
+      prevEl: '.singleProductSwiper .swiper-button-prev',
+    },
+    autoplay: {
+      delay: 3000,
+    },
+    thumbs: {
+      swiper: swiperSingleThumbs,
+    },
+  });
+
+  let variantBtns = document.querySelectorAll("#product_options input[type='radio']");
+  let variantDropdowns = document.querySelectorAll('select.product-variant-dropdown');
+
+  if (variantBtns && variantDropdowns) {
+    variantBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        swiperSingle.slideTo(1);
+      });
+    });
+    variantDropdowns.forEach((select) => {
+      select.addEventListener('change', (e) => {
+        swiperSingle.slideTo(1);
+      });
+    });
+  }
+  }else if(swiperDiv.classList.contains("style-two")){
+    let swiperSingle = '';
+    if (document.getElementById('single_product_thumbs')) {
+      swiperSingleThumbs = new Swiper('.singleProductThumbs', {
+        slidesPerView: document.getElementById('single_product_thumbs').getAttribute('data-col'),
+        spaceBetween: 10,
+        freeMode: true,
+        watchSlidesProgress: true,
+        direction: 'vertical',
+        watchOverflow: true,
+        slidesPerView: 3,
+        breakpoints: {
+          0: {
+            direction: 'horizontal',
+            slidesPerView: 3,
+          },
+          1200: {
+            direction: 'vertical',
+            slidesPerView: 3,
+          },
+        },
+      });
+      swiperSingle = new Swiper('.singleProductSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        observer: true,
+        observeParents: true,
+        zoom: {
+          maxRatio: 2,
+        },
+        navigation: {
+          nextEl: '.singleProductSwiper .swiper-button-next',
+          prevEl: '.singleProductSwiper .swiper-button-prev',
+        },
+        autoplay: {
+          delay: 3000,
+        },
+        thumbs: {
+          swiper: swiperSingleThumbs,
+        },
+      });
+    } else {
+      const swiperSingle = new Swiper('.singleProductSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        observer: true,
+        observeParents: true,
+        zoom: {
+          maxRatio: 2,
+        },
+        navigation: {
+          nextEl: '.singleProductSwiper .swiper-button-next',
+          prevEl: '.singleProductSwiper .swiper-button-prev',
+        },
+        autoplay: {
+          delay: 3000,
+        },
+      });
+    }
+  
+    let variantBtns = document.querySelectorAll("#product_options input[type='radio']");
+    let variantDropdowns = document.querySelectorAll('select.product-variant-dropdown');
+  
+    if (variantBtns && variantDropdowns) {
+      variantBtns.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          swiperSingle.slideTo(0);
+        });
+      });
+      variantDropdowns.forEach((select) => {
+        select.addEventListener('change', (e) => {
+          swiperSingle.slideTo(0);
+        });
+      });
+    }
+  }
+
+ 
+{% endjavascript %}

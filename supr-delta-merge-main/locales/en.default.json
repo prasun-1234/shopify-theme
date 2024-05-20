@@ -1,0 +1,316 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "error": "Todo",
+      "close": "Todo",
+      "link_messages": {
+        "new_window": "New Window"
+      }
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift Card",
+      "subtext": "Here's your free Gift Card",
+      "expired": "This Gift card has expired",
+      "remaining_html": "Your gift card balance is: ",
+      "add_to_apple_wallet": "apple-wallet-image ",
+      "gift_card_code": "Gift Card Code",
+      "copy_code": "Claim here",
+      "copy_code_success": "Code Copied",
+      "shop_link": "Shop Now",
+      "print_gift_card": "Print Gift Card",
+      "qr_image_alt": "Gift Card QR Code"
+    }
+  },
+  "breadcrumb": {
+    "nav": {
+      "home": "Home"
+    }
+  },
+  "about-us": {
+    "title": "Title"
+  },
+  "instagram": {
+    "follow_us": "Follow us on Instagram"
+  },
+  "cart-drawer": {
+    "items": "items",
+    "cart": "Cart",
+    "add_item_to_free_shipping": "Add items to your cart to receive free shipping.",
+    "free_shipping": "You've got free shipping",
+    "You_are_only": "You're only",
+    "cost_shipping": "away from free shipping.",
+    "in_stock": "in stock",
+    "discount": "Discount:",
+    "total": "Total:",
+    "checkout_calculation": "Shipping and discount calculated at checkout.",
+    "order_note": "Add a Note to your order",
+    "remove_item": "Remove Item",
+    "your_cart": "YOUR CART"
+  },
+  "collection-banner": {
+    "title": "Collection Title",
+    "text": " Collection Text"
+  },
+  "feature-collection": {
+    "card_title": "Card title"
+  },
+  "featured-product": {
+    "title": "Title",
+    "body_text": "Body text ....!"
+  },
+  "main-search": {
+    "search_products": "Search Products",
+    "not_found": "Oops...Item not found",
+    "search_term": "No items with search term",
+    "results": "Results found for"
+  },
+  "main-register": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign In.",
+    "account_status": "Already have an account?",
+    "errors": "Errors:"
+  },
+  "main-product": {
+    "by": "By",
+    "product_description": "Product Description",
+    "quantity": "Quantity :",
+    "for": "For",
+    "taxes": "Taxes",
+    "not": "NOT",
+    "included": "Included",
+    "out_of_stock": "Out of Stock",
+    "unavailable": "Products Unavailable",
+    "add_cart": "Add to Cart",
+    "buy_now": "Buy Now"
+  },
+  "main-password": {
+    "enter": "Enter using password",
+    "email": "Email"
+  },
+  "main-order": {
+    "my_orders": "My Orders",
+    "product": "Product:",
+    "sku": "SKU",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "track_shipment": "Track Shipment",
+    "regular_price": "Regular Price",
+    "sale_price": "Sale Price",
+    "unit_price": "Unit Price",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping:",
+    "tax": "Tax",
+    "total_duties": "Total Duties:",
+    "total_refund": "Total Refunded",
+    "billing_address": "Billing Address",
+    "payment_status": "Payment Status:",
+    "shipping_address": "Shipping Address:",
+    "fulfilling_status": "Fullfilling Status:"
+  },
+  "main-login": {
+    "email": "Email",
+    "password": "Password",
+    "forgot_pw": "Forgot password?",
+    "new_customer": "New Customer ?",
+    "create_new": "Create new account",
+    "send_instructions": "No worries, we’ll send you reset instructions.",
+    "back_to_login": "Back To Login"
+  },
+  "main-reset-password": {
+    "password": "Password",
+    "confirm_pw": "Confirm Password",
+    "reset_pw": "Reset Password"
+  },
+  "main-activate-account": {
+    "password": "Enter Password",
+    "confirm_pw": "Confirm Password"
+  },
+  "main-customer-account": {
+    "home": "Home",
+    "my_account": "My Account",
+    "name": "Name",
+    "email": "Email",
+    "phone_no": "Phone No.",
+    "shipping_address": "Shipping Address",
+    "orders": "Orders",
+    "order_id": "Order Id",
+    "order": "Order",
+    "price": "Price",
+    "status": "Status",
+    "no_orders": "No orders yet!"
+  },
+  "main-contact": {
+    "name": "Name",
+    "first_name": "firstName",
+    "email": "Email",
+    "phone_no": "Phone No.",
+    "message": "Message"
+  },
+  "image-banner": {
+    "banner_title": "Title",
+    "banner_para": "Banner paragraph text"
+  },
+  "main-collection": {
+    "filter_collection": "Filter by Collection",
+    "no_products": "No Products Found",
+    "filter": "Filter"
+  },
+  "main-cart-item": {
+    "cart": "Cart",
+    "leave_note": "Leave a note with your order",
+    "add_items": "Add More Items",
+    "shipping_placeholder": "You are $10 away from free shipping",
+    "total": "Total",
+    "shipping_msg": "Shipping and discount calculated at checkout.",
+    "checkout": "Checkout",
+    "items": "items"
+  },  
+  "main-cart-body": {
+    "your_cart": "Your Cart",
+    "items": "items",
+    "discounts": "Discounts",
+    "discount": "Discount",
+    "total": "Total",
+    "free_shipping": "You are eligible for free shipping!",
+    "only": "You're only",
+    "away_from": "away from free shipping.",
+    "shipping_msg": "Shipping and discount calculated at checkout.",
+    "add_note": "Add a Note to your order",
+    "accepted_payment": "Accepted Payment methods"
+  },
+  "main-banner": {
+    "heading": "Section Heading Text"
+  },
+  "main-blog": {
+    "no_items": "No articles available for this page"
+  },
+  "article-card": {
+    "read_more": "Read More"
+  },
+  "main-list-collections": {
+    "no_items": "No collections available"
+  },
+  "main-banner-1": {
+    "heading": "Title",
+    "text": "Banner Title"
+  },
+  "main-article": {
+    "editor": "Editor",
+    "share": "Share",
+    "no_comment": "There is no comment in this Article",
+    "post_comments": "Post Your Comment's"
+  },
+  "card-collection": {
+    "no_title": "No Title",
+    "no_description": "No description",
+    "sample_title": "Sample Title",
+    "sample_description": "Sample description"
+  },
+  "selling_plan": {
+    "name": "Selling Plan",
+    "purchase_options": "Purchase options",
+    "sale": "Sale"
+  },
+  "slide-show": {
+    "placeholder": {
+      "slide_title": "Title",
+      "paragraph": "Slide paragraph text",
+      "video_title": "Video Title",
+      "video_para": "Video paragraph text"
+    }
+  },
+  "testimonial": {
+    "title": "Testimonial",
+    "customer": "John Doe",
+    "item_title": "Title",
+    "para": "Banner paragraph text",
+    "date": "01 Jan, 2023"
+  },
+  "footer": {
+    "visit_store": "Visit our Store",
+    "view_map": "View on Map",
+    "all_collection": "All Collections",
+    "follow_us": "Follow Us:",
+    "product_queries": "Product related queries",
+    "call_us": "Call Us",
+    "contact_us": "Contact Us",
+    "all_rights_reserved": "All Rights reserved.",
+    "back_to_top": "Back To Top",
+    "support_column": "Support"
+  },
+  "copyright": {
+    "copyright": "Copyright"
+  },
+  "header": {
+    "follow_us": "Follow Us:",
+    "mega-menu-main": {
+      "read_article": "Read More"
+    }
+  },
+  "home-blog": {
+    "no_blogs": "No blogs available to display"
+  },
+  "info-grid": {
+    "no_info": "No info_grid selected",
+    "button_default": "Link",
+    "title_default": "Title"
+  },
+  "multicolumn": {
+    "heading_text": "Section Heading Text",
+    "para_text": "Section Paragraph Text"
+  },
+  "newsletter": {
+    "success": "Form Posted Successfully"
+  },
+  "legal": {
+    "FAQ": "FAQ's",
+    "privacy_policy": "Privacy Policy"
+  },
+  "pickup": {
+    "available_at": "Pickup Available at",
+    "store_info": "View Store Info",
+    "no_store_info": "Store Information Not Available",
+    "product": "product"
+  },
+  "product-details": {
+    "no_products": "No product details avaliable"
+  },
+  "main-addresses": {
+    "addresses": "Addresses",
+    "name": "Name",
+    "first_name": "First Name",
+    "set_default":"Set as Default Address",
+    "last_name": "Last Name",
+    "phone_number": "Phone Number",
+    "email_id": "Email ID",
+    "company_name": "Company Name",
+    "contact": "Contact Number",
+    "shipping_addresses": "Shipping Address",
+    "address_line_one": "Address Line 1",
+    "address_line_two": "Address Line 2",
+    "city": "City",
+    "country": "Country",
+    "zip": "ZIP",
+    "edit_details": "Edit Details",
+    "first_address": "1st Address",
+    "cancel": "Cancel",
+    "new_address": "Add New Address"
+  },
+  "search-bar": {
+    "title": "Search Products"
+  },
+  "new-marquee": {
+    "title": "Marquee Text"
+  },
+  "main-image-video-banner": {
+    "video_title": "Play Video"
+  }
+}

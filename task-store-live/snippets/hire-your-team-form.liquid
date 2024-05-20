@@ -1,0 +1,208 @@
+<div id="hireTeamForm" class="hire-team-form">
+  <div class="hire-your-team-form">
+    <div class="image-column">
+      <div class="video-box">
+        {% comment %} {{ "task-demo.mp4" | asset_url | video_tag: loop: true, autoplay: true, controls: true }} {% endcomment %}
+        <video width="980" height="767" autoplay muted loop>
+          <source src="{{ "form-video.mp4" | asset_url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="context">
+        <div class="context-heading">
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 190 | image_tag: loading: 'lazy' }}
+          {% else %}
+            <h2>Brand Logo</h2>
+          {% endif %}
+          {% if section.settings.form_heading != blank %}
+            <h4>{{ section.settings.form_heading }}</h4>
+          {% else %}
+            <h4>Form Heading</h4>
+          {% endif %}
+        </div>
+        <div class="swiper hireTeamSlide">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'testimonial' %}
+                  <div class="swiper-slide">
+                    <div>
+                      {% if block.settings.star != blank %}
+                        {% assign number = block.settings.star %}
+                        {% for i in (1..5) %}
+                          <span>
+                            {% if forloop.index <= number %}
+                              {% render 'icon-star' %}
+                            {% else %}
+                              {% render 'icon-star-border' %}
+                            {% endif %}
+                          </span>
+                        {% endfor %}
+                      {% else %}
+                        <p>3.9</p>
+                      {% endif %}
+                      {% if block.settings.body_text != blank %}
+                        {{ block.settings.body_text }}
+                      {% else %}
+                        <h5>Body Text....!</h5>
+                      {% endif %}
+                      {% if block.settings.author != blank %}
+                        {{ block.settings.author }}
+                      {% else %}
+                        <p>John Deo</p>
+                      {% endif %}
+                    </div>
+                  </div>
+              {% endcase %}
+            {% endfor %}
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-column">
+      <h3 class="heading">Hire your team</h3>
+      {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+        {%- if form.posted_successfully? -%}
+          <h2 class="form-title form-status form-status-list form__message" tabindex="-1" autofocus>
+            {% render 'icon-success' %}
+            {{ 'templates.contact.form.post_success' | t }}
+          </h2>
+        {%- elsif form.errors -%}
+          <div class="form__message">
+            <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+              {% render 'icon-error' %}
+              {{ 'templates.contact.form.error_heading' | t }}
+            </h2>
+          </div>
+          <ul class="form-error-state form-status-list caption-large" role="list">
+            <li>
+              <a href="#ContactForm-email" class="link">
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </a>
+            </li>
+          </ul>
+        {%- endif -%}
+        <div class="contact-form-div">
+          <div class="contact-lable-div email field--with-error">
+            <label class="form__label field__label" for="contact[email]">
+              {{ 'templates.contact.form.email' | t }}
+            </label>
+            <input
+              autocomplete="email"
+              name="contact[email]"
+              spellcheck="false"
+              autocapitalize="off"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              type="email"
+              class="field__input"
+              placeholder="Email "
+              {% if form.errors contains 'email' %}
+                aria-invalid="true" aria-describedby="ContactForm-email-error"
+              {% endif %}
+              id="ContactForm-email"
+              aria-labelledby="email-id"
+              required
+            >
+            {%- if form.errors contains 'email' -%}
+              <small class="contact__field-error" id="ContactForm-email-error">
+                <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                <span class="form__message">
+                  {%- render 'icon-error' -%}
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </span>
+              </small>
+            {%- endif -%}
+          </div>
+          <div class="contact-lable-div task-type">
+            <label class="form__label field__label" for="contact[task_type]"> select Category </label>
+            <select
+              class="field__input custom-select"
+              aria-labelledby="select-topic-label"
+              name="contact[task_type] aria-describedby="
+              select-topic-description
+              id=""
+            >
+              <option value="" class="">Development</option>
+              <option value="" class="">Desiginig</option>
+            </select>
+          </div>
+          <div class="contact-lable-div task-name">
+            <label class="form__label field__label" for="contact[{{ 'templates.contact.form.name' | t }}]">
+              Name
+            </label>
+            <input
+              class="field__input"
+              autocomplete="name"
+              name="contact[{{ 'templates.contact.form.name' | t }}]"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              type="text"
+              placeholder="Task Name"
+              id="ContactForm-name"
+              aria-labelledby="first-name"
+              required
+            >
+          </div>
+          <div class="contact-lable-div task-name">
+            <label class="form__label field__label" for="url"> store url </label>
+            <input
+              class="field__input"
+              autocomplete="url"
+              name="url"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              type="url"
+              placeholder="store url"
+              id="ContactForm-url"
+              aria-labelledby="shopify-store-url"
+              required
+            >
+          </div>
+          <div class="contact-lable-div platform">
+            <label class="form__label field__label" for="ContactForm-body">
+              {{- 'templates.contact.form.comment' | t -}}
+            </label>
+            <select
+              class="field__input custom-select"
+              aria-labelledby="select-topic-label"
+              aria-labelledby="select-topic-label"
+              name="contact[task_type] aria-describedby="
+              select-topic-description
+              id=""
+            >
+              <option value="" class="">Shopify Plus</option>
+              <option value="" class="">Shopify Plus</option>
+            </select>
+          </div>
+          <div class="contact-lable-div comment">
+            <label class="form__label field__label" for="ContactForm-body">
+              {{- 'templates.contact.form.comment' | t -}}
+            </label>
+            <textarea
+              rows="10"
+              id="ContactForm-body"
+              class="text-area field__input"
+              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              placeholder="test"
+            >
+                {{- form.body -}}
+              </textarea>
+          </div>
+        </div>
+        <div class="contact__button">
+          <button class="button button_primary" type="submit" class="">
+            {% render 'button-primary', text: 'GET A QUOTE' %}
+          </button>
+        </div>
+        <button type="button" class="form-close-button hireFormToggle hover-icon">
+          <span>Close</span>
+          {% render 'icon-close2' %}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</div>

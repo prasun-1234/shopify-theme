@@ -1,0 +1,135 @@
+{{ 'team-hire.css' | asset_url | stylesheet_tag }}
+{{ 'component-hire-form.css' | asset_url | stylesheet_tag }}
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+<section class="hire-section page-width" id="{{ section.id }}">
+  <div id="hireMainDiv" class="hire-main-div container">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'cards' %}
+          <button
+            type="button"
+            class="hire-div hire-grid_outer hireFormToggle get_quote_btn"
+            aria-controls="getQuoteForm"
+            aria-expanded="false"
+            id="{{ block.id }}"
+          >
+            <div
+              class="hire-grid"
+            >
+              <span class="gradient_div" style="background:{{ block.settings.gradient }};"></span>
+              <span class="hire_img">
+                {% if block.settings.background_image != blank %}
+                  {{ block.settings.background_image | image_url: width: 500 | image_tag }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {% endif %}
+              </span>
+              {% if block.settings.title != blank %}
+                <div
+                  class="circle-button {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                >
+                  <span>{{ block.settings.title }}</span>
+                </div>
+              {% endif %}
+            </div>
+          </button>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hire Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "form_image",
+      "label": "Form Image"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Your own Shopify Design & Development Team"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "cards",
+      "type": "cards",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image for Card"
+        },
+        {
+          "type": "color_background",
+          "id": "gradient",
+          "label": "Gradient background",
+          "default": "linear-gradient(90deg, rgba(109,255,193,1) 0%, rgba(189,158,255,1) 100%)"
+        }
+      ]
+    },
+    {
+      "name": "Testimonial",
+      "limit": 4,
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "body_text",
+          "label": "Body text",
+          "default": "<p>“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.”</p>"
+        },
+        {
+          "type": "range",
+          "id": "star",
+          "label": "Star Rating (out of 5)",
+          "max": 5,
+          "min": 0.5,
+          "step": 0.5,
+          "default": 4.5
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "author",
+          "default": "John Deo"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+{% javascript %}
+  const hireTeamSlide = new Swiper('.hireTeamSlide', {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    speed: 1000,
+    autoplay: {
+      enabled: true,
+      disableOnInteraction: true,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+{% endjavascript %}

@@ -1,0 +1,241 @@
+{% style %}
+  .reset-password-container {
+    background-color: var(--body-background);
+  }
+  .{{ section.id }}{
+    border-top: 1px solid var(--global-border-color);
+    border-bottom: 1px solid var(--global-border-color);
+    margin-top: {{ section.settings.section_margin_top }}px;
+    margin-bottom: {{ section.settings.section_margin_bottom }}px;
+  }
+  .{{ section.id }} .form-image{
+    border-left: 1px solid var(--form-border-color);
+  }
+    @media screen and (max-width:980px) {
+      .{{ section.id }}{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="main-login relative mx-auto w-full {{ section.id }}">
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid px-0{% endif %} mx-auto">
+    <div class="w-full flex lg:flex-row flex-col-reverse justify-around items-center">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image' %}
+            <div class="lg:w-1/2 w-full form-image" {{ block.shopify_attributes }}>
+              <div>
+                {% if block.settings.form_image %}
+                  {{
+                    block.settings.form_image
+                    | image_url: width: 1500
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '100',
+                      widths: '165, 360, 535, 750, 1070, 1500',
+                      class: 'object-cover w-full lg:max-h-[800px] max-h-full lg:h-full sm:h-[400px] h-[320px]'
+                  }}
+                {% else %}
+                  {{
+                    'lifestyle-1'
+                    | placeholder_svg_tag: 'object-contain w-full lg:h-[700px] md:h-[400px] h-[320px] bg-[#ccc]'
+                  }}
+                {% endif %}
+              </div>
+            </div>
+          {% when 'form' %}
+            <div {{ block.shopify_attributes }} class="lg:w-1/2 w-full login_form py-10">
+              <div class="w-full relative overflow-hidden max-w-[760px] mx-auto px-5" id="login_form">
+                <div class="flex flex-col gap-2 lg:gap-3  text-left">
+                  <h3>{{ block.settings.title }}</h3>
+                  {{ block.settings.description }}
+                </div>
+
+                {%- form 'customer_login', novalidate: 'novalidate', class: 'flex flex-col my-[20px] w-full ' -%}
+                  {% if form.errors %}
+                    <span class="mb-[20px] error_main">
+                      {{ form.errors | default_errors }}
+                    </span>
+                  {% endif %}
+
+                  <div class="field pb-6">
+                    <label for="email" class="">{{ 'main-login.email' | t }}</label>
+                    <input
+                      type="email"
+                      name="customer[email]"
+                      id="CustomerEmail"
+                      autocomplete="email"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      {% if form.errors contains 'form' %}
+                        aria-invalid="true"
+                      {% endif -%}
+                      placeholder="Email"
+                      class="w-full mt-2 py-[11.5px] pl-[12px] border rounded-[6px] "
+                    >
+                  </div>
+
+                  {%- if form.password_needed -%}
+                    <div class="field">
+                      <label for="password" class="">{{ 'main-login.password' | t }}</label>
+                      <input
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="CustomerPassword"
+                        autocomplete="current-password"
+                        {% if form.errors contains 'form' %}
+                          aria-invalid="true"
+                        {% endif -%}
+                        placeholder="Password"
+                        class="w-full mt-2 py-[11.5px] pl-[12px] border rounded-[6px]"
+                      >
+                    </div>
+                  {%- endif -%}
+                  <div class="mt-[40px] md:flex justify-end block">
+                    {% render 'btn-primary', src: 'Submit', class: 'w-full', type: 'submit' %}
+                  </div>
+                {%- endform -%}
+                <div class="mt-5 mb-3 flex items-baseline gap-4 justify-center flex-row flex-wrap">
+                  <span class="register_link text-sm md:text-base">
+                    {{- 'main-login.new_customer' | t -}}
+                  </span>
+                  {% capture create_new %}
+                    {{ 'main-login.create_new' | t }}
+                  {% endcapture %}
+                  <a href="{{ routes.account_register_url }}" rel="nofollow">
+                    {% render 'hover-link', src: create_new, class: 'font-semibold' %}
+                  </a>
+                </div>
+                {% capture forgot_pw %} {{ 'main-login.forgot_pw' | t }} {% endcapture %}
+                <div class="flex mb-5 gap-4 justify-center items-center">
+                  <span class="register_link text-sm md:text-base">
+                    {{- 'main-login.Forgot_Your_Password' | t -}}
+                  </span>
+                  {% render 'hover-link',
+                    src: forgot_pw,
+                    id: 'forget-button',
+                    class: 'inline-block font-semibold',
+                    buttonType: 'button',
+                    type: 'button'
+                  %}
+                </div>
+              </div>
+              <div class="reset-password-container hidden max-w-[760px] mx-auto w-full h-full z-[99] px-5">
+                {% form 'recover_customer_password' %}
+                  <h3 class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mb-4">
+                    {{ 'main-login.forgot_pw' | t }}
+                  </h3>
+                  <p class="text-sm md:text-base leading-[1.8] mb-[20px]">
+                    {{ 'main-login.send_instructions' | t }}
+                  </p>
+                  {{ form.errors | default_errors }}
+                  <label for="email" class="">{{ 'main-login.email' | t }}</label>
+                  <input
+                    type="email"
+                    class="w-full mt-2 border rounded-[6px] py-[12px] pl-2 mb-[20px]"
+                    placeholder="Email"
+                    name="email"
+                    required
+                  >
+                  <div class="w-full lg:flex justify-end">
+                    {% render 'btn-primary', src: 'Reset Password', class: 'w-full', type: 'submit' %}
+                  </div>
+                  <div class="flex justify-center gap-4 mt-[20px] items-center">
+                    <span class="register_link text-sm md:text-base">
+                      {{- 'main-login.Already_have_an_account' | t -}}
+                    </span>
+                    {% render 'hover-link',
+                      class: 'font-semibold',
+                      src: 'Sign In',
+                      id: 'back-to-login',
+                      buttonType: 'button'
+                    %}
+                  </div>
+                {% endform %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-login.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "limit": 1,
+      "name": "t:section.main-login.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "form_image",
+          "label": "t:section.main-login.blocks.image.settings.form_image"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "limit": 1,
+      "name": "t:section.main-login.blocks.form.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Sign In and get going",
+          "label": "t:section.main-login.blocks.form.settings.title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:section.main-login.blocks.form.settings.description",
+          "default": "<p>Sign in to your account</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let resetContainer = document.querySelector('.reset-password-container');
+  let forgetButton = document.querySelector('#forget-button');
+  let backButton = document.querySelector('#back-to-login');
+  let logInContainer = document.querySelector('#login_form');
+
+  forgetButton.addEventListener('click', () => {
+    resetContainer.style.display = 'block';
+    logInContainer.style.height = '0';
+  });
+  backButton.addEventListener('click', () => {
+    resetContainer.style.display = 'none';
+    logInContainer.style.height = '100%';
+  });
+{% endjavascript %}

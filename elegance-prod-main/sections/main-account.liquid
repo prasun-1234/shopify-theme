@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="{{ 'main-account.css' | asset_url }}">
+
+{% style %}
+  .order-name a {
+    position: relative;
+    text-decoration: underline;
+  }
+  .order-name a:hover {
+    text-decoration: none;
+  }
+{% endstyle %}
+{% layout settings.customer_layout %}
+
+<section class="account-wrapper">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-1 ">
+        <div id="admin_header" class="l-box">
+          <h3 class="section-title">
+            {{ 'main_account.admin_header.section-title' | t }}
+            {{ customer.first_name }}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3 ">
+        <div id="customer_sidebar" class="l-box">
+          <div id="customer_detail" class="group">
+            <div class="acc-info">
+              <p class="name">
+                {{ 'main_account.acc-info.name' | t }}
+                <strong>{{ customer.name }}</strong>
+              </p>
+              <p class="email_note">
+                {{ 'main_account.acc-info.email_note' | t }}
+                <strong>{{ customer.email }}</strong>
+              </p>
+            </div>
+            <div class="addresses">
+              <h4>{{ 'main_account.addresses.default_address' | t }}:</h4>
+              <div class="address note">
+                {% if customer.default_address.name != blank %}
+                  <p>
+                    <strong>{{ 'main_account.name' | t }}:</strong> {{ customer.default_address.name }}
+                  </p>
+                {% endif %}
+                {% if customer.default_address.address1 != blank %}
+                  <p>
+                    <strong>{{ 'main_account.address1' | t }}:</strong> {{ customer.default_address.address1 }}
+                  </p>
+                {% endif %}
+                {% if customer.default_address.address2 != blank %}
+                  <p>
+                    <strong>{{ 'main_account.address2' | t }}:</strong> {{ customer.default_address.address2 }}
+                  </p>
+                {% endif %}
+
+                {% if customer.default_address.phone != blank -%}
+                  <p>
+                    <strong>{{ 'main_account.phone' | t }}:</strong> {{ customer.default_address.phone }}
+                  </p>
+                {% endif -%}
+                {% if customer.default_address.city != blank %}
+                  <p>
+                    <strong>{{ 'main_account.city' | t }}:</strong> {{ customer.default_address.city }},
+                  </p>
+                {% endif %}
+                {% if customer.default_address.province_code != blank -%}
+                  <p>
+                    <strong>{{ 'main_account.province' | t }}:</strong>&nbsp;
+                    {{- customer.default_address.province_code }},
+                  </p>
+                {% endif -%}
+                {% if customer.default_address.country != blank -%}
+                  <p>
+                    <strong>{{ 'main_account.country' | t }}:</strong>&nbsp;
+                    {{- customer.default_address.country }}
+                  </p>
+                {% endif -%}
+                {% if customer.default_address.zip != blank -%}
+                  <p>
+                    <strong>{{ 'main_account.zip' | t }}:</strong> {{ customer.default_address.zip }}
+                  </p>
+                {% endif -%}
+              </div>
+              <div class="text-btn">
+                <a rel="nofollow" id="view_address" href="/account/addresses">
+                  {{- 'customer.order.view_addresses' | t }} ({{ customer.addresses_count }})</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-2-3 ">
+        <div id="customer_orders" class="l-box">
+          {% if customer.orders.size != 0 %}
+            <div class="table-responsive cart-info">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="order_number">{{ 'customer.order.label.order' | t }}</th>
+                    <th class="date">{{ 'customer.order.label.date' | t }}</th>
+                    <th class="payment_status">{{ 'customer.order.label.payment_status' | t }}</th>
+                    <th class="fulfillment_status">{{ 'customer.order.label.fulfillment_status' | t }}</th>
+                    <th class="total">{{ 'customer.order.label.total' | t }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders %}
+                    <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+                      <td class="order-name">{{ order.name | link_to: order.customer_url }}</td>
+                      <td>
+                        <span class="note">{{ order.created_at | date: '%b %d, %Y' }}</span>
+                      </td>
+                      <td>
+                        <span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span>
+                      </td>
+                      <td>
+                        <span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span>
+                      </td>
+                      <td>
+                        <span class="total money">{{ order.total_price | money }}</span>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p>{{ 'customer.order.empty' | t }}</p>
+          {% endif %}
+        </div>
+        <div class="action_link action_return return-store note l-box" id="return_to_store">
+          <a class="theme-btn secondary-btn" href="/account/logout" rel="nofollow">
+            <div class="btn-overlay"></div>
+            <div class="btn-text">
+              {{ 'main_account.btn-text' | t }}
+              {% render 'icon-log-out' %}
+            </div>
+          </a>
+          <a rel="nofollow" class="theme-btn" href="{{ shop.url }}">
+            <div class="btn-bg"></div>
+            <div class="btn-text">
+              {{- 'customer.order.return' | t }}
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:sections.main-account.name",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "404_page": {
+      "type": "main-404",
+      "blocks": {
+        "image": {
+          "type": "featured_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/404_image.svg"
+          }
+        },
+        "title": {
+          "type": "404_title",
+          "settings": {
+            "error_heading": "404",
+            "error_heading_color": "#fff"
+          }
+        },
+        "subtext": {
+          "type": "subtext_title",
+          "settings": {
+            "error_paragraph": "Oops! It seems you've taken a wrong turn. Our fashion world is elsewhere. Let's guide you back to the latest styles and trends!.",
+            "error_paragraph_color": "#fff"
+          }
+        },
+        "button": {
+          "type": "banner_button",
+          "settings": {
+            "banner_button_text": "Back to Home"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "title",
+        "subtext",
+        "button"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "background": "shopify:\/\/shop_images\/404.jpg"
+      }
+    }
+  },
+  "order": [
+    "404_page"
+  ]
+}

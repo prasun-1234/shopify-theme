@@ -1,0 +1,47 @@
+<div
+  class="search_bar_main hidden h-full w-full z-[399] fixed lg:absolute left-0 top-0 lg:top-full md:overflow-y-visible overflow-y-auto"
+  id="search-bar"
+>
+  <div class="h-fit ml-auto duration-150 ease-in-out search_inner bg-header">
+    {% render 'icon-close',
+      class: 'w-[20px] h-[20px] top-[20px] right-[20px] absolute cursor-pointer xl:hidden',
+      id: 'close-btn'
+    %}
+    <div class="flex flex-col  items-center  mb-[20px] sm:px-0 px-[20px] mt-[-1px]">
+      <h3 class="sm:text-[40px] text-[30px] font-normal leading-none mt-[60px] mb-[30px]">
+        {{ 'search-bar.title' | t }}
+      </h3>
+      <form action="{{ routes.search_url }}" method="get" class="max-w-[768px] w-full px-0 sm:px-[20px]">
+        <div class="relative flex justify-center items-center">
+          <input
+            @change="$dispatch('search-updated')"
+            type="text"
+            name="q"
+            placeholder="Search"
+            id="searchInputField"
+            class="
+              search-input border w-full
+              border-opacity-40 rounded-md py-[16px] px-[20px] block  leading-tight
+            "
+          >
+          <button type="submit" class="absolute right-4">
+            <svg
+              class="icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M23.2947 21.9752L17.3048 15.9853C18.8175 14.1257 19.5589 11.7567 19.3766 9.36645C19.194 6.97633 18.1013 4.74745 16.3237 3.13911C14.5463 1.53093 12.2195 0.666029 9.8231 0.722612C7.42666 0.779436 5.14329 1.75335 3.44387 3.44389C1.75338 5.14337 0.779435 7.4268 0.722585 9.82313C0.665969 12.2196 1.53085 14.5464 3.13908 16.3238C4.74747 18.1014 6.97635 19.194 9.36643 19.3766C11.7566 19.559 14.1256 18.8175 15.9853 17.3048L21.9751 23.2947C22.2162 23.5011 22.5453 23.5713 22.8495 23.4815C23.1536 23.3914 23.3916 23.1535 23.4816 22.8493C23.5714 22.5452 23.5012 22.2161 23.2948 21.975L23.2947 21.9752ZM4.76346 15.3585C3.35872 13.9546 2.56929 12.05 2.56886 10.0641C2.56844 8.07793 3.35707 6.17309 4.76116 4.76857C6.16547 3.36405 8.0701 2.57499 10.0562 2.57499C12.0421 2.57499 13.947 3.36405 15.3511 4.76857C16.7554 6.17309 17.544 8.07793 17.5436 10.0641C17.5432 12.05 16.7535 13.9546 15.3488 15.3585C13.9509 16.773 12.0449 17.5692 10.0562 17.5692C8.06737 17.5692 6.1613 16.773 4.76346 15.3585Z" fill="black" />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[20px] mb-[40px] duration-150 ease-in-out h-fit gap-5 lg:max-h-[350px] overflow-auto"
+          id="search_results"
+        ></div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 60,
+        "featured_image": "shopify:\/\/shop_images\/blog-img.png",
+        "show_date": true,
+        "show_author": true,
+        "number_of_blog_per_page": 4,
+        "card_bg":"#fff",
+        "card_text":"#3A3A3A"
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "main"
+  ]
+}

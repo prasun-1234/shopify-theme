@@ -1,0 +1,24 @@
+{%- render 'cart-drawer', section: section -%}
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings_schema.cart.settings.cart_empty.header"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_button",
+      "label": "t:settings_schema.cart.settings.cart_empty.empty_cart_button",
+      "default": "Add tasks"
+    },
+    {
+      "type": "image_picker",
+      "id": "empty_cart_icon",
+      "label": "t:settings_schema.cart.settings.cart_empty.empty_cart_button"
+    }
+  ]
+}
+{% endschema %}

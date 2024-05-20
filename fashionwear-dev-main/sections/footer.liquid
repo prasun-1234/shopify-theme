@@ -1,0 +1,533 @@
+{%- style -%}
+    footer {
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+  footer svg:not(.stroke,.app_payments) path {
+      fill: {{ section.settings.content_color }};
+    }
+    footer .input_secondary{
+          outline-color: {{ section.settings.content_color }} !important;
+    }
+    footer svg.stroke path,footer svg.stroke rect {
+      stroke: {{ section.settings.content_color }};
+    }
+    footer .newsletter-form{
+      border-color:{{ section.settings.content_color }} !important;
+    }
+    footer .modal-body select,footer .modal-body .select{
+      background:{{ section.settings.background_color }} !important;
+    }
+    footer .modal-body *{
+      color:{{ section.settings.content_color }} !important;
+    }
+    .currency-div .select{
+      background:{{ section.settings.background_color }};
+    }
+    .footer_content{
+      background-color:{{ section.settings.content_color }};
+    }
+    .currency-div .select > ul{
+      border:1px solid {{ section.settings.content_color }};
+    }
+    .currency-div .select *{
+      color:{{ section.settings.content_color }};
+    }
+    .currency-div .select svg path{
+      fill:{{ section.settings.content_color }};
+    }
+    footer *{
+      color: {{ section.settings.content_color }};
+    }
+    .currency-div svg path{
+      fill:var(--global-font-color);
+    }
+
+    footer input::placeholder{
+      color:{{ section.settings.content_color }};
+    }
+    .newsletter-form input:focus{
+      outline:1px solid {{ section.settings.content_color }} !important;
+    }
+    @media only screen and (max-width:767px){
+      footer ul li a{
+        font-size:14px;
+      }
+    }
+
+    .copyright-info a {
+    color: var(--footer-text-color);
+    text-decoration: underline;
+    transition: .3s ease;
+}
+
+.copyright-info a:hover {
+    opacity: calc(var(--product-item-shadow-opacity)/10);
+}
+
+.disclosure__button:focus{
+  outline: 1px solid {{ section.settings.content_color }};
+}
+{%- endstyle -%}
+<footer class="text-center sm:text-left w-full" style="background: {{ section.settings.background_color }}">
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    <div class="grid grid-cols-12 relative">
+      <div class="col-span-12 2xl:col-span-6 xl:col-span-5 xl:text-left flex flex-col gap-4 text-center xl:border-r py-10 xl:pr-0 2xl:pr-16 global_border_color">
+        <h3>{{ section.settings.footer_title }}</h3>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'liquid' %}
+              {{ block.settings.custom_liquid }}
+            {% when '@app' %}
+              {% render block %}
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+        <div class="sm:w-2/3 xl:w-1/2 xl:mx-0 mx-auto relative ">
+          <p class="font-bold">Subscribe to our newsletter</p>
+          {% form 'customer', class: 'w-full flex flex-col gap-2 mt-4' %}
+            <input
+              type="hidden"
+              name="contact[tags]"
+              value="newsletter"
+            >
+            <div
+              class="w-full flex relative newsletter-form {% if form.errors %}input_error{% endif %}"
+            >
+              <span class="footer_content absolute left-0 top-0 w-full h-full opacity-20 rounded-md"></span>
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                name="contact[email]"
+                class="newsletter-input block pl-4 py-[15px] w-full text-sm rounded-md !border-none relative z-20"
+                placeholder="Your email here"
+                type="email"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                style="border-radius:0 !important;color:{{ section.settings.content_color }};"
+                autocomplete="email"
+                required
+              >
+              <span class="absolute right-2 w-[50px] h-[50px] z-20">
+                {% render 'right-arrow-white', class: 'w-full h-full left-0 top-0 absolute p-2 stroke' %}
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="newsletter-submit cursor-pointer relative z-20 !border-none w-full"
+                  style="padding:0 !important;font-size:0 !important;"
+                >
+              </span>
+            </div>
+            {%- if form.errors -%}
+              <small id="Newsletter-error--{{ section.id }}" class="error_main">
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </small>
+            {%- endif -%}
+            {%- if form.posted_successfully? -%}
+              <p
+                id="Newsletter-success--{{ section.id }}"
+                class="w-full lg:text-left text-center"
+              >
+                {{ 'newsletter.success' | t }}
+              </p>
+            {%- endif -%}
+          {% endform %}
+        </div>
+        {%- if section.settings.enable_follow_on_shop == true -%}
+        <div class="follow-shop-button">
+          {{ shop | login_button: action: 'follow' }}
+        </div>
+        {% endif %}
+        <div>
+          <ul class="flex gap-10 justify-center xl:justify-start" id="social_footer">
+            {% if settings.social_facebook_link != blank %}
+              <li>
+                <a href="{{ settings.social_facebook_link }}" rel="nofollow" class="inline-flex">
+                  {% render 'icon-facebook',
+                    class: 'w-7 h-7 duration-150 ease-in-out opacity-80 hover:opacity-100 social-icon'
+                  %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_instagram_link != blank %}
+              <li>
+                <a href="{{ settings.social_instagram_link }}" rel="nofollow" class="inline-flex">
+                  {% render 'icon-instagram',
+                    class: 'w-7 h-7 duration-150 ease-in-out opacity-80 hover:opacity-100 social-icon'
+                  %}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <li>
+                <a href="{{ settings.social_youtube_link }}" rel="nofollow" class="inline-flex">
+                  {% render 'icon-youtube',
+                    class: 'w-7 h-7 duration-150 ease-in-out opacity-80 hover:opacity-100 social-icon'
+                  -%}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-span-12 2xl:col-span-6 xl:col-span-7 footer_menu_div flex 2xl:justify-start justify-center 2xl:pl-24 xl:pl-8 pl-0 items-center overflow-hidden">
+        <ul class="text-left grid md:grid-cols-4 grid-cols-2 2xl:gap-16 gap-6 min-w-[320px] md:min-w-[640px] xl:min-w-auto">
+          {% if section.blocks == blank %}
+            <li><a href="{{ routes.all_products_collection_url }}" rel="nofollow">Shop All</a></li>
+          {% else %}
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'page_links' %}
+                  <li class="md:pl-0 pl-10" {{ block.shopify_attributes }}>
+                    <p
+                      class="mb-5 sm:mb-6 font-semibold"
+                      style="color:{{ section.settings.content_color }}"
+                    >
+                      {{ block.settings.title }}
+                    </p>
+
+                    <ul class="list-none mb-0 footer_menu">
+                      {% assign menu_list = block.settings.menu_links %}
+                      {% for link in linklists[menu_list].links limit: block.settings.link_limit %}
+                        <li class="sm:pb-6 pb-5 hover:translate-x-2 duration-150 ease-in-out">
+                          <a
+                            href="{{ link.url }}"
+                            rel="nofollow"
+                            {% if link.current %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            {{ link.title | escape }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% when 'collection_links' %}
+                  <li class="md:pl-0 pl-10" {{ block.shopify_attributes }}>
+                    <p
+                      class="mb-5 sm:mb-6 font-semibold"
+                      style="color:{{ section.settings.content_color }}"
+                    >
+                      {{ block.settings.title }}
+                    </p>
+
+                    <ul class="list-none mb-0 footer_menu">
+                      <li class="sm:pb-6 pb-5 hover:translate-x-2 duration-150 ease-in-out ">
+                        <a
+                          href="{{ routes.all_products_collection_url }}"
+                          rel="nofollow"
+                        >
+                          {{ 'footer.all_collection' | t }}
+                        </a>
+                      </li>
+                      {% for collection in block.settings.collection_list limit: block.settings.link_limit %}
+                        {% if collection != blank %}
+                          <li class="sm:pb-6 pb-5 hover:translate-x-2 duration-150 ease-in-out ">
+                            <a
+                              href="{{ collection.url }}"
+                              rel="nofollow"
+                              data-handle="{{ collection.handle }}"
+                            >
+                              {{ collection.title | escape }}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% when 'quick_links' %}
+                  <li class="md:pl-0 pl-10">
+                    <p class="mb-5 sm:mb-6 font-semibold">Quick Links</p>
+                    <ul>
+                      <li class="sm:pb-6 pb-5  hover:translate-x-2 duration-150 ease-in-out">
+                        <a href="{{ routes.cart_url }}" rel="nofollow">Cart</a>
+                      </li>
+                      <li class="hover:translate-x-2 duration-150 ease-in-out pb-3 ">
+                        <a href="{{ routes.account_url }}" rel="nofollow">Account</a>
+                      </li>
+                    </ul>
+                  </li>
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="relative border-t global_border_color lg:mt-0 mt-5">
+    <div
+      class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto"
+    >
+      <div class="py-10 footer_bottom">
+        <div class="flex items-center flex-col xl:flex-row xl:justify-between gap-8">
+          <div class="flex xl:items-start items-center gap-8 flex-col 2xl:flex-row">
+            <div class="copyright-info flex flex-col xl:items-start items-center">
+            <span style="color: {{ section.settings.content_color }}"
+              >&copy; {{ 'copyright.copyright' | t }}
+              {{ 'now' | date: '%Y' }}
+              {{ shop.name }}. {{ 'footer.all_rights_reserved' | t }}
+            </span>
+            {{ powered_by_link }}
+            </div>
+            <ul class="flex flex-col md:flex-row items-center gap-3">
+              {% if localization.available_countries.size > 1 and settings.enable_currency_switch == true %}
+                <li class="modal-body">
+                  <localization-form class="relative z-[299] w-[250px] inline-block rounded-md">
+                    {% form 'localization', id: 'modal_localization_form' %}
+                      <div class="disclosure mx-auto lg:mx-0 select relative z-[99]">
+                        <button
+                          type="button"
+                          class="disclosure__button flex items-center justify-between w-full px-3 py-2 overflow-hidden relative form-radius"
+                          aria-expanded="false"
+                          aria-controls="FooterCountryList"
+                        >
+                          <span class="absolute footer_content left-0 top-0 w-full h-full opacity-20"></span>
+                          {{ localization.country.name }} ({{ localization.country.currency.iso_code }}
+                          {{ localization.country.currency.symbol }})
+
+                          {% render 'icon-arrow-down', class: 'w-4 h-4' %}
+                        </button>
+
+                        <ul
+                          id="FooterCountryList"
+                          role="list"
+                          class="disclosure__list select absolute left-0 bottom-[4rem] px-3 py-2 w-full overflow-auto max-h-[200px] translate-y-3 border"
+                          hidden
+                        >
+                          {% for country in localization.available_countries %}
+                            <li class="disclosure__item" tabindex="-1">
+                              <a
+                                href="#"
+                                class="text-[14px] flex items-baseline"
+                                {% if country.iso_code == localization.country.iso_code %}
+                                  aria-current="true"
+                                {% endif %}
+                                data-value="{{ country.iso_code }}"
+                              >
+                                {{ country | image_url: width: 16 | image_tag: loading: 'lazy' }} - {{ country.name }} (
+                                {{- country.currency.iso_code -}}
+                                {{- country.currency.symbol -}}
+                                )
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+
+                        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                      </div>
+                    {% endform %}
+                  </localization-form>
+                </li>
+              {% endif %}
+              {% if localization.available_languages.size > 1 %}
+                <li class="modal-body relative z-[299]">
+                  <localization-form class="w-[250px] inline-block rounded-md">
+                    {% form 'localization' %}
+                      <div class="disclosure select relative z-[99]">
+                        <button
+                          type="button"
+                          class="disclosure__button flex items-center justify-between w-full px-3 py-2 overflow-hidden form-radius relative"
+                          aria-expanded="false"
+                          aria-controls="LanguageList"
+                        >
+                          <span class="absolute footer_content left-0 top-0 w-full h-full opacity-20"></span>
+                          {{ localization.language.endonym_name | capitalize }}
+
+                          {% render 'icon-arrow-down', class: 'w-4 h-4' %}
+                        </button>
+
+                        <ul
+                          id="LanguageList"
+                          role="list"
+                          class="text-left disclosure__list select absolute left-0 bottom-[4rem] px-3 py-2 w-full overflow-auto max-h-[200px] translate-y-3 border"
+                          hidden
+                        >
+                          {% for language in localization.available_languages %}
+                            <li class="disclosure__item" tabindex="-1">
+                              <a
+                                href="#"
+                                class="text-[14px]"
+                                {% if language.iso_code == localization.language.iso_code %}
+                                  aria-current="true"
+                                {% endif %}
+                                hreflang="{{ language.iso_code }}"
+                                lang="{{ language.iso_code }}"
+                                data-value="{{ language.iso_code }}"
+                              >
+                                {{ language.endonym_name | capitalize }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+
+                        <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+                      </div>
+                    {% endform %}
+                  </localization-form>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="flex xl:flex-row flex-col items-center gap-10">
+            <span class="flex flex-wrap gap-7 justify-center lg:justify-start">
+              {% for type in shop.enabled_payment_types -%}
+                {{ type | payment_type_svg_tag: class: 'w-[40px] app_payments' }}
+              {% endfor %}
+            </span>
+            <span class="flex items-center gap-2 go_to_top cursor-pointer">
+              <p>{{ 'footer.back_to_top' | t }}</p>
+              <button
+                type="button"
+                aria-label="Go to Top"
+                class="w-5 h-5 overflow-hidden flex justify-center items-center relative group/btn"
+              >
+                {% render 'icon-chevron-right', class: 'z-20 -rotate-90 ease-in-out duration-200 stroke' %}
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:section.footer.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.footer.settings.margin_top"
+    },
+    {
+      "type": "text",
+      "id": "footer_title",
+      "label": "t:section.footer.settings.footer_title",
+      "default": "Footer Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "t:section.footer.settings.border_top",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "t:section.footer.settings.footer_menu"
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "t:section.footer.settings.background_color",
+      "default": "linear-gradient(90deg, rgba(58,58,58,1) 0%, rgba(58,58,58,1) 15%)"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "t:section.footer.settings.content_color",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_follow_on_shop",
+      "label": "t:section.footer.settings.enable_follow_on_shop",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "page_links",
+      "name": "t:section.footer.blocks.page_links.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.footer.blocks.page_links.settings.title",
+          "default": "Menu One"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_links",
+          "label": "t:section.footer.blocks.page_links.settings.menu_links"
+        },
+        {
+          "type": "range",
+          "id": "link_limit",
+          "default": 3,
+          "label": "t:section.footer.blocks.page_links.settings.link_limit",
+          "min": 2,
+          "max": 5,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "type": "collection_links",
+      "name": "t:section.footer.blocks.collection_links.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.footer.blocks.collection_links.settings.title",
+          "default": "Menu One"
+        },
+        {
+          "type": "collection_list",
+          "id": "collection_list",
+          "label": "t:section.footer.blocks.collection_links.settings.collection_list",
+          "limit": 7
+        },
+        {
+          "type": "range",
+          "id": "link_limit",
+          "default": 7,
+          "label": "t:section.footer.blocks.collection_links.settings.link_limit",
+          "min": 2,
+          "max": 7,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "type": "quick_links",
+      "name": "t:section.footer.blocks.quick_links.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Custom Block",
+      "type": "liquid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Block",
+          "info": "Add app snippets or other liquid code to create advanced customizations."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}
+
+{% javascript %}
+  customElements.define('localization-form', LocalizationForm);
+{% endjavascript %}

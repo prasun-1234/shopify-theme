@@ -1,0 +1,62 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 980px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <h4 class="">
+      {{ page.title | escape }}
+    </h4>
+    <div class="">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:section.main-page.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:section.main-page.settings.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:section.main-page.settings.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-page.name",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,199 @@
+{{ 'section-logo-list.css' | asset_url | stylesheet_tag }}
+{% capture cssValue %}
+        {% if section.settings.block_background == 'even' %}
+          even
+          {% elsif section.settings.block_background == 'odd' %}
+            odd
+        {% endif %}
+    {% endcapture %}
+{% capture direction %}
+         {% if section.settings.reverse_direction == true %}
+             from { transform: translateX(-3000px); } to { transform: translateX(0px);}
+             {% elsif section.settings.reverse_direction == false %}
+              from { transform: translateX(0px); } to { transform: translateX(-3000px);}
+            {% else %}
+         {% endif %}
+    {% endcapture %}
+
+{% style %}
+  .logo-{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom }}px;
+    }
+  @media screen and (max-width: 1024px){
+    .logo-{{ section.id }}{
+      transform: translate(0px, -{{ section.settings.traslateY |  divided_by: 1.5 }}px);
+    }
+  }
+  .logo-{{ section.id }} .tilt{
+    transform: rotate(-5deg) scale(1.1);
+  }
+  .logo-{{ section.id }} .new-marquee .marquee-block:nth-child({{ cssValue }}) h3{
+    border-radius: 60px;
+    padding: 10px 40px;
+    color: {{ section.settings.content_color }}!important;
+    background-color: {{ section.settings.background_color }};
+  }
+  .logo-{{ section.id }} .new-marquee {
+    animation: logo-{{ section.id }} {{ section.settings.marquee_speed }}s linear infinite;
+  }
+  @keyframes logo-{{ section.id }} {
+    {{ direction }}
+  }
+  @media screen and (max-width: 1200px){
+    .logo-{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top | divided_by: 4 }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom | divided_by: 4 }}px;
+    }
+  }
+{% endstyle %}
+<section class=" logo-{{ section.id }} logo-list-section">
+  <div class="box">
+    {% for i in (1..4) %}
+      <div class="marquee-div new-marquee">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'marquee_block' %}
+              <div class="marquee" {{ block.shopify_attributes }}>
+                <div class="marquee-wrapper">
+                  <div class="marquee-image">
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 200
+                        | image_tag: loading: 'lazy', sizes: '800', widths: '100, 200, 260, 400', class: ''
+                      -}}
+                    {%- else %}
+                      {{ 'product-3' | placeholder_svg_tag: 'h-[100px] scale-[1.5]' }}
+                    {% endif %}
+                  </div>
+                  <h3 class="marquee-text">
+                    {% if block.settings.title != blank %}
+                      {{ block.settings.title }}
+                    {% endif %}
+                  </h3>
+                </div>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Logo list",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "label": "Margin top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 60,
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "label": "Margin bottom",
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "block_background",
+      "label": "Background Position",
+      "options": [
+        {
+          "label": "Even",
+          "value": "even"
+        },
+        {
+          "label": "Odd",
+          "value": "odd"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Marquee speed",
+      "max": 100,
+      "min": 10,
+      "step": 10,
+      "default": 90
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_direction",
+      "label": "Reverse Direction"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marquee_block",
+      "name": "Marquee block",
+      "limit": 7,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0
+      },
+      "blocks": [
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,159 @@
+{% style %}
+  #timer-{{ section.id }}{
+      height: 100%;
+      position: relative;
+      display: flex;
+      margin-block: 80px;
+  }
+  .timer-section{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color: #fff;
+  }
+  .timer-section h4{
+      color: #fff;
+      font-family: "Work Sans";
+      font-size: 2.75rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%;
+  }
+
+  #countdown {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+  .time {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 1.25rem;
+      padding: 0.875rem 1.5rem;
+      background: #fff;
+      color: #333!important;
+      border-radius: 0.125rem;
+      font-family: 'Work Sans';
+      font-size: 2.75rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%;
+  }
+
+  .unit {
+      font-family: "Work Sans";
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 180%;
+      letter-spacing: 0.01rem;
+      color: #333!important;
+  }
+
+  .countdown-bg{
+      width: 100%;
+      object-fit: cover;
+      height: auto;
+  }
+
+  .button-top{
+      font-weight: 500!important;
+      color: #313131!important;
+      background-color: #FFCF68!important;
+      --border-offset: 0;
+      --border-opacity:none;
+  }
+
+
+  .is-to{
+      font-weight: 600;
+      font-size: 2.75rem;
+  }
+{% endstyle %}
+
+<section id="timer-{{ section.id }}">
+  {% if section.settings.background_image %}
+    {{
+      section.settings.background_image
+      | image_url: width: 1500
+      | image_tag:
+        loading: 'lazy',
+        sizes: '100',
+        widths: '165, 360, 535, 750, 1070, 1500',
+        class: 'countdown-bg page-width'
+    }}
+  {% endif %}
+  <div class="timer-section">
+    <h4>Up to 20% off , Instant Season sale starts in</h4>
+    <div id="countdown">
+      <h4 id="days" class="time"><p>DAYS</p></h4>
+      <span class="is-to">:</span>
+      <h4 id="hours" class="time"><p>HOURS</p></h4>
+      <span class="is-to">:</span>
+      <h4 id="minutes" class="time"><p>MIN</p></h4>
+      <span class="is-to">:</span>
+      <h4 id="seconds" class="time"><p>SEC</p></h4>
+    </div>
+    <a href="{{ section.settings.collection.url }}" class="button button-top">View Collection</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "countdown_target_date",
+      "label": "Countdown Target Date",
+      "default": "2024-03-28"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const countdown = document.getElementById('countdown');
+    const targetDate = new Date('{{ section.settings.countdown_target_date }}').getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerHTML = days + '<div class="unit">DAYS</div>';
+      document.getElementById('hours').innerHTML = hours + '<div class="unit">HOUR</div>';
+      document.getElementById('minutes').innerHTML = minutes + '<div class="unit">MIN</div>';
+      document.getElementById('seconds').innerHTML = seconds + '<div class="unit">SEC</div>';
+
+      if (distance < 0) {
+        clearInterval(interval);
+        countdown.innerHTML = 'EXPIRED';
+      }
+    };
+
+    let interval = setInterval(updateCountdown, 1000);
+  });
+</script>

@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="{{ 'home-blog.css' | asset_url }}">
+
+<section class="journal-block">
+  {% if section.settings.bg_image != blank %}
+    <span class="bg_image_blog">
+      {{ section.settings.bg_image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+    </span>
+  {% endif %}
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="journal-header {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+      <h2 class="section-header {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+        {{ section.settings.title }}
+      </h2>
+    </div>
+    {%- assign blog = blogs[section.settings.blog] -%}
+    <div class="pure-g">
+      {% if blog != blank %}
+        {% for article in blog.articles limit: section.settings.post_limit %}
+          <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 {% if forloop.last %}last-blog-item{% endif %}">
+            <div class="blog-box l-box {% if settings.enable_animation %}scrollmagic-element{% endif %} blog-box-{{ forloop.index }}">
+              <figure>
+                <a href="{{ article.url }}" rel="nofollow">
+                  <img
+                    srcset="
+                      {%- if article.width >= 375 -%}{{ article | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if article.width >= 550 -%}{{ article | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if article.width >= 750 -%}{{ article | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if article.width >= 1100 -%}{{ article | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if article.width >= 1500 -%}{{ article | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if article.width >= 1780 -%}{{ article | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if article.width >= 2000 -%}{{ article | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if article.width >= 3000 -%}{{ article | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if article.width >= 3840 -%}{{ article | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ article | image_url }} {{ article.width }}w
+                    "
+                    sizes="auto"
+                    src="{{ article | image_url: width: 1500 }}"
+                    loading="lazy"
+                    alt="{{ article.image.src.alt | escape }}"
+                    width="{{ article.width }}"
+                    height="{{ article.height | divided_by: article.aspect_ratio }}"
+                  >
+                </a>
+              </figure>
+              <div class="blog-box-content">
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'article_title' %}
+                      <h3 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %}">
+                        <a href="{{ article.url }}" rel="nofollow">{{ article.title }}</a>
+                      </h3>
+                    {% when 'article_text' %}
+                      <p>
+                        {{ article.excerpt_or_content | truncatewords: 25 }}
+                      </p>
+                    {% when 'article_link' %}
+                      <div class="text-btn {% if settings.enable_animation %}scrollmagic-element-fade-in-up-5{% endif %}">
+                        <a class="" href="{{ article.url }}" rel="nofollow">
+                          {{- 'home-blog.article_link' | t }}
+                          {% render 'arrow-next' -%}
+                        </a>
+                      </div>
+                    {% else %}
+
+                  {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 {% if forloop.last %}last-blog-item{% endif %}">
+            <div class="blog-box l-box {% if settings.enable_animation %}scrollmagic-element{% endif %} blog-box-{{ forloop.index }}">
+              <figure>
+                <a href="#" rel="nofollow">
+                  {% capture current %}{% cycle 5, 6 %}{% endcapture %}
+                  {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </a>
+              </figure>
+              <div class="blog-box-content">
+                <h3>
+                  <a href="#" rel="nofollow">{{ 'main_article.placeholder.title' | t }}</a>
+                </h3>
+                <p>{{ 'main_article.placeholder.para' | t }}</p>
+                <div class="text-btn">
+                  <a href="#" rel="nofollow">
+                    {{- 'home-blog.article_link' | t }}
+                    {% render 'arrow-next' -%}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.home-blog.name",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.home-blog.settings.title.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Section Background Image"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "t:sections.home-blog.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "t:sections.home-blog.settings.post_limit.label",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.home-blog.blocks.article_title.name",
+      "type": "article_title",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.home-blog.blocks.article_text.name",
+      "type": "article_text",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.home-blog.blocks.article_link.name",
+      "type": "article_link",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.home-blog.presets.name",
+      "category": "Blog",
+      "settings": {
+        "title": "example title",
+        "blog": "",
+        "post_limit": 4
+      },
+      "blocks": [
+        {
+          "type": "article_title"
+        },
+        {
+          "type": "article_text"
+        },
+        {
+          "type": "article_link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

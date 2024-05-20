@@ -1,0 +1,286 @@
+{% style %}
+  .product_banner_main{
+    height:{{ section.settings.banner_height }}px;
+  }
+
+  #{{ section.id }}{
+    margin-top:{{ section.settings.margin_top }}px;
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+  #{{ section.id }} .btn-secondary{
+    border: var(--button-border-thickness) solid {{ section.settings.text_color }} !important;
+    color: {{ section.settings.text_color }}!important;
+  }
+  @media screen and (max-width:980px){
+    .product_banner_main{
+    height:auto;
+  }
+  #{{ section.id }}{
+    margin-top:{{ section.settings.margin_top | divided_by: 2 }}px;
+    margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+<section
+  id="{{ section.id }}"
+  class="{% if section.settings.banner_type == 'product' %}px-[20px]{% else %}px-0{% endif %}"
+>
+  {% case section.settings.banner_type %}
+    {% when 'collection' %}
+      {% assign collection = section.settings.collection %}
+      <div
+        class="section collection-banner relative overflow-hidden scroll-animation"
+        style="padding-top:{{ section.settings.section_padding }}px; padding-bottom:{{ section.settings.section_padding }}px;"
+      >
+        {% if collection.image != blank %}
+          <div class="w-full h-full absolute top-0 left-0 z-10">
+            <img
+              src="{{ collection.image | image_url }}"
+              alt="{{ collection.image.alt }}"
+              sizes="(min-width: 960px) 1080px, (min-width: 720px) 50vw, 100vw"
+              srcset="
+                {%- if collection.image.width >= 100 -%}{{ collection.image | image_url: width: 100 }} 100w,{%- endif -%}
+                {%- if collection.image.width >= 375 -%}{{ collection.image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if collection.image.width >= 550 -%}{{ collection.image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if collection.image.width >= 1100 -%}{{ collection.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if collection.image.width >= 1780 -%}{{ collection.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if collection.image.width >= 2000 -%}{{ collection.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if collection.image.width >= 3000 -%}{{ collection.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if collection.image.width >= 3840 -%}{{ collection.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ collection.image | image_url }} {{ collection.image.width }}w
+              "
+              class="relative w-full h-full object-cover object-center"
+              loading="lazy"
+              width="{{ collection.image.width }}"
+              height="auto"
+            >
+          </div>
+        {% else %}
+          <div class="w-full h-full absolute top-0 left-0 z-10">
+            {{ 'lifestyle-2' | placeholder_svg_tag: ' mx-auto w-full bg-white' }}
+          </div>
+        {% endif %}
+
+        <span
+          class="absolute top-0 left-0 w-full h-full z-20"
+          style="background:{{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+        >
+        </span>
+
+        <div class="mx-auto {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} relative z-40">
+          <div class="w-full flex {% case section.settings.content_align %} {% when 'left' %}justify-start text-left {% when 'center' %} justify-center text-center {% when 'right' %}justify-end text-left {% endcase %}">
+            {% assign collection = section.settings.collection %}
+            <div
+              class="flex flex-col gap-[20px] max-w-lg lg:p-10 p-0"
+              style="
+                background-color:{{ section.settings.bg_color }};
+                align-items:{% case section.settings.content_align %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-start{% endcase %};
+              "
+            >
+              <h3 style="color:{{ section.settings.text_color }};" class="lg:!text-7xl">
+                {% if collection.title %}
+                  {{ collection.title }}
+                {% else %}
+                  {{ 'collection-banner.title' | t }}
+                {% endif %}
+              </h3>
+              <p style="color:{{ section.settings.text_color }};">
+                {% if collection.description %}
+                  {{ collection.description | truncatewords: 25 }}
+                {% else %}
+                  {{ 'collection-banner.text' | t }}
+                {% endif %}
+              </p>
+              <a href="{{ collection.url }}" rel="nofollow" class="w-fit block mt-[20px]">
+                {% render 'btn-secondary',
+                  class: 'collection-banner-button',
+                  src: 'View Collection',
+                  icon: 'Arrow right.png'
+                %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% when 'product' %}
+      {% assign product = section.settings.product %}
+      {% if product != blank %}
+        <div
+          style="background-color:{{ section.settings.bg_color }};"
+          class="flex lg:flex-row flex-col-reverse items-start lg:items-center relative product_banner_main"
+          data-product="{{ product.handle }}"
+        >
+          <figure class="relative lg:absolute {% if section.settings.content_align == 'left' %}lg:right-0{% else %}lg:left-0{% endif %} lg:top-0 h-full w-full lg:w-1/2 z-30">
+            <img
+              src="{{ product.featured_image | image_url: width: 1000 }}"
+              alt="{{ product.featured_image.alt }}"
+              width="100"
+              height="100"
+              loading="lazy"
+              class="w-full lg:h-full md:h-[400px] h-[250px] object-cover object-center"
+            >
+          </figure>
+          <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto sm:py-[80px] py-[60px] z-10 relative">
+            <div class="lg:w-1/2 h-full flex flex-col gap-5 md:px-10 items-center lg:items-start lg:text-left text-center {% if section.settings.content_align == 'left' %}ml-0{% else %}ml-auto{% endif %}">
+              {% if product.title != blank %}
+                <h3 style="color:{{ section.settings.text_color }};">{{ product.title }}</h3>
+              {% endif %}
+
+              {% if product.price_min != blank %}
+                <p style="color:{{ section.settings.text_color }};">
+                  Starts at {{ product.price_min | money_with_currency }}
+                </p>
+              {% endif %}
+
+              <a href="{{ product.url }}" rel="nofollow" class="w-fit">
+                {% render 'btn-primary', src: 'View More' %}
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+
+      {% endif %}
+  {% endcase %}
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-collection-product-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:section.main-collection-product-banner.settings.margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:section.main-collection-product-banner.settings.margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "max": 500,
+      "min": 0,
+      "step": 10,
+      "default": 60,
+      "label": "t:section.main-collection-product-banner.settings.section_padding",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "t:section.main-collection-product-banner.settings.banner_height",
+      "max": 600,
+      "min": 100,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.main-collection-banner.settings.overlay_color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.main-collection-banner.settings.overlay_opacity",
+      "max": 10,
+      "min": 0,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:section.main-collection-product-banner.settings.collection"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:section.main-collection-product-banner.settings.product"
+    },
+    {
+      "type": "header",
+      "content": "t:section.main-collection-product-banner.settings.headers.banner_card"
+    },
+    {
+      "type": "select",
+      "id": "banner_type",
+      "label": "t:section.main-collection-product-banner.settings.banner_type.label",
+      "options": [
+        {
+          "label": "t:section.main-collection-product-banner.settings.banner_type.options.collection",
+          "value": "collection"
+        },
+        {
+          "label": "t:section.main-collection-product-banner.settings.banner_type.options.product",
+          "value": "product"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "t:section.main-collection-product-banner.settings.bg_color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:section.main-collection-product-banner.settings.text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "t:section.main-collection-product-banner.settings.content_align.label",
+      "options": [
+        {
+          "label": "t:section.main-collection-product-banner.settings.content_align.options.left",
+          "value": "left"
+        },
+        {
+          "label": "t:section.main-collection-product-banner.settings.content_align.options.center",
+          "value": "center"
+        },
+        {
+          "label": "t:section.main-collection-product-banner.settings.content_align.options.right",
+          "value": "right"
+        }
+      ],
+      "info": "'Center' option is only available with 'Product' option enabled"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Collection Banner",
+      "settings": {
+        "section_padding": 100,
+        "banner_height": 500,
+        "overlay_color": "#000000",
+        "overlay_opacity": 4,
+        "collection": "e-bikes",
+        "product": "copy-of-triad-dune",
+        "banner_type": "collection",
+        "bg_color": "",
+        "text_color": "#fff",
+        "content_align": "left"
+      }
+    }
+  ]
+}
+{% endschema %}

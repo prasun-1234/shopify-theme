@@ -1,0 +1,138 @@
+{% style %}
+  .collection_card_content {
+    padding: var(--collection-card-padding);
+  }
+  .collection_card_main {
+    height: {{ section.settings.cards_height }}px;
+  }
+  .collection_card_main.card_bg {
+    height: {{ section.settings.cards_height | divided_by: 1.5 }}px;
+    min-height:300px;
+  }
+  .card_bg .collection_card_inner > div{
+    text-align:left !important;
+  }
+  .card_bg .collection_title{
+   justify-content:flex-start !important;
+  }
+  @media only screen and (max-width: 980px) {
+    .collection_card_main {
+      height: 400px;
+    }
+  }
+{% endstyle %}
+
+<div class="collection_card_main group/collection block overflow-hidden bg-[#ccc] duration-300 ease-in-out card_2 {% if card_bg == true %}card_bg{% endif %}">
+  <div class="card_inner overflow-hidden relative h-full flex md:flex-row flex-col  justify-center items-center bg-gray-500">
+    {% assign image = block.settings.featured_image %}
+    {%- if image != blank -%}
+      <img
+        srcset="
+          {%- if image.width >= 165 -%}
+            {{ image | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if image.width >= 330 -%}
+            {{ image | image_url: width: 330 }} 330w,{%- endif -%}
+          {%- if image.width >= 535 -%}
+            {{ image | image_url: width: 535 }} 535w,{%- endif -%}
+          {%- if image.width >= 750 -%}
+            {{ image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if image.width >= 1000 -%}
+            {{ image | image_url: width: 1000 }} 1000w,{%- endif -%}
+          {%- if image.width >= 1500 -%}
+            {{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if image.width >= 3000 -%}
+            {{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {{ image | image_url }} {{ image.width }}w
+        "
+        src="{{ image | image_url: width: 1500 }}"
+        alt="{{ image.alt }}"
+        height="{{ image.height }}"
+        width="{{ image.width }}"
+        loading="lazy"
+        class="{% if card_bg == true %}md:w-1/2 h-[300px] md:h-full{% else %} w-full h-full{% endif %} object-cover z-[10] brightness-75"
+        style="object-position: {{ block.settings.image_position }}% center;"
+      >
+    {% else %}
+      {% if card_collection.image != blank %}
+        <img
+          srcset="
+            {%- if card_collection.image.width >= 165 -%}
+              {{ card_collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if card_collection.image.width >= 330 -%}
+              {{ card_collection.image | image_url: width: 330 }} 330w,{%- endif -%}
+            {%- if card_collection.image.width >= 535 -%}
+              {{ card_collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if card_collection.image.width >= 750 -%}
+              {{ card_collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if card_collection.image.width >= 1000 -%}
+              {{ card_collection.image | image_url: width: 1000 }} 1000w,{%- endif -%}
+            {%- if card_collection.image.width >= 1500 -%}
+              {{ card_collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {%- if card_collection.image.width >= 3000 -%}
+              {{ card_collection.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+            {{ card_collection.image | image_url }} {{ card_collection.image.width }}w
+          "
+          src="{{ card_collection.image | image_url: width: 1500 }}"
+          alt="{{ card_collection.image.alt }}"
+          height="{{ card_collection.image.height }}"
+          width="{{ card_collection.image.width }}"
+          loading="lazy"
+          class="{% if card_bg == true %}md:w-1/2 h-[250px] md:h-full{% else %} w-full h-full{% endif %} object-cover z-[10] brightness-75"
+          style="object-position: {{ section.settings.image_position }}%;"
+        >
+      {% else %}
+        {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full bg-[#ccc]' }}
+      {% endif %}
+    {%- endif -%}
+    <div
+      class="collection_card_content {% if card_bg == true %}md:w-1/2 w-full !p-0{% else %} absolute left-0 bottom-0 w-full{% endif %} h-full z-[50] flex items-end ease-in-out duration-300"
+      style="justify-content:{% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% endcase %};"
+    >
+      <div
+        class="collection_card_inner flex {% if card_bg == true %}w-full h-full items-center{% else %}items-start mb-5{% endif %} py-5 lg:py-[50px] px-[40px] {% if card_bg == true %}bg-secondary{% else %}bg-body{% endif %} overflow-hidden ease-in-out duration-300"
+      >
+        <div
+          class="flex flex-col gap-[15px] w-full"
+          style="{% if card_bg == true %}flex-start {% else %}{% case settings.collection_card_text_alignment %}{% when 'left' %}align-items: flex-start;text-align:left;{% when 'center' %}align-items: center;text-align:center;{% when 'right' %}align-items: flex-start;text-align:left;{% else %}{% endcase %}{% endif %}"
+        >
+          <span
+            class="w-full flex collection_title"
+            style="justify-content:{% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-start{% else %}{% endcase %};"
+          >
+            <span class="inline-block uppercase font-semibold">
+              {%- if card_collection.title != blank -%}
+                <h5
+                  class="duration-200 ease-in-out card-title capitalize !font-normal {% if card_bg == true %}!text-[1.5rem] lg:!text-[3rem]{% else %}!text-[1.5rem] lg:!text-[2rem] body-font{% endif %}"
+                >
+                  {{- card_collection.title | escape -}}
+                </h5>
+              {%- else -%}
+                <h3
+                  {% if settings.enable_hover_collection == true %}
+                    class="group-hover/collection:!text-2xl duration-200 ease-in-out !text-xl card-title uppercase"
+                  {% endif %}
+                >
+                  {{ 'card-collection.no_title' | t }}
+                </h3>
+              {%- endif -%}
+            </span>
+          </span>
+          {% assign priceMinMax = card_collection.products | sort: 'price' %}
+          {% if priceMinMax[0].price_min != blank %}
+            <p>Starting from {{ priceMinMax[0].price_min | money }}</p>
+          {% endif %}
+          <div class="duration-300 ease-in-out overflow-hidden origin-bottom">
+            <a href="{{ card_collection.url }}" rel="nofollow" class="w-fit inline-block">
+              {% render 'btn-primary',
+                src: 'Shop Now',
+                class: 'custom',
+                wrapper: '.collection_card_main',
+                color: section.settings.button_color
+              %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

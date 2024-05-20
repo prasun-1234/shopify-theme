@@ -1,0 +1,113 @@
+{{ 'team-challenge.css' | asset_url | stylesheet_tag }}
+
+<section class="challenge-section page-width">
+  <div class="main-challenge-section container">
+    <div class="challenge-video-content">
+      {% if section.settings.image != blank %}
+        <div class="challenge-video">
+          <span class="video-icon-span">
+            {% if section.settings.icon != blank %}
+              {{
+                section.settings.icon
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', sizes: '600', widths: '320, 520, 600', class: ''
+              }}
+            {% endif %}
+          </span>
+          {% if section.settings.video != blank %}
+            {{ section.settings.video | video_tag: loop: true, autoplay: true, controls: false }}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'video-img' }}
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h3 class="h2 {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.heading }}
+        </h3>
+      {% endif %}
+    </div>
+
+    <div class="challenge-banner-content">
+      <div class="challenge-content-grid">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'cards' %}
+              <div class="content-grid-cards {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {% if block.settings.cardHeader != blank %}
+                  <h5 class="h2">{{ block.settings.cardHeader }}</h5>
+                {% endif %}
+                <span class=""></span>
+                {% if block.settings.cardTitle != blank %}
+                  <p class="">{{ block.settings.cardTitle }}</p>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor -%}
+      </div>
+      {% if section.settings.bannerImg != blank %}
+        <figure class="challenge-banner">
+          {{
+            section.settings.bannerImg
+            | image_url: width: 1000
+            | image_tag: loading: 'lazy', sizes: '600', widths: '320, 520, 600'
+          }}
+        </figure>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "team challenge",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Featured icon"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Section Video"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "bannerImg",
+      "label": "Featured banner image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "cards",
+      "type": "cards",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cardHeader",
+          "label": "heading label",
+          "default": "header"
+        },
+        {
+          "type": "text",
+          "id": "cardTitle",
+          "label": "subtitle label",
+          "default": "para"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

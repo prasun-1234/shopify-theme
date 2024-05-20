@@ -1,0 +1,45 @@
+{% if pagination.pages > 1 %}
+  <div class="flex justify-center mt-5 pagination_main">
+    <nav>
+      <ul class="flex list-style-none items-center">
+        {% if pagination.previous %}
+          <li>
+            <a
+              rel="nofollow"
+              href="{{ pagination.previous.url }}"
+            >
+              {% render 'icon-swiper', class: 'rotate-180 w-7 h-7' %}
+            </a>
+          </li>
+        {% endif %}
+
+        <li class="relative py-2 px-10 font-normal text-base flex gap-6">
+          {% for part in pagination.parts %}
+            {% if part.is_link %}
+              <a
+                rel="nofollow"
+                href="{{ part.url }}"
+                class="duration-150 ease-in-out hover:opacity-70 pb-2 cursor-pointer"
+              >
+                {{- part.title -}}
+              </a>
+            {% else %}
+              <span class="duration-150 ease-in-out hover:opacity-70 relative flex flex-col items-center gap-2 pb-2 px-1">
+                {{- part.title -}}
+                <span class="h-1 w-full background-font-color rounded-lg absolute bottom-0 left-0"></span>
+              </span>
+            {% endif %}
+          {% endfor %}
+        </li>
+
+        {% if pagination.next %}
+          <li>
+            <a rel="nofollow" class="duration-150 ease-in-out hover:opacity-80" href="{{ pagination.next.url }}">
+              {% render 'icon-swiper', class: 'w-7 h-7' %}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+{% endif %}

@@ -1,0 +1,94 @@
+
+<div class="single-product-zoom">
+  <span class="remove">
+    {% render 'icon-remove' %}
+  </span>
+  <div class="product-zoom-bg"></div>
+
+  <div class="single-product-zoom-wrap">
+    <div class="swiper-container slider-product-zoom">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="p-zoom-wrap">
+            <div class="p-zoom-item">
+              <img
+                srcset="
+                  {%- if product.featured_image.width >= 375 -%}{{ product.featured_image | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product.featured_image.width >= 550 -%}{{ product.featured_image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product.featured_image.width >= 750 -%}{{ product.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product.featured_image.width >= 1100 -%}{{ product.featured_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product.featured_image.width >= 1500 -%}{{ product.featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product.featured_image.width >= 1780 -%}{{ product.featured_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product.featured_image.width >= 2000 -%}{{ product.featured_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product.featured_image.width >= 3000 -%}{{ product.featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product.featured_image.width >= 3840 -%}{{ product.featured_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product.featured_image | image_url }} {{ product.featured_image.width }}w
+                "
+                sizes="auto"
+                src="{{ product.featured_image | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ product.featured_image.alt | escape }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height | divided_by: product.featured_image.aspect_ratio }}"
+              >
+            </div>
+          </div>
+        </div>
+        {% for media in product.media %}
+          {% case media.media_type %}
+            {% when 'image' %}
+              {%- if product.featured_image != media -%}
+                <div class="swiper-slide">
+                  <div class="p-zoom-wrap">
+                    <div class="p-zoom-item">
+                      <img
+                        srcset="
+                          {%- if media.width >= 375 -%}{{ media | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if media.width >= 550 -%}{{ media | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if media.width >= 750 -%}{{ media | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if media.width >= 1100 -%}{{ media | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if media.width >= 1500 -%}{{ media | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if media.width >= 1780 -%}{{ media | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if media.width >= 2000 -%}{{ media | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if media.width >= 3000 -%}{{ media | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if media.width >= 3840 -%}{{ media | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ media | image_url }} {{ media.width }}w
+                        "
+                        sizes="auto"
+                        src="{{ media | image_url: width: 1500 }}"
+                        loading="lazy"
+                        alt="{{ media.alt | escape }}"
+                        width="{{ media.width }}"
+                        height="{{ media.height | divided_by: media.aspect_ratio }}"
+                      >
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {% when 'external_video' %}
+              <div class="swiper-slide embeded-video">
+                <iframe
+                  class="lazyload load-video video iframe-video"
+                  id="video-{{ section.id }}"
+                  src="{{ media | external_video_url }}"
+                ></iframe>
+              </div>
+            {% when 'video' %}
+              <div class="swiper-slide html-video">
+                {{ media | video_tag: controls: true, class: 'video' }}
+              </div>
+            {% when 'model' %}
+              <div class="swiper-slide product-single__media" data-media-id="{{ media.id }}">
+                {{ media | model_viewer_tag }}
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>

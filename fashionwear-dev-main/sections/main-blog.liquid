@@ -1,0 +1,159 @@
+{% style %}
+  .blog.swiper-button-next {
+    left: 80px;
+  }
+  .card-list .article_card_main:hover .article_card_image img{
+    filter: grayscale(1);
+  }
+  @media only screen and (min-width: 1200px){
+    {% if section.settings.post_row_limit != 1 %}
+    .card-box .card-list:nth-child(even){
+      margin-top: 80px;
+    }
+    {% endif %}
+  }
+  @media only screen and (max-width: 980px){
+    #home-blog{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+    }
+  .article_card_main:hover{
+    box-shadow: var(--blog-card-shadow-horizontal) var(--blog-card-shadow-vertical) var(--blog-card-shadow-blur) rgba(163, 163, 163,calc(var(--blog-card-shadow-opacity)/10));
+    outline: 2px solid;
+  }
+{% endstyle %}
+<section
+  class="home-blog h-full scrollbar-none"
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    {% if blog != blank %}
+      <div class="relative product-grid-view-inner">
+        {% assign item_number = section.settings.post_row_limit | plus: 0 %}
+
+        <div class="flex-container grid grid-cols-12">
+          <div class="2xl:col-span-6 xl:col-span-5 col-span-12 my-10 relative flex xl:justify-start justify-center">
+            <div class="w-full home_blog_left xl:pr-5 sticky top-[40%] left-0 h-fit">
+              <h3
+                class="mb-5 lg:max-w-full max-w-xl xl:text-left text-center lg:mx-0 mx-auto"
+                style="color:{{ section.settings.content_color }}"
+              >
+                {{ section.settings.section_title }}
+              </h3>
+            </div>
+          </div>
+          <div class="2xl:col-span-6 xl:col-span-7 col-span-12">
+            {% paginate blog.articles by section.settings.item_limit %}
+              <ul class="card-box grid gap-5 {% if item_number == 1 %}grid-cols-1 {% elsif item_number == 2 %}lg:grid-cols-2 grid-cols-1{% elsif item_number == 3 %}xl:grid-cols-3 lg:grid-cols-2 grid-cols-1{% endif %}">
+                {% for article in blog.articles %}
+                  <li class="card-list">
+                    {%- render 'article-card',
+                      article: article,
+                      show_date: section.settings.show_date,
+                      show_author: section.settings.show_author,
+                      class: 'article-card'
+                    %}
+                  </li>
+                {% endfor %}
+              </ul>
+              <div class="w-full">
+                {% render 'pagination', pagination: paginate %}
+              </div>
+            {% endpaginate %}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <h2>{{ 'home-blog.no_blogs' | t }}</h2>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.home-blog.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "label": "t:section.home-blog.settings.section_margin_top"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 60,
+      "label": "t:section.home-blog.settings.section_margin_bottom"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.home-blog.settings.background_color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "blog",
+      "id": "featured_blog",
+      "label": "t:section.home-blog.settings.featured_blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:section.home-blog.settings.show_date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "t:section.home-blog.settings.show_author"
+    },
+    {
+      "type": "range",
+      "id": "post_row_limit",
+      "label": "t:section.home-blog.settings.post_row_limit",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:section.home-blog.settings.product_view.content"
+    },
+    {
+      "type": "range",
+      "id": "item_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 9,
+      "label": "t:section.home-blog.settings.item_limit"
+    },
+    {
+      "type": "header",
+      "content": "t:section.home-blog.settings.sticky_content.label"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "t:section.home-blog.settings.sticky_content.label",
+      "info": "t:section.home-blog.settings.sticky_content.info",
+      "default": "Read what excites you more, visit our blog"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "default": "#fff",
+      "label": "t:section.home-blog.settings.content_color"
+    }
+  ]
+}
+{% endschema %}

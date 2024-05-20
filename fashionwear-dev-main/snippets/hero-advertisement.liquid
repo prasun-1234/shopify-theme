@@ -1,0 +1,32 @@
+{% style %}
+  .{{ block.id }} .rich-text *{
+      color: {{ block.settings.adr_text_color }};
+      font-weight: 600;
+  }
+  .{{ block.id }} {
+      background: {{ block.settings.adr_bg }};
+  }
+  .{{ block.id }} svg.stroke path{
+      stroke:{{ block.settings.adr_text_color }} !important;
+  }
+
+  #announcement_bar .rich-text .hover-link:before{
+    background-color:{{ block.settings.adr_text_color }};
+  }
+
+{% endstyle %}
+<div id="announcement_bar" class="relative adr-box flex justify-center items-center px-5 py-4 {{ block.id }}">
+  <div class="absolute right-0 h-full md:w-24 w-11 top-0">
+    <span class=" flex justify-center items-center cursor-pointer h-full">
+      {%- render 'icon-close', class: 'close-btn w-5 h-5 stroke' -%}
+    </span>
+  </div>
+
+    <div class="flex gap-2">
+    <span class="rich-text" >{{ block.settings.adr_text }}</span>
+    <a href="{{ block.settings.url }}" rel="nofollow" class="rich-text">
+      {% render 'hover-link', class: '', src: block.settings.link_text %}
+    </a>
+    </div>
+ 
+</div>

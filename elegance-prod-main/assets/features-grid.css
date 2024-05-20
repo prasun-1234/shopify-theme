@@ -1,0 +1,115 @@
+.features-main{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+    background-size: auto 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.features-main .feature_image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;   
+    justify-content: center; 
+}
+
+.features_bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;    
+    pointer-events: none !important;
+    display: flex;
+    justify-content: center;
+}
+
+.features_bg img{
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+}
+
+
+.features-main .feature_image img{
+    width: 100%;
+    display: block;
+    object-fit: contain;
+    max-height: 240px;
+}
+
+.features-main .placeholder_bg{
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+.features-main .placeholder_div svg {
+    width: 40px;
+    height: 40px;
+    transform: scale(5);
+  }
+.features-main .placeholder_bg svg{
+    margin: auto;
+    height: 100%;
+}
+
+.feature{
+    display: flex;
+    justify-content: center;
+    gap: 1rem ;
+    padding: 0 10px;
+}
+.feature img{
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+.feature h3{
+    margin-bottom: 1rem;
+}
+@media screen and (max-width:1280px){
+    .features-main{
+        background-size: auto 150px;
+        background-position-y: 115% !important;
+    }
+    .features-main .placeholder_bg{
+        bottom: -70px;
+    }
+}
+@media screen and (max-width:1200px){
+    section.features-main{
+      height: 100% !important;
+    }
+    section.features-main .feature{
+        margin-bottom: 20px;
+    }
+}
+@media screen and (max-width:1080px){
+    .features-main{
+        background-size: auto 120px;
+        background-position-y: 108% !important;
+    }
+}
+@media screen and (max-width:768px){
+    .features-main{
+        padding: 60px 0;
+    }
+    .features-main{
+        background-size: auto 90px;
+        background-position-y: 105% !important;
+    }
+}
+@media screen and (max-width:425px){
+    .features-main{
+        background-size: auto 59px;
+        background-position-y: 102% !important;
+    }
+}

@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "cart_body": {
+      "type": "main-cart-body",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 0,
+        "empty_cart_title": "Your cart is empty",
+        "banner_button_text": "Add Item"
+      }
+    },
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "card-one": {
+          "type": "card",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/exchange.svg",
+            "title": "Easy Exchange"
+          }
+        },
+        "card-two": {
+          "type": "card",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/return.svg",
+            "title": "Easy Returns"
+          }
+        },
+        "card-three": {
+          "type": "card",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/ship-ping.svg",
+            "title": "Fast Shipping"
+          }
+        },
+        "card-four": {
+          "type": "card",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/genuine.svg",
+            "title": "Genuine Products"
+          }
+        }
+      },
+      "block_order": [
+        "card-one",
+        "card-two",
+        "card-three",
+        "card-four"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 100,
+        "background_color": "#a3a3a3"
+      }
+    }
+  },
+  "order": [
+    "cart_body",
+    "info-grid"
+  ]
+}

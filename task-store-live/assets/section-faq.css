@@ -1,0 +1,192 @@
+.faq-section .mail{
+    font-style: normal;
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-underline-offset: 0.3rem;
+}
+
+.faq_title{
+    font-weight: 600 !important;
+    max-width: 400px;
+}
+.faq-block{
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.faq-section .still-ques{
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    align-items: flex-end;
+    color: #fff;
+    font-size: 1.25rem;
+}
+.faq-block, .faq-heading{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 40px 0;
+    position: relative;
+    gap: 20px;
+}
+.faq-section .number-heading{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.faq-heading{
+    padding-top: 0 !important;
+}
+
+.faq-heading .h5{
+    color: #CBD5E1!important;
+}
+.side-heaing{
+    max-width: 40rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+.faq-block .gradient-heading{
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, #ffffff 40%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: .4s ease;
+} 
+.faq-block.active .gradient-heading{
+    flex-shrink: 0;
+    background: linear-gradient(to bottom, #EA580C 40%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.faq-block .heading-text{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.faq-heading{
+    align-items: center;
+}
+.faq-block::before, .faq-heading::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background:radial-gradient( circle,rgba(255, 255, 255, 1) 5%,rgba(2, 6, 23, 1) 100%);
+}
+.faq-block p, .faq-heading p{
+    max-width: 600px;
+}
+.faq-block .body-text{
+    position: relative;
+}
+.faq-block .long-arrow-icon{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: end;
+}
+.faq-block .main-text{
+    opacity: 0;
+    height: 0px;
+    position: relative;
+    transition: .4s ease;
+    transition-delay: .4s;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+}
+.faq-block.active .main-text{
+    height: 320px;
+    position: relative;
+    overflow-y: scroll;
+    display: block;
+    opacity: 1;
+    padding-right: 12px;
+    scrollbar-width: none;
+}
+.faq-block.active .main-text span{
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding-block: 48px;
+}
+.faq-block svg.long-arrow{
+    transition: .4s ease;
+    transform: translate(-100px, 0px);
+}
+.faq-block:not(.active):hover svg.long-arrow{
+    transform: translate(0px, 0px);
+}
+.faq-block .long-arrow-icon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: .4s ease;
+    transition-delay: .4s;
+}
+.faq-block.active .long-arrow-icon{
+    transform: translate(400px, 0px);
+}
+.review-header h3{
+    max-width: 400px;
+}
+@media screen and (max-width: 1536px){
+    .faq-block.active .main-text{
+        height: 240px;
+    }
+    .faq-block.active .main-text span{
+        padding-block: 0px;
+        scrollbar-width: auto;
+    }
+}
+@media screen and (max-width: 1200px){
+    .faq-block p, .faq-heading p {
+        max-width: 100%;
+    }
+    .faq-block.active .main-text{
+        height: 180px;
+    }
+    .faq-block.active .main-text span{
+        padding-block: 20px;
+    }    
+}
+@media screen and (max-width: 980px){
+    .faq-block p{
+        max-width: 60rem;
+    }
+    .faq-block .gradient-heading, .faq-block.active .gradient-heading{
+        display: none;
+    }
+    .faq-block, .faq-heading{
+        grid-template-columns: 1.5fr 1fr;
+    }
+    .faq-block .heading-text{
+        justify-content: start;
+    }
+}
+@media screen and (max-width: 767px) {
+    .faq-block svg.long-arrow{
+        width: 90px;
+    }
+    .faq-block svg.long-arrow{
+        transform: translate(-50px);
+    }
+}
+@media screen and (max-width: 540px){
+    .faq-block p{
+        max-width: 34rem;
+    }
+    .faq-block, .faq-heading{
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .faq-block p{
+        max-width: 30rem;
+    }
+}

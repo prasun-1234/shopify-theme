@@ -1,0 +1,285 @@
+{% style %}
+    #info_grid_cols {
+      {% case section.settings.grid_cols %}
+        {% when '3' %}
+        grid-template-columns: auto auto auto;
+        {% when '4' %}
+        grid-template-columns: auto auto auto auto;
+      {% endcase %}
+    }
+
+    @media screen and (max-width:1200px) {
+      #info_grid_cols {
+        grid-template-columns: auto auto;
+      }
+    }
+    @media screen and (max-width:540px) {
+      #info_grid_cols {
+        grid-template-columns: auto;
+      }
+    }
+    .overflow-y-scroll::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+  }
+
+  /* Track */
+  .overflow-y-scroll::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+
+  /* Handle */
+  .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background: #666666;
+  }
+
+  /* Handle on hover */
+  .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777777;
+  }
+  @media screen and (max-width:980px) {
+    #main-customer-account{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+
+<section>
+  <div
+    id="main-customer-account"
+    class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto"
+    style="margin-bottom:{{ section.settings.margin_bottom }}px; margin-top:{{ section.settings.margin_top }}px;"
+  >
+    <div class="mb-10">
+      <div class="grid grid-cols-12 gap-5  gap-y-[60px]">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'account' %}
+              <div class="xl:col-span-3 col-span-12 relative" {{ block.shopify_attributes }}>
+                <h2 class="md:mb-10 mb-5 md:text-left text-center">{{ 'main-customer-account.my_account' | t }}</h2>
+                <div
+                  class="py-[40px] px-[32px]  border rounded-[6px] flex justify-center flex-col xl:text-left text-center xl:items-start items-center"
+                  style="
+                    background-color:{{ section.settings.customer_card_bg }}30;
+                    {% if section.settings.enable_border == true %} border-color:{{ section.settings.border_color }}50 {% endif %}
+                  "
+                >
+                  <div class="mb-[20px]">
+                    <p class="font-normal sm:text-base text-sm  leading-7 opacity-70">
+                      {{ 'main-customer-account.name' | t }}
+                    </p>
+
+                    <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.name }}</p>
+                  </div>
+
+                  <div class="mb-[20px]">
+                    <p class="font-normal sm:text-base text-sm leading-7 opacity-70 text-Tertiary ">
+                      {{ 'main-customer-account.email' | t }}
+                    </p>
+                    <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.email }}</p>
+                  </div>
+
+                  {% if customer.default_address.phone != blank %}
+                    <div class="mb-[20px]">
+                      <p class="font-normal sm:text-base text-sm leading-7 opacity-70 text-Tertiary ">
+                        {{ 'main-customer-account.phone_no' | t }}
+                      </p>
+                      <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.default_address.phone }}</p>
+                    </div>
+                  {% endif %}
+
+                  <div class="">
+                    <p class="font-normal sm:text-base text-sm leading-7 opacity-70 text-Tertiary ">
+                      {{ 'main-customer-account.shipping_address' | t }}
+                    </p>
+                    <p class="font-medium sm:text-lg text-base leading-8 ">
+                      {% if customer.default_address.address1 != blank %}
+                        {{ customer.default_address.address1 }}
+                      {% elsif customer.default_address.address2 != blank %}
+                        {{ customer.default_address.address2 }}
+                      {% endif %}
+                      -{{ customer.default_address.zip }}
+                    </p>
+                  </div>
+                  <div class="md:mt-5 mt-5">
+                    <a href="{{ routes.account_addresses_url }}" rel="nofollow">
+                      {% if section.settings.button_type == 'style-one' %}
+                        {%- render 'btn-primary', src: 'View Address' -%}
+                      {% else %}
+                        {%- render 'btn-tertiary', src: 'View Addresses', icon: 'view-address.svg' -%}
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% when 'order' %}
+              <div class="xl:col-span-9 col-span-12 relative" {{ block.shopify_attributes }}>
+                <h2 class="xl:mb-10 md:text-left text-center">
+                  {{ 'main-customer-account.orders' | t }}
+                </h2>
+                <div class="xl:h-[440px] overflow-y-auto overflow-x-hidden">
+                  {% assign number_of_orders = customer.orders | size %}
+                  {% if number_of_orders > 0 %}
+                    {% for order in customer.orders %}
+                      <div class="grid lg:grid-cols-8 md:grid-cols-3  grid-cols-1 gap-5 pr-3 grid-rows-auto py-7 border-b [&>*:nth-last-child(1)]:border-b-0 xs:text-left text-center">
+                        <div class="flex justify-center items-center">
+                          {% if order.line_items.first.image %}
+                            {{
+                              order.line_items.first.image
+                              | image_url: width: 1500
+                              | image_tag:
+                                loading: 'lazy',
+                                sizes: '100',
+                                widths: '165, 360, 535, 750, 1070, 1500',
+                                class: 'w-full md:h-[100px] h-[250px]  object-contain'
+                            }}
+                          {% else %}
+                            {{ 'product-1' | placeholder_svg_tag: 'w-full md:h-[100px] h-[250px]  object-cover' }}
+                          {% endif %}
+                        </div>
+                        <div class="lg:col-span-2 flex justify-center flex-col md:items-start items-center">
+                          <a
+                            rel="nofollow"
+                            href="{{ order.customer_url }}"
+                            aria-label="{{ order.line_items.first.title }} Order Details"
+                          >
+                            <h5 class="font-medium !text-xl">{{ order.line_items.first.title }}</h5>
+                          </a>
+                          <p class=" ">
+                            {{ 'main-customer-account.order' | t }} : <span class="secondary">{{ order.name }}</span>
+                          </p>
+                        </div>
+                        <div class=" flex justify-center items-center md:items-end lg:items-start flex-col">
+                          <h5>{{ 'main-customer-account.price' | t }}</h5>
+                          <p class="font-semibold">{{ order.total_price | money }}</p>
+                        </div>
+                        <div class=" flex justify-center items-center">
+                          <span class="px-[15px] py-[7px] rounded-full relative overflow-hidden">
+                            {% if order.fulfillment_status_label != 'Fulfilled'
+                              or order.fulfillment_status_label == 'Fulfilled'
+                            -%}
+                              <span class="accent-color absolute left-0 top-0 w-full h-full z-10 opacity-20"></span>
+                            {%- endif %}
+                            <span class="relative z-20 text-sm">
+                              {{- order.fulfillment_status_label -}}
+                            </span>
+                          </span>
+                        </div>
+                        <div class=" flex md:items-start items-center text-left justify-center flex-col">
+                          <h5>{{ 'main-customer-account.status' | t }}</h5>
+                          <p
+                            {% if order.financial_status_label == 'Paid' %}
+                              style="color:#01A674;"
+                            {% else %}
+                              style="color:red;"
+                            {% endif %}
+                          >
+                            {{ order.financial_status_label }}
+                          </p>
+                        </div>
+                        <div class=" lg:col-span-2 flex justify-center md:justify-end items-center">
+                          <a rel="nofollow" href="{{ order.customer_url }}">
+                            {% render 'btn-secondary', src: 'View Order' %}
+                          </a>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="flex justify-center items-center gap-5 h-full flex-col">
+                      <h5>{{ 'main-customer-account.no_orders' | t }}</h5>
+                      <a href="{{ routes.collections_url }}" rel="nofollow">
+                        {% render 'btn-secondary', src: 'Add Item' %}
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="flex justify-center mb-[60px]">
+      <a rel="nofollow" href="/account/logout">
+        {% render 'btn-primary', src: 'Log Out', icon: 'log-out.svg' %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-customer-account.name",
+  "blocks": [
+    {
+      "type": "account",
+      "name": "t:section.main-customer-account.blocks.account.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "order",
+      "name": "t:section.main-customer-account.blocks.order.name",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-customer-account.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-customer-account.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "customer_card_bg",
+      "default": "#ccc",
+      "label": "t:section.main-customer-account.settings.customer_card_bg"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_border",
+      "label": "Enable Border",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "default": "#8E8B87",
+      "label": "Border Color"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Choose Button Type",
+      "options": [
+        {
+          "value": "style-one",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-two",
+          "label": "Style 2"
+        }
+      ],
+      "default": "style-two"
+    }
+  ]
+}
+{% endschema %}

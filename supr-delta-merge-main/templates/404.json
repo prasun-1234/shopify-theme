@@ -1,0 +1,121 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "enable_box_shadow": true,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "404_page": {
+      "type": "main-404",
+      "blocks": {
+        "image": {
+          "type": "featured_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/blog-img.png"
+          }
+        },
+        "title": {
+          "type": "404_title",
+          "settings": {
+            "error_heading": "<h4>404 ERROR, SOMETHING WENT WRONG</h4>",
+            "error_heading_color": "#333333"
+          }
+        },
+        "404-text": {
+          "type": "404_text",
+          "settings": {
+            "number": "<h2><\/h2>",
+            "text_size": 0,
+            "text-color": ""
+          }
+        },
+        "subtext": {
+          "type": "subtext_title",
+          "settings": {
+            "error_paragraph": "Amet venenatis urna cursus eget. Curabitur vitae nunc sed velit.  Consequat id porta nibh venenatis cras sed felis eget velit.",
+            "error_paragraph_color": "#333333"
+          }
+        },
+        "button": {
+          "type": "banner_button",
+          "settings": {
+            "banner_button_text": "Back to Home"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "title",
+        "404-text",
+        "subtext",
+        "button"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "enable_title": true,
+        "enable_subtext_title": true,
+        "enable_button": true,
+        "background_color": ""
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "404_page"
+  ]
+}

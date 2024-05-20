@@ -1,0 +1,229 @@
+{% style %}
+  .article-card-bg {
+    background-color: var(--theme-primary-color);
+  }
+  .read-underline::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 0%;
+    height: 2px;
+    background: var(--theme-secondary-color);
+    transition: 0.3s ease;
+  }
+  .read-underline:hover::before {
+    width: 100%;
+  }
+  .read-underline {
+    color: var(--theme-secondary-color);
+    display: inline-block;
+  }
+
+  .blog {
+    transform-origin: center;
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media only screen and (max-width: 420px) {
+    .article_card,
+    .article,
+    .article_date {
+      text-align: center !important;
+    }
+  }
+{% endstyle %}
+
+{% if class == 'article-bg' %}
+  <div
+    class="group/article article-card grid grid-cols-12 w-full {% if settings.blog_card_style == 'style-1' %}sm:gap-[30px] xl:p-[50px] sm:p-[40px] border rounded-lg p-[10px]{% else %}{% endif %} {{ class }} mb-[40px]"
+    {% if settings.blog_card_style == 'style-1' %}
+      style="background:{{ section.settings.card_bg }};"
+    {% endif -%}
+  >
+    <div class="relative col-span-12 xl:col-span-6 ">
+      {% if article.image != blank %}
+        <a
+          rel="nofollow"
+          href="{{ article.url }}"
+          class="overflow-hidden h-[250px] sm:h-[300px] lg:h-[500px] block relative"
+        >
+          <img
+            alt="{{ article.image.alt }}"
+            class="object-cover w-full h-full hover:scale-110 blog"
+            src="{{ article.image | image_url }}"
+            loading="lazy"
+            srcset="
+              {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            widths="50,100,165, 360, 535, 750, 1070, 1500"
+            sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+            width="{{ article.image.width }}"
+            height="auto"
+          >
+        </a>
+      {% else %}
+        <div class="overflow-hidden h-[250px] lg:h-[500px] block relative">
+          {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full hover:scale-110 duration-200 ease-in-out' }}
+        </div>
+      {% endif %}
+    </div>
+    <div
+      class="relative col-span-12 xl:col-span-6 flex flex-col justify-center lg:items-start items-center {% if settings.blog_card_style == 'style-2' %}py-8 px-8 lg:px-12 lg:py-12{% else %}lg:px-0 lg:py-0 py-8 px-5{% endif %}"
+      {% if settings.blog_card_style == 'style-2' %}
+        style="background:{{ section.settings.card_bg }};"
+      {% endif -%}
+    >
+      {% if settings.blog_card_style == 'style-1' %}
+        <div>
+          <p
+            class="opacity-80 sm:mb-0 mb-[10px] article_date"
+            style="text-align:{{ settings.blog_card_text_alignment }};color:{{ section.settings.card_text }};"
+          >
+            {% if show_date %}
+              {{ article.created_at | date: '%d %b %Y' -}}
+            {%- endif %}
+          </p>
+          <a rel="nofollow" href="{{ article.url }}">
+            <h3
+              class="article font-semibold !text-[2rem] lg:!text-[4.5rem] !leading-none"
+              style="text-align:{{ settings.blog_card_text_alignment }};color:{{ section.settings.card_text }};"
+            >
+              {{ article.title }}
+            </h3>
+          </a>
+
+          {% if show_author == true %}
+            <div class="flex items-center gap-5 sm:justify-start justify-center sm:mt-[30px] mt-[20px] mb-[30px]">
+              <div>
+                {% if article.metafields.author_image.value.value %}
+                  {{
+                    article.metafields.author_image.value.value
+                    | image_url: width: 100
+                    | image_tag:
+                      class: 'w-[50px] h-[50px] rounded-full object-cover',
+                      widths: '50,100,165, 360, 535, 750, 1070, 1500',
+                      sizes: '(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw'
+                  }}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'w-[120px]' }}
+                {% endif %}
+              </div>
+              <div>
+                <h5 class="font-semibold" style="color:{{ section.settings.card_text }};">{{ article.author }}</h5>
+                <p style="color:{{ section.settings.card_text }};">Editor</p>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      {% else %}
+        <div>
+          <a rel="nofollow" href="{{ article.url }}">
+            <h2
+              class=" 2xl:w-3/4  "
+              style="text-align:{{ settings.blog_card_text_alignment }};color:{{ section.settings.card_text }};"
+            >
+              {{ article.title }}
+            </h2>
+          </a>
+          <div class="flex my-[10px] gap-[8px] items-baseline " style="color:{{ section.settings.card_text }};">
+            {% if show_author == true %}
+              <div class="flex items-center ">
+                <p class=" ">By {{ article.author }},</p>
+              </div>
+            {%- endif -%}
+
+            <p style="text-align:{{ settings.blog_card_text_alignment }}; color:{{ section.settings.card_text }};">
+              {% if show_date %}
+                {{ article.created_at | date: '%d %b %Y' -}}
+              {%- endif %}
+            </p>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <a href="{{ article.url }}" style="display: contents;">
+        {% render 'btn-primary', src: 'Read More', class: 'w-full lg:w-fit mt-5' %}
+      </a>
+    </div>
+  </div>
+{% elsif class == 'article-card' %}
+  <div class="group/article {{ class }} article_card_main">
+    <div class="mb-4 relative article_card_image">
+      {% if article.image != blank %}
+        <a rel="nofollow" href="{{ article.url }}" class="overflow-hidden h-[200px] lg:h-[300px] block relative">
+          <img
+            alt="{{ article.image.alt }}"
+            class="object-cover w-full h-full hover:scale-110 blog"
+            src="{{ article.image | image_url }}"
+            loading="lazy"
+            sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+            srcset="
+              {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            width="{{ article.image.width }}"
+            height="auto"
+          >
+        </a>
+      {% else %}
+        <div class="overflow-hidden h-[300px] block relative">
+          {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full hover:scale-110 duration-200 ease-in-out bg-[#ccc]' }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="relative article_card flex flex-col gap-4" style="text-align:{{ settings.blog_card_text_alignment }};">
+      {% if settings.blog_card_style == 'style-1' %}
+        <p class="opacity-80 article_date" style="text-align:{{ settings.blog_card_text_alignment }};">
+          {% if show_date %}
+            {{ article.created_at | date: '%d %b %Y' -}}
+          {%- endif %}
+        </p>
+      {% endif %}
+      <a rel="nofollow" href="{{ article.url }}">
+        <h3 class="">
+          {{ article.title }}
+        </h3>
+      </a>
+      {% if settings.blog_card_style == 'style-1' %}
+        <div class="opacity-80 text-base">
+          {{ article.excerpt_or_content | truncatewords: 20 }}
+          {% capture read_more %}
+          {{ 'article-card.read_more' | t }}
+        {% endcapture %}
+          {% render 'hover-link', src: read_more, link: article.url %}
+        </div>
+      {% endif %}
+      <p class="font-normal text-base">
+        {% if show_author == true -%}
+          By {{ article.author -}}
+          {% if show_author == true and settings.blog_card_style == 'style-2' %},{%- endif -%}
+        {%- endif -%}
+        {% if show_author == true and show_date == true %}{% endif %}
+        {% if settings.blog_card_style == 'style-2' and show_date == true %}
+          {{ article.created_at | date: '%d %b %Y' -}}
+        {% endif %}
+      </p>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,212 @@
+<section>
+  <div
+    class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto py-[60px]"
+    id="searchProductGrid"
+  >
+    <div class="flex flex-col items-center sm:px-0">
+      <h3 class="sm:text-[40px] text-[30px] font-normal leading-none mb-[30px] uppercase">
+        {{ 'main-search.search_products' | t }}
+      </h3>
+
+      <div
+        class="w-full mx-auto"
+        x-data="
+          {
+            loading: false
+          }
+        "
+        @search-updated.window="
+          $nextTick(()=>{
+            const queryString = new URLSearchParams(new FormData($refs.search_form)).toString()
+            loading = true;
+            fetch('/search/?' + queryString)
+            .then(response => response.text())
+            .then(data => {
+             let html_div = document.createElement('div');
+             html_div.innerHTML = data;
+
+             let html_dom = html_div.querySelector('#searchProductGrid').innerHTML;
+             document.querySelector('#searchProductGrid').innerHTML = html_dom;
+             history.replaceState(null, null, '/search/?' + queryString);
+            })
+            .catch(error => console.log('Error:', error))
+            .finally(() => loading = false)
+          })
+        "
+      >
+        {% render 'loader' %}
+        <form
+          action="{{ routes.search_url }}"
+          x-ref="search_form"
+          @submit="(e)=>{e.preventDefault()}"
+          method="get"
+          class="max-w-[768px] w-full mx-auto"
+        >
+          <div class="relative flex justify-center items-center">
+            <input
+              @change="$dispatch('search-updated')"
+              type="text"
+              name="q"
+              placeholder="Search"
+              class="
+                search-input border w-full
+                border-opacity-40 rounded-md py-[16px] px-[20px] block  leading-tight
+              "
+            >
+            <button type="submit" class="absolute right-4">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M23.2947 21.9752L17.3048 15.9853C18.8175 14.1257 19.5589 11.7567 19.3766 9.36645C19.194 6.97633 18.1013 4.74745 16.3237 3.13911C14.5463 1.53093 12.2195 0.666029 9.8231 0.722612C7.42666 0.779436 5.14329 1.75335 3.44387 3.44389C1.75338 5.14337 0.779435 7.4268 0.722585 9.82313C0.665969 12.2196 1.53085 14.5464 3.13908 16.3238C4.74747 18.1014 6.97635 19.194 9.36643 19.3766C11.7566 19.559 14.1256 18.8175 15.9853 17.3048L21.9751 23.2947C22.2162 23.5011 22.5453 23.5713 22.8495 23.4815C23.1536 23.3914 23.3916 23.1535 23.4816 22.8493C23.5714 22.5452 23.5012 22.2161 23.2948 21.975L23.2947 21.9752ZM4.76346 15.3585C3.35872 13.9546 2.56929 12.05 2.56886 10.0641C2.56844 8.07793 3.35707 6.17309 4.76116 4.76857C6.16547 3.36405 8.0701 2.57499 10.0562 2.57499C12.0421 2.57499 13.947 3.36405 15.3511 4.76857C16.7554 6.17309 17.544 8.07793 17.5436 10.0641C17.5432 12.05 16.7535 13.9546 15.3488 15.3585C13.9509 16.773 12.0449 17.5692 10.0562 17.5692C8.06737 17.5692 6.1613 16.773 4.76346 15.3585Z" fill="black" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if search.performed %}
+      {% paginate search.results by 9 %}
+        {% if search.results_count == 0 %}
+          <div class="flex flex-col items-center gap-[15px] my-[40px]">
+            {% render 'icon-empty-search', class: 'w-[120px] stroke' %}
+            <h3 class="leading-none font-medium">{{ 'main-search.not_found' | t }}</h3>
+            <p class="text-center !text-lg">
+              {{ 'main-search.search_term' | t }}
+              <span>"{{ search.terms }}"</span>
+            </p>
+          </div>
+        {% else %}
+          <div class="flex justify-center my-[30px]">
+            <h5>
+              {{ search.results.size }}
+              {{ 'main-search.results' | t }}
+              <span>"{{ search.terms }}"</span>
+            </h5>
+          </div>
+
+          {% case settings.search_only %}
+            {% when 'product' %}
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                {% for item in search.results %}
+                  {% if item.object_type == 'product' %}
+                    {% render 'product-item' with product: item %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% when 'product_article' %}
+              <div class="flex flex-col mb-[60px]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                  {% for item in search.results %}
+                    {% if item.object_type == 'product' %}
+                      {% render 'product-item' with product: item %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+
+                <ul class="grid grid-cols-12 lg:gap-[30px] sm:gap-12 gap-y-[40px] pt-[40px]">
+                  {%- for item in search.results -%}
+                    {% assign articleClass = 'article-card' %}
+
+                    {% if item.object_type == 'article' %}
+                      <li class="col-span-12 md:col-span-6 lg:col-span-4">
+                        {%- render 'article-card',
+                          article: item,
+                          show_date: true,
+                          show_author: true,
+                          class: articleClass
+                        %}
+                      </li>
+                    {% endif %}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {% when 'product_page' %}
+              <div class="flex flex-col mb-[60px]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                  {% for item in search.results %}
+                    {% if item.object_type == 'product' %}
+                      {% render 'product-item' with product: item %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <ul class="list-none mt-[20px] flex flex-col gap-[10px]">
+                  {%- for item in search.results -%}
+                    {% if item.object_type == 'page' %}
+                      <li>
+                        <a class="hover:opacity-90 duration-150 ease-in-out" href="{{ item.url }}">
+                          <h3>
+                            {{- item.title -}}
+                          </h3>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {% when 'product_page_article' %}
+              <div class="flex flex-col gap-[20px] lg:mb-[60px]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                  {% for item in search.results %}
+                    {% if item.object_type == 'product' %}
+                      {% render 'product-item' with product: item %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+
+                {% assign hasArticles = false %}
+
+                {% for item in search.results %}
+                  {% if item.object_type == 'article' %}
+                    {% assign hasArticles = true %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if hasArticles %}
+                  <h3 class="sm:text-left text-center uppercase font-semibold">Blog</h3>
+                {% endif %}
+
+                <ul class="grid grid-cols-12 lg:gap-[30px] sm:gap-12 gap-y-[40px]">
+                  {%- for item in search.results -%}
+                    {% assign articleClass = 'article-card' %}
+
+                    {% if item.object_type == 'article' %}
+                      <li class="col-span-12 md:col-span-6 lg:col-span-4">
+                        {%- render 'article-card',
+                          article: item,
+                          show_date: true,
+                          show_author: true,
+                          class: articleClass
+                        %}
+                      </li>
+                    {% endif %}
+                  {%- endfor -%}
+                </ul>
+
+                <ul class="list-none flex flex-col gap-[10px]">
+                  {%- for item in search.results -%}
+                    {% if item.object_type == 'page' %}
+                      <li>
+                        <a class="hover:opacity-90 duration-150 ease-in-out" href="{{ item.url }}">
+                          <h3>
+                            {{- item.title -}}
+                          </h3>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+  </div>
+</section>

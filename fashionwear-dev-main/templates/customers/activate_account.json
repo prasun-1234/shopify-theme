@@ -1,0 +1,29 @@
+{
+    "sections": {
+      "main": {
+        "type": "main-activate-account",
+        "blocks":{
+          "image": {
+            "type": "image",
+            "settings":{
+              "form_image": "shopify:\/\/shop_images\/register.png"
+            }
+          },
+          "form": {
+            "type": "form",
+            "title":"Activate Account",
+            "description":"<p>Enter the following details to activate your account</p>"
+          }
+        },
+        "block_order":["image","form"],
+        "settings":{
+          "margin_top":40,
+          "margin_bottom":40
+          }
+        }
+    },
+    "order": [
+      "main"
+    ]
+}
+  

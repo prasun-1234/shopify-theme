@@ -1,0 +1,160 @@
+{% style %}
+  .brandSwiper{
+    padding-bottom:80px !important;
+  }
+  .brandSwiper .swiper-pagination-bullet-active{
+    background-color:{{ section.settings.heading_color }} !important;
+  }
+{% endstyle %}
+
+<section class="section" style="background-color: {{ section.settings.backgorund_color }}">
+  <div class="py-8 lg:py-16 mx-auto {% if settings.container == 'boxed' %}container{% else %}container-fluid {% endif %}">
+    <h2
+      class="mb-8 lg:mb-16 tracking-tight leading-tight text-center "
+      style="color: {{ section.settings.heading_color }}"
+    >
+      {{ section.settings.heading }}
+    </h2>
+
+    <div class="swiper brandSwiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks limit: section.settings.slide_limit %}
+          {%- case block.type -%}
+            {%- when 'brand_logo' -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                {% if block.settings.logo_image != blank %}
+                  <a href="{{ block.settings.brand_link }}" class="flex justify-center items-center" rel="nofollow">
+                    {{
+                      block.settings.logo_image
+                      | image_url: width: 1500
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: 'auto',
+                        widths: '104, 165, 360, 535, 750, 1070, 1500',
+                        class: 'flex-shrink-0 h-12 object-contain max-w-[170px] mx-auto'
+                    }}
+                  </a>
+                {%- else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'w-full h-[240px]' }}
+                {% endif %}
+              </div>
+          {%- endcase -%}
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.brand-list.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "backgorund_color",
+      "label": "t:section.brand-list.settings.backgorund_color",
+      "default": "#ccc"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "t:section.brand-list.settings.heading_color",
+      "default": "#333"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:section.brand-list.settings.heading",
+      "default": "Our Seller"
+    },
+    {
+      "type": "range",
+      "id": "slide_limit",
+      "max": 8,
+      "min": 3,
+      "label": "t:section.brand-list.settings.slide_limit",
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_logo",
+      "name": "t:section.brand-list.blocks.brand_logo.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "t:section.brand-list.blocks.brand_logo.settings.logo_image"
+        },
+        {
+          "type": "url",
+          "id": "brand_link",
+          "label": "t:section.brand-list.blocks.brand_logo.settings.brand_link"
+        }
+      ],
+      "limit": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.brand-list.presets.name",
+      "settings": {
+        "backgorund_color": "#ccc",
+        "heading_color": "#333",
+        "heading": "select heading text",
+        "slide_limit": 5
+      },
+      "blocks": [
+        {
+          "type": "brand_logo"
+        },
+        {
+          "type": "brand_logo"
+        },
+        {
+          "type": "brand_logo"
+        },
+        {
+          "type": "brand_logo"
+        },
+        {
+          "type": "brand_logo"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  var swiper = new Swiper('.brandSwiper', {
+    slidesPerView: 4,
+    spaceBetween: 10,
+    loop: true,
+    pagination: {
+      el: '.brandSwiper .swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+      },
+      767: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      },
+      980: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+      1280: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+    },
+  });
+{% endjavascript %}

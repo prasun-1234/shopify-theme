@@ -1,0 +1,585 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "enable_box_shadow": true,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "slide-show": {
+      "type": "slide-show",
+      "blocks": {
+        "slide1": {
+          "type": "image_block",
+          "settings": {
+            "slide_mini_title": "",
+            "slide_title": "WALTX 22",
+            "slide_text": "The WaltX 22 series embodies rugged durability, 22-speed precision, responsive suspension, and reliable braking, offering an exhilarating ride for adventurous mountain and off-road explorations.",
+            "content_align": "right",
+            "text_align": "left",
+            "slide_image": "shopify:\/\/shop_images\/slider_image_cylce.png",
+            "background_image": "shopify:\/\/shop_images\/banner-slider.jpg",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "content_color": "#3a3a3a",
+            "primary_btn_text": "Ride It Home",
+            "primary_link": "#",
+            "secondary_btn_text": "View Collection",
+            "secondary_link": ""
+          }
+        },
+        "slide2": {
+          "type": "image_block",
+          "settings": {
+            "slide_mini_title": "",
+            "slide_title": "ISODE ROAD",
+            "slide_text": "The Isode Road series offers speed and reliability for commuters, featuring precision engineering and a focus on high-speed performance.",
+            "content_align": "right",
+            "text_align": "center",
+            "background_image": "shopify:\/\/shop_images\/video_banner.jpg",
+            "overlay_color": "#3a3a3a",
+            "overlay_opacity": 6,
+            "content_color": "#ffffff",
+            "primary_btn_text": "Wear It Home",
+            "primary_link": "#",
+            "secondary_btn_text": "View Collection",
+            "secondary_link": "",
+            "icon": "shopify:\/\/shop_images\/Arrow_right.png"
+          }
+        },
+        "slide3": {
+          "type": "image_block",
+          "settings": {
+            "slide_mini_title": "",
+            "slide_title": "ISODE ROAD",
+            "slide_text": "The Isode Road series presents a lineup of commuter bicycles designed for swift travel, emphasizing precision engineering and speed-oriented performance.",
+            "content_align": "left",
+            "text_align": "left",
+            "slide_image": "shopify:\/\/shop_images\/helmet_slider.png",
+            "background_image": "shopify:\/\/shop_images\/slider_bg.jpg",
+            "overlay_color": "#3a3a3a",
+            "overlay_opacity": 0,
+            "content_color": "#3a3a3a",
+            "primary_btn_text": "Wear It Home",
+            "primary_link": "#",
+            "secondary_btn_text": "View Collection",
+            "secondary_link": ""
+          }
+        },
+        "slide-video": {
+          "type": "video_block",
+          "settings": {
+            "slide_mini_title": "",
+            "slide_title": "ISODE ROAD",
+            "content_color": "#ffffff",
+            "content_align": "center",
+            "slide_text": "At the upcoming Cyclers Expo, be ready to explore the Isode Road series—a collection of commuter bikes engineered for speed and reliability.",
+            "slide_video": "shopify:\/\/files\/videos\/slider_video.mp4",
+            "video_bg": "#3a3a3a",
+            "video_opacity": 6,
+            "primary_btn_text": "Ride It Home",
+            "primary_link": "#",
+            "secondary_btn_text": "",
+            "secondary_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide1",
+        "slide2",
+        "slide3",
+        "slide-video"
+      ],
+      "settings": {
+        "background": "",
+        "pagination_color": "#e20000",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "logo": {
+          "type": "logo",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/BLACK.svg"
+          }
+        },
+        "top-text": {
+          "type": "text",
+          "settings": {
+            "top_text": "FRIDAY SALE"
+          }
+        },
+        "link-text": {
+          "type": "link",
+          "settings": {
+            "link_url": "",
+            "link_text": "25% OFF"
+          }
+        }
+      },
+      "block_order": [
+        "logo",
+        "top-text",
+        "link-text"
+      ],
+      "settings": {
+        "top_bar_bg": "shopify:\/\/shop_images\/topbar.jpg",
+        "overlay_color": "#000000",
+        "overlay_value": 4,
+        "content_color": "#ffffff"
+      }
+    },
+    "feature-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "BICYCLES",
+        "section_margin_top": 80,
+        "section_margin_bottom": 0,
+        "padding": 0,
+        "collection": "bicycles",
+        "background_color": "",
+        "product_view": "slider",
+        "products_to_show": 6,
+        "products_per_row": 4,
+        "side_banner_enable": false,
+        "side_banner_color": "#3a3a3a",
+        "banner_content_color": "#ffffff",
+        "side_banner_title": "25% OFF ON ACCESSORIES",
+        "banner_button_text": "View Collection",
+        "url": "",
+        "enable_collection_button": false
+      }
+    },
+    "main-collection-product-banner": {
+      "type": "main-collection-product-banner",
+      "settings": {
+        "margin_top": 80,
+        "margin_bottom": 80,
+        "section_padding": 100,
+        "banner_height": 500,
+        "overlay_color": "#000000",
+        "overlay_opacity": 4,
+        "collection": "waltx-series",
+        "product": "apparel",
+        "banner_type": "collection",
+        "bg_color": "",
+        "text_color": "#ffffff",
+        "content_align": "left"
+      }
+    },
+    "trending-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "TRENDING",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "padding": 0,
+        "collection": "bicycles",
+        "background_color": "",
+        "product_view": "slider",
+        "products_to_show": 3,
+        "products_per_row": 4,
+        "side_banner_enable": true,
+        "icon": "shopify:\/\/shop_images\/Arrow_right.png",
+        "image": "shopify:\/\/shop_images\/cycle_side_banner_1.jpg",
+        "side_banner_color": "linear-gradient(0deg, rgba(64, 59, 58, 1), rgba(64, 59, 58, 0) 100%)",
+        "banner_content_color": "#ffffff",
+        "side_banner_title": "25% OFF ON ACCESSORIES",
+        "banner_button_text": "View Collection",
+        "url": "shopify:\/\/collections\/trending-stock",
+        "enable_collection_button": false
+      }
+    },
+    "new-marquee": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-2.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        },
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-3.jpg",
+            "title": "HAPPY TO HELP"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-4.jpg",
+            "title": "MODERN & STYLISH"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-5.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-6.jpg",
+            "title": "BICYCLE EXPERTS"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-7.jpg",
+            "title": "EASY RETURNS"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-2.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-one",
+        "marquee-two",
+        "marquee-three",
+        "marquee-four",
+        "marquee-five",
+        "marquee-six",
+        "marquee-seven"
+      ],
+      "settings": {
+        "section_margin_top": 80,
+        "section_margin_bottom": 80
+      }
+    },
+    "main-banner-1": {
+      "type": "main-banner-1",
+      "blocks": {
+        "banner1": {
+          "type": "banner_one",
+          "settings": {
+            "banner_title": "BRAND",
+            "bg_image": "shopify:\/\/shop_images\/banner_one_1.jpg",
+            "text_img": "shopify:\/\/shop_images\/shop.png",
+            "background": "linear-gradient(0deg, rgba(64, 59, 58, 1), rgba(64, 59, 58, 0) 100%)",
+            "banner_heading_color": "#ffffff",
+            "slider_text_alignment": "center",
+            "button_text": "Shop Now",
+            "banner_button_url": "shopify:\/\/collections",
+            "icon": "shopify:\/\/shop_images\/Arrow_right.png"
+          }
+        },
+        "banner2": {
+          "type": "banner_two",
+          "settings": {
+            "banner_bg": "linear-gradient(90deg, rgba(255, 242, 219, 1), rgba(255, 251, 195, 1) 100%)",
+            "featured_image": "shopify:\/\/shop_images\/banner_two_bg_91df02ea-57bc-4483-a58d-ef4b185a8dd1.jpg",
+            "slider_text_alignment": "flex-start",
+            "banner_para": "GET SERVICING AT YOUR DOOORSTEP",
+            "primary_button_text": "Contact Us",
+            "banner_button_url": "shopify:\/\/pages\/contact"
+          }
+        }
+      },
+      "block_order": [
+        "banner1",
+        "banner2"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 80,
+        "section_height": 650
+      }
+    },
+    "main-focal-banner": {
+      "type": "main-focal-banner",
+      "blocks": {
+        "focal-point": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/focal_slider_banner_two.jpg",
+            "focal_product": "swimming-glasses"
+          }
+        },
+        "focal-point-two": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/focal_slider_banner_three.jpg",
+            "focal_product": "premium-helmet"
+          }
+        }
+      },
+      "block_order": [
+        "focal-point",
+        "focal-point-two"
+      ],
+      "settings": {
+        "margin-top": 0,
+        "margin-bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/focal_slider_banner_one.jpg",
+        "overlay_color": "#253237",
+        "overlay_opacity": 3,
+        "enable_button": false,
+        "enable_link": true
+      }
+    },
+    "new-arrivals": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "NEW ARRIVALS",
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "padding": 0,
+        "collection": "bicycles",
+        "background_color": "",
+        "product_view": "slider",
+        "products_to_show": 4,
+        "products_per_row": 4,
+        "side_banner_enable": false,
+        "side_banner_color": "linear-gradient(0deg, rgba(64, 59, 58, 1), rgba(64, 59, 58, 0) 100%)",
+        "banner_content_color": "#ffffff",
+        "side_banner_title": "25% OFF ON ACCESSORIES",
+        "banner_button_text": "View Collection",
+        "url": "shopify:\/\/collections\/new-arrival",
+        "enable_collection_button": true
+      }
+    },
+    "main-image-video-banner": {
+      "type": "main-image-video-banner",
+      "blocks": {
+        "title": {
+          "type": "banner_title",
+          "settings": {
+            "banner_heading": "UNEXPLORED",
+            "banner_heading_color": "#ffffff",
+            "text_img": "shopify:\/\/shop_images\/explore.png"
+          }
+        },
+        "paragraph": {
+          "type": "banner_para",
+          "settings": {
+            "banner_paragraph": "Triad X4 , Survive the urban",
+            "banner_paragraph_color": "#ffffff"
+          }
+        },
+        "button": {
+          "type": "banner_button",
+          "settings": {
+            "banner_button_text": "Explore Collection",
+            "banner_button_url": "#"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "paragraph",
+        "button"
+      ],
+      "settings": {
+        "margin_top": 80,
+        "margin_bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/video_bg_image.jpg",
+        "container_height": 700,
+        "banner_height": 500,
+        "overlay_opacity": 4,
+        "overlay_color": "#000000",
+        "enabled_video": false,
+        "enabled_play_button": false,
+        "video": "shopify:\/\/files\/videos\/slider_video.mp4",
+        "video_url": "",
+        "content_align": "center",
+        "play_position": "center_center",
+        "video_subtitle": "summer collection",
+        "content-color": "#ffffff"
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "item1": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/johnson.jpg",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Delta's Commute Champ",
+            "text": "<p>The Delta commuter bike has revolutionized my daily commute. Its lightweight build and efficient design make navigating city streets a breeze. I'm impressed by its durability and comfort!<\/p>",
+            "customer": "Sarah Johnson",
+            "date": "22 Dec,2022"
+          }
+        },
+        "item2": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/customer1.png",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Fitness with Delta",
+            "text": "<p>As a fitness enthusiast, the Delta sports bike is my go-to. Its agility and speed make workouts exhilarating. The precision gearing ensures a smooth ride, perfect for intense training sessions!<\/p>",
+            "customer": "Mark Roberts",
+            "date": "22 Dec,2022"
+          }
+        },
+        "item3": {
+          "type": "item",
+          "settings": {
+            "customer_image": "shopify:\/\/shop_images\/wong.jpg",
+            "item_bg": "linear-gradient(180deg, rgba(237, 245, 254, 1), rgba(255, 242, 242, 1) 100%)",
+            "text_color": "#000000",
+            "rating": 4,
+            "title": "Delta: City Joyride",
+            "text": "<p>The Delta brand is my top choice for a commuter bike. Stylish, reliable, and versatile, it's made city travel effortless. The durability and performance exceed my expectations every time.<\/p>",
+            "customer": "Emily Wong",
+            "date": "22 Dec,2022"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 80,
+        "padding": 60,
+        "style": "style1",
+        "style_two_color": "#f2efeb",
+        "featured_image": "shopify:\/\/shop_images\/testimonial_vector.svg"
+      }
+    },
+    "home_blog": {
+      "type": "home-blog",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 60,
+        "background_color": "#ffffff",
+        "featured_blog": "news",
+        "show_date": true,
+        "show_author": true,
+        "post_row_limit": 3,
+        "slider_or_grid": "slider",
+        "product_limit": 3
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "blocks": {
+        "image1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta1.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta2.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "text1": {
+          "type": "text_block",
+          "settings": {
+            "background_color": "",
+            "image": "shopify:\/\/shop_images\/insta3.jpg",
+            "social_tag": "@DBIKES",
+            "content_color": "#ffffff",
+            "link": "https:\/\/www.instagram.com\/",
+            "button_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image1",
+        "image2",
+        "text1"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "equal_box": false
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "slide-show",
+    "announcement-bar",
+    "feature-collection",
+    "main-collection-product-banner",
+    "trending-collection",
+    "new-marquee",
+    "main-banner-1",
+    "main-focal-banner",
+    "new-arrivals",
+    "main-image-video-banner",
+    "testimonial",
+    "home_blog",
+    "instagram"
+  ]
+}

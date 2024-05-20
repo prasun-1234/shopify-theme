@@ -1,0 +1,31 @@
+{% style %}
+  .btn-pagi.prev svg path {
+    fill: transparent !important;
+    stroke: var(--primary-color) !important;
+  }
+  .btn-pagi.prev .white path {
+    stroke: white !important;
+  }
+  .btn-pagi svg path {
+    fill: transparent !important;
+    stroke: var(--primary-color) !important;
+  }
+  .btn-pagi .white path {
+    stroke: white !important;
+  }
+
+  .btn-pagi {
+    background-color: var(--theme-secondary-color);
+  }
+  .btn-pagi:hover {
+    background-color: var(--primary-btn-bg);
+  }
+{% endstyle %}
+<div class="{{ class }} btn-pagi rounded-full flex items-center justify-center relative group transition duration-300 ease overflow-hidden h-[40px] w-[40px] flex-shrink-0">
+  {% render 'icon-chevron-right',
+    class: 'group-hover:translate-x-[10rem] transition duration-300 ease absolute h-full w-[6px]'
+  %}
+  {% render 'icon-chevron-right',
+    class: 'absolute white h-full w-[6px] translate-x-[-10rem] group-hover:translate-x-[0rem] transition duration-300 ease scale-90 lg:scale-100'
+  %}
+</div>

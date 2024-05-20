@@ -1,0 +1,189 @@
+{% style %}
+  @media only screen and (max-width: 980px){
+    #announcement-bar{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+    }
+{% endstyle %}
+<section
+  id="announcement-bar"
+  class="announcement-bar section relative bg-no-repeat bg-cover bg-center h-[60px] overflow-hidden ease-in-out duration-300"
+  style="background-image: url({{ section.settings.top_bar_bg | image_url }})"
+  id="announcement_bar"
+>
+  <div class="absolute w-full h-full opacity-30 z-20"></div>
+  {% if section.settings.top_bar_bg == blank %}
+    <span class="absolute left-0 top-0 w-full h-full flex items-center">
+      {{- 'lifestyle-1' | placeholder_svg_tag: 'w-full' -}}
+    </span>
+  {% endif %}
+  <span
+    class="overlay absolute left-0 top-0 w-full h-full"
+    style="background:{{ section.settings.overlay_color }}; opacity:calc({{ section.settings.overlay_value }}/10);"
+  ></span>
+  <div class="close-btn h-full absolute top-0 sm:right-[20px] right-[10px] flex items-center cursor-pointer duration-150 ease-in- z-50">
+    {% render 'icon-close', color: section.settings.content_color, class: 'w-[20px] h-[20px]' %}
+  </div>
+  <div class="container mx-auto h-full z-40 relative">
+    <ul class="flex justify-center whitespace-nowrap h-full items-center overflow-x-auto sm:overflow-x-hidden overflow-y-hidden scrollbar-none sm:gap-[15px] py-[10px]">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'logo' %}
+            <li {{ block.shopify_attributes }} class="h-full">
+              {% if block.settings.logo_img %}
+                {{
+                  block.settings.logo_img
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'object-cover w-auto sm:translate-x-[20px] h-full w-full'
+                }}
+              {% else %}
+                {{ 'product-3' | placeholder_svg_tag: 'w-[100px] translate-y-[-34px]' }}
+              {% endif %}
+            </li>
+          {% when 'text' %}
+            <li
+              class="sm:mr-0 mr-1"
+              {{ block.shopify_attributes }}
+            >
+              <p class="md:text-2xl text-base" style="color:{{ section.settings.content_color }};">
+                {% if block.settings.top_text != blank %}
+                  {{ block.settings.top_text }}
+                {% else %}
+                  Text-1
+                {% endif %}
+              </p>
+            </li>
+          {% when 'link' %}
+            <li {{ block.shopify_attributes }}>
+              <a
+                href="{{ block.settings.link_url }}"
+                rel="nofollow"
+                class="link_1 md:text-2xl text-base hover:underline"
+                style="color:{{ section.settings.content_color }};"
+              >
+                {% if block.settings.link_text != blank %}
+                  {{- block.settings.link_text }}
+                {% else %}
+                  Link
+                {% endif %}
+              </a>
+            </li>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.announcement-bar.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "top_bar_bg",
+      "label": "t:section.announcement-bar.settings.top_bar_bg"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000",
+      "label": "t:section.announcement-bar.settings.overlay_color"
+    },
+    {
+      "type": "range",
+      "id": "overlay_value",
+      "label": "t:section.announcement-bar.settings.overlay_value",
+      "max": 10,
+      "min": 0,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "default": "#fff",
+      "label": "t:section.announcement-bar.settings.content_color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.announcement-bar.blocks.logo.name",
+      "type": "logo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_img",
+          "label": "t:section.announcement-bar.blocks.logo.settings.logo_img"
+        }
+      ]
+    },
+    {
+      "name": "t:section.announcement-bar.blocks.text.name",
+      "type": "text",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "top_text",
+          "default": "FRIDAY SALE",
+          "label": "t:section.announcement-bar.blocks.text.settings.top_text"
+        }
+      ]
+    },
+    {
+      "name": "t:section.announcement-bar.blocks.link.name",
+      "type": "link",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "t:section.announcement-bar.blocks.link.settings.link_url"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:section.announcement-bar.blocks.link.settings.link_text",
+          "default": "25% OFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.announcement-bar.presets.name",
+      "settings": {
+        "top_bar_bg": "shopify:\/\/shop_images\/announcement.jpg",
+        "overlay_color": "#000000",
+        "overlay_value": 4,
+        "content_color": "#ffffff"
+      },
+      "blocks": [
+        {
+          "type": "logo"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  let button = document.querySelector('.close-btn').addEventListener('click', () => {
+    document.querySelector('.announcement-bar').style.display = 'none';
+  });
+</script>

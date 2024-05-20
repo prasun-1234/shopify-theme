@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="{{ 'about-us.css' | asset_url }}">
+
+<section class="about-banner {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+  {% if section.settings.image %}
+    <img
+      alt="{{ section.settings.image.src.alt | escape }}"
+      srcset="
+        {%- if section.settings.image.width >= 375 -%}
+          {{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+        {%- if section.settings.image.width >= 550 -%}
+          {{ section.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+        {%- if section.settings.image.width >= 750 -%}
+          {{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+        {%- if section.settings.image.width >= 1100 -%}
+          {{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+        {%- if section.settings.image.width >= 1500 -%}
+          {{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+        {%- if section.settings.image.width >= 1780 -%}
+          {{ section.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+        {%- if section.settings.image.width >= 2000 -%}
+          {{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+        {%- if section.settings.image.width >= 3000 -%}
+          {{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+        {%- if section.settings.image.width >= 3840 -%}
+          {{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+        {{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+      "
+      src="{{ section.settings.image | image_url: width: 1500 }}"
+      loading="lazy"
+      alt="{{ section.settings.image.alt | escape }}"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.section_height }}"
+    >
+  {% endif %}
+
+  <div class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} about-us-content">
+    <h2 class="about-title">{{ page.title }}</h2>
+    {% if page.content != blank %}
+      <span>{{ page.content }}</span>
+    {% endif %}
+  </div>
+
+  {%- if section.settings.image == blank -%}
+    <div class="placeholder-background">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.about_us.name",
+  "class": "scrollmagic-element",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_height",
+      "options": [
+        {
+          "value": "500px",
+          "label": "t:sections.about_us.settings.section_height.options_1"
+        },
+        {
+          "value": "650px",
+          "label": "t:sections.about_us.settings.section_height.options_2"
+        },
+        {
+          "value": "750px",
+          "label": "t:sections.about_us.settings.section_height.options_3"
+        }
+      ],
+      "label": "t:sections.about_us.settings.section_height.label",
+      "default": "500px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.about_us.settings.image.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.about_us.presets.name",
+      "settings": {
+        "section_height": "500px",
+        "image": ""
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,65 @@
+{{ 'section-circle-banner.css' | asset_url | stylesheet_tag }}
+<section class="circle-banner-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="circle_animate_gsap">
+      <div class="circle_inner_animate">
+        <div class="text_div">
+          {% if section.settings.text_1 != blank %}
+            <span class="text_1">{{ section.settings.text_1 }}</span>
+          {% endif %}
+          {% if section.settings.text_2 != blank %}
+            <span class="text_2">{{ section.settings.text_2 }}</span>
+          {% endif %}
+        </div>
+        <div class="vertical_slider_gsap image_div">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'slide' %}
+                {% if block.settings.image != blank %}
+                  <figure class="slide_animate_image">
+                    {{ block.settings.image | image_url: width: 1000 | image_tag }}
+                  </figure>
+                {% endif %}
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Cicle banner",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "<h2>Dedicated to</h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "<h2>delivering</h2>"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image Slide",
+      "type": "slide",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

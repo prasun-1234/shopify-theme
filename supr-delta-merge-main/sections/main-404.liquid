@@ -1,0 +1,243 @@
+{% style %}
+  #{{ section.id }}{
+      margin-top: {{ section.settings.margin_top }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom }}px !important;
+      padding-block: 100px;
+      background: {{ section.settings.background_color }} url('{{ section.settings.background | image_url }}') no-repeat center center;
+      background-size: cover;
+      }
+  @media screen and (max-width:980px) {
+    #{{ section.id }}{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+
+<section id="{{ section.id }}" class="errorPage">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div class="flex flex-col items-center text-center">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'featured_image' %}
+            {% if block.settings.image != blank %}
+              <div {{ block.shopify_attributes }}>
+                {{
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'sm:h-[200px] object-contain md:object-cover sm:w-full w-auto'
+                }}
+              </div>
+            {% endif %}
+          {% when '404_title' %}
+            <div class="leading-none mt-10" id="{{ block.id }}" {{ block.shopify_attributes }}>
+              {% if section.settings.enable_title %}
+                {% style %}
+                  #{{ section.id }} #{{ block.id }} .error_heading *{
+                    color:{{ block.settings.error_heading_color }};
+                    font-size:{{ block.settings.error_text_size }}px !important;
+                  }
+                {% endstyle %}
+                <span class="error_heading">
+                  {{ block.settings.error_heading }}
+                </span>
+              {% endif %}
+            </div>
+          {% when '404_text' %}
+            {% style %}
+              .richText > h1, .richText > h2, .richText > h3, .richText > h4, .richText > h5, .richText > h6{
+                {% if block.settings.text_size != 0 %}
+                font-size: {{ block.settings.text_size }}px !important;
+                color: {{ block.settings.text-color }} !important;
+                {% endif %}
+              }
+            {% endstyle %}
+            {% if block.settings.number != blank %}
+              <div class="richText" {{ block.shopify_attributes }}>{{ block.settings.number }}</div>
+            {% endif %}
+          {% when 'subtext_title' %}
+            <div
+              class="xl:w-4/12 lg:w-[50%] md:w-[60%] sm:w-[70%] w-full text-center pt-[20px] pb-[40px] "
+              {{ block.shopify_attributes }}
+            >
+              {% if section.settings.enable_subtext_title %}
+                <p style="color: {{ block.settings.error_paragraph_color }}">{{ block.settings.error_paragraph }}</p>
+              {% endif %}
+            </div>
+
+          {% when 'banner_button' %}
+            <span {{ block.shopify_attributes }}>
+              {% if section.settings.enable_button %}
+                <a href="{{ routes.root_url }}" rel="nofollow">
+                  {% render 'btn-primary', src: block.settings.banner_button_text %}
+                </a>
+              {% endif %}
+            </span>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-404.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-404.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-404.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_title",
+      "default": true,
+      "label": "t:section.main-404.settings.enable_title"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_subtext_title",
+      "default": true,
+      "label": "t:section.main-404.settings.enable_subtext_title"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button",
+      "label": "t:section.main-404.settings.enable_button",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.main-404.settings.background_color"
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "t:section.main-404.settings.background"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_image",
+      "name": "t:section.main-404.blocks.featured_image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.main-404.blocks.featured_image.settings.image"
+        }
+      ]
+    },
+    {
+      "type": "404_title",
+      "name": "t:section.main-404.blocks.404_title.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "error_heading",
+          "label": "t:section.main-404.blocks.404_title.settings.error_heading",
+          "default": "<h4>Page not found</h4>"
+        },
+        {
+          "type": "color",
+          "id": "error_heading_color",
+          "label": "t:section.main-404.blocks.404_title.settings.error_heading_color",
+          "default": "#333"
+        },
+        {
+          "type": "range",
+          "id": "error_text_size",
+          "label": "t:section.main-404.blocks.404_text.settings.text_size",
+          "max": 72,
+          "min": 0,
+          "step": 1,
+          "default": 32,
+          "unit": "px"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "name": "t:section.main-404.blocks.404_text.name",
+      "type": "404_text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "number",
+          "label": "t:section.main-404.blocks.404_text.settings.number"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "t:section.main-404.blocks.404_text.settings.text_size",
+          "max": 100,
+          "min": 0,
+          "step": 1,
+          "default": 0,
+          "unit": "px"
+        },
+        {
+          "type": "color",
+          "id": "text-color",
+          "label": "t:section.main-404.blocks.404_text.settings.text-color.label",
+          "info": "t:section.main-404.blocks.404_text.settings.text-color.info"
+        }
+      ]
+    },
+    {
+      "type": "subtext_title",
+      "name": "t:section.main-404.blocks.subtext_title.name",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "error_paragraph",
+          "label": "t:section.main-404.blocks.subtext_title.settings.error_paragraph",
+          "default": "Amet venenatis urna cursus eget. Curabitur vitae nunc sed velit.  Consequat id porta nibh venenatis cras sed felis eget velit."
+        },
+        {
+          "type": "color",
+          "id": "error_paragraph_color",
+          "label": "t:section.main-404.blocks.subtext_title.settings.error_paragraph_color",
+          "default": "#333"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "name": "t:section.main-404.blocks.banner_button.name",
+      "type": "banner_button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_button_text",
+          "label": "t:section.main-404.blocks.banner_button.settings.banner_button_text",
+          "default": "Back to News"
+        }
+      ],
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

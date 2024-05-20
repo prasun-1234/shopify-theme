@@ -1,0 +1,13 @@
+{
+    "sections": {
+        "main": {
+            "type": "main-list-collection",
+            "settings": {
+                "number_of_items":2
+            }
+        }
+    },
+    "order": [
+        "main"
+    ]
+}

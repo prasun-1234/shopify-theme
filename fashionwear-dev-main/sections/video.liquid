@@ -1,0 +1,200 @@
+{% style %}
+  .{{ section.id }}{
+    height:{{ section.settings.container_height }}px;
+    margin-top:{{ section.settings.margin_top }}px;
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+  .active{
+    opacity:1;
+    z-index:20;
+  }
+  .play-button .play-svg path{
+    fill:#fff;
+  }
+  @media screen and (max-width:1024px){
+      .{{ section.id }}{
+      margin-top:{{ section.settings.margin_top | divided_by: 2 }}px;
+      margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px;
+    }
+  }
+  @media screen and (max-width:980px){
+     .{{ section.id }}{
+      height: 400px;
+      }
+   }
+{% endstyle %}
+
+<section class="video_section flex justify-center relative overflow-hidden {{ section.id }}">
+  <div class="h-full w-full">
+    {% if section.settings.demo_video == blank %}
+      <div class="absolute left-0 top-0 w-full h-full flex items-center justify-center z-50">
+        <button class="play play-button w-[130px] h-[130px] bg-[#ffffff40] rounded-full flex justify-center items-center p-[40px] group/play_btn">
+          {% render 'play-button',
+            class: 'w-[50px] play-svg translate-x-[5px] group-hover/play_btn:scale-90 ease-in-out duration-150'
+          %}
+        </button>
+      </div>
+    {% endif %}
+    <span
+      class="absolute w-full h-full z-10 video_overlay"
+      style="background-color:{{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+    ></span>
+
+    <div class="absolute left-0 top-0 h-full w-full video-container z-30">
+      {% if section.settings.demo_video != blank %}
+        {{
+          section.settings.demo_video
+          | video_tag: class: 'object-cover h-full w-full', loop: true, autoplay: true, controls: true
+        }}
+      {% else %}
+        {% if section.settings.video_url.id != blank %}
+          {% if section.settings.video_url.type == 'youtube' %}
+            <iframe
+              src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?loop=1"
+              frameborder="0"
+              width="100"
+              height="100"
+              class="w-full h-full"
+              loading="lazy"
+            ></iframe>
+          {% else %}
+            <iframe
+              src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}"
+              frameborder="0"
+              width="100"
+              height="100"
+              allow="autoplay"
+              loading="lazy"
+              class="w-full h-full"
+            ></iframe>
+          {% endif %}
+        {% else %}
+          <video
+            src="{{ 'test-video.mp4' | asset_url }}"
+            loop="true"
+            autoplay="true"
+            controls="true"
+            loading="lazy"
+            class="lg:object-cover h-full w-full"
+          ></video>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% if section.settings.demo_video == blank %}
+      <div class="absolute left-0 top-0 w-full h-full z-40 video_img">
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 1500
+            | image_tag:
+              alt: section.settings.background_image.alt,
+              loading: 'lazy',
+              sizes: 'auto',
+              widths: '165, 360, 535, 750, 1070, 1500',
+              class: 'feature-img object-cover w-full h-full'
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'object-cover w-full h-full' }}
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "t:section.video.name",
+    "settings": [
+      {
+        "type": "range",
+        "id": "container_height",
+        "step": 50,
+        "max": 800,
+        "min": 300,
+        "unit": "px",
+        "label": "t:section.video.settings.container_height",
+        "default": 800
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "step": 20,
+        "max": 100,
+        "min": 0,
+        "default": 0,
+        "unit": "px",
+        "label": "t:section.video.settings.margin_top"
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "step": 20,
+        "max": 100,
+        "min": 0,
+        "default": 0,
+        "unit": "px",
+        "label": "t:section.video.settings.margin_bottom"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "t:section.video.settings.overlay_opacity",
+        "step": 1,
+        "max": 10,
+        "min": 0,
+        "default": 4
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "default": "#000000",
+        "label": "t:section.video.settings.overlay_color"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "t:section.video.settings.background_image"
+      },
+      {
+        "type": "video",
+        "id": "demo_video",
+        "label": "t:section.video.settings.demo_video.label",
+        "info": "t:section.video.settings.demo_video.info"
+      },
+      {
+        "type": "video_url",
+        "id": "video_url",
+        "label": "t:section.video.settings.video_url",
+        "accept": ["youtube", "vimeo"],
+        "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:section.video.presets.name",
+        "settings": {
+          "background_image": "shopify:\/\/shop_images\/video-feature-img.jpg",
+          "overlay_opacity": 4,
+          "overlay_color": "#000000",
+          "demo_video": "",
+          "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+          "container_height": 800,
+          "margin_top": 0,
+          "margin_bottom": 0
+        }
+      }
+    ]
+  }
+{% endschema %}
+
+<script>
+  let playButton = document.querySelector('.{{ section.id }} .play-button');
+  let videoContainer = document.querySelector('.{{ section.id }}');
+  if (playButton) {
+    playButton.addEventListener('click', myFunction);
+  }
+
+  function myFunction() {
+    videoContainer.classList.add('video_active');
+  }
+</script>

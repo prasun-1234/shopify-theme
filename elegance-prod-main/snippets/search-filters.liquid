@@ -1,0 +1,260 @@
+<div
+  x-data="
+    {
+      loading: false
+    }
+  "
+  @filter-updated.window="
+    $nextTick(()=>{
+      const queryString = new URLSearchParams(new FormData($refs.search_form)).toString()
+      loading = true;
+      fetch('search?' + queryString)
+      .then(response => response.text())
+      .then(data => {
+        let html_div = document.createElement('div');
+       html_div.innerHTML = data;
+
+       let html_dom = html_div.querySelector('.search-grid').innerHTML;
+       document.querySelector('.search-grid').innerHTML = html_dom;
+       history.replaceState(null, null, '?' + queryString);
+      })
+      .catch(error => console.log('Error:', error))
+      .finally(() => loading = false)
+    })
+  "
+  class="filter-options"
+  style="background-color: {{ section.settings.filter_sidebar_color }};"
+>
+  <button type="button" class="close-sidebar" tabindex="0">
+    {% render 'icon-close-2' %}
+  </button>
+  <h4 class="search_filter_title">{{ 'main_search.filter' | t }}</h4>
+  <form x-ref="search_form" id="search_filters">
+    <input type="hidden" name="q" value="{{ search.terms }}" id="search_hidden">
+
+    {%- for filter in search.filters -%}
+      <details>
+        <summary>
+          <div>
+            <span>{{ filter.label }}</span>
+          </div>
+          {% render 'dropdown-icon' %}
+        </summary>
+
+        <div class="filter_group">
+          {%- case filter.type -%}
+            {%- when 'boolean' -%}
+              <ul class="filter-list">
+                <li>
+                  <label for="Filter-{{ filter.param_name }}-{{ filter.true_value.value }}">
+                    <span class="checkbox-input tab-check" tabindex="0">
+                      <input
+                        type="checkbox"
+                        @change="$dispatch('filter-updated')"
+                        name="{{ filter.param_name }}"
+                        value="{{ filter.true_value.value }}"
+                        id="Filter-{{ filter.param_name }}"
+                        {% if filter.true_value.active -%}
+                          checked
+                        {%- endif %}
+                        {% if filter.true_value.count == 0 and filter.true_value.active == false -%}
+                          disabled
+                        {%- endif -%}
+                      >
+                      {% render 'check-icon' %}
+                    </span>
+                    {{- filter.true_value.label -}}
+                  </label>
+                </li>
+                <li>
+                  <label for="Filter-{{ filter.param_name }}-{{ filter.false_value.value }}">
+                    <span class="checkbox-input tab-check" tabindex="0">
+                      <input
+                        type="checkbox"
+                        name="{{ filter.param_name }}"
+                        @change="$dispatch('filter-updated')"
+                        value="{{ filter.false_value.value }}"
+                        id="Filter-{{ filter.param_name }}"
+                        {% if filter.false_value.active -%}
+                          checked
+                        {%- endif %}
+                        {% if filter.false_value.count == 0 and filter.false_value.active == false -%}
+                          disabled
+                        {%- endif %}
+                      >
+                      {% render 'check-icon' %}
+                    </span>
+                    {{- filter.false_value.label -}}
+                  </label>
+                </li>
+              </ul>
+              <div class="filter-group-display__submit text-btn">
+                <a rel="nofollow"><input type="submit" value="Apply">{% render 'arrow-next' %}</a>
+              </div>
+            {%- when 'list' -%}
+              <ul class="filter-list">
+                {%- for filter_value in filter.values -%}
+                  {% assign color_swatch = filter_value.label | append: '.jpg' %}
+                  <li>
+                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }} tab-check">
+                      <span
+                        {% if filter.label == 'Color' %}
+                          class="color-input checkbox-input tab-check"
+                        {% else %}
+                          class="checkbox-input tab-check"
+                        {% endif -%}
+                        tabindex="0"
+                      >
+                        <input
+                          type="checkbox"
+                          @change="$dispatch('filter-updated')"
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                          {% if filter_value.active -%}
+                            checked
+                          {%- endif %}
+                          {% if filter_value.count == 0 and filter_value.active == false -%}
+                            disabled
+                          {%- endif %}
+                        >
+                        {% if filter.label == 'Color' %}
+                          <span class="color-shape" style="background:url('{{ color_swatch | file_img_url }}');"></span>
+                        {% else %}
+                          {% render 'check-icon' %}
+                        {% endif %}
+                      </span>
+                      <span>
+                        {%- case filter_value.display.type -%}
+                          {%- when 'colors' -%}
+                            {% liquid
+                              assign size_limit = filter_value.display.value.size | at_most: 4
+                              assign rotation = '0deg'
+                              if size_limit == 2
+                                assign rotation = '45deg'
+                              endif
+
+                              assign angle_increment = 360 | divided_by: size_limit
+                              assign angle = 0
+                            %}
+                            {%- capture conic_gradient -%}
+                            {%- for color in filter_value.display.value limit: size_limit -%}
+                              {{ color }} {{ angle }}deg{%- assign angle = angle | plus: angle_increment %} {{ angle }}deg{%- unless forloop.last %}, {%- endunless -%}
+                            {%- endfor -%}
+                          {%- endcapture -%}
+                            <span
+                              style="
+                                width: 25px;
+                                height: 25px;
+                                border-radius: 50%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                background: conic-gradient({{ conic_gradient }}); transform: rotateZ({{ rotation }});
+                              "
+                            ></span>
+                          {%- when 'image' -%}
+                            {{
+                              filter_value.display.value
+                              | image_url: width: 25
+                              | image_tag: alt: filter_value.display.value.alt
+                            }}
+                          {%- else -%}
+                            <span class="visual-display__child"></span>
+                        {%- endcase -%}
+                      </span>
+                      {{ filter_value.label }}
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+              <div class="filter-group-display__submit text-btn">
+                <a rel="nofollow"><input type="submit" value="Apply">{% render 'arrow-next' %}</a>
+              </div>
+            {%- when 'price_range' -%}
+              <div>
+                <div class="price-div">
+                  <label for="Filter-{{ filter.min_value.param_name }}">{{ 'filters.from' | t }}</label>
+                  <div class="price_input">
+                    <span class="currency_symbol">{{ cart.currency.symbol }}</span>
+
+                    <input
+                      name="{{ filter.min_value.param_name }}"
+                      id="Filter-{{ filter.min_value.param_name }}"
+                      {% if filter.min_value.value -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                      {%- endif %}
+                      type="number"
+                      @change="$dispatch('filter-updated')"
+                      placeholder="0"
+                      min="0"
+                      tabindex="0"
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    >
+                  </div>
+                </div>
+                <div class="price-div">
+                  <label for="Filter-{{ filter.max_value.param_name }}">{{ 'filters.to' | t }}</label>
+                  <div class="price_input">
+                    <span class="currency_symbol">{{ cart.currency.symbol }}</span>
+
+                    <input
+                      name="{{ filter.max_value.param_name }}"
+                      id="Filter-{{ filter.max_value.param_name }}"
+                      {% if filter.max_value.value -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                      {%- endif %}
+                      type="number"
+                      tabindex="0"
+                      @change="$dispatch('filter-updated')"
+                      placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      min="0"
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="filter-group-display__submit text-btn">
+                <a rel="nofollow"><input type="submit" value="Apply">{% render 'arrow-next' %}</a>
+              </div>
+          {%- endcase -%}
+        </div>
+      </details>
+    {%- endfor -%}
+
+    <div class="filter-footer">
+      <p>
+        <a
+          class="filter_clear"
+          href="{{ routes.search_url }}?sort_by={{ search.sort_by }}&q={{ search.terms }}"
+          >{{ 'filters.clear' | t }}</a
+        >
+      </p>
+      <div class="filter_remove">
+        {%- for filter in search.filters -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+              <div class="filter-active">
+                <a href="{{ filter.url_to_remove }}">
+                  {%- assign min_value = filter.min_value.value | default: 0 -%}
+                  {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                  <p>{{ min_value | money }} - {{ max_value | money }}</p>
+                </a>
+                {% render 'icon-remove' %}
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            {%- for filter_value in filter.active_values -%}
+              <div class="filter-active">
+                <a href="{{ filter_value.url_to_remove }}">
+                  <p>{{ filter.label }}: {{ filter_value.label }}</p>
+                </a>
+                {% render 'icon-remove' %}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </form>
+</div>

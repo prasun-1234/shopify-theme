@@ -1,0 +1,485 @@
+{{ 'section-custom-article.css' | asset_url | stylesheet_tag }}
+
+{% capture direction %}
+   {% if section.settings.reverse_direction == true %}
+       from { transform: translateX(-3000px); } to { transform: translateX(0px);}
+       {% elsif section.settings.reverse_direction == false %}
+        from { transform: translateX(0px); } to { transform: translateX(-3000px);}
+      {% else %}
+   {% endif %}
+{% endcapture %}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | divided_by: 2 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+
+  .blog__view-all{
+    display: block!important;
+  }
+  .custom-blog-bg{
+    background: url('{{ section.settings.background_image |  image_url }}');
+    background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+  }
+
+  @media screen and (max-width: 1024px){
+    .marquee-blog-{{ section.id }}{
+      transform: translate(0px, -{{ section.settings.traslateY |  divided_by: 1.5 }}px);
+    }
+  }
+  .marquee-blog-{{ section.id }} .tilt{
+    transform: rotate(-5deg) scale(1.1);
+  }
+  .marquee-blog-{{ section.id }} .new-marquee {
+    animation: marquee-blog-{{ section.id }} {{ section.settings.marquee_speed }}s linear infinite;
+  }
+  @keyframes marquee-blog-{{ section.id }} {
+    {{ direction }}
+  }
+  @media screen and (max-width: 1200px){
+    .marquee-blog-{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top | divided_by: 4 }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom | divided_by: 4 }}px;
+    }
+  }
+
+  .custom-image{
+    height: 100%;
+    width: 100%;
+  }
+
+  .custom-image img{
+    height: 400px;
+    width: 400px;
+    border-radius: 1.25rem;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="custom-blog-section color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading == blank %} no-heading{% endif %}">
+  <div class="container custom-blog-bg isolate section-{{ section.id }}-padding">
+    {%- unless section.settings.heading == blank -%}
+      <div class="custom-title-wrapper title-wrapper-with-link title-wrapper--no-top-margin">
+        <h3
+          id="SectionHeading-{{ section.id }}"
+          class="h3  blog__title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+          {% endif %}
+        >
+          {{ section.settings.heading }}
+        </h3>
+
+        {%- if section.settings.show_view_all -%}
+          <div
+            class="blog__view-all center small-hide medium-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+            {% endif %}
+          >
+            <a
+              href="{{ section.settings.blog.url }}"
+              id="ViewAll-{{ section.id }}"
+
+              class="button button--secondary"
+            >
+              <div class="button-inner">
+                <span> {{ 'sections.featured_blog.view_all' | t }}</span>
+                <span> {{ 'sections.featured_blog.view_all' | t }}</span>
+              </div>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+    <div class="marquee-blog-container marquee-blog-{{ section.id }}">
+      {% for i in (1..4) %}
+        <div class="marquee-div new-marquee">
+          {% for block in section.blocks %}
+            <div class="marquee {{ block.shopify_attributes }}">
+              {% case block.type %}
+                {% when 'custom-url-blocks' %}
+                  {% assign article = block.settings.article %}
+                  {%- if article != blank and block.settings.customURL != blank -%}
+                    {% case block.settings.selectStyle %}
+                      {% when 'style1' %}
+                        <div
+                          id="marquee-wrapper-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'article-card',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'styleImg' %}
+                        <div
+                          id="marquee-wrapper-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-image-blog',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'style2' %}
+                        <div
+                          id="marquee-wrapper-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-article-card-2',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'style3' %}
+                        <div
+                          id="marquee-wrapper-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-article-card-3',
+                            section: section
+                          -%}
+                        </div>
+                      {% else %}
+
+                    {% endcase %}
+                  {%- endif -%}
+                {% when 'custom-image' %}
+                  <figure class="custom-blog-img">
+                    {{ block.settings.image | image_url: width: 1000 | image_tag }}
+                  </figure>
+              {% endcase %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% comment %}
+      <div class="swiper swiper-container customBlogSwiper" data-col="{{ section.settings.post_row }}">
+        <div
+          class="swiper-wrapper custom-swiper-wraper"
+        >
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              {% case block.type %}
+                {% when 'custom-url-blocks' %}
+                  {% assign article = block.settings.article %}
+                  {%- if article != blank and block.settings.customURL != blank -%}
+                    {% case block.settings.selectStyle %}
+                      {% when 'style1' %}
+                        <div
+                          id="Slide-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'article-card',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'styleImg' %}
+                        <div
+                          id="Slide-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-image-blog',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'style2' %}
+                        <div
+                          id="Slide-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-article-card-2',
+                            section: section
+                          -%}
+                        </div>
+                      {% when 'style3' %}
+                        <div
+                          id="Slide-{{ section.id }}-{{ forloop.index }}"
+                        >
+                          {%- render 'article-card',
+                            article: article,
+                            blog: section.settings.blog,
+                            media_height: section.settings.image_height,
+                            media_aspect_ratio: 1.66,
+                            show_image: section.settings.show_image,
+                            show_date: section.settings.show_date,
+                            show_author: section.settings.show_author,
+                            show_excerpt: true,
+                            class: 'custom-article-card-3',
+                            section: section
+                          -%}
+                        </div>
+                      {% else %}
+
+                    {% endcase %}
+                  {%- endif -%}
+                {% when 'custom-image' %}
+                  <figure class="custom-blog-img">
+                    {{ block.settings.image | image_url: width: 1000 | image_tag }}
+                  </figure>
+              {% endcase %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endcomment %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.featured-blog.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Blog posts",
+      "label": "t:sections.featured-blog.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Marquee speed",
+      "max": 100,
+      "min": 10,
+      "step": 10,
+      "default": 90
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_direction",
+      "label": "Reverse Direction"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:sections.featured-blog.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "post_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.featured-blog.settings.post_row.label"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "label": "t:sections.featured-blog.settings.post_limit.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_image.label",
+      "info": "t:sections.featured-blog.settings.show_image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.featured-blog.settings.show_author.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.show_view_all.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "custom_blocks",
+      "type": "custom-url-blocks",
+      "settings": [
+        {
+          "type": "select",
+          "id": "selectStyle",
+          "label": "Select style for each block.",
+          "options": [
+            {
+              "value": "style1",
+              "label": "Style 1"
+            },
+            {
+              "value": "styleImg",
+              "label": "Style-img"
+            },
+            {
+              "value": "style2",
+              "label": "Style 2"
+            },
+            {
+              "value": "style3",
+              "label": "Style 3"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Featured article"
+        },
+        {
+          "type": "url",
+          "id": "customURL",
+          "label": "Custom URL for this block"
+        }
+      ]
+    },
+    {
+      "name": "Custom Image",
+      "type": "custom-image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom blog image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-blog.presets.name"
+    }
+  ]
+}
+{% endschema %}

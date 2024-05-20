@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "collection-banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "title": "Shop",
+        "image1": "shopify:\/\/shop_images\/all_collection.jpg",
+        "image2": "shopify:\/\/shop_images\/all_collection_01.jpg"
+      }
+    },
+    "collection-card": {
+      "type": "main-collection-card",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "collection": "bikini"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "collection": "lingerie"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "collection": "swimwear"
+          }
+        },
+        "card-4": {
+          "type": "card",
+          "settings": {
+            "collection": "shapewear"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "heading_style": "style2",
+        "section_heading": "<h4>Shop by Collection<\/h4>",
+        "cards_height": 250,
+        "cards_to_show": 4,
+        "slider_arrows": true
+      }
+    },
+    "template-collection": {
+      "type": "main-collection",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "sidebar_bg": "#ffffff",
+        "items_page": 12
+      }
+    },
+    "collection-image-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "section_margin_top": 100,
+        "section_margin_bottom": 100,
+        "image": "shopify:\/\/shop_images\/banner_bg-min.jpg",
+        "section_padding": 220,
+        "custom_title": "<h3>Shapewear now with</h3><h3>five new fittngs.</h3>",
+        "title": true,
+        "description": true,
+        "collection": "shapewear",
+        "text_color": "#ffffff",
+        "overlay_color": "#3a3a3a",
+        "overlay_opacity": 2,
+        "text_align": "center"
+      }
+    },
+    "latest-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "Latest",
+        "section_margin_top": 0,
+        "section_margin_bottom": 100,
+        "padding": 0,
+        "collection": "lingerie",
+        "background_color": "",
+        "products_to_show": 5,
+        "products_per_row": 3,
+        "enable_collection_button": true,
+        "button_text": "Shop Collection",
+        "url": ""
+      }
+    }
+  },
+  "order": [
+    "collection-banner",
+    "collection-card",
+    "template-collection",
+    "collection-image-banner",
+    "latest-collection"
+  ]
+}

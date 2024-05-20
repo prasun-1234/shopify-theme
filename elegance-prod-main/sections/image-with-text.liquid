@@ -1,0 +1,298 @@
+<link rel="stylesheet" href="{{ 'image-with-text.css' | asset_url }}">
+
+{% liquid
+  if section.settings.image_overlay_opacity == 0
+    assign opacity_value = 0
+  elsif section.settings.image_overlay_opacity == 10
+    assign opacity_value = 0.1
+  elsif section.settings.image_overlay_opacity == 20
+    assign opacity_value = 0.2
+  elsif section.settings.image_overlay_opacity == 30
+    assign opacity_value = 0.3
+  elsif section.settings.image_overlay_opacity == 40
+    assign opacity_value = 0.4
+  elsif section.settings.image_overlay_opacity == 50
+    assign opacity_value = 0.5
+  elsif section.settings.image_overlay_opacity == 60
+    assign opacity_value = 0.6
+  elsif section.settings.image_overlay_opacity == 70
+    assign opacity_value = 0.7
+  elsif section.settings.image_overlay_opacity == 80
+    assign opacity_value = 0.8
+  elsif section.settings.image_overlay_opacity == 90
+    assign opacity_value = 0.9
+  else
+    assign opacity_value = 1
+  endif
+%}
+
+<section
+  class="opacity_observer banner-3"
+  style="margin-bottom:{{ section.settings.margin_bottom }}px;"
+>
+  <div class="collection-banner image-with-text">
+    {% if section.settings.image %}
+      <img
+        srcset="
+          {%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+          {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+          {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+          {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+          {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+          {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+          {{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+        "
+        sizes="auto"
+        src="{{ section.settings.image | image_url: width: 1500 }}"
+        loading="lazy"
+        alt="{{ section.settings.image.alt | escape }}"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.section_height }}"
+        class="{% if settings.enable_animation %}scrollmagic-element{% endif %}"
+        style="object-position: {{ section.settings.slider_image_position }}"
+      >
+    {%- endif %}
+    {%- if section.settings.image == blank -%}
+      <div class="placeholder_outer">
+        <div class="placeholder_main">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      </div>
+    {%- endif -%}
+    <span
+      class="image-overlay"
+      style="background:{{ section.settings.image_overlay_color }}; opacity:{{ opacity_value }};"
+    ></span>
+    <div class="container">
+      <div class="pure-g">
+        <div class="pure-u-1 l-box">
+          <div class="collection-banner-content" style="text-align: {{ section.settings.text_alignment }}">
+            <h2
+              class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %} slide_observer slide_left_scroll"
+              style=" color: {{ section.settings.text_color }}"
+            >
+              {{ section.settings.title }}
+            </h2>
+            <p
+              class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %} slide_observer slide_right_scroll"
+              style=" color: {{ section.settings.text_color }}"
+            >
+              {{ section.settings.text }}
+            </p>
+            <div class="space4"></div>
+            {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+              <div
+                class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3 align-btn{% endif %} slide_observer slide_bottom_scroll"
+                style="text-align: {{ section.settings.text_alignment }}"
+              >
+                <a
+                  href="{{ section.settings.button_link }}"
+                  rel="nofollow"
+                  class="fadeInUp theme-btn"
+                  style="color: {{ section.settings.image_buttontext_color }};"
+                  ><span class="btn-bg" style="background-color: {{ section.settings.image_button_color }}"></span
+                  ><span class="btn-text" style="color:{{ section.settings.image_buttontext_color }}">
+                    {{- section.settings.button_text -}}
+                  </span></a
+                >
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.image-with-text.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_height",
+      "options": [
+        {
+          "value": "500px",
+          "label": "t:sections.image-with-text.section_height.options_1"
+        },
+        {
+          "value": "650px",
+          "label": "t:sections.image-with-text.section_height.options_2"
+        },
+        {
+          "value": "750px",
+          "label": "t:sections.image-with-text.section_height.options_3"
+        }
+      ],
+      "label": "t:sections.image-with-text.section_height.label",
+      "default": "500px"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 60,
+      "step": 10,
+      "default": 0,
+      "label": "t:sections.image-with-text.banner-margin-bottom.label",
+      "unit": "px",
+      "id": "margin_bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-with-text.image.label",
+      "info": "t:sections.image-with-text.image.info"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "label": "t:sections.image-with-text.image_overlay_opacity.label",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "image_overlay_color",
+      "label": "t:sections.image-with-text.image_overlay_color.label",
+      "default": "#ccc"
+    },
+    {
+      "type": "select",
+      "id": "slider_image_position",
+      "label": "t:sections.image-with-text.slider_image_position.label",
+      "default": "center center",
+      "options": [
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_1",
+          "value": "left top"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_2",
+          "value": "center top"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_3",
+          "value": "right top"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_4",
+          "value": "left center"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_5",
+          "value": "center center"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_6",
+          "value": "right center"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_7",
+          "value": "left bottom"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_8",
+          "value": "center bottom"
+        },
+        {
+          "label": "t:sections.image-with-text.slider_image_position.options_9",
+          "value": "right bottom"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-with-text.text_alignment.options_1"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.image-with-text.text_alignment.options_2"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-with-text.text_alignment.options_3"
+        }
+      ],
+      "label": "t:sections.image-with-text.text_alignment.label",
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.image-with-text.title.label",
+      "default": "make every shot Inspiring"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "t:sections.image-with-text.text.label",
+      "default": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:sections.image-with-text.text_color.label",
+      "default": "#1B0000"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:sections.image-with-text.button_text.label",
+      "default": "#perfectSHOT"
+    },
+    {
+      "type": "color",
+      "id": "image_button_color",
+      "label": "t:sections.image-with-text.image_button_color.label",
+      "default": "#1b0000"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.image-with-text.button_link.label"
+    },
+    {
+      "type": "color",
+      "id": "image_buttontext_color",
+      "label": "t:sections.image-with-text.image_buttontext_color.label",
+      "default": "#222"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.image-with-text.presets.name",
+      "category": "Image",
+      "settings": {
+        "section_height": "500px",
+        "margin_bottom": 0,
+        "image": "",
+        "image_overlay_opacity": 40,
+        "image_overlay_color": "#000000",
+        "slider_image_position": "right center",
+        "text_alignment": "center",
+        "title": "example title",
+        "text": "Example text",
+        "text_color": "#ffffff",
+        "button_text": "#social",
+        "image_button_color": "#ffffff",
+        "button_link": "#",
+        "image_buttontext_color": "#000000"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}

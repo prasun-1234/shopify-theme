@@ -1,0 +1,39 @@
+{
+    "sections": {
+        "main": {
+            "type": "contact",            
+            "settings": {  
+                "title":"Contact Us",
+                "description":"Contact description text",
+                "image_bg":""            
+            },
+            "blocks": {
+                "address1":{
+                    "type": "address",
+                    "settings": {
+                        "location_name":"Location name",
+                        "location_address":"Location address",
+                        "location_city":"City name",
+                        "location_pin":77777
+                    }
+                },
+                "address2":{
+                    "type": "address",
+                    "settings": {
+                        "location_name":"Location Title",
+                        "location_address":"Location address",
+                        "location_city":"City name",
+                        "location_pin":77777
+                    }
+                }
+            },
+            "block_order": [
+                "address1",
+                "address2"
+            ]
+        }
+    },
+    "order": [
+        "main"
+    ]
+}

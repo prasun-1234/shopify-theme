@@ -1,0 +1,122 @@
+{
+  "sections": {
+    "main": {
+      "type": "about-us",
+      "settings": {
+        "section_height": "500px",
+        "image": "",
+        "slider_image_position": "left center"
+      }
+    },
+    "logo-list": {
+      "type": "logo-list",
+      "blocks": {
+        "logo1": {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        "logo2": {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        "logo3": {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        "logo4": {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "logo1",
+        "logo2",
+        "logo3",
+        "logo4"
+      ],
+      "settings": {
+        "marquee_text_1": "hair care",
+        "marquee_text_2": "skin care",
+        "marquee_text_3": "perfume",
+        "marquee_text_4": "skin hydration",
+        "margin_bottom": 60,
+        "marquee_bg_color": "#222222",
+        "marquee_content_color": "#a9af7e",
+        "marquee_height": 90
+      }
+    },
+    "image-with-text": {
+      "type": "image-with-text",
+      "settings": {
+        "section_height": "500px",
+        "margin_bottom": 60,
+        "image": "shopify:\/\/shop_images\/image_banner_1.jpg",
+        "image_overlay_opacity": 30,
+        "image_overlay_color": "#000000",
+        "slider_image_position": "left center",
+        "text_alignment": "center",
+        "title": "make every shot Inspiring",
+        "text": "Unleash luminosity in just drops. Radiant, youthful skin awaits with every application",
+        "text_color": "#ffffff",
+        "button_text": "#perfectSHOT",
+        "image_button_color": "#ffffff",
+        "button_link": "#",
+        "image_buttontext_color": "#000000"
+      }
+    },
+    "image-text-block": {
+      "type": "image-text-block",
+      "blocks": {
+        "image_title": {
+          "type": "image_title",
+          "settings": {
+            "title": "Title text"
+          }
+        },
+        "image_text": {
+          "type": "image_text",
+          "settings": {
+            "text": "Example image text"
+          }
+        },
+        "image_button": {
+          "type": "image_button",
+          "settings": {
+            "button_label": "button label",
+            "button_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "image_title",
+        "image_text",
+        "image_button"
+      ],
+      "settings": {
+        "image": "",
+        "image_2": "",
+        "overlay_color": "",
+        "overlay_opacity": 0,
+        "layout": "left"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "logo-list",
+    "image-with-text",
+    "image-text-block"
+  ]
+}

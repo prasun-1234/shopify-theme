@@ -1,0 +1,45 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "82142f20-8f1d-4954-b0e9-2d66e122e3d8": {
+          "type": "menu-item",
+          "settings": {
+            "menu_index": "",
+            "mega_menu": "",
+            "select_block": "",
+            "menu_collection": "",
+            "menu_article": ""
+          }
+        },
+        "38bfeca6-cea8-4258-8aff-fa981dbc59ea": {
+          "type": "menu-item",
+          "settings": {
+            "menu_index": "3",
+            "mega_menu": "collection-menu",
+            "select_block": "collection",
+            "menu_collection": "hair-care",
+            "menu_article": ""
+          }
+        }
+      },
+      "block_order": [
+        "82142f20-8f1d-4954-b0e9-2d66e122e3d8",
+        "38bfeca6-cea8-4258-8aff-fa981dbc59ea"
+      ],
+      "settings": {
+        "header_type": "header_2",
+        "top_bar_active": true,
+        "currency_wrapper_bg": "#f5f5ec",
+        "menu_list": "main-menu",
+        "title_color": "#3d8361"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

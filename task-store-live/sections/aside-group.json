@@ -1,0 +1,69 @@
+{
+  "name": "Sidebar",
+  "type": "aside",
+  "sections": {
+    "aside-nav": {
+      "type": "aside",
+      "blocks": {
+        "icon-1": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "1",
+            "image": "shopify:\/\/shop_images\/icon1.svg"
+          }
+        },
+        "icon-2": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "2",
+            "image": "shopify:\/\/shop_images\/icon2.svg"
+          }
+        },
+        "icon-3": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "3",
+            "image": "shopify:\/\/shop_images\/icon-4.svg"
+          }
+        },
+        "icon-4": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "4",
+            "image": "shopify:\/\/shop_images\/icon4.svg"
+          }
+        },
+        "icon-5": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "5",
+            "image": "shopify:\/\/shop_images\/journal-new.svg"
+          }
+        },
+        "icon-6": {
+          "type": "icon",
+          "settings": {
+            "icon_index": "6",
+            "image": "shopify:\/\/shop_images\/icon6.svg"
+          }
+        }
+      },
+      "block_order": [
+        "icon-1",
+        "icon-2",
+        "icon-3",
+        "icon-4",
+        "icon-5",
+        "icon-6"
+      ],
+      "settings": {
+        "sidebar_bg": "#1E293B",
+        "menu": "main-menu",
+        "sidebar_width": 110
+      }
+    }
+  },
+  "order": [
+    "aside-nav"
+  ]
+}

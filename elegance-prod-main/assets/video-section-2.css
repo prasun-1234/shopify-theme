@@ -1,0 +1,142 @@
+.video-2{
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.video-image,.banner-overlay{
+    position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+}
+
+.video_image{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video_image img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.video-image .placeholder_main, .video-image .placeholder_main svg{
+    height: 100%;
+}
+
+.video-image{
+    z-index: 1;
+}
+
+.banner-overlay{
+    z-index: 2;
+}
+
+.video-content{
+    position: relative;
+    z-index: 20;
+}
+
+.circle-text-wrap{
+    width: inherit;
+    height: inherit;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    top: 0;    
+    text-align: center;
+    animation: circle-text 30s linear infinite;
+}
+
+@keyframes circle-text {
+    from{
+        transform: rotate(0);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.circle-text-wrap span{
+    position: absolute;
+    transform-origin: 0 80px;
+}
+
+.play-btn{
+    width: 170px;
+    height: 170px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-btn{
+border: 0;
+border-radius: 100%;
+background: transparent;
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 50;
+cursor: pointer;
+font-size: 0 !important;
+}
+.video-btn svg{
+    height: 100px;
+    width: 100px;
+    transition: .3s ease;
+}
+
+.video-btn svg:hover{
+    transform: scale(.8);
+}
+
+.video-wrapper{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    opacity: 0;
+    visibility: 0;
+    pointer-events: none;
+}
+
+.video-wrapper iframe{
+    height: 100%;
+    width: 100%;
+}
+
+.video-active .video-wrapper{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.video-active .video-btn{
+    display: none;
+}
+
+@media screen and (max-width:1366px){
+    .video-2{
+        height: 100% !important;
+        padding: 160px 0;
+    }
+}

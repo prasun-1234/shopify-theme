@@ -1,0 +1,21 @@
+<div id="notify_modal">
+    <div class="notify_form">
+        {% render 'icon-close' %}
+        {% form 'contact' %}
+            {{ form.errors | default_errors }}
+            <div class="form__header">
+                <h3>Get notified when back in stock</h3>
+                <p>Enter the following information to get notified when product is back in stock</p>
+            </div>
+            <div class="form__content">
+                <input type="hidden" name="contact[product_handle]" id="notify_product_handle" value="{{ product.handle }}" />
+                <div class="field">
+                  <label for="notify_email">Email</label>
+                  <input type="email" name="contact[notify_email]" id="notify_email" />
+                </div>     
+              
+                  <input class="button" type="submit" value="Submit" />
+            </div>
+          {% endform %}
+    </div>
+</div>

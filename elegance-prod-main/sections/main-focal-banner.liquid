@@ -1,0 +1,311 @@
+{% style %}
+  #{{ section.id }}{
+      margin-top:{{ section.settings.margin-top }}px;
+      margin-bottom:{{ section.settings.margin-bottom }}px;
+    }
+
+  .focal-section{
+    position: relative;
+  }
+
+  .banner-overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  }
+
+  .bg_image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .focal-product{
+    position: absolute;
+    z-index: 50;
+  }
+
+  .focal-point{
+    position: relative;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 9999px;
+  }
+
+  .focal-span{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+  }
+
+  .focal-card-link{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+  }
+
+  @media screen and (min-width: 767px) {
+    .focal-card-link{
+    pointer-events: none;
+    }
+  }
+
+  .focal-card-btn{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  button.focal-card-btn {
+      border-color: transparent;
+      background-color: transparent;
+  }
+
+  .focal-content{
+    display: none;
+  }
+
+  @media screen and (min-width: 767px) {
+  .focal-active .focal-content{
+    display: block;
+  }
+  }
+
+  .product-card{
+    background: white;
+    padding: 10px;
+    width: 250px;
+    height: 120px;
+    position: absolute
+  }
+
+  .card-content{
+    display: flex;
+    gap: 10px;
+    align-items:center;
+    height: 100px;
+  }
+
+  .prod-image{
+     object-fit: cover;
+     width: 100px;
+     height: 100px;
+  }
+
+  .info-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+  }
+
+  .prod-link{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .info-block p{
+    line-height: 1;
+    padding: 0 0;
+
+  }
+
+  .prod-link a:hover {
+    color: var(--tertiary-theme-color);
+
+  }
+
+  .prod-link:hover svg path{
+    stroke: var(--tertiary-theme-color);
+  }
+{% endstyle %}
+
+<section id="{{ section.id }}">
+  <div class="focal-section">
+    <!-- banner overlay -->
+    <div
+      class="banner-overlay"
+      style="background-color:{{ section.settings.overlay_color }}; opacity:calc({{ section.settings.overlay_opacity }}/10);"
+    ></div>
+    <!-- banner overlay -->
+
+    <!-- banner image -->
+    <div>
+      {% if section.settings.background_image != blank %}
+        {{
+          section.settings.background_image
+          | image_url: width: 1500
+          | image_tag: loading: 'lazy', sizes: '100', widths: '165, 360, 535, 750, 1070, 1500', class: 'bg_image'
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-[300px] lg:h-[400px]' }}
+      {% endif %}
+    </div>
+    <!-- banner image -->
+
+    <!-- focal product -->
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'focal_point' %}
+          {% assign product = block.settings.focal_product %}
+          <div
+            class="focal-product"
+            style="top :{{ block.settings.image.presentation.focal_point.y }}%; left :{{ block.settings.image.presentation.focal_point.x }}%;"
+          >
+            <div class=" focal-point ">
+              <button type="button" class="focal-span">
+                <a
+                  href="{{ product.url }}"
+                  rel="nofollow"
+                  class="focal-card-link"
+                >
+                </a>
+                <span class="focal-card-btn">
+                  {% render 'focal-icon' %}
+                </span>
+              </button>
+              <!-- product card -->
+              <div
+                class="product-card focal-content"
+                style="
+                  {% if block.settings.image.presentation.focal_point.x >= 50 %}right: 0;
+                  {% endif %}
+                  {% if block.settings.image.presentation.focal_point.y >= 50 %}bottom: 0; transform: translateY(-50px) translateX(-50px);{% endif %}
+                "
+                focal-attri="{{ product.url }}"
+              >
+                <div class="card-content">
+                  <div style="display: block;">
+                    {% if product.images != blank %}
+                      {{
+                        product.images[0]
+                        | image_url: width: 1500
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '100',
+                          widths: '165, 360, 535, 750, 1070, 1500',
+                          class: ' prod-image'
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'w-[100px]' }}
+                    {% endif %}
+                  </div>
+                  <div class="info-block ">
+                    <p style="display: block;">
+                      {{ product.title | truncatewords: 3 }}
+                    </p>
+                    <p>{{ product.price | money_with_currency }}</p>
+                    <div class="prod-link ">
+                      <a href="{{ product.url }}">
+                        {{- 'focal-banner.view' | t }}
+                        {% render 'icon-focal-arrow' %}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- productb card -->
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+    <!-- focal product -->
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main-focal-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin-top",
+      "max": 80,
+      "min": 0,
+      "step": 20,
+      "default": 0,
+      "unit": "px",
+      "label": "t:sections.main-focal-banner.settings.margin-top.label"
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "max": 80,
+      "min": 20,
+      "step": 20,
+      "default": 80,
+      "unit": "px",
+      "label": "t:sections.main-focal-banner.settings.margin-bottom.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.main-focal-banner.settings.background_image.label",
+      "info": "t:sections.main-focal-banner.settings.background_image.info"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:sections.main-focal-banner.settings.overlay_color.label",
+      "default": "#253237"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:sections.main-focal-banner.settings.overlay_opacity.label",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.main-focal-banner.blocks.name",
+      "type": "focal_point",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.main-focal-banner.blocks.image.label",
+          "info": "t:sections.main-focal-banner.blocks.image.info"
+        },
+        {
+          "type": "product",
+          "id": "focal_product",
+          "label": "t:sections.main-focal-banner.blocks.focal_product.label"
+        }
+      ],
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.main-focal-banner.presets.name"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let focalPoints = document.querySelectorAll('.focal-point');
+  let mediaQuery = window.matchMedia('(min-width: 768px)');
+  focalPoints.forEach((focalpoint) => {
+    focalpoint.querySelector('.focal-span').addEventListener('click', (e) => {
+      if (mediaQuery.matches) {
+        e.preventDefault();
+      }
+      focalpoint.classList.toggle('focal-active');
+    });
+  });
+{% endjavascript %}

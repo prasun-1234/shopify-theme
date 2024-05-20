@@ -1,0 +1,302 @@
+<section>
+  <div
+    id="main-contact"
+    class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto"
+    style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+  >
+    <div class="relative overflow-hidden flex flex-col lg:flex-row gap-[40px]">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'map' %}
+            <iframe
+              class="lg:h-auto sm:h-[500px] h-[350px] lg:w-1/2 w-full"
+              src="{% if block.settings.contact_map != blank %}{{ block.settings.contact_map }}{% else %}https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin{% endif %}"
+              width="840"
+              height="auto"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map"
+              {{ block.shopify_attributes }}
+            ></iframe>
+          {% when 'banner' %}
+            <div
+              class="lg:w-1/2 w-full max-h-full sm:p-10 p-5 h-[400px] lg:h-[600px] !bg-cover !bg-center !bg-no-repeat relative"
+              style="background:url('{{ block.settings.background_image | image_url }}');"
+              id="{{ block.id }}"
+              {{ block.shopify_attributes }}
+            >
+              <span
+                class="absolute left-0 top-0 w-full h-full z-10"
+                style="backgorund:{{ block.settings.overlay_color }};opacity:calc({{ block.settings.overlay_opacity }}/10);"
+              ></span>
+              {% style %}
+                #{{ block.id }} *{
+                  color:{{ block.settings.content_color }};
+                }
+                #{{ block.id }} svg.stroke path{
+                  stroke:{{ block.settings.content_color }};
+                }
+              {% endstyle %}
+              <div class="h-full w-full flex flex-col gap-5 justify-end relative z-50 text-center lg:text-left">
+                <h3 class="text-2xl lg:text-5xl">
+                  {{ block.settings.title }}
+                </h3>
+                <div class="flex gap-7 lg:flex-row flex-col">
+                  <div class="flex gap-4 lg:w-1/2 w-full lg:flex-row flex-col lg:items-start items-center">
+                    {% render 'icon-location', class: 'w-7 h-7 stroke' %}
+                    <span>
+                      <p class="font-semibold">Our Location</p>
+                      <p class="max-w-sm">
+                        {{ block.settings.address }},{{ block.settings.country }},Pin: {{ block.settings.zip }}
+                      </p>
+                    </span>
+                  </div>
+                  <div class="flex gap-4 lg:w-1/2 w-full lg:flex-row flex-col lg:items-start items-center">
+                    {% render 'icon-clock', class: 'w-7 h-7 stroke' %}
+                    <span>
+                      <p class="font-semibold">Timings</p>
+                      <p>{{ block.settings.time1 }}</p>
+                      <p>{{ block.settings.time2 }}</p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+
+      <div class="lg:w-1/2 w-full">
+        {% form 'contact' %}
+          <h2 class=" xxs:max-xl:flex xxs:max-xl:flex-col xxs:max-xl:justify-center xxs:max-xl:items-center lg:text-[2.5rem] text-[2rem] pb-[20px] !leading-none">
+            {{ section.settings.contact_title }}
+          </h2>
+          <div class="mb-[40px]">
+            <ul class="flex flex-col gap-8 xxs:max-sm:gap-5 px-[1px]">
+              <li>
+                <label for="fname" class="">{{ 'main-contact.name' | t }}</label>
+                <input
+                  type="text"
+                  id="fname"
+                  name="contact[name]"
+                  placeholder="First Name"
+                  class="pl-[30px] block p-3  border border-spacing-2 w-full mt-[6px]"
+                  required
+                >
+              </li>
+              <li>
+                <label for="email" class="">{{ 'main-contact.email' | t }}</label>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  id="email"
+                  name="name"
+                  placeholder="Email"
+                  class="pl-[30px] block p-3 rounded-md border border-spacing-2 w-full mt-[6px]"
+                  required
+                >
+              </li>
+              <li>
+                <label for="phone_no" class="">{{ 'main-contact.phone_no' | t }}</label>
+                <input
+                  type="tel"
+                  name="contact[phone]"
+                  id="phone_no"
+                  name="name"
+                  placeholder="Phone No."
+                  class="pl-[30px] block p-3 rounded-md border border-spacing-2 w-full mt-[6px]"
+                  required
+                >
+              </li>
+              <li>
+                <label for="message" class="">{{ 'main-contact.message' | t }}</label>
+                <textarea
+                  name="contact[body]"
+                  id="message"
+                  cols="30"
+                  rows="5"
+                  placeholder="Write a message.."
+                  contact[body]
+                  class="pl-[30px] block p-3 rounded-md  border border-spacing-2 w-full mt-[6px]"
+                ></textarea>
+              </li>
+            </ul>
+          </div>
+          <div class="flex xl:justify-end justify-center items-center xxs:max-xl:place-content-center">
+            {% if section.settings.button_text != blank %}
+              {% assign buttonText = section.settings.button_text %}
+            {% else %}
+              {% assign buttonText = 'Submit' %}
+            {% endif %}
+            <button type="submit">
+              {% render 'btn-primary', src: buttonText, type: 'submit' %}
+            </button>
+          </div>
+          <ul>
+            {% for error in form.errors %}
+              <li class="error_main">
+                {% if error == 'form' %}
+                  {{ form.errors.messages[error] }}
+                {% else %}
+                  {{ form.errors.translated_fields[error] }} - {{ form.errors.messages[error] }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-contact.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-contact.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-contact.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "default": "Contact Us",
+      "label": "t:section.main-contact.settings.contact_title"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Send Message",
+      "label": "t:section.main-contact.settings.button_text"
+    }
+  ],
+  "max_blocks": 1,
+  "blocks": [
+    {
+      "name": "Map",
+      "type": "map",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "contact_map",
+          "label": "t:section.main-contact.settings.contact_map",
+          "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin"
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "type": "banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Banner Background"
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "Content Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay Color",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "max": 10,
+          "min": 0,
+          "step": 1,
+          "default": 2,
+          "label": "Overlay Opacity"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Banner Title",
+          "default": "At your service 24x7"
+        },
+        {
+          "type": "header",
+          "content": "Location"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "28 S Quitman Street Denver, co, 80219"
+        },
+        {
+          "type": "text",
+          "id": "country",
+          "label": "Country",
+          "default": "United States"
+        },
+        {
+          "type": "text",
+          "id": "zip",
+          "label": "Zip Code",
+          "default": "80219"
+        },
+        {
+          "type": "header",
+          "content": "Timings"
+        },
+        {
+          "type": "text",
+          "id": "time1",
+          "label": "Timing 1",
+          "default": "Mon- Fri, 10 AM to 8PM",
+          "placeholder": "Mon- Fri, 10 AM to 8PM"
+        },
+        {
+          "type": "text",
+          "id": "time2",
+          "label": "Timing 2",
+          "default": "Sat- Sun, 10 AM to 5PM",
+          "placeholder": "Sat- Sun, 10 AM to 5PM"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-contact.presets.name",
+      "settings": {
+        "contact_title": "Contact Us",
+        "button_text": "Send Message"
+      },
+      "blocks": [
+        {
+          "type": "map"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "legal": {
+      "type": "legal",
+      "settings": {
+        "margin_bottom": 40
+      }
+    },
+    "main-faq": {
+      "type": "main-faq",
+      "blocks": {
+        "accordian": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "How do I find my perfect size?",
+            "faq_text": "Consult our detailed sizing chart on each product page for accurate measurements and fit guidance. If you have further questions, our customer service is here to assist."
+          }
+        },
+        "accordiantwo": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "What is the return policy for  items?",
+            "faq_text": "Our return window is within 30 days of purchase. Items must be unworn, with tags attached. Refer to our Refund Policy for more details on the return process."
+          }
+        },
+        "accordianthree": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "Are your products true to size?",
+            "faq_text": "Our sizing is designed to be accurate, and each product page provides specific size details. If you need personalized assistance, our customer service team is ready to help."
+          }
+        },
+        "accordianfour": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "Can I exchange an item for a different size or style?",
+            "faq_text": "Currently, we don't offer direct exchanges. For a different size or style, follow our return process and place a new order for your desired item."
+          }
+        }
+      },
+      "block_order": [
+        "accordian",
+        "accordiantwo",
+        "accordianthree",
+        "accordianfour"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "legal",
+    "main-faq"
+  ]
+}

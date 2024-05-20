@@ -1,0 +1,349 @@
+{
+  "general": {
+  "accessibility": {
+      "skip_to_content": "Ir al contenido",
+      "error": "Todo",
+      "close": "Todo",
+      "link_messages": {
+          "new_window": "Nueva Ventana"
+      }
+  }
+},
+"customer": {
+  "addresses": {
+      "set_default": "Dirección Predeterminada"
+  },
+  "account_detail": "Detalles de la Cuenta"
+},
+"main-address": {
+  "Address": "Dirección"
+},
+"gift_cards": {
+  "issued": {
+      "title": "Tarjeta de Regalo",
+      "subtext": "Aquí está tu Tarjeta de Regalo gratuita",
+      "expired": "Esta tarjeta de regalo ha caducado",
+      "remaining_html": "Tu saldo de tarjeta de regalo es: ",
+      "add_to_apple_wallet": "apple-wallet-image ",
+      "gift_card_code": "Código de Tarjeta de Regalo",
+      "copy_code": "Reclámalo aquí",
+      "copy_code_success": "Código Copiado",
+      "shop_link": "Comprar Ahora",
+      "print_gift_card": "Imprimir Tarjeta de Regalo",
+      "qr_image_alt": "Código QR de la Tarjeta de Regalo"
+  }
+},
+"breadcrumb": {
+  "nav": {
+      "home": "Inicio"
+  }
+},
+"about-us": {
+  "title": "Título"
+},
+"quickview": {
+  "options": "Seleccionar Opciones",
+  "quantity": "Cantidad",
+  "description": "Descripción",
+  "add_cart": "Agregar al Carrito"
+},
+"cart-drawer": {
+  "cart": "Carrito",
+  "add_item_to_free_shipping": "Agrega artículos a tu carrito para obtener envío gratuito.",
+  "free_shipping": "Tienes envío gratuito",
+  "You_are_only": "Estás a solo",
+  "cost_shipping": "del envío gratis.",
+  "in_stock": "en stock",
+  "discount": "Descuento:",
+  "total": "Total:",
+  "checkout_calculation": "Envío y descuento calculados al finalizar la compra.",
+  "order_note": "Agregar una nota a tu pedido",
+  "decrease_quantity": "Disminuir Cantidad",
+  "increase_quantity": "Aumentar Cantidad"
+},
+"collection-banner": {
+  "title": "Título de la Colección",
+  "text": "Texto de la Colección"
+},
+"feature-collection": {
+  "card_title": "Título de la Tarjeta"
+},
+"featured-product": {
+  "title": "Título",
+  "body_text": "Texto del Cuerpo...!"
+},
+"main-search": {
+  "search_products": "Buscar Productos",
+  "not_found": "Ups... Artículo no encontrado",
+  "search_term": "No hay artículos con el término de búsqueda",
+  "results": "Resultados encontrados para"
+},
+"main-register": {
+  "first_name": "Nombre",
+  "last_name": "Apellido",
+  "email": "Correo Electrónico",
+  "password": "Contraseña",
+  "sign_in": "Iniciar Sesión.",
+  "account_status": "¿Ya tienes una cuenta?",
+  "errors": "Errores:"
+},
+"main-product": {
+  "by": "Por",
+  "product_description": "Descripción del Producto",
+  "quantity": "Cantidad:",
+  "for": "Para",
+  "taxes": "Impuestos",
+  "not": "NO",
+  "included": "Incluido",
+  "out_of_stock": "Agotado",
+  "unavailable": "Productos No Disponibles",
+  "add_cart": "Agregar al Carrito",
+  "buy_now": "Comprar Ahora"
+},
+"main-password": {
+  "enter": "Ingresar usando contraseña",
+  "email": "Correo Electrónico"
+},
+"main-order": {
+  "my_orders": "Mis Pedidos",
+  "product": "Producto:",
+  "sku": "SKU",
+  "price": "Precio",
+  "quantity": "Cantidad",
+  "total": "Total",
+  "track_shipment": "Seguir Envío",
+  "regular_price": "Precio Regular",
+  "sale_price": "Precio de Oferta",
+  "unit_price": "Precio Unitario",
+  "subtotal": "Subtotal",
+  "discount": "Descuento",
+  "shipping": "Envío:",
+  "tax": "Impuesto",
+  "total_duties": "Total de Impuestos:",
+  "total_refund": "Total Reembolsado",
+  "billing_address": "Dirección de Facturación",
+  "payment_status": "Estado de Pago:",
+  "shipping_address": "Dirección de Envío",
+  "fulfilling_status": "Estado de Cumplimiento:"
+},
+"main-login": {
+  "email": "Correo Electrónico",
+  "password": "Contraseña",
+  "forgot_pw": "Restablecer Contraseña",
+  "new_customer": "Nuevo Cliente",
+  "Forgot_Your_Password": "¿Olvidaste tu Contraseña?",
+  "Already_have_an_account": "¿Ya tienes una cuenta?",
+  "create_new": "Crear una nueva cuenta",
+  "send_instructions": "No te preocupes, te enviaremos instrucciones para restablecerla.",
+  "back_to_Login": "Volver a Iniciar Sesión"
+},
+"main-reset-password": {
+  "password": "Contraseña",
+  "confirm_pw": "Confirmar Contraseña",
+  "reset_pw": "Restablecer Contraseña"
+},
+"main-activate-account": {
+  "password": "Ingresar Contraseña",
+  "confirm_pw": "Confirmar Contraseña"
+},
+"main-customer-account": {
+  "home": "Inicio",
+  "my_account": "Mi Cuenta",
+  "name": "Nombre",
+  "email": "Correo Electrónico",
+  "payment_status": "Estado de Pago",
+  "fulfillment_status": "Estado de Cumplimiento",
+  "phone_no": "Teléfono",
+  "shipping_address": "Dirección de Envío",
+  "total_amount": "Monto Total",
+  "date": "Fecha",
+  "orders": "Pedidos",
+  "order_id": "ID del Pedido",
+  "order_history": "Historial de Pedidos",
+  "order": "Pedido",
+  "price": "Precio",
+  "status": "Estado",
+  "no_orders": "¡Todavía no hay pedidos!"
+},
+"main-contact": {
+  "first_name": "Nombre",
+  "email": "Correo Electrónico",
+  "phone_no": "Teléfono",
+  "message": "Mensaje"
+},
+"main-collection": {
+  "filter_collection": "Filtrar por Colección",
+  "no_products": "No se encontraron productos",
+  "filter": "Filtro"
+},
+"main-cart-item": {
+  "cart": "Carrito",
+  "leave_note": "Deja una nota con tu pedido",
+  "add_items": "Agregar más artículos",
+  "shipping_placeholder": "Te faltan $10 para obtener envío gratis",
+  "total": "Total",
+  "shipping_msg": "Envío y descuento calculados al finalizar la compra.",
+  "checkout": "Pagar"
+},
+"main-cart-body": {
+  "title": "Carrito",
+  "items": "artículos",
+  "discounts": "Descuentos",
+  "discount": "Descuento",
+  "total": "Total",
+  "in_stock": "En Stock",
+  "out_stock": "Agotado",
+  "decrease_quantity": "Reducir Cantidad",
+  "increase_quantity": "Aumentar Cantidad",
+  "free_shipping": "¡Eres elegible para envío gratis!",
+  "only": "Solo te falta",
+  "away_from": "para obtener envío gratis.",
+  "taxes_and_shipping_policy_at_checkout_html": "Impuestos y <a href=\"{{ link }}\">envío<\/a> calculados al finalizar la compra",
+  "taxes_included_but_shipping_at_checkout": "Impuesto incluido y envío calculado al finalizar la compra",
+  "taxes_included_and_shipping_policy_html": "Impuesto incluido. <a href=\"{{ link }}\">Envío<\/a> calculado al finalizar la compra.",
+  "taxes_and_shipping_at_checkout": "Impuestos y envío calculados al finalizar la compra",
+  "add_note": "Agregar una nota a tu pedido",
+  "accepted_payment": "Métodos de Pago Aceptados",
+  "product": "Producto",
+  "price": "Precio",
+  "quantity": "Cantidad"
+},
+"main-banner": {
+  "heading": "Texto de Encabezado de la Sección"
+},
+"main-blog": {
+  "no_items": "No hay artículos disponibles para esta página"
+},
+"article-card": {
+  "read_more": "Leer Más"
+},
+"main-list-collections": {
+  "no_items": "No hay colecciones disponibles"
+},
+"main-banner-1": {
+  "heading": "Título",
+  "text": "Título del Banner"
+},
+"main-article": {
+  "editor": "Editor",
+  "share": "Compartir este blog",
+  "no_comment": "No hay comentarios en este artículo",
+  "post_comments": "Publica tus comentarios",
+  "comment": "Tu Comentario"
+},
+"card-collection": {
+  "no_title": "Sin Título",
+  "no_description": "Sin descripción",
+  "sample_title": "Título de Ejemplo",
+  "sample_description": "Descripción de Ejemplo"
+},
+"selling_plan": {
+  "name": "Plan de Venta",
+  "purchase_options": "Opciones de Compra",
+  "sale": "Venta"
+},
+"testimonial": {
+  "title": "Testimonio",
+  "customer": "John Doe",
+  "item_title": "Título",
+  "para": "Texto del párrafo del banner",
+  "date": "01 Ene, 2023"
+},
+"footer": {
+  "visit_store": "Visita nuestra Tienda",
+  "view_map": "Ver en el Mapa",
+  "all_collection": "Todas las Colecciones",
+  "follow_us": "Síguenos:",
+  "product_queries": "Consultas relacionadas con productos",
+  "call_us": "Llámanos",
+  "contact_us": "Contáctanos",
+  "all_rights_reserved": "Todos los Derechos Reservados.",
+  "back_to_top": "Volver Arriba"
+},
+"copyright": {
+  "copyright": "Derechos de Autor"
+},
+"header": {
+  "follow_us": "Síguenos:",
+  "search": "Buscar",
+  "cart": "Carrito",
+  "menu": "Menú",
+  "mega-menu-main": {
+      "read_article": "Leer Más"
+  }
+},
+"home-blog": {
+  "no_blogs": "No hay blogs disponibles para mostrar"
+},
+"info-grid": {
+  "title":"Título Destacado",
+  "no_info": "No se ha seleccionado información en la cuadrícula"
+},
+"multicolumn": {
+  "heading_text": "Texto de Encabezado de la Sección",
+  "para_text": "Texto del Párrafo de la Sección"
+},
+"newsletter": {
+  "success": "Formulario enviado exitosamente"
+},
+"legal": {
+  "FAQ": "Preguntas Frecuentes",
+  "privacy_policy": "Política de Privacidad"
+},
+"pickup": {
+  "available_at": "Recogida Disponible en",
+  "unavailable_at": "Recogida no disponible en",
+  "store_info": "Ver Información de la Tienda",
+  "no_store_info": "Información de la Tienda no Disponible",
+  "product": "producto"
+},
+"product-details": {
+  "no_products": "No hay detalles del producto disponibles"
+},
+"main-404": {
+  "back_to_shopping": "Volver a Comprar"
+},
+"main-addresses": {
+  "addresses": "Direcciones",
+  "name": "Nombre:",
+  "first_name": "Nombre:",
+  "last_name": "Apellido:",
+  "email": "Correo Electrónico:",
+  "phone_number": "Número de Teléfono:",
+  "company_name": "Nombre de la Empresa:",
+  "address_1": "Dirección 1:",
+  "address_2": "Dirección 2:",
+  "shipping_addresses": "Dirección de Envío:",
+  "city": "Ciudad:",
+  "province": "Provincia:",
+  "country": "País:",
+  "zip": "Código Postal:",
+  "edit_details": "Editar Detalles",
+  "first_address": "1ra Dirección",
+  "cancel": "Cancelar",
+  "new_address": "Agregar Nueva Dirección"
+},
+"search-bar": {
+  "title": "Buscar Productos"
+},
+"instagram": {
+  "follow_us_instagram": "Síguenos en Instagram"
+},
+"recipient": {
+  "form": {
+    "checkbox": "Quiero enviar esto como regalo",
+    "expanded": "Formulario del destinatario de la tarjeta de regalo expandido",
+    "collapsed": "Formulario del destinatario de la tarjeta de regalo colapsado",
+    "email_label": "Correo electrónico del destinatario",
+    "email_label_optional_for_no_js_behavior": "Correo electrónico del destinatario (opcional)",
+    "email": "Correo electrónico",
+    "name_label": "Nombre del destinatario (opcional)",
+    "name": "Nombre",
+    "message_label": "Mensaje (opcional)",
+    "message": "Mensaje",
+    "max_characters": "{{ max_chars }} caracteres máximo",
+    "send_on": "AAAA-MM-DD",
+    "send_on_label": "Enviar el (opcional)"
+  }
+}
+}

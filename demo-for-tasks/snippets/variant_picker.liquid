@@ -1,0 +1,56 @@
+<div class="variant_picker">
+  <!-- Variant selector -->
+  <select name="id" class="hidden">
+    {% for variant in product.variants %}
+      <option
+        value="{{ variant.id }}"
+        {% if variant == current_variant %}
+          selected="selected"
+        {% endif %}
+      >
+        {{ variant.title }} - {{ variant.price | money }}
+      </option>
+    {% endfor %}
+  </select>
+  <div class="product_options">
+    {% for option in product.options_with_values %}
+      
+    <fieldset {% if option.name == "Color" %}class="color_field"{% endif %} {% if option.name != "Color" and option.name != "Size" %}hidden{% endif %}>
+        <legend>{{ option.name }}</legend>
+        <div class="variant_options">
+          {% for value in option.values %}
+            {% assign thumbnail = product.variants[forloop.index0].metafields.custom.thumbnail %}
+            {% if thumbnail != blank %}
+              {% assign swatch_fill = product.variants[forloop.index0].metafields.custom.thumbnail %}
+              {% else %}
+              {% assign swatch_fill = product.variants[forloop.index0].metafields.color.value %}
+            {% endif %}
+            <div class="pill {% if option.name == "Color" %}color_swatch{% endif %}">
+              <input
+                type="radio"                
+                name="{{ option.name }}"
+                value="{{ value | escape }}"              
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}                
+              >
+              <label
+                for="{{ input_id }}"
+                {% if option.name == 'Color' %}
+                  {% if swatch_fill != blank %}
+                    style="background:{% if thumbnail != blank %}url('{{ swatch_fill | image_url: width: 50  }}'){% else %}{{ swatch_fill }}{% endif %};"
+                    {% else %}
+                    class="no_color"
+                  {% endif %}                  
+                {% endif %}
+                title="{{ value }}"
+              >
+                {{ value | slice: 0 -}}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,665 @@
+{% style %}
+    #info_grid_cols {
+      {% case section.settings.grid_cols %}
+        {% when '3' %}
+        grid-template-columns: auto auto auto;
+        {% when '4' %}
+        grid-template-columns: auto auto auto auto;
+      {% endcase %}
+    }
+
+    .addressBlock{
+      border-right-width:1px;
+      border-top-width:1px;
+      border-bottom-width:1px;
+    }
+
+    .addressBlock:nth-child(n+4){
+      border-top-width:0px;
+    }
+
+
+    @media screen and (max-width:1200px) {
+      #info_grid_cols {
+        grid-template-columns: auto auto;
+      }
+      .addressBlock:nth-child(n+3){
+      border-top-width:0px;
+    }
+    }
+    @media screen and (max-width:980px) {
+    #main-addersses{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+
+  @media screen and (max-width:767px){
+    .addressBlock:nth-child(n+2){
+      border-top-width:0px;
+    }
+  }
+
+    @media screen and (max-width:540px) {
+      #info_grid_cols {
+        grid-template-columns: auto;
+      }
+    }
+{% endstyle %}
+
+<section class="address_main">
+  <div
+    id="main-addersses"
+    style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+  >
+    <div class="mb-10">
+      <h3 class="lg:mb-10 mb-5 text-center">{{ 'main-addresses.addresses' | t }}</h3>
+      {% paginate customer.addresses by 6 %}
+        <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
+          {% for address in customer.addresses %}
+            <div class="global_border_color py-10 addressItem addressBlock">
+              <div class="flex flex-col justify-between relative 2xl:mx-12 mx-5 h-full">
+                <div class="address_single overflow-auto flex flex-col gap-2 mb-5">
+                  <p class="text-center md:text-left">
+                    <strong>
+                      {{- 'main-address.Address' | t }}
+                      {{ forloop.index0 | plus: 1 -}}
+                    </strong>
+                  </p>
+                  {% if address.name != blank %}
+                    <div>
+                      <p class="font-medium sm:text-lg text-base leading-8 flex items-center justify-center md:justify-start gap-3">
+                        <span class=" {% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %} font-normal sm:text-base text-sm leading-7 opacity-80">
+                          <strong> {{ 'main-addresses.name' | t }} </strong>
+                        </span>
+                        {{- address.first_name }}
+                        {{ address.last_name }}
+                      </p>
+                    </div>
+                  {% endif %}
+                  {% if address.phone != blank %}
+                    <div>
+                      <p class="font-medium sm:text-lg text-base leading-8 flex items-center justify-center md:justify-start gap-3">
+                        <span class=" {% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %} font-normal sm:text-base text-sm  leading-7 opacity-80">
+                          <strong> {{ 'main-addresses.phone_number' | t }} </strong></span
+                        >
+                        {{- address.phone }}
+                      </p>
+                    </div>
+                  {% endif %}
+                  {% if address.company != blank %}
+                    <div>
+                      <p class="font-medium sm:text-lg text-base leading-8 flex items-center justify-center md:justify-start gap-3">
+                        <span class="{% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %} font-normal sm:text-base text-sm  leading-7 opacity-80">
+                          <strong> {{ 'main-addresses.company_name' | t }} </strong>
+                        </span>
+                        {{- address.company }}
+                      </p>
+                    </div>
+                  {% endif %}
+
+                  <div class="text-center md:text-left flex flex-col gap-2">
+                    <p class="{% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %} font-normal sm:text-base text-sm leading-7 opacity-80 text-Tertiary">
+                      <strong> {{ 'main-addresses.shipping_addresses' | t }} </strong>
+                    </p>
+                    {% if address.address1 != blank %}
+                      <p class="font-medium leading-8">{{ address.address1 }}</p>
+                    {% endif %}
+                    {% if address.address2 != blank %}
+                      <p class="font-medium leading-8">{{ address.address2 }}</p>
+                    {% endif %}
+                    {% if address.city != blank %}
+                      <p class=" font-medium leading-8">
+                        <strong class="{% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %}">
+                          {{ 'main-addresses.city' | t }}
+                        </strong>
+                        {{ address.city }}
+                      </p>
+                    {% endif %}
+                    {% if address.country != blank %}
+                      <p class="font-medium leading-8">
+                        <strong class="{% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %}">
+                          {{ 'main-addresses.country' | t }}
+                        </strong>
+                        {{ address.country }}
+                      </p>
+                    {% endif %}
+                    {% if address.country != blank %}
+                      <p class="font-medium leading-8">
+                        <strong class="{% if section.settings.title_enable == true %} block  {% else %} hidden{% endif %}">
+                          {{ 'main-addresses.zip' | t }}
+                        </strong>
+                        {{ address.zip }}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-5 flex-wrap justify-center md:justify-start">
+                  <div class="editDetails flex items-center gap-3">
+                    {% render 'icon-edit' %}
+                    {% render 'hover-link', src: 'Edit Address', buttonType: 'button' %}
+                  </div>
+                  <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}">
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="flex items-center gap-3">
+                      {% render 'icon-trash' %}
+                      {% render 'hover-link', src: 'Delete Address', buttonType: 'button', type: 'submit' %}
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              {% form 'customer_address', address, class: 'modalDetails hidden' %}
+                <div class="fixed w-full top-0 left-0 justify-center items-center flex bg-[#00000080] h-screen z-[999] sm:p-5 lg:p-10">
+                  <div class="h-full overflow-hidden container xxs:max-sm:w-full xxs:max-sm:h-full xxs:max-sm:m-0  mx-auto max-w-[900px] w-full bg-body px-5 pt-10 md:pt-5 md:px-10 py-5 relative">
+                    {% render 'icon-plus',
+                      class: 'absolute md:right-10 right-5 top-[1.5rem] w-[2rem] h-[2rem] rotate-[45deg] closeDetails cursor-pointer'
+                    %}
+                    <h4 class="pb-4 lg:text-left text-center">
+                      {{ 'main-addresses.edit_details' | t }}
+                      <span class="font-normal text-base text-Tertiary tracking-[0em]">
+                        ({{ 'main-addresses.first_address' | t }})
+                      </span>
+                    </h4>
+                    <div class="overflow-auto h-[90%]">
+                      <ol class="flex flex-col gap-8 xxs:max-sm:gap-5 pr-4">
+                        <div>
+                          <label for="first_name">{{ 'main-addresses.first_name' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[first_name]"
+                            id="address_fname_{{ form.id }}"
+                            value="{{ form.first_name }}"
+                            placeholder="First Name"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="last_name">{{ 'main-addresses.last_name' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[last_name]"
+                            id="address_lname_{{ form.id }}"
+                            value="{{ form.last_name }}"
+                            placeholder="Last Name"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="email">{{ 'main-addresses.email' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[email]"
+                            id="address_email_{{ form.id }}"
+                            value="{{ form.email }}"
+                            placeholder="Email"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="company_name">{{ 'main-addresses.company_name' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[company]"
+                            id="addresscompany{{ form.id }}"
+                            value="{{ form.company }}"
+                            placeholder="Company Name"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="phone_no">{{ 'main-addresses.phone_number' | t }}</label>
+                          <input
+                            type="tel"
+                            name="address[phone]"
+                            id="address_phone_{{ form.id }}"
+                            value="{{ form.phone }}"
+                            placeholder="Phone No."
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="address_1">{{ 'main-addresses.address_1' | t }}</label>
+                          <input
+                            name="address[address1]"
+                            id="address_address1_{{ form.id }}"
+                            value="{{ form.address1 }}"
+                            name="text"
+                            placeholder="Address"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="address_2">{{ 'main-addresses.address_2' | t }}</label>
+                          <input
+                            name="address[address2]"
+                            id="address_address2_{{ form.id }}"
+                            value="{{ form.address2 }}"
+                            name="text"
+                            placeholder="Address"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="city_name">{{ 'main-addresses.city' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[city]"
+                            id="city{{ form.id }}"
+                            placeholder="City Name"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                        <div>
+                          <label for="country">{{ 'main-addresses.country' | t }}</label>
+                          <select
+                            name="address[country]"
+                            id="address_country{{ form.id }}"
+                            value="{{ form.country }}"
+                            placeholder="Select Country"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary !w-full"
+                          >
+                            <option value="{{ form.country }}">{{ form.country }}</option>
+                            {{ all_country_option_tags }}
+                          </select>
+                        </div>
+                        <div class="hidden">
+                          <label for="province">{{ 'main-addresses.province' | t }}</label>
+                          <select
+                            id="address_province{{ form.id }}"
+                            name="address[province]"
+                            data-default="{{ form.province }}"
+                            autocomplete="address-level1"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          ></select>
+                        </div>
+                        <div>
+                          <label for="zip">{{ 'main-addresses.zip' | t }}</label>
+                          <input
+                            type="text"
+                            name="address[zip]"
+                            id="address_zip_{{ form.id }}"
+                            value="{{ form.zip }}"
+                            placeholder="Zip Code"
+                            class="pl-[30px] block p-3 rounded-md border border-spacing-2  border-Tertiary placeholder:text-Tertiary w-full"
+                          >
+                        </div>
+                      </ol>
+                      <div class="flex items-center gap-2 default_address">
+                        {{ form.set_as_default_checkbox }}
+                        <label for="address_default_address_{{ form.id }}">
+                          {{ 'customer.addresses.set_default' | t }}
+                        </label>
+                      </div>
+                      <div class="flex flex-col sm:flex-row w-full gap-[20px] justify-center pt-10 md:mb-0 mb-10 items-center">
+                        <li class="list-none">
+                          {% render 'btn-secondary', src: 'Save Changes', type: 'submit' %}
+                        </li>
+                        <li class="list-none text-lg font-semibold">
+                          <button type="reset" class="closeDetails flex items-center justify-center gap-3">
+                            <span>{% render 'icon-close-thin' %}</span>
+                            {{ 'main-addresses.cancel' | t }}
+                          </button>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endform %}
+            </div>
+          {% endfor %}
+
+          <div
+            class="flex justify-center items-center lg:min-h-[420px] py-10 global_border_color addressBlock"
+            style="background-color:{{ section.settings.address_bg }}30;"
+          >
+            <div class="add-new-address">
+              <div class="flex justify-center items-center gap-3">
+                {% render 'icon-cart-f' %}
+                {% render 'hover-link', src: 'Add New Address', buttonType: 'button' %}
+              </div>
+            </div>
+          </div>
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'card' %}
+                <div
+                  class=" bg-no-repeat bg-cover rounded-md relative"
+                  style="background-image: {{ block.settings.background_color }} url('{{ block.settings.image | image_url }}');"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.image == blank %}
+                    {{ 'collection-2' | placeholder_svg_tag: 'absolute left-0 top-0 w-full h-full bg-[#ccc] z-10' }}
+                  {% endif %}
+                  <div class="flex justify-center items-center flex-col h-full py-24 relative z-40">
+                    {% if block.settings.logo != blank %}
+                      <div class="max-w-[280px]">
+                        <img
+                          class="w-full object-cover h-full"
+                          src="{{ block.settings.logo | image_url }}"
+                          alt="{{ block.settings.image.alt }}"
+                          loading="lazy"
+                          width="200"
+                          height="100"
+                        >
+                      </div>
+                    {% endif %}
+                    {% if block.settings.sale != blank %}
+                      <div>
+                        <h4 style="color:{{ block.settings.text_color }}">{{ block.settings.sale }}</h4>
+                      </div>
+                    {% else %}
+
+                    {% endif %}
+                    {% if block.settings.discount != blank %}
+                      <div>
+                        <h4 style="color:{{ block.settings.text_color }}">{{ block.settings.discount }}</h4>
+                      </div>
+                    {% else %}
+
+                    {% endif %}
+                    <div class="my-10">
+                      {%
+                        render 'btn-secondary',
+                        src: block.settings.button,
+                        color: block.settings.text_color,
+                        class: 'custom',
+                      %}
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      {% endpaginate %}
+    </div>
+
+    <div class="flex justify-center">
+      <a rel="nofollow" href="{{ routes.account_url }}">
+        {% render 'btn-secondary', src: 'Back To Account' %}
+      </a>
+    </div>
+  </div>
+
+  <div class="fixed w-full top-0 left-0 z-[999] bg-[#00000080] justify-center items-center h-screen modelNewAddress hidden sm:p-5 lg:p-10">
+    <div class="h-full overflow-hidden container xxs:max-sm:w-full xxs:max-sm:h-full xxs:max-sm:m-0 mx-auto w-full max-w-[900px] bg-body px-5 pt-10 md:pt-5 md:px-10 py-5 relative">
+      {% render 'icon-plus',
+        class: 'absolute md:right-10 right-5 top-[1.5rem] w-[2rem] h-[2rem] rotate-[45deg] close cursor-pointer'
+      %}
+      <h4 class="pb-4 lg:text-left text-center">
+        {{ 'main-addresses.new_address' | t }}
+        <span class="font-normal text-base text-Tertiary tracking-[0em] hidden">
+          {{ 'main-addresses.addresses' | t }}
+        </span>
+      </h4>
+      {% form 'customer_address',
+        customer.new_address,
+        aria-labelledBy: 'AddressNewHeading',
+        class: 'overflow-auto h-[90%]'
+      %}
+        <ol class="flex flex-col gap-8 xxs:max-sm:gap-5 pr-4">
+          <div>
+            <label for="first_name">{{ 'main-addresses.first_name' | t }}</label>
+            <input
+              type="text"
+              name="address[first_name]"
+              id="address_fname_{{ form.id }}"
+              value="{{ form.first_name }}"
+              placeholder="First Name"
+              class="pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="last_name">{{ 'main-addresses.last_name' | t }}</label>
+            <input
+              type="text"
+              name="address[last_name]"
+              id="address_lname_{{ form.id }}"
+              value="{{ form.last_name }}"
+              placeholder="Last Name"
+              class=" pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="company_name">{{ 'main-addresses.company_name' | t }}</label>
+            <input
+              type="text"
+              name="address[company]"
+              id="addresscompany{{ form.id }}"
+              value="{{ form.company }}"
+              placeholder="Company Name"
+              class=" pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="email">{{ 'main-addresses.email' | t }}</label>
+            <input
+              type="text"
+              name="address[email]"
+              id="address_email_{{ form.id }}"
+              value="{{ form.email }}"
+              placeholder="Email"
+              class=" pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="phone_no">{{ 'main-addresses.phone_number' | t }}</label>
+            <input
+              type="tel"
+              name="address[phone]"
+              id="address_phone_{{ form.id }}"
+              value="{{ form.phone }}"
+              placeholder="Phone No."
+              class=" pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="address_1">{{ 'main-addresses.address_1' | t }}</label>
+            <textarea
+              name="address[address1]"
+              id="address_address1_{{ form.id }}"
+              value="{{ form.address1 }}"
+              cols="30"
+              rows="2"
+              placeholder="Address Line 1"
+              class="pl-[30px] block p-3 rounded-md border w-full"
+            ></textarea>
+          </div>
+          <div>
+            <label for="address_2">{{ 'main-addresses.address_2' | t }}</label>
+            <textarea
+              name="address[address2]"
+              id="address_address2_{{ form.id }}"
+              value="{{ form.address2 }}"
+              cols="30"
+              rows="2"
+              placeholder="Address Line 2"
+              class="pl-[30px] block p-3 rounded-md border w-full"
+            ></textarea>
+          </div>
+          <div>
+            <label for="City">{{ 'main-addresses.city' | t }}</label>
+            <input
+              type="text"
+              name="address[city]"
+              id="city{{ form.id }}"
+              placeholder="City Name"
+              class=" pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+          <div>
+            <label for="country">{{ 'main-addresses.country' | t }}</label>
+            <select
+              id="address_country{{ form.id }}"
+              name="address[country]"
+              data-default="{{ form.country }}"
+              autocomplete="country"
+              class="pl-[30px] block p-3 rounded-md border !w-full"
+            >
+              {{ all_country_option_tags }}
+            </select>
+          </div>
+          <div class="hidden">
+            <label for="province">{{ 'main-addresses.province' | t }}</label>
+            <select
+              id="address_province{{ form.id }}"
+              name="address[province]"
+              data-default="{{ form.province }}"
+              autocomplete="address-level1"
+              class="pl-[30px] block p-3 rounded-md border w-full"
+            ></select>
+          </div>
+          <div>
+            <label for="zip">{{ 'main-addresses.zip' | t }}</label>
+            <input
+              type="text"
+              name="address[zip]"
+              id="address_zip_{{ form.id }}"
+              value="{{ form.zip }}"
+              placeholder="Zip Code"
+              class="pl-[30px] block p-3 rounded-md border w-full"
+            >
+          </div>
+        </ol>
+        <div class="flex flex-col sm:flex-row w-full gap-5 justify-center py-10 items-center">
+          <li class="list-none">
+            {% render 'btn-secondary', src: 'Save Changes', type: 'submit' %}
+          </li>
+          <li class="list-none text-lg font-semibold">
+            <button type="reset" class="close flex justify-center items-center gap-3">
+              <span>{% render 'icon-close-thin' %}</span>
+              {{ 'main-addresses.cancel' | t }}
+            </button>
+          </li>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.main-addresses.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-addresses.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-addresses.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "address_bg",
+      "default": "#ccc",
+      "label": "t:section.main-addresses.settings.address_bg"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_enable",
+      "label": "Title Enable",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-addresses.blocks.card.name",
+      "limit": 1,
+      "type": "card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.main-addresses.blocks.card.settings.image"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "t:section.main-addresses.blocks.card.settings.logo"
+        },
+        {
+          "type": "text",
+          "id": "sale",
+          "label": "t:section.main-addresses.blocks.card.settings.sale",
+          "default": "FRIDAY SALE"
+        },
+        {
+          "type": "text",
+          "id": "discount",
+          "label": "t:section.main-addresses.blocks.card.settings.discount",
+          "default": "25%OFF"
+        },
+        {
+          "type": "text",
+          "id": "button",
+          "label": "t:section.main-addresses.blocks.card.settings.button",
+          "default": "Shop Now"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:section.main-addresses.blocks.card.settings.text_color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  let closeButton = document.querySelectorAll('.close');
+  let modelNewAddress = document.querySelector('.modelNewAddress');
+  let addNewAddress = document.querySelector('.add-new-address');
+
+  addNewAddress.addEventListener('click', () => {
+    modelNewAddress.style.display = 'flex';
+  });
+  closeButton.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modelNewAddress.style.display = 'none';
+    });
+  });
+
+  let addressItems = document.querySelectorAll('.addressItem');
+
+  addressItems.forEach((item) => {
+    let closeDetails = item.querySelectorAll('.closeDetails');
+    let modalDetails = item.querySelector('.modalDetails');
+    let editDetails = item.querySelector('.editDetails');
+
+    editDetails.addEventListener('click', (e) => {
+      modalDetails.style.display = 'flex';
+    });
+    closeDetails.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        modalDetails.style.display = 'none';
+      });
+    });
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key == 'Escape') {
+      modelNewAddress.style.display = 'none';
+      addressItems.forEach((item) => {
+        let modalDetails = item.querySelector('.modalDetails');
+        modalDetails.style.display = 'none';
+      });
+    }
+  });
+</script>

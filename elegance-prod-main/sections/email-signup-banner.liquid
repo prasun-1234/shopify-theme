@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="{{ 'password.css' | asset_url }}">
+
+<section class="password-main" style="background-image:url({{ section.settings.bg_main | image_url }});">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="password-inner" style="background: {{ section.settings.card_bg }};">
+      <div class="storefront-section" style="display:none">
+        {% form 'storefront_password' %}
+          {{ form.errors | default_errors }}
+
+          <div class="password input-main">
+            <label for="password">{{ 'password.password' | t }}</label>
+            <input type="password" name="password">
+          </div>
+
+          <div class="submit input-main">
+            <input type="submit" value="Sign in">
+          </div>
+          {%- if form.posted_successfully? -%}
+          <h4 class="" autofocus> {{ 'password.success-message' | t }}</h4>
+                {%- endif -%}
+        {% endform %}
+      </div>
+      <div class="customer-form">
+        <div class="title" style="color:{{ section.settings.text_color }};">
+          {{ section.settings.title }}
+        </div>
+        <p style="color:{{ section.settings.text_color }};">
+          {% unless shop.password_message == blank %}
+            {{ shop.password_message }}
+          {% endunless %}
+        </p>
+        {% form 'customer' %}
+          {{ form.errors | default_errors }}
+
+          <div>
+            <input type="hidden" name="contact[tags]">
+          </div>
+
+          <div class="email input-main">
+            <label style="color:{{ section.settings.text_color }};" for="email">{{ 'password.email' | t }}</label>
+            <input type="email" name="contact[email]" aria-labelledby="email">
+          </div>
+
+          <div class="submit input-main">
+            <input type="submit" value="Submit">
+          </div>
+          {%- if form.posted_successfully? -%}
+                  <h4 class="" autofocus> {{ 'password.success-message' | t }}</h4>
+                {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.password.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_main",
+      "label": "t:sections.password.settings.bg_main"
+    },
+    {
+      "type": "color_background",
+      "id": "card_bg",
+      "label": "t:sections.password.settings.card_bg",
+      "default": "linear-gradient(0deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000",
+      "label": "t:sections.password.settings.text_color"
+    },
+    {
+      "type": "richtext",
+      "default": "t:sections.password.settings.title_default",
+      "id": "title",
+      "label": "t:sections.password.settings.title_label"
+    }
+  ],
+  "templates": ["password"]
+}
+{% endschema %}

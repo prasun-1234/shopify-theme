@@ -1,0 +1,179 @@
+{{ 'section-tasks-banner.css' | asset_url | stylesheet_tag }}
+{% style %}
+  #{{ section.id }} .tasks-banner-container {
+    background-image: url('{{ section.settings.background_image | image_url }}');
+    background-size: cover;
+    border-radius:20px;
+    overflow:hidden;
+  }
+
+  #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top | divided_by: 2 }}px;
+    padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+<section class="tasks-banner-section container mx-auto" id="{{ section.id }}">
+  <div class="tasks-banner-container">
+    <div class="tasks-banner-header">
+      <div class="featured_image-box">
+        {% if section.settings.featured_image_1 != blank %}
+          {{
+            section.settings.featured_image_1
+            | image_url: width: 600
+            | image_tag: loading: 'lazy', sizes: '600', widths: '320, 520, 600', class: 'marquee-fequred-image-1'
+          }}
+        {% endif %}
+      </div>
+      <div class="featured_image-box">
+        {% if section.settings.featured_image_2 != blank %}
+          {{
+            section.settings.featured_image_2
+            | image_url: width: 600
+            | image_tag: loading: 'lazy', sizes: '600', widths: '320, 520, 600', class: 'marquee-fequred-image-1'
+          }}
+        {% endif %}
+      </div>
+      <div class="tasks-banner-text">
+        {% if section.settings.body_text != blank %}
+          <p style="color:{{ section.settings.text_color }};">{{ section.settings.body_text }}</p>
+        {% endif %}
+        {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+          <a
+            href="{{ block.settings.button_url }}"
+            class="button button--tertiary view-task-button "
+          >
+            <div class="button-inner">
+              <span>{{ section.settings.button_label }}</span>
+              <span>{{ section.settings.button_label }}</span>
+            </div>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="tasks-inner-banner body__inner-wrapper">
+      <div class="marquee">
+        <div class="marquee__inner-wrap">
+          <div class="marquee__inner">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'marquee_blocks' %}
+                  {% if block.settings.marquee_text != blank %}
+                    <li
+                      class="list__item"
+                      {{ block.shopify_attributes }}
+                      style="color:{{ section.settings.text_color }};"
+                    >
+                      {{ block.settings.marquee_text }}
+                      <span>
+                        {% if block.settings.image != blank %}
+                          {{
+                            block.settings.image
+                            | image_url: width: 200
+                            | image_tag:
+                              loading: 'lazy',
+                              sizes: '200',
+                              widths: '92, 120, 200',
+                              class: 'arrow-right-marquee'
+                          }}
+                        {% endif %}
+                      </span>
+                    </li>
+                  {% endif %}
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Tasks banner",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Section text color",
+      "default": "#020617"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image_1",
+      "label": "featured_image-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image_2",
+      "label": "featured_image-2"
+    },
+    {
+      "type": "text",
+      "id": "body_text",
+      "label": "Body Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Url"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Marquee blocks",
+      "type": "marquee_blocks",
+      "settings": [
+        {
+          "type": "text",
+          "id": "marquee_text",
+          "label": "Marquee text",
+          "default": "marquee text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Marquee Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

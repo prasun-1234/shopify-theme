@@ -1,0 +1,232 @@
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+{{ 'component-totals.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  id="main-cart-footer"
+  data-id="{{ section.id }}"
+>
+  <div class="page-width">
+    <div class="cart__footer isolate section-{{ section.id }}-padding">
+      <div class="cart__fotter_inner">
+        {% render 'donation' %}
+        <div class="cart-extra-attribute-note">
+            <p class="cart-attribute__field">
+              <label for="how-did-you-hear-about-us">How did you hear about us</label><br>
+              <select required class="required" id="how-did-you-hear-about-us" name="attributes[how-did-you-hear-about-us]">
+                <option value="search-engine" {% if cart.attributes["how-did-you-hear-about-us"] == "search-engine" %}selected{% endif %}>Search engine</option>
+                <option value="facebook" {% if cart.attributes["how-did-you-hear-about-us"] == "facebook" %}{% endif %}>Facebook</option>
+                <option value="instagram" {% if cart.attributes["how-did-you-hear-about-us"] == "instagram" %}{% endif %}>Instagram</option>
+                <option value="other" {% if cart.attributes["how-did-you-hear-about-us"] == "other" %}{% endif %}>Other</option>          
+              </select>
+            </p>
+            <p class="cart-attribute__field">
+              <label for="other">Other</label><br>
+              <textarea required class="required" id="other" name="attributes[other]">{{ cart.attributes.other }}</textarea>
+            </p>
+        </div>
+      </div>
+      <div class="cart__blocks">
+          <div class="date-input">
+            <label for="date">Pick A delivery date</label>
+            <input type="date" name="attributes[delivery-date]" id="date">
+          </div>
+        {% render 'gift-wrapping' %}
+        {%- if settings.show_cart_note -%}
+          <cart-note class="cart__note field">
+            <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+            <textarea
+              class="text-area field__input"
+              name="note"
+              form="cart"
+              id="Cart-note"
+              placeholder="{{ 'sections.cart.note' | t }}"
+            >{{ cart.note }}</textarea>
+          </cart-note>
+        {%- endif -%}
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'subtotal' -%}
+              <div class="js-contents" {{ block.shopify_attributes }}>
+                <div>
+                  {%- if cart.cart_level_discount_applications.size > 0 -%}
+                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                      {%- for discount in cart.cart_level_discount_applications -%}
+                        <li class="discounts__discount discounts__discount--position">
+                          {%- render 'icon-discount' -%}
+                          {{ discount.title }}
+                          (-{{ discount.total_allocated_amount | money }})
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+
+                <div class="totals">
+                  <p class="totals__total">Subtotal: {{ cart.total_price | money_with_currency }}</p>
+                  {% comment %} <p class="totals__total-value"></p> {% endcomment %}
+                </div>
+
+                <small class="tax-note caption-large rte">
+                  {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif cart.taxes_included -%}
+                    {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                    {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                </small>
+              </div>
+            {%- else -%}
+              <div class="cart__ctas" {{ block.shopify_attributes }}>
+                <noscript>
+                  <button type="submit" class="cart__update-button button button--secondary" form="cart">
+                    {{ 'sections.cart.update' | t }}
+                  </button>
+                </noscript>
+
+                <button
+                  type="submit"
+                  id="checkout"
+                  class="cart__checkout-button button"
+                  name="checkout"
+                  {% if cart == empty %}
+                    disabled
+                  {% endif %}
+                  form="cart"
+                >
+                  {{ 'sections.cart.checkout' | t }}
+                </button>
+              </div>
+
+              {%- if additional_checkout_buttons -%}
+                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                  {{ content_for_additional_checkout_buttons }}
+                </div>
+              {%- endif -%}
+          {%- endcase -%}
+        {% endfor %}
+
+        <div id="cart-errors"></div>
+      </div>
+    </div>
+    </div>
+    
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function isIE() {
+      const ua = window.navigator.userAgent;
+      const msie = ua.indexOf('MSIE ');
+      const trident = ua.indexOf('Trident/');
+    
+      return msie > 0 || trident > 0;
+    }
+
+    if (!isIE()) return;
+    const cartSubmitInput = document.createElement('input');
+    cartSubmitInput.setAttribute('name', 'checkout');
+    cartSubmitInput.setAttribute('type', 'hidden');
+    document.querySelector('#cart').appendChild(cartSubmitInput);
+    document.querySelector('#checkout').addEventListener('click', function (event) {
+      document.querySelector('#cart').submit();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-footer.name",
+  "class": "cart__footer-wrapper",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "t:sections.main-cart-footer.blocks.subtotal.name",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.main-cart-footer.blocks.buttons.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}
+<script defer>
+    // Function to update cart attributes
+    function updateCartAttribute(attributeName, attributeValue) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/cart/update.js", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ 'attributes': { [attributeName]: attributeValue } }));
+    }
+
+    // Event listeners to update cart attributes
+    document.getElementById('how-did-you-hear-about-us').addEventListener('change', function() {
+        var selectedOption = this.value;
+        updateCartAttribute('how-did-you-hear-about-us', selectedOption);
+    });
+// Event listeners to update cart attributes
+document.getElementById('date').addEventListener('change', function() {
+        var selectedOption = this.value;
+        sessionStorage.setItem("delivery-date",selectedOption)
+        updateCartAttribute('delivery-date', selectedOption);
+    });
+    document.getElementById('date').value = sessionStorage.getItem("delivery-date")
+    document.getElementById('other').addEventListener('input', function() {
+        var otherValue = this.value;
+        updateCartAttribute('other', otherValue);
+    });
+</script>

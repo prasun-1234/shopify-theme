@@ -1,0 +1,349 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Vai al contenuto",
+      "error": "Da fare",
+      "close": "Da fare",
+      "link_messages": {
+        "new_window": "Nuova finestra"
+      }
+    }
+  },
+  "customer": {
+    "addresses": {
+      "set_default": "Indirizzo predefinito"
+    },
+    "account_detail": "Dettagli account"
+  },
+  "main-address": {
+    "Address": "Indirizzo"
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Buono regalo",
+      "subtext": "Ecco il tuo buono regalo gratuito",
+      "expired": "Questo buono regalo è scaduto",
+      "remaining_html": "Il saldo del tuo buono regalo è: ",
+      "add_to_apple_wallet": "Immagine apple-wallet",
+      "gift_card_code": "Codice del buono regalo",
+      "copy_code": "Richiedilo qui",
+      "copy_code_success": "Codice copiato",
+      "shop_link": "Acquista ora",
+      "print_gift_card": "Stampa buono regalo",
+      "qr_image_alt": "Codice QR del buono regalo"
+    }
+  },
+  "breadcrumb": {
+    "nav": {
+      "home": "Home"
+    }
+  },
+  "about-us": {
+    "title": "Titolo"
+  },
+  "quickview":{
+    "options":"Seleziona Opzioni",
+    "quantity":"Quantità",
+    "description":"Descrizione",
+    "add_cart":"Aggiungi al Carrello"
+  },
+  "cart-drawer": {
+    "cart": "Carrello",
+    "add_item_to_free_shipping": "Aggiungi articoli al carrello per ottenere la spedizione gratuita.",
+    "free_shipping": "Hai la spedizione gratuita",
+    "You_are_only": "Sei solo",
+    "cost_shipping": "lontano dalla spedizione gratuita.",
+    "in_stock": "disponibile",
+    "discount": "Sconto:",
+    "total": "Totale:",
+    "checkout_calculation": "Spedizione e sconto calcolati al momento del checkout.",
+    "order_note": "Aggiungi una nota al tuo ordine",
+    "decrease_quantity": "Diminuisci Quantità",
+    "increase_quantity": "Aumenta Quantità"
+  },
+  "collection-banner": {
+    "title": "Titolo della collezione",
+    "text": "Testo della collezione"
+  },
+  "feature-collection": {
+    "card_title": "Titolo della carta"
+  },
+  "featured-product": {
+    "title": "Titolo",
+    "body_text": "Testo del corpo....!"
+  },
+  "main-search": {
+    "search_products": "Cerca Prodotti",
+    "not_found": "Ops... Prodotto non trovato",
+    "search_term": "Nessun articolo con il termine di ricerca",
+    "results": "Risultati trovati per"
+  },
+  "main-register": {
+    "first_name": "Nome",
+    "last_name": "Cognome",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Accedi.",
+    "account_status": "Hai già un account?",
+    "errors": "Errori:"
+  },
+  "main-product": {
+    "by": "Di",
+    "product_description": "Descrizione Prodotto",
+    "quantity": "Quantità:",
+    "for": "Per",
+    "taxes": "Tasse",
+    "not": "NON",
+    "included": "Incluso",
+    "out_of_stock": "Non disponibile",
+    "unavailable": "Prodotti non disponibili",
+    "add_cart": "Aggiungi al Carrello",
+    "buy_now": "Compra Ora"
+  },
+  "main-password": {
+    "enter": "Inserisci usando la password",
+    "email": "Email"
+  },
+  "main-order": {
+    "my_orders": "I Miei Ordini",
+    "product": "Prodotto:",
+    "sku": "SKU",
+    "price": "Prezzo",
+    "quantity": "Quantità",
+    "total": "Totale",
+    "track_shipment": "Traccia Spedizione",
+    "regular_price": "Prezzo Regolare",
+    "sale_price": "Prezzo in Offerta",
+    "unit_price": "Prezzo Unitario",
+    "subtotal": "Subtotale",
+    "discount": "Sconto",
+    "shipping": "Spedizione:",
+    "tax": "Tasse",
+    "total_duties": "Dazi Totali:",
+    "total_refund": "Totale Rimborsato",
+    "billing_address": "Indirizzo di Fatturazione",
+    "payment_status": "Stato Pagamento:",
+    "shipping_address": "Indirizzo di Spedizione",
+    "fulfilling_status": "Stato di Evasione:"
+  },
+  "main-login": {
+    "email": "Email",
+    "password": "Password",
+    "forgot_pw": "Resetta Password",
+    "new_customer": "Nuovo Cliente",
+    "Forgot_Your_Password": "Hai dimenticato la tua password?",
+    "Already_have_an_account": "Hai già un account?",
+    "create_new": "Crea un nuovo account",
+    "send_instructions": "Nessun problema, ti invieremo istruzioni per il reset.",
+    "back_to_Login": "Torna al Login"
+  },
+  "main-reset-password": {
+    "password": "Password",
+    "confirm_pw": "Conferma Password",
+    "reset_pw": "Reimposta Password"
+  },
+  "main-activate-account": {
+    "password": "Inserisci Password",
+    "confirm_pw": "Conferma Password"
+  },
+  "main-customer-account": {
+    "home": "Home",
+    "my_account": "Il Mio Account",
+    "name": "Nome",
+    "email": "Email",
+    "payment_status": "Stato Pagamento",
+    "fulfillment_status": "Stato Evasione",
+    "phone_no": "Numero di Telefono",
+    "shipping_address": "Indirizzo di Spedizione",
+    "total_amount": "Importo Totale",
+    "date": "Data",
+    "orders": "Ordini",
+    "order_id": "ID Ordine",
+    "order_history": "Storico Ordini",
+    "order": "Ordine",
+    "price": "Prezzo",
+    "status": "Stato",
+    "no_orders": "Ancora nessun ordine!"
+  },
+  "main-contact": {
+    "first_name": "Nome",
+    "email": "Email",
+    "phone_no": "Numero di Telefono",
+    "message": "Messaggio"
+  },
+  "main-collection": {
+    "filter_collection": "Filtra per Collezione",
+    "no_products": "Nessun Prodotto Trovato",
+    "filter": "Filtro"
+  },
+  "main-cart-item": {
+    "cart": "Carrello",
+    "leave_note": "Lascia una nota con il tuo ordine",
+    "add_items": "Aggiungi Altri Articoli",
+    "shipping_placeholder": "Sei a $10 dalla spedizione gratuita",
+    "total": "Totale",
+    "shipping_msg": "Spedizione e sconti calcolati al checkout.",
+    "checkout": "Vai al Checkout"
+  },
+  "main-cart-body": {
+    "title": "Carrello",
+    "items": "articoli",
+    "discounts": "Sconti",
+    "discount": "Sconto",
+    "total": "Totale",
+    "in_stock": "Disponibile",
+    "out_stock": "Non Disponibile",
+    "decrease_quantity": "Riduci Quantità",
+    "increase_quantity": "Aumenta Quantità",
+    "free_shipping": "Sei idoneo per la spedizione gratuita!",
+    "only": "Sei a soli",
+    "away_from": "dalla spedizione gratuita.",
+    "taxes_and_shipping_policy_at_checkout_html": "Tasse e <a href=\"{{ link }}\">spedizione<\/a> calcolate al momento del pagamento",
+    "taxes_included_but_shipping_at_checkout": "Tassa inclusa e spedizione calcolata al momento del pagamento",
+    "taxes_included_and_shipping_policy_html": "Tassa inclusa. <a href=\"{{ link }}\">Spedizione<\/a> calcolata al momento del pagamento.",
+    "taxes_and_shipping_at_checkout": "Tasse e spedizione calcolate al momento del pagamento",
+    "add_note": "Aggiungi una nota al tuo ordine",
+    "accepted_payment": "Metodi di Pagamento Accettati",
+    "product": "Prodotto",
+    "price": "Prezzo",
+    "quantity": "Quantità"
+  },
+  "main-banner": {
+    "heading": "Testo dell'Intestazione della Sezione"
+  },
+  "main-blog": {
+    "no_items": "Nessun articolo disponibile per questa pagina"
+  },
+  "article-card": {
+    "read_more": "Leggi di più"
+  },
+  "main-list-collections": {
+    "no_items": "Nessuna collezione disponibile"
+  },
+  "main-banner-1": {
+    "heading": "Titolo",
+    "text": "Titolo del Banner"
+  },
+  "main-article": {
+    "editor": "Editore",
+    "share": "Condividi questo blog",
+    "no_comment": "Non ci sono commenti in questo Articolo",
+    "post_comments": "Pubblica i Tuoi Commenti",
+    "comment": "Il Tuo Commento"
+  },
+  "card-collection": {
+    "no_title": "Nessun Titolo",
+    "no_description": "Nessuna descrizione",
+    "sample_title": "Titolo di Esempio",
+    "sample_description": "Descrizione di Esempio"
+  },
+  "selling_plan": {
+    "name": "Piano di Vendita",
+    "purchase_options": "Opzioni di Acquisto",
+    "sale": "Sconto"
+  },
+  "testimonial": {
+    "title": "Testimonianza",
+    "customer": "John Doe",
+    "item_title": "Titolo",
+    "para": "Testo del paragrafo del banner",
+    "date": "01 Gen, 2023"
+  },
+  "footer": {
+    "visit_store": "Visita il Nostro Negozio",
+    "view_map": "Vedi sulla Mappa",
+    "all_collection": "Tutte le Collezioni",
+    "follow_us": "Seguici:",
+    "product_queries": "Richieste relative al prodotto",
+    "call_us": "Chiamaci",
+    "contact_us": "Contattaci",
+    "all_rights_reserved": "Tutti i Diritti Riservati.",
+    "back_to_top": "Torna Su"
+  },
+  "copyright": {
+    "copyright": "Copyright"
+  },
+  "header": {
+    "follow_us": "Seguici:",
+    "search": "Cerca",
+    "cart": "Carrello",
+    "menu": "Menu",
+    "mega-menu-main": {
+      "read_article": "Leggi Altro"
+    }
+  },
+  "home-blog": {
+    "no_blogs": "Nessun blog disponibile da visualizzare"
+  },
+  "info-grid": {
+    "title":"Titolo dell'Elemento in Evidenza",
+    "no_info": "Nessuna info_grid selezionata"
+  },
+  "multicolumn": {
+    "heading_text": "Testo dell'Intestazione della Sezione",
+    "para_text": "Testo del Paragrafo della Sezione"
+  },
+  "newsletter": {
+    "success": "Modulo Inviato con Successo"
+  },
+  "legal": {
+    "FAQ": "Domande Frequenti",
+    "privacy_policy": "Informativa sulla Privacy"
+  },
+  "pickup": {
+    "available_at": "Ritiro Disponibile presso",
+    "unavailable_at": "Pickup non disponibile presso",
+    "store_info": "Visualizza Informazioni sul Negozio",
+    "no_store_info": "Informazioni sul Negozio Non Disponibili",
+    "product": "prodotto"
+  },
+  "product-details": {
+    "no_products": "Nessun dettaglio prodotto disponibile"
+  },
+  "main-404": {
+    "back_to_shopping": "Torna agli Acquisti"
+  },
+  "main-addresses": {
+    "addresses": "Indirizzi",
+    "name": "Nome:",
+    "first_name": "Nome:",
+    "last_name": "Cognome:",
+    "email": "Email:",
+    "phone_number": "Numero di Telefono:",
+    "company_name": "Nome Azienda:",
+    "address_1": "Indirizzo 1:",
+    "address_2": "Indirizzo 2:",
+    "shipping_addresses": "Indirizzo di Spedizione:",
+    "city": "Città:",
+    "province": "Provincia:",
+    "country": "Paese:",
+    "zip": "CAP:",
+    "edit_details": "Modifica Dettagli",
+    "first_address": "1° Indirizzo",
+    "cancel": "Annulla",
+    "new_address": "Aggiungi Nuovo Indirizzo"
+  },
+  "search-bar": {
+    "title": "Cerca Prodotti"
+  },
+  "instagram": {
+    "follow_us_instagram": "Seguici su Instagram"
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Voglio inviarlo come regalo",
+      "expanded": "Modulo destinatario della carta regalo espanso",
+      "collapsed": "Modulo destinatario della carta regalo compresso",
+      "email_label": "Email del destinatario",
+      "email_label_optional_for_no_js_behavior": "Email del destinatario (opzionale)",
+      "email": "Email",
+      "name_label": "Nome del destinatario (opzionale)",
+      "name": "Nome",
+      "message_label": "Messaggio (opzionale)",
+      "message": "Messaggio",
+      "max_characters": "{{ max_chars }} caratteri massimi",
+      "send_on": "AAAA-MM-GG",
+      "send_on_label": "Invia il (opzionale)"
+    }
+  }  
+}

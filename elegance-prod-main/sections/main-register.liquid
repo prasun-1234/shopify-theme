@@ -1,0 +1,246 @@
+
+<link rel="stylesheet" href="{{ 'main-register.css' | asset_url }}">
+
+{% layout settings.customer_layout %}
+
+<section id="template" class="account-form">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="account-form-inner">
+      <div class="contact-wrapper">
+        <div class="form-div">
+          <div class="l-box">
+            <div id="customer" class="login_left">
+              
+              <div id="create-customer">
+                <div class="template_header pure-g">
+                  <div class="pure-u-1">
+                    <h2 class="form-title">{{ 'customer.form.register-title' | t }}</h2>
+                    <p>{{ 'customer.form.register-description' | t }}</p>
+                  </div>
+                </div>
+                {% form 'create_customer', class: 'pure-form' %}
+                  <fieldset>
+                    <div class="pure-g register-grid">
+                      <div class="pure-u-1-2">
+                        <div class="clearfix large_form">
+                          <label for="first-name" class="login">{{ 'customer.form.first-name' | t }}</label>
+                          <input
+                            type="text"
+                            value=""
+                            name="customer[first_name]"
+                            id="first-name"
+                            class="large pure-input-1"
+                            size="30"
+                            placeholder="First Name"
+                          >
+                        </div>
+                      </div>
+                      <div class="pure-u-1-2">
+                        <div class="clearfix large_form">
+                          <label for="last-name" class="login">{{ 'customer.form.last-name' | t }}</label>
+                          <input
+                            type="text"
+                            value=""
+                            name="customer[last_name]"
+                            id="last-name"
+                            class="large pure-input-1"
+                            size="30"
+                            placeholder="Last Name"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1">
+                        <div class="clearfix large_form">
+                          <label for="email" class="login">{{ 'customer.form.email' | t }}</label>
+                          <input
+                            type="email"
+                            value=""
+                            name="customer[email]"
+                            id="email"
+                            class="large pure-input-1"
+                            size="30"
+                            placeholder="Email"
+                          >
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1">
+                        <div class="large_form form_password">
+                          <label for="password" class="login">{{ 'customer.form.password' | t }}</label>
+                          <input
+                            type="password"
+                            value=""
+                            name="customer[password]"
+                            id="password"
+                            class=" password pure-input-1"
+                            size="30"
+                            placeholder="Password"
+                          >
+                          <button type="button" class="pw-show" data-show="false">
+                            {% render 'icon-show-pw' %}
+                            {% render 'icon-hide-pw' %}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1">
+                        <div class="large_form form_password">
+                          <label for="confirm-password" class="login">{{ 'customer.form.confirm-password' | t }}</label>
+                          <input
+                            type="password"
+                            value=""
+                            name="customer[password_confirmation]"
+                            id="confirm-password"
+                            class="password large pure-input-1"
+                            size="30"
+                            placeholder="Confirm Password"
+                          >
+                          <button type="button" class="pw-show" data-show="false">
+                            {% render 'icon-show-pw' %}
+                            {% render 'icon-hide-pw' %}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="pure-u-1">
+                      <p style="color: var(--error-font-color);">{{ form.errors | default_errors }}</p>
+                      </div>
+
+                    
+                      <div class="action_bottom ">
+                        <button class="theme-btn primary-btn" type="submit" value="Create">
+                          <div class="btn-bg"></div>
+                          <div class="btn-text">{{ section.settings.button_title }}</div>
+                        </button>
+                      </div>
+                      <div class="register-note pure-u-1">
+                          <p>
+                            <span>{{ 'customer.register.login_text' | t }}</span>
+                            <div class="text-btn">
+                              <a rel="nofollow" href="/account/login">
+                                {{- 'customer.register.login_link_text' | t }}
+                                {%- render 'arrow-next' -%}
+                              </a>
+                            </div>
+                          </p>
+                      </div>
+                    
+
+                    </div>
+                  </fieldset>
+                {% endform %}
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="contact-right login-img">
+          <div class="l-box">
+            <figure>
+              <div class="banner-overlay" style="background-color: {{ section.settings.overlay_color }};"></div>
+              {% if section.settings.banner_img %}
+                <img
+                  srcset="
+                    {%- if section.settings.banner_img.width >= 375 -%}{{ section.settings.banner_img | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 550 -%}{{ section.settings.banner_img | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 750 -%}{{ section.settings.banner_img | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1100 -%}{{ section.settings.banner_img | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1500 -%}{{ section.settings.banner_img | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1780 -%}{{ section.settings.banner_img | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 2000 -%}{{ section.settings.banner_img | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 3000 -%}{{ section.settings.banner_img | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 3840 -%}{{ section.settings.banner_img | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ section.settings.banner_img | image_url }} {{ section.settings.banner_img.width }}w
+                  "
+                  src="{{ section.settings.image | image_url }}"
+                  loading="lazy"
+                  alt="{{ section.settings.banner_img.alt | escape }}"
+                  height="100"
+                  width="100"
+                >
+              {% else %}
+                <img
+                  alt="Login Graphics"
+                  srcset="
+                    {{ 'login-graphics.jpg' | asset_img_url: '360x' }} 360w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '540x' }} 540w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '720x' }} 720w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1080x' }} 1080w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1296x' }} 1296w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1512x' }} 1512x,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1728x' }} 1728w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1944x' }} 1944w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '2160x' }} 2160w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '2376x' }} 2376w
+                  "
+                  loading="lazy"
+                >
+              {% endif %}
+              <h2>{{ section.settings.banner_title }}</h2>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main-register.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "t:sections.main-register.settings.banner_img.label"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "default": "Give your skin a treat every season",
+      "label": "t:sections.main-register.settings.banner_title.label"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000",
+      "label": "t:sections.main-register.settings.overlay_color.label"
+    },
+    {
+      "type": "text",
+      "default": "Create Account",
+      "id": "button_title",
+      "label": "t:sections.main-register.settings.button_title.label"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  function pwShow() {
+    let pwDiv = document.querySelectorAll('.form_password');
+    console.log('pw Working!!!');
+    for (let i = 0; i < pwDiv.length; i++) {
+      let btnShow = pwDiv[i].querySelector('button.pw-show');
+      let pwShow = btnShow.getAttribute('data-show');
+      let pwInput = pwDiv[i].querySelector('input.password');
+
+      btnShow.addEventListener('click', (e) => {
+        btnShow.classList.toggle('show-active');
+        if (btnShow.classList.contains('show-active')) {
+          btnShow.setAttribute('data-show', 'true');
+          pwInput.setAttribute('type', 'text');
+        } else if (!btnShow.classList.contains('show-active')) {
+          btnShow.setAttribute('data-show', 'false');
+          pwInput.setAttribute('type', 'password');
+        }
+        console.log(pwShow);
+      });
+    }
+  }
+
+  pwShow();
+</script>

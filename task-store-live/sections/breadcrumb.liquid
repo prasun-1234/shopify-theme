@@ -1,0 +1,143 @@
+{% style %}
+     #{{ section.id }}{
+       padding-top: {{ section.settings.section_margin_top }}px ;
+       padding-bottom: {{ section.settings.section_margin_bottom }}px;
+       }
+  #{{ section.id }} *{
+   color:{{ section.settings.text_color }};
+   transition:.3s ease;
+  }
+  #{{ section.id }} a:hover,
+  #{{ section.id }} a:hover *{
+  color:rgb(var(--color-button)) !important;
+   }
+   @media screen and (max-width:980px){
+   #{{ section.id }}{
+       padding-top: {{ section.settings.section_margin_top | divided_by: 2 }}px ;
+       padding-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+       }
+   }
+{% endstyle %}
+<section
+  id="{{ section.id }}"
+  class="breadcrumb_main"
+>
+  {% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+    <nav
+      class="breadcrumb container"
+      role="navigation"
+      aria-label="breadcrumbs"
+    >
+      <a class="bread-home !no-underline" href="{{ routes.root_url }}" rel="nofollow" title="Home">
+        <p>Home</p>
+      </a>
+
+      {% if template contains 'pages' %}
+        <span aria-hidden="true"> / </span>
+
+        <span>
+          <p>{{ page.title }}</p>
+        </span>
+
+      {% elsif template contains 'product' %}
+        {% if collection.url %}
+          <span aria-hidden="true"> / </span>
+
+          {{ collection.title | link_to: collection.url }}
+        {% endif %}
+
+        <span aria-hidden="true"> / </span>
+
+        <span>{{ product.title }}</span>
+
+      {% elsif template contains 'collection' and collection.handle %}
+        <span aria-hidden="true"> / </span>
+
+        {% if current_tags %}
+          {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+
+          {{ collection.title | link_to: url }}
+
+          <span aria-hidden="true"> / </span>
+
+          <span>{{ current_tags | join: ' + ' }}</span>
+
+        {% else %}
+          <span>{{ collection.title }}</span>
+        {% endif %}
+
+      {% elsif template == 'blog' %}
+        <span aria-hidden="true"> / </span>
+
+        {% if current_tags %}
+          {{ blog.title | link_to: blog.url }}
+
+          <span aria-hidden="true"> / </span>
+
+          <span>{{ current_tags | join: ' + ' }}</span>
+
+        {% else %}
+          <span>{{ blog.title }}</span>
+        {% endif %}
+
+      {% elsif template == 'article' %}
+        <span aria-hidden="true"> / </span>
+
+        {{ blog.title | link_to: blog.url }}
+
+        <span aria-hidden="true"> / </span>
+
+        <span>{{ article.title }}</span>
+
+      {% else %}
+        <span aria-hidden="true"> / </span>
+
+        <span>{{ page_title }}</span>
+      {% endif %}
+    </nav>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Breadcrumb",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 40,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "Margin top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 40,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "Margin bottom",
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#3A3A3A",
+      "label": "Text color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumb",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "text_color": "#3A3A3A"
+      }
+    }
+  ]
+}
+{% endschema %}

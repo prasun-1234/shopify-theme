@@ -1,0 +1,165 @@
+{% style %}
+  .featured-collection-main{
+    background-color: {{ section.settings.background_color }};
+    padding:{{ section.settings.padding }}px 0;
+  }
+
+  @media screen and (max-width: 1200px){
+    .{{ section.id }} .product_item_main{
+    margin-top: 0 !important;
+  }
+  .{{ section.id }}.featured-collection-main{
+    margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+    margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+    }
+  }
+{% endstyle %}
+
+{% assign featured_collection = section.settings.collection %}
+<section
+  class="{{ section.id }} featured-collection-main xl:pt-0 lg:pt-0 pt-20"
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+>
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div class="relative">
+      <h2 class=" lg:leading-[0.6] leading-[1.4] text-center">{{ section.settings.title }}</h2>
+      <div>
+        <div
+          class="swiper productSwiper relative !pb-20 md:!pb-14 lg:!pb-10"
+          data-col="{{ section.settings.products_per_row }}"
+        >
+          <div class="swiper-wrapper relative">
+            {% if featured_collection != blank %}
+              {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+                <div class="swiper-slide">{% render 'product-item', product: product, section: section %}</div>
+              {%- endfor -%}
+            {% else %}
+              {% for i in (1..5) %}
+                <div class="swiper-slide">{% render 'product-item', section: section %}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="swiper-button-prev !top-[33%] lg:!top-[40%]">{% render 'btn-swiper', class: 'rotate-180' %}</div>
+          <div class="swiper-button-next !top-[33%] lg:!top-[40%]">{% render 'btn-swiper' %}</div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      {% if section.settings.enable_collection_button == true %}
+        <div class="flex justify-center my-10 lg:my-20">
+          <a href="{{ section.settings.url }}">{% render 'btn-secondary', src: section.settings.button_text %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.feature-collection.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:section.feature-collection.settings.title"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "t:section.feature-collection.settings.section_margin_top",
+      "default": 0,
+      "max": 100,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "t:section.feature-collection.settings.section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "t:section.feature-collection.settings.padding",
+      "default": 0,
+      "max": 80,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:section.feature-collection.settings.collection",
+      "info": "Select Collection"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.feature-collection.settings.background_color",
+      "info": "Select Background color"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "label": "t:section.feature-collection.settings.products_to_show"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:section.feature-collection.settings.products_per_row"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_collection_button",
+      "label": "t:section.feature-collection.settings.enable_collection_button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Button",
+      "label": "t:section.feature-collection.settings.banner_button_text"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "t:section.feature-collection.settings.url"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.feature-collection.presets.name",
+      "settings": {
+        "title": "Latest",
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "padding": 0,
+        "collection": "t-shirts",
+        "background_color": "",
+        "products_to_show": 5,
+        "products_per_row": 3,
+        "enable_collection_button": true,
+        "button_text": "Shop Collection"
+      }
+    }
+  ]
+}
+{% endschema %}

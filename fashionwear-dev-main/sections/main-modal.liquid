@@ -1,0 +1,198 @@
+{% if section.settings.enable_modal == true %}
+  {% style %}
+    .modal-form {
+      border: 1px solid var(--form-border-color);
+    }
+  {% endstyle %}
+
+  <section
+    id="modal"
+    class="hidden z-[9999] w-full h-full fixed bottom-0 right-0 sm:justify-end justify-center sm:items-end items-center p-5"
+  >
+    <!-- modal section -->
+    <div class="absolute flex justify-end items-end h-auto w-full 2xl:max-w-[480px] sm:max-w-[375px] max-w-[320px] max-h-[90%]  mx-auto bg-body z-[99] overflow-auto">
+      <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto relative flex flex-col !px-[0]">
+        <div class="absolute right-5 top-5 sm:z-50 z-50">
+          <button class="btn-close" type="button" aria-label="close modal">
+            {% render 'icon-close-thin', class: 'w-[14px] h-[14px] ease-in-out duration-150 hover:scale-90' %}
+          </button>
+        </div>
+        <figure class="flex relative group w-full h-full max-h-[300px] z-20">
+          {% if section.settings.image != blank %}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'lazy',
+                sizes: '100',
+                widths: '165, 360, 535, 750, 1070, 1500',
+                class: 'w-full bottom-0 left-0 object-contain h-fit'
+            }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full absolute bottom-0 left-0' }}
+          {% endif %}
+        </figure>
+        <div class="flex flex-col justify-center px-[20px] py-[20px] sm:mt-[20px] lg:mt-0 text-center z-40 w-full ">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <h4 class="" {{ block.shopify_attributes }}>
+                  {{ block.settings.title_text }}
+                </h4>
+              {% when 'description' %}
+                <span class="mb-[20px]" {{ block.shopify_attributes }}>
+                  {{ block.settings.description_text }}
+                </span>
+
+              {% when 'form' %}
+                <div {{ block.shopify_attributes }}>
+                  {% form 'customer', class: 'newsletter-form w-full flex flex-col' %}
+                    <span
+                      class="modal-form border rounded-[6px] w-full"
+                    >
+                      <input
+                        type="hidden"
+                        name="contact[tags]"
+                        value="newsletter"
+                      >
+                      <input
+                        class="w-full !border-none px-4 py-3 h-[50px] newsletter-input"
+                        type="email"
+                        id="email"
+                        autocomplete="off"
+                        placeholder="Email"
+                      >
+                    </span>
+
+                    <div class="submit form-input">
+                      {% render 'btn-primary', src: 'Submit', class: 'w-full mt-[20px]', type: 'submit' %}
+                    </div>
+                  {% endform %}
+                </div>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!-- overlay -->
+    <div class="fixed top-0 bottom-0 left-0 right-0 w-full h-full  bg-[#00000060]"></div>
+    <!-- overlay -->
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:section.main-modal.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "t:section.main-modal.settings.enable_modal",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:section.main-modal.settings.image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-modal.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:section.main-modal.blocks.title.settings.title_text",
+          "default": "Join Us"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-modal.blocks.description.name",
+      "type": "description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description_text",
+          "label": "t:section.main-modal.blocks.description.settings.description_text",
+          "default": "<p>Subscribe to score 10% off your first order, get notified about product launches, special offersand news.</p>"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-modal.blocks.form.name",
+      "type": "form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.main-modal.blocks.form.settings.button_text",
+          "default": "Submit"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-modal.presets.name",
+      "settings": {
+        "enable_modal": true,
+        "image": "shopify:\/\/shop_images\/modal-main.jpg"
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "form"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const modal = document.querySelector('#modal');
+
+  if (modal) {
+    const closeModalBtn = modal.querySelector('.btn-close');
+    // close modal function
+    const closeModal = function () {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      sessionStorage.setItem('modalStatus', 'hidden');
+    };
+
+    setTimeout(() => {
+      let status = sessionStorage.getItem('modalStatus');
+
+      if (status === 'hidden') {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      } else {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }, 5000);
+
+    // close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  }
+{% endjavascript %}

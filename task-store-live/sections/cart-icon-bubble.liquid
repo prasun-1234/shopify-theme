@@ -1,0 +1,15 @@
+{%- liquid
+  if cart == empty
+    render 'icon-cart-empty'
+  else
+    render 'icon-cart'
+  endif
+-%}
+<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+
+<div>
+  <span class="cart-items cart-count" aria-hidden="true">
+    {%- if cart.item_count > 0 %}{{ cart.item_count }}{% endif -%}
+  </span>
+  <span class="visually-hidden ">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+</div>

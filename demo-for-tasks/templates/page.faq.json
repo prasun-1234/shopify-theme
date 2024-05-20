@@ -1,0 +1,68 @@
+{
+    "sections": {
+      "breadcrumb": {
+        "type": "breadcrumb",
+        "settings": {
+          "section_margin_top": 40,
+          "section_margin_bottom": 40,
+          "text_color": "#CBD5E1"
+        }
+      },
+      "faq-section": {
+        "type": "main-faq",
+        "settings": {
+          "paddingTop": 80,
+          "paddingBottom": 80,
+          "image": "shopify://shop_images/faq-image.jpg",
+          "faq_questions": "How to apply for refund ?",
+          "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+        },
+        "blocks": {
+          "faq_questions-1": {
+            "type": "accordion_block",
+            "settings": {
+              "faq_questions": "How to apply for refund ?",
+              "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+            }
+          },
+          "faq_questions-2": {
+            "type": "accordion_block",
+            "settings": {
+              "faq_questions": "How to apply for refund ?",
+              "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+            }
+          },
+          "faq_questions-3": {
+            "type": "accordion_block",
+            "settings": {
+              "faq_questions": "How to apply for refund ?",
+              "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+            }
+          },
+          "faq_questions-4": {
+            "type": "accordion_block",
+            "settings": {
+              "faq_questions": "How to apply for refund ?",
+              "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+            }
+          },
+          "faq_questions-5": {
+            "type": "accordion_block",
+            "settings": {
+              "faq_questions": "How to apply for refund ?",
+              "faq_answers": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet  aliquam id diam maecenas ultricies mi.Non consectetur a erat nam at lectus. Tortor id aliquet lectus proin nibh nisl condimentum id.Sed velit dignissim sodales ut eu sem integer vitae.dipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Orci nulla pellentesque dignissim enim sit amet venenatis urna cursus.Pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies."
+            }
+          }
+        },
+        "block_order": [
+          "faq_questions-1",
+          "faq_questions-2",
+          "faq_questions-3",
+          "faq_questions-4",
+          "faq_questions-5"
+        ]
+      }
+    },
+    "order": ["breadcrumb", "faq-section"]
+  }
+  

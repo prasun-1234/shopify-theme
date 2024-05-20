@@ -1,0 +1,134 @@
+<section
+  class="flex items-center justify-center relative overflow-hidden py-[60px]"
+  style="min-height:{{ section.settings.banner-height }}px;"
+>
+  {% if section.settings.background_image != blank %}
+    {{
+      section.settings.background_image
+      | image_url: width: 1500
+      | image_tag: loading: 'lazy', class: 'w-full object-cover h-full absolute left-0 top-0 z-10'
+    }}
+  {% endif %}
+  <span
+    class="left-0 top-0 w-full h-full z-20 absolute"
+    style="background-color:{{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+  ></span>
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto relative z-40">
+    <div class="text-center relative flex justify-center items-center flex-col h-full">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'banner_title' %}
+            <h2 class="pb-[40px]" style="color:{{ block.settings.banner_heading_color }};">
+              {% if block.settings.banner_heading != blank %}
+                {{ block.settings.banner_heading }}
+              {% else %}
+                {{ 'main-banner.heading' | t }}
+              {% endif %}
+            </h2>
+          {% when 'banner_button' %}
+            {% render 'btn-primary', src: 'View All' %}
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.main-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "banner-height",
+      "label": "t:section.main-banner.settings.banner-height",
+      "default": 400,
+      "unit": "px",
+      "max": 500,
+      "min": 300,
+      "step": 20
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.main-banner.settings.background_image",
+      "info": "If this option is left blank, above background color will be enabled"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.main-banner.settings.overlay_color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "t:section.main-banner.settings.overlay_opacity",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-banner.blocks.banner_title.name",
+      "type": "banner_title",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_heading",
+          "label": "t:section.main-banner.blocks.banner_title.settings.banner_heading",
+          "default": "All Collections"
+        },
+        {
+          "type": "color",
+          "id": "banner_heading_color",
+          "label": "t:section.main-banner.blocks.banner_title.settings.banner_heading_color",
+          "default": "#333"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "name": "t:section.main-banner.blocks.banner_button.name",
+      "type": "banner_button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_button_text",
+          "label": "t:section.main-banner.blocks.banner_button.settings.banner_button_text",
+          "default": "Shop Now"
+        }
+      ],
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-banner.presets.name",
+      "settings": {
+        "banner-height": 400,
+        "background_image": "shopify:\/\/shop_images\/blackcycle.jpg",
+        "overlay_color": "#000",
+        "overlay_opacity": 4
+      },
+      "blocks": [
+        {
+          "type": "banner_title",
+          "settings": {
+            "banner_heading": "All Collections",
+            "banner_heading_color": "#333"
+          }
+        },
+        {
+          "type": "banner_button",
+          "settings": {
+            "banner_button_text": "Shop Now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

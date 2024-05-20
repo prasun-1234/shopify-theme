@@ -1,0 +1,261 @@
+.journal-banner-section {
+  width: 100%;
+  height: auto;
+}
+.main-banner {
+  display: flex;
+  gap: 2.5rem;
+  flex-direction: column;
+}
+.main-banner .main-banner-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+.main-banner-div .news-header-div h3 {
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.news-header-div p {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  color: #fff;
+}
+.banner-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.banner-header h4 {
+  font-size: 2rem;
+  color: #fff;
+}
+.banner-header p {
+  font-size: 0.875rem;
+  color: #fff;
+}
+.journal-banner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  width: 100%;
+  gap: 40px 80px;
+  /* row-gap: 5rem; */
+}
+.journal-banner-div {
+  
+  grid-column: span 12 / span 12;
+}
+.journal-banner-grid {
+  grid-column: span 4 / span 4;
+  height: 100%;
+}
+.journal-banner-grid:nth-last-child(-n + 3) {
+  min-height: auto;
+}
+
+.banner-img a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 400px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 1.25rem;
+}
+.journal-banner .banner-content-box {
+  display: flex;
+  align-items: center;
+  padding: 5.84rem 0;
+}
+.banner-content-box .banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.hr-line {
+  grid-column: span 12 / span 12;
+  width: 100%;
+  height: 1px;
+  margin: 3.1rem 0 ;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 5%,
+    rgba(2, 6, 23, 1) 100%
+  );
+}
+.related-task-heading {
+  grid-column: span 12 / span 12;
+}
+.related-task-heading h4 {
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+.banner-content p {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; 
+  color: #fff;
+  letter-spacing: 0.0625rem;
+}
+.banner-content h5 {
+  color: #fff;
+  max-width: 43.5rem;
+}
+.journal-banner-div {
+  border-radius: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.journal-banner-gradient {
+  width: 37.04431rem;
+  height: 84.01156rem;
+  transform: rotate(58.704deg);
+  border-radius: 84.01156rem;
+  background: #143092;
+  filter: blur(125.650002px);
+}
+.gradient-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+.gradient-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+.pagination-div {
+  width: 100%;
+}
+
+
+@media screen and (max-width: 1536px) {
+  .journal-banner {
+    gap: 40px;
+  }
+  .journal-banner{
+    gap: 3.1rem 4.1rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .journal-banner-div {
+    height: fit-content;
+  }
+  .related-task-heading {
+    margin-bottom: 0;
+  }
+  .journal-banner-grid {
+    grid-column: span 6 / span 6;
+    /* margin-bottom: 1.25rem; */
+  }
+  .journal-banner-grid:last-child {
+    margin-bottom: 0;
+  }
+  .journal-banner-gradient {
+    width: 23.04431rem;
+    height: 74.01156rem;
+  }
+  .journal-banner {
+    gap: 20px 40px;
+  }
+  .hr-line{
+    margin: 2rem 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .related-task-heading h4 {
+    font-size: 2rem;
+  }
+  .journal-banner-gradient {
+    width: 16.04431rem;
+    height: 24.01156rem;
+    transform: rotate(67.704deg);
+    filter: blur(73.650002px);
+  }
+  .gradient-left {
+    top: -3rem;
+    left: 0;
+  }
+  .gradient-right {
+    bottom: -4.5rem;
+    right: 0;
+    top: auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .related-task-heading {
+    margin-bottom: 0;
+  }
+  .journal-banner-grid {
+    grid-column: span 12 / span 12;
+    /* margin-bottom: 1.25rem; */
+    min-height: auto;
+  }
+  .journal-banner-grid:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-task-heading h4 {
+    font-size: 1.55rem;
+  }
+  .main-banner .main-banner-div {
+    gap: 20px;
+  }
+  .main-banner-div .news-header-div h3 {
+    font-size: 2.45rem;
+    max-width: fit-content;
+    margin-bottom: 16px;
+  }
+  .news-header-div p {
+    font-size: 14px;
+    max-width: 21rem;
+  }
+  .banner-img a img {
+    border-radius: 0;
+    min-height: auto;
+  }
+  .banner-content h5 {
+    max-width: 35.5rem;
+  }
+  .journal-banner{
+    row-gap: 1.55rem;
+    column-gap: 0;
+  }
+  .hr-line{
+    margin: 1.55rem 0;
+  }
+}
+@media screen and (max-width: 425px) {
+  .journal-banner-gradient {
+    width: 15.04431rem;
+    height: 22.01156rem;
+    filter: blur(59.650002px);
+  }
+  .gradient-left {
+    top: 0;
+    left: 47px;
+  }
+  .gradient-right {
+    bottom: -4.5rem;
+    right: 33px;
+    top: auto;
+  }
+  .banner-img a {
+    border-radius: 7.781px;
+  }
+  
+}

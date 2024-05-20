@@ -1,0 +1,20 @@
+<script src="{{ 'infinite-scroll.js' | asset_url }}" defer></script>
+
+<div id="infinite-scroll">
+  {% comment %}
+    <p data-infinite-count>
+      {% assign count = paginate.current_offset | plus: collection.products.size %}
+      {% assign total = paginate.items %}
+      {{ count }} out of {{ total }} items
+    </p>
+
+    {% assign progress_line_width = count | times: 100.0 | divided_by: total | round | append: '%' %}
+    <div class="progress-line">
+      <div class="line-inner" style="width: {{ progress_line_width }};"></div>
+    </div>
+  {% endcomment %}
+
+  {% if paginate.next %}
+    <div class="infinite_loader loader" data-next-page-url="{{ paginate.next.url }}"></div>
+  {% endif %}
+</div>

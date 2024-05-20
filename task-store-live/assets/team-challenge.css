@@ -1,0 +1,232 @@
+.challenge-section {
+  width: 100%;
+  height: auto;
+}
+.main-challenge-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5rem;
+}
+.main-challenge-section .challenge-video-content {
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+}
+.challenge-video-content .challenge-video {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 370px;
+  height: 370px;
+}
+
+.challenge-video-content .challenge-video .video-img {
+  width: 100%;
+  height: 100%;
+  background-color: #c4c4c4;
+}
+
+.challenge-video img {
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+}
+.challenge-video span img {
+  height: 165px;
+  width: 85.5px;
+}
+
+.challenge-video .video-icon-span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.challenge-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+.challenge-video-content .challenge-text-content {
+  display: flex;
+  align-items: center;
+}
+.challenge-video-content h3 {
+  max-width: 800px;
+  font-weight: 700;
+  position: relative;
+  margin-left: -60px !important;
+  align-self: center;
+}
+.main-challenge-section .challenge-banner-content {
+  width: 100%;
+}
+.challenge-banner-content .challenge-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 5rem;
+}
+.challenge-content-grid .content-grid-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.content-grid-cards h5 {
+  font-family: Inter;
+  font-size: 2.25rem;
+  max-width: 28.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  margin: 0px;
+}
+.content-grid-cards span {
+  width: 100%;
+  height: 1px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-heading), 1) 5%,
+    rgba(var(--color-background), 1) 100%
+  );
+}
+.content-grid-cards p {
+  color: rgba(var(--color-foreground), 1);
+  font-weight: 400;
+  letter-spacing: 0.0625rem;
+}
+.challenge-banner-content .challenge-banner {
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
+}
+.challenge-banner img {
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 1280px) {
+  .challenge-section {
+    margin-top: 2rem;
+  }
+  .challenge-banner-content .challenge-content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 2rem;
+    row-gap: 2rem;
+  }
+  .challenge-video-content .challenge-video {
+    flex-shrink: 0;
+    width: 330px;
+    height: 330px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .challenge-section {
+    margin-top: 2rem;
+  }
+  .challenge-video {
+    flex-shrink: 1;
+  }
+}
+@media screen and (max-width:980px) {
+  .challenge-banner-content .challenge-content-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    row-gap: 40px;
+  }
+  .content-grid-cards p{
+    max-width: 55rem;
+  }
+  .challenge-content-grid .content-grid-cards{
+    gap: 1.25rem;
+  }
+  .content-grid-cards h5{
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .challenge-video-content .challenge-video {
+    width: 320px;
+    height: 320px;
+  }
+  .challenge-video-content h3 {
+    font-size: 3rem;
+  }
+  .challenge-video-content h3 {
+    left: -2rem;
+  }
+ 
+}
+
+@media screen and (max-width: 640px) {
+  
+  .content-grid-cards h5{
+    max-width: 100%;
+  }
+  .content-grid-cards p {
+    max-width: 35rem;
+  }
+  .challenge-video {
+    flex-shrink: 1;
+  }
+  .content-grid-cards h5 {
+    font-size: 1.5rem;
+  }
+  .challenge-video span img {
+    height: 113px;
+    width: 58.5px;
+  }
+  .challenge-video-content h3{
+    left: 1rem;
+    max-width: 25rem;
+  }
+}
+
+@media screen and (max-width:540px){
+  .challenge-video-content .challenge-video {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .challenge-video-content h3{
+    font-size: 2.5rem;
+  }
+}
+@media screen and (max-width: 360px) {
+  .challenge-video-content h3{
+    font-size: 2.3rem;
+    top: -1.5rem;
+  }
+}
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .video-icon-span .video-icon-svg {
+    width: 3rem;
+    height: 7rem;
+  }
+  .challenge-video {
+    flex-shrink: 0;
+    width: 300px;
+    height: 300px;
+  }
+}
+@media screen and (min-width: 640px) and (max-width: 767px) {
+}
+
+@media screen and (min-width: 320px) and (max-width: 420px) {
+  .main-challenge-section {
+    gap: 2.5rem;
+  }
+}

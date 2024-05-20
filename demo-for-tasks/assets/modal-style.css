@@ -1,0 +1,212 @@
+.modal-section {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: 0.3s ease;
+}
+.modal-section.closed {
+  opacity: 0;
+  z-index: -999;
+}
+
+.modal-section.open {
+  display: flex;
+  opacity: 1;
+  transition: 0.5s ease;
+}
+.dialog {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  border: none !important;
+  z-index: 199;
+  box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.21);
+  transition: 0.3s ease;
+}
+
+.modal-section .overlay {
+  display: block !important;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 232, 232, 0.43) -13.32%,
+    rgba(232, 232, 232, 0.26) 135.33%
+  );
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 97;
+  backdrop-filter: blur(7px);
+}
+.modal-section.open .overlay {
+  opacity: 1.5;
+}
+.dialog .modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 490px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.dialog .modal-content::-webkit-scrollbar{
+  width: 5px;
+}
+.dialog .modal-content::-webkit-scrollbar-thumb{
+  background-color: var(--color-foreground);
+}
+.modal-content .image- {
+  position: relative;
+  display: flex;
+}
+.modal-content .image- img {
+  height: 100%;
+  width: 100%;
+}
+.image- .modal-close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #313131;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 17px;
+  top: 23px;
+  cursor: pointer;
+}
+.modal-content .modal-text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.modal-text-content .text h2 {
+  font-family: "Americana Font";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  color: #313131;
+  text-align: center;
+}
+.modal-text-content .text p {
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%;
+  letter-spacing: 0.01rem;
+  color: #313131;
+  text-align: center;
+  max-width: 25rem;
+}
+.modal-text-content .modal-form {
+  width: 100%;
+}
+.modal-text-content .modal-form label p {
+  font-family: "Work Sans";
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%;
+  color: #313131;
+  letter-spacing: 0.01rem;
+}
+.modal-text-content .newsletter-form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 1.5rem; */
+  width: 100%;
+}
+.newsletter-form span.lable-span{
+  align-self: flex-start;
+  margin-bottom: .5rem;
+}
+.modal-text-content .modal-form .newsletter-input {
+  height: 48px;
+  padding: 0.6875rem 0 0.6875rem 1.25rem;
+  outline: none;
+  border: 2px solid #b4b4b4;
+  border-radius: 0.3rem;
+}
+.modal-text-content .field__input{
+  border: none ;
+}
+.modal-text-content .modal-form .newsletter-input:focus-visible {
+  box-shadow: none !important;
+  border: 2px solid #313131;
+}
+.modal-text-content .modal-form .newsletter-input,
+.submit.form-input {
+  width: 100%;
+}
+.submit.form-input{
+  margin-top: 24px;
+}
+.field.modal:hover .field__input:focus {
+  border-radius: .3rem;
+}
+.newsletter-form .field:after{
+  border-radius: .3rem !important;
+}
+.field.modal:hover .field:after{
+  border-radius: .3rem !important;
+}
+.field__input.newsletter-input:focus{
+  border: .3rem !important;
+}
+
+.submit.form-input button {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  padding: 0.7rem 11rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #313131;
+  border-radius: 2.1rem;
+  color: #fff;
+  height: 53px;
+  max-height: 55px;
+}
+.submit.form-input p {
+  font-family: "Work Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%; 
+  letter-spacing: 0.01rem;
+}
+
+@media screen and (max-width: 640px) {
+  .dialog .modal-content{
+    max-width: 300px;
+  }
+  .dialog .modal-content{
+    gap: 16px;
+  }
+  .modal-text-content .text h2{
+    font-size: 32px;
+  }
+  .modal-text-content .text p{
+    font-size: 14px;
+  }
+  .submit.form-input button{
+    padding: .7rem 4rem;
+  }
+  .submit.form-input{
+    margin-top: 16px;
+  }
+}

@@ -1,0 +1,203 @@
+{% style %}
+  .new-marquee {
+    animation: newMarquee 90s linear infinite;
+  }
+  @media screen and (max-width:980px){
+     #new-marquee{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+   }
+  @keyframes newMarquee {
+    from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(-3000px);
+    }
+  }
+{% endstyle %}
+<section
+  id="new-marquee"
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+>
+  <a href="{{ shop.url }}/pages/about-us" rel="nofollow" aria-label="About Us">
+    <div class="flex items-center overflow-x-hidden gap-7 max-h-[65px] overflow-hidden">
+      <div class="flex justify-between items-center gap-7 new-marquee flex-shrink-0">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'marquee_block' %}
+              <div class=" flex items-center justify-center gap-7 flex-shrink-0" {{ block.shopify_attributes }}>
+                <div class="flex-shrink-0">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '800',
+                        widths: '100, 200, 260, 400',
+                        class: 'rounded-[100px] hover:grayscale grayscale-0 object-center ease duration-300 sm:w-full w-[160px] sm:h-[60px] h-[50px]'
+                    -}}
+                  {%- else %}
+                    {{ 'product-3' | placeholder_svg_tag: 'h-[100px] scale-[1.5]' }}
+                  {% endif %}
+                </div>
+                <h2 class="flex-shrink-0 md:!text-[4.5rem] sm:!text-[2.5rem] !text-[1.25rem]">
+                  {% if block.settings.title != blank %}
+                    {{ block.settings.title }}
+                  {% else %}
+                    {{ 'new-marquee.title' | t }}
+                  {% endif %}
+                </h2>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="flex justify-between items-center gap-7 new-marquee flex-shrink-0">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'marquee_block' %}
+              <div class=" flex items-center justify-center gap-7 flex-shrink-0" {{ block.shopify_attributes }}>
+                <div class="flex-shrink-0">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '800',
+                        widths: '100, 200, 260, 400',
+                        class: ' rounded-[100px] hover:grayscale grayscale-0 ease duration-300'
+                    -}}
+                  {%- else %}
+                    {{ 'product-3' | placeholder_svg_tag: 'w-full h-200px' }}
+                  {% endif %}
+                </div>
+                <h2 class="flex-shrink-0">
+                  {% if block.settings.title != blank %}
+                    {{ block.settings.title }}
+                  {% else %}
+                    {{ 'new-marquee.title' | t }}
+                  {% endif %}
+                </h2>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="flex justify-between items-center gap-7 new-marquee flex-shrink-0">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'marquee_block' %}
+              <div class=" flex items-center justify-center gap-7 flex-shrink-0" {{ block.shopify_attributes }}>
+                <div class="flex-shrink-0">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '800',
+                        widths: '100, 200, 260, 400',
+                        class: ' rounded-[100px] hover:grayscale grayscale-0 ease duration-300'
+                    -}}
+                  {%- else %}
+                    {{ 'product-3' | placeholder_svg_tag: 'w-full h-200px' }}
+                  {% endif %}
+                </div>
+                <h2 class="flex-shrink-0  ">
+                  {% if block.settings.title != blank %}
+                    {{ block.settings.title }}
+                  {% else %}
+                    {{ 'new-marquee.title' | t }}
+                  {% endif %}
+                </h2>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.new-marquee.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.new-marquee.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.new-marquee.settings.section_margin_bottom",
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marquee_block",
+      "name": "t:section.new-marquee.blocks.marquee_block.name",
+      "limit": 7,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.new-marquee.blocks.marquee_block.settings.image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.new-marquee.blocks.marquee_block.settings.title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.new-marquee.presets.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0
+      },
+      "blocks": [
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        },
+        {
+          "type": "marquee_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

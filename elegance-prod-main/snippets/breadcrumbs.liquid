@@ -1,0 +1,72 @@
+<section class="breadcrumbs_section">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    {% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+      <nav class="breadcrumb breadcrumbs-main" role="navigation" aria-label="breadcrumbs">
+        <a href="/" title="Home">{{ 'breadcrumb.home' | t }}</a>
+
+        {% if template contains 'page' %}
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          <p>{{ page.title }}</p>
+
+        {% elsif template contains 'product' %}
+          {% if collection.url %}
+            <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+            {{ collection.title | link_to: collection.url }}
+          {% endif %}
+
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          <p>{{ product.title }}</p>
+
+        {% elsif template contains 'collection' and collection.handle %}
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          {% if current_tags %}
+            {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+
+            {{ collection.title | link_to: url }}
+
+            <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+            <span>{{ current_tags | join: ' + ' }}</span>
+
+          {% else %}
+            <p>{{ collection.title }}</p>
+          {% endif %}
+
+        {% elsif template == 'blog' %}
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          {% if current_tags %}
+            {{ blog.title | link_to: blog.url }}
+
+            <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+            <span>{{ current_tags | join: ' + ' }}</span>
+
+          {% else %}
+            <p>{{ blog.title }}</p>
+          {% endif %}
+
+        {% elsif template == 'article' %}
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          {{ blog.title | link_to: blog.url }}
+
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          <p>{{ article.title }}</p>
+
+        {% else %}
+          <span class="right-arrow" aria-hidden="true"> {% render 'icon-arrow-right' %} </span>
+
+          <p>{{ page_title }}</p>
+        {% endif %}
+      </nav>
+    {% endunless %}
+  </div>
+</section>

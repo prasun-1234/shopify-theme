@@ -1,0 +1,232 @@
+.focal-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 40px;
+}
+.focal-column,
+.focal-swiper-column {
+  width: 100%;
+  /* height: 100dvh; */
+  /* border: 1px solid red; */
+}
+.focal-grid .focal-column {
+  height: 715px;
+}
+.focal-grid .focal-column {
+  grid-column: span 8 / span 8;
+  order: auto;
+}
+.focal-grid .focal-swiper-column {
+  grid-column: span 4 / span 4;
+}
+@media screen and (min-width: 767px) {
+  .focal-active .focal-content {
+    display: block;
+  }
+}
+.focal-column {
+  position: relative;
+}
+
+.focal_img_bg {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 20;
+}
+
+.focal-banner-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.focal_points_main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
+
+.focal_outer {
+  position: absolute;
+  z-index: 50;
+}
+
+.focal-point {
+  position: relative;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 100%;
+}
+
+.focal_button {
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.prod-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  display: block;
+}
+
+.prod-link {
+  pointer-events: none;
+}
+
+.focal-swiper-column {
+  grid-column: span 4 / span 4;
+  display: block;
+  position: relative;
+}
+
+.swiper-button-prev.focal-prev svg {
+  transform: rotate(180deg);
+}
+.swiper-button-prev.focal-prev,
+.swiper-button-next.focal-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: 0.3s ease;
+}
+
+.swiper-button-prev.focal-prev svg,
+.swiper-button-next.focal-next svg {
+  width: 20px;
+}
+.swiper-button-prev.focal-prev svg path,
+.swiper-button-next.focal-next svg path {
+  fill: #313131;
+}
+
+.swiper-button-prev.focal-prev:hover svg path,
+.swiper-button-next.focal-next:hover svg path {
+  fill: #ffffff;
+}
+
+.swiper-button-prev.focal-prev:hover,
+.swiper-button-next.focal-next:hover {
+  background-color: #313131;
+}
+
+.swiper-button-next.focal-next {
+  right: var(--swiper-navigation-sides-offset, 0px);
+  left: auto;
+  top: 40%;
+}
+.swiper-button-prev.focal-prev {
+  left: var(--swiper-navigation-sides-offset, 0px) !important;
+  right: auto;
+  top: 40%;
+}
+
+.swiper-pagination.focal-pagination {
+  width: 100%;
+  max-width: 300px;
+  height: 8px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  transform: translate(50%, 0rem);
+  /* border: 1px solid red; */
+}
+.swiper-pagination.focal-pagination .swiper-pagination-bullet {
+  width: 100%;
+  max-width: 80px;
+  height: 100%;
+  background-color: #313131;
+  border-radius: 0% !important;
+  margin: 0 !important;
+}
+.swiper-button-next.focal-next:after,
+.swiper-rtl .swiper-button-prev.focal-prev:after {
+  content: none !important;
+}
+.swiper-button-prev.focal-prev:after,
+.swiper-rtl .swiper-button-nex.focal-next:after {
+  content: none !important;
+}
+.swiper-button-next.focal-next.swiper-button-disabled,
+.swiper-button-prev.focal-prev.swiper-button-disabled {
+  opacity: 1;
+  pointer-events: none !important;
+  /* cursor: not-allowed ; */
+}
+.focalSwiper .card .card__content {
+  min-height: 17rem;
+}
+.focalSwiper .card .card__media {
+  bottom: 30px;
+  top: 30px;
+}
+
+.focalSwiper .card__media .media img {
+  object-fit: contain;
+}
+
+@media screen and (max-width: 1536px) {
+  .swiper-pagination.focal-pagination {
+    transform: translate(13%);
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .prod-link {
+    display: block !important;
+    pointer-events: auto;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .focal-swiper-column {
+    display: none;
+    grid-column: span 12 / span 12;
+  }
+  .focal-grid .focal-column {
+    grid-column: span 12 / span 12;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .focal-grid .focal-column {
+    height: 700px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .focal-grid .focal-column {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .focal-grid .focal-column {
+    height: 400px;
+  }
+  .focal-grid {
+    column-gap: 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .focal-grid .focal-column {
+    height: 300px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .focal-grid .focal-column {
+    height: 250px;
+  }
+}

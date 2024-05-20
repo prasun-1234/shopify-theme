@@ -1,0 +1,197 @@
+.custom-form-message {
+  display: none;
+}
+
+.login-section {
+  position: relative;
+}
+.login-section .form__label {
+  font-size: 16px;
+}
+.login-container {
+  max-width: 142rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  row-gap: 0.5rem;
+  column-gap: 7.75rem;
+  position: relative;
+  height: auto;
+  overflow: hidden;
+}
+.login-container .login-image-div {
+  height: 100%;
+  grid-column: span 7 / span 7;
+  grid-row-start: 1;
+}
+.login-img-div img {
+  width: 100%;
+  object-fit: cover;
+}
+.login-container .login-form-div {
+  padding-right: 3.75rem;
+  grid-column: span 5 / span 5;
+  grid-row-start: auto;
+}
+.login-form-div .login-input-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.recover_customer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.625rem;
+  gap: 1.5rem;
+}
+
+.recover_customer .recovery-text {
+  margin-bottom: 20px;
+}
+.login-image-div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.login-form-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-column: span 12 / span 12;
+  width: 100%;
+  grid-row-start: 1;
+}
+.login-form-div .login-header {
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.new-user {
+  color: #fff;
+  display: flex;
+  gap: 0.38rem;
+}
+.link-items {
+  color: #fff;
+}
+button,
+a,
+.new-user {
+  align-self: flex-end;
+}
+.login-button {
+  margin-block: 1rem;
+}
+
+.login-input-div .link-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 1.5rem;
+}
+.login-input-div .link-group a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.login-container .login-form-div {
+  padding-block: 120px;
+}
+@media screen and (max-width: 1536px) {
+  .login-container {
+    column-gap: 5.75rem;
+  }
+  .login-container .login-form-div {
+    grid-row: auto;
+    padding-right: 3.75rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .login-container {
+    column-gap: 2.75rem;
+  }
+  .login-container .login-form-div {
+    grid-row: auto;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .login-container .login-form-div {
+    padding-right: 20px;
+  }
+  .login-form-div .login-header {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .login-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+  .login-container .login-form-div {
+    grid-column: span 12 / span 12;
+    max-width: 640px;
+    text-align: left;
+    margin: auto;
+    grid-row-start: 2;
+    padding: 100px 20px 20px;
+  }
+  .login-container .login-image-div {
+    display: grid;
+    grid-column: span 12 / span 12;
+    grid-row-start: 1;
+  }
+  .login-container {
+    column-gap: 0;
+  }
+  .login-image-div img {
+    max-height: 640px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .login-form-div .login-header {
+    font-size: 2rem;
+  }
+  button,
+  a,
+  .new-user {
+    align-self: center;
+  }
+  form {
+    gap: 1.25rem;
+  }
+  .login-button {
+    max-width: none;
+  }
+  .login-form-div .login-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .login-button {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .recover_customer .button-primary {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .login-container .login-form-div {
+    padding: 100px 20px 20px;
+  }
+}

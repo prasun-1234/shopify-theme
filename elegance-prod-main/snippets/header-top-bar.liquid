@@ -1,0 +1,117 @@
+<div class="header-top-info fade-in-up {% if settings.enable_animation %}scrollmagic-element-fade-in-1{% endif %}">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g align-center">
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3">
+        <div class="l-box">
+          {% render 'social-icons' %}
+        </div>
+      </div>
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-2-3">
+        <div class="l-box">
+          {% if settings.enable_currency %}
+            <div class="top-location-currency">
+              <div class="mx-auto">
+                <div class="flex flex-wrap items-center">
+                  <div class="w-full lg:w-2/3">
+                    <div class="right-value-box">
+                      <div class="value-box">
+                        <button
+                          type="button"
+                          class="small-box"
+                          aria-label="Currency Switcher"
+                          aria-controls="currency-wrapper-main"
+                        >
+                          <span hidden>Currency Switcher</span>
+                          <span class="location">{{ localization.language.endonym_name }}</span> -
+                          <span class="currency"
+                            >({{ localization.country.iso_code }}) - {{ localization.country.currency.symbol -}}
+                          </span>
+                          <span class="arrow"
+                            ><img
+                              alt="shopify"
+                              src="{{ 'd-down.png' | asset_url }}"
+                              srcset="{{ 'd-down.png' | asset_url }}, {{ 'd-down.png' | asset_url }}.5x, {{ 'd-down.png' | asset_url }}.2x"
+                              loading="lazy"
+                              width="62"
+                              height="32"
+                              class="down-arrow"
+                          ></span>
+                        </button>
+                      </div>
+                      {% form 'localization' %}
+                        <div
+                          class="location-currency-wrapper"
+                          id="currency-wrapper-main"
+                          style="background-color: {{ section.settings.currency_wrapper_bg }};"
+                        >
+                          <div
+                            class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+                          >
+                            <div class="location-currency-tracker">
+                              <div class="location-wrap">
+                                <h4>{{ 'header-top-bar.location-currency' | t }}</h4>
+                                <div class="select-wrap">
+                                  <select name="country_code" aria-label="Country Code">
+                                    {% for country in localization.available_countries %}
+                                      <option
+                                        value="{{ country.iso_code }}"
+                                        {%- if country == localization.country %}
+                                          selected="selected"
+                                        {% endif %}
+                                      >
+                                        {{ country.name }} ({{ country.iso_code }}) - {{ country.currency.symbol }}
+                                      </option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="location-wrap">
+                                <h4>{{ 'header-top-bar.location-language' | t }}</h4>
+                                <div class="select-wrap">
+                                  <select name="language_code">
+                                    {% for language in localization.available_languages %}
+                                      <option
+                                        value="{{ language.iso_code }}"
+                                        {%- if language == localization.language %}
+                                          selected="selected"
+                                        {% endif %}
+                                      >
+                                        {{ language.endonym_name }}
+                                      </option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                              </div>
+                              <button type="submit" class="theme-btn primary-btn">
+                                <span class="btn-bg"></span
+                                ><span class="btn-text">{{ 'header-top-bar.btn-text' | t }}</span>
+                              </button>
+                            </div>
+                            <button type="button" class="tracker-close">{% render 'icon-close' %}</button>
+                          </div>
+                        </div>
+                      {% endform %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      let locationWrap = document.querySelector('.location-currency-wrapper');
+      if (locationWrap) {
+        locationWrap.setAttribute('class', 'location-currency-wrapper');
+      }
+    }
+  });
+</script>

@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "collection-grid": {
+      "type": "template-collection2",
+      "blocks": {
+        "banner": {
+          "type": "collection_banner",
+          "settings": {
+            "banner_overlay_color": "#000",
+            "banner_text_color": "#fff",
+            "banner_overlay_opacity": 4,
+            "collection_banner_height": 300,
+            "collection_banner_position": "center center"
+          }
+        },
+        "collection-grid": {
+          "type": "collection_grid",
+          "settings": {
+            "sort_by_label": "Sort by:",
+            "filter_by_label": "Filters",
+            "empty_link_label": "Empty Cart Text",
+            "sidebar_bg_color": "#fff",
+            "collection_row_items": 3,
+            "collection_row_gap": 30
+          }
+        }
+      },
+      "block_order": [
+        "banner",
+        "collection-grid"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "collection-grid"
+  ]
+}

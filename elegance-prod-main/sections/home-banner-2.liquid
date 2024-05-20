@@ -1,0 +1,308 @@
+<link rel="stylesheet" href="{{ 'home-banner-2.css' | asset_url }}">
+
+<section class="home-banner-2" style="margin-bottom:{{ section.settings.margin_bottom }}px;">
+  <div class="banner-content" style="height:{{ section.settings.banner_content_height }}px">
+    <div class="banner-bg">
+      <div
+        class="banner-overlay"
+        style="background-color:{{ section.settings.banner_overlay_color }}; opacity:calc({{ section.settings.banner_overlay_opacity }}/10);"
+      ></div>
+      {% if section.settings.banner_bg_image == blank %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% else %}
+        <img
+          alt="{{ section.settings.banner_bg_image.alt | escape }}"
+          srcset="
+            {%- if section.settings.image.width >= 375 -%}{{ section.settings.banner_bg_image | image_url: width: 375 }} 375w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 550 -%}{{ section.settings.banner_bg_image | image_url: width: 550 }} 550w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 750 -%}{{ section.settings.banner_bg_image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 1100 -%}{{ section.settings.banner_bg_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 1500 -%}{{ section.settings.banner_bg_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 1780 -%}{{ section.settings.banner_bg_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 2000 -%}{{ section.settings.banner_bg_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 3000 -%}{{ section.settings.banner_bg_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+            {%- if section.settings.banner_bg_image.width >= 3840 -%}{{ section.settings.banner_bg_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+            {{ section.settings.banner_bg_image | image_url }} {{ section.settings.banner_bg_image.width }}w
+          "
+          src="{{ section.settings.banner_bg_image | image_url: width: 1500 }}"
+          loading="lazy"
+          style="object-position: {{ section.settings.banner_image_position }}"
+          height="100"
+          width="100"
+        >
+      {% endif %}
+    </div>
+    <div class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} content-div">
+      <div class="pure-g">
+        <div
+          class="
+            pure-u-1 pure-u-xl-1-3 {% case section.settings.text_align %}
+              {% when "left" %}
+              text-left
+              {% when "center" %}
+              text-center
+              {% when "right" %}
+              text-right
+              {% else %}
+
+            {% endcase %}
+          "
+        >
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <h3 {{ block.shopify_attributes }} style="color:{{ section.settings.banner_text_color }}">
+                  {{ block.settings.banner_title }}
+                </h3>
+              {% when 'text' %}
+                <p {{ block.shopify_attributes }} style="color:{{ section.settings.banner_text_color }}">
+                  {{ block.settings.banner_text }}
+                </p>
+              {% when 'button' %}
+                <a
+                  rel="nofollow"
+                  {{ block.shopify_attributes }}
+                  href="{{ section.settings.button_link }}"
+                  onclick="singleProduct.addToCart('add-to-cart-ajax', event)"
+                  class="theme-btn"
+                  style="border:1px solid {{ section.settings.banner_btn_text_color }};color:{{ section.settings.banner_btn_text_color }} !important;"
+                >
+                  <div class="btn-overlay" style="background-color: {{ section.settings.banner_btn_color }}"></div>
+                  <div class="btn-text">{{ block.settings.banner_btn_text }}</div>
+                </a>
+
+              {% when 'liquid' %}
+                {{ block.settings.custom_liquid }}
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.home-banner-2.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.home-banner-2.settings.headers.banner"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "default": 60,
+      "label": "t:sections.home-banner-2.settings.margin_bottom.label",
+      "max": 60,
+      "min": 0,
+      "info": "t:sections.home-banner-2.settings.margin_bottom.info",
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "min": 450,
+      "max": 700,
+      "step": 50,
+      "default": 450,
+      "label": "t:sections.home-banner-2.settings.banner_content_height.label",
+      "unit": "px",
+      "id": "banner_content_height"
+    },
+    {
+      "type": "image_picker",
+      "label": "t:sections.home-banner-2.settings.banner_bg_image.label",
+      "id": "banner_bg_image"
+    },
+    {
+      "type": "select",
+      "id": "banner_image_position",
+      "label": "t:sections.home-banner-2.settings.banner_image_position.label",
+      "default": "center_center",
+      "options": [
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.left_top.label",
+          "value": "left_top"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.center_top.label",
+          "value": "center_top"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.right_top.label",
+          "value": "right_top"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.left_center.label",
+          "value": "left_center"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.center_center.label",
+          "value": "center_center"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.right_center.label",
+          "value": "right_center"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.left_bottom.label",
+          "value": "left_bottom"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.center_bottom.label",
+          "value": "center_bottom"
+        },
+        {
+          "label": "t:sections.home-banner-2.settings.banner_image_position.options.right_bottom.label",
+          "value": "right bottom"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "default": "left",
+      "id": "text_align",
+      "label": "t:sections.home-banner-2.settings.text_align.label",
+      "info": "t:sections.home-banner-2.settings.text_align.info",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.home-banner-2.settings.text_align.options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.home-banner-2.settings.text_align.options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.home-banner-2.settings.text_align.options.right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "label": "t:sections.home-banner-2.settings.banner_text_color.label",
+      "id": "banner_text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.home-banner-2.settings.banner_btn_color.label",
+      "id": "banner_btn_color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.home-banner-2.settings.banner_btn_text_color.label",
+      "id": "banner_btn_text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "url",
+      "label": "t:sections.announce-bar.settings.button_link_label",
+      "id": "button_link"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.home-banner-2.settings.banner_overlay_color.label",
+      "id": "banner_overlay_color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.home-banner-2.settings.banner_overlay_opacity.label",
+      "unit": "px",
+      "id": "banner_overlay_opacity"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.home-banner-2.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.home-banner-2.settings.banner_title.label",
+          "id": "banner_title",
+          "default": "your skin needs a safe space to breathe"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.home-banner-2.blocks.text.name",
+      "type": "text",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.home-banner-2.settings.banner_text.label",
+          "id": "banner_text",
+          "default": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+      ]
+    },
+    {
+      "name": "t:sections.home-banner-2.blocks.button.name",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.home-banner-2.settings.banner_btn_text.label",
+          "id": "banner_btn_text",
+          "default": "View Collection"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.home-banner-2.blocks.liquid.name",
+      "type": "liquid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "liquid",
+          "label": "t:sections.home-banner-2.blocks.button.name",
+          "id": "custom_liquid"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "t:sections.home-banner-2.presets.name",
+      "settings": {
+        "margin_bottom": 60,
+        "banner_content_height": 450,
+        "banner_bg_image": "",
+        "banner_image_position": "center center",
+        "text_align": "left",
+        "banner_text_color": "#fff",
+        "banner_btn_color": "#fff",
+        "banner_btn_text_color": "#fff",
+        "banner_overlay_color": "#000",
+        "banner_overlay_opacity": 4
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

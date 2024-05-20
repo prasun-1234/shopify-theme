@@ -1,0 +1,212 @@
+{{ 'section-static-card.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top | divided_by: 2 }}px;
+    padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+
+<section class="static-card-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="static-card-container">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image_block' %}
+            {% style %}
+              #{{ section.id }} #{{ block.id }} .static-card-inner:hover{
+                  background-color:{{ block.settings.bg_color }};
+              }
+            {% endstyle %}
+            <div class="static-card-image" id="{{ block.id }}" {{ block.shopify_attributes }}>
+              <span class="border-gradient"></span>
+              <div class="static-card-inner">
+                <div class="image-inner-card">
+                  <div class="content_inner">
+                    <figure>{{ block.settings.icon | image_url: width: 100 | image_tag: class: 'icon' }}</figure>
+                    <h4>{{ block.settings.heading }}</h4>
+                    <p>
+                      {{ block.settings.para }}
+                    </p>
+                  </div>
+                  <a href="{{ block.settings.btn_url }}" class="button button_primary" {{ block.shopify_attributes }} 
+                    >
+                    {% render 'button-primary', text: block.settings.btn_label | escape %}
+                  </a>
+                </div>
+                <figure class="image-div {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 1200
+                      | image_tag: loading: 'lazy', sizes: '420', widths: '380, 600, 1200', class: 'static-main-image'
+                    }}
+                  {% endif %}
+                </figure>
+              </div>
+            </div>
+          {% when 'icon_block' %}
+            {% style %}
+              #{{ section.id }} #{{ block.id }} .card-icon-inner:hover{
+                background-color: {{ block.settings.bg_color }};
+              }
+            {% endstyle %}
+            <div class="static-card-icon" id="{{ block.id }}" {{ block.shopify_attributes }}>
+              <span class="border-gradient"></span>
+              <div class="card-icon-inner">
+                <div class="icon_box_main">
+                  <figure class="img_single" data-index="1">
+                    {{
+                      block.settings['icon-1']
+                      | image_url: width: 500
+                      | image_tag: loading: 'lazy', sizes: '120', widths: '20, 40, 80', class: 'icon-u'
+                    }}
+                  </figure>
+                  <figure class="img_single" data-index="2">
+                    {{
+                      block.settings['icon-2']
+                      | image_url: width: 500
+                      | image_tag: loading: 'lazy', sizes: '120', widths: '20, 40, 80', class: 'icon-vitals'
+                    }}
+                  </figure>
+                  <figure class="img_single" data-index="3">
+                    {{
+                      block.settings['icon-3']
+                      | image_url: width: 500
+                      | image_tag: loading: 'lazy', sizes: '120', widths: '20, 40, 80', class: 'icon-cube'
+                    }}
+                  </figure>
+                  <figure class="img_single" data-index="4">
+                    {{
+                      block.settings['icon-4']
+                      | image_url: width: 500
+                      | image_tag: loading: 'lazy', sizes: '120', widths: '20, 40, 80', class: 'icon-shop'
+                    }}
+                  </figure>
+                </div>
+                <div class="icon_content">
+                  <h5>Effortless Integration</h5>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ipsa pariatur ab eaque magni sed autem,
+                    illum consequuntur corporis quibusdam.
+                  </p>
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Static cards",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image block",
+      "limit": 1,
+      "type": "image_block",
+      "settings": [
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Card Background color",
+          "default": "#1E293B"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shopify 2.0 OS"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "para",
+          "label": "Paragraph",
+          "default": "Built for Shopify OS 2.0. Use drag and drop editor with sections and blocks to create and customize Shopify pages."
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label",
+          "default": "GET A QUOTE"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "name": "Icon block",
+      "type": "icon_block",
+      "settings": [
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Card Background color",
+          "default": "#1E293B"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon-1",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon-2",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon-3",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon-4",
+          "label": "Icon"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

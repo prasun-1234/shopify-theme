@@ -1,0 +1,536 @@
+{
+  "sections": {
+    "hero_section": {
+      "type": "hero_section",
+      "blocks": {
+        "link_btn": {
+          "type": "link_btn",
+          "settings": {
+            "link_icon": "shopify:\/\/shop_images\/merchants.svg",
+            "link_text1": "Trusted by more than 400 Shopify Merchants",
+            "link_text2": "Services That Make The Difference",
+            "link_url": "https:\/\/www.shopify.com\/"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "<h2>Custom <span>Shopify<\/span> Design and Development Team Tailored Just for You<\/h2>"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "Expert team creates personalized Shopify solutions to elevate your online store's design and functionality. Get started today!"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_text": "view shopify tasks",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "link_btn",
+        "heading",
+        "paragraph",
+        "button"
+      ],
+      "settings": {
+        "margin_top": 160,
+        "margin_bottom": 140,
+        "image": "shopify:\/\/shop_images\/hero-image.jpg",
+        "accent_color": "#143092"
+      }
+    },
+    "logo_list": {
+      "type": "logo_list",
+      "blocks": {
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/box.png"
+          }
+        },
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/density.svg"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cheeky.png"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/kammok.svg"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/suds.png"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/box.png"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cheeky.png"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-two",
+        "marquee-one",
+        "marquee-four",
+        "marquee-three",
+        "marquee-six",
+        "marquee-seven",
+        "marquee-five"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 20,
+        "block_background": "even",
+        "marquee_speed": 80,
+        "reverse_direction": false,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "logo_list_2": {
+      "type": "logo_list",
+      "blocks": {
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/box.png"
+          }
+        },
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/density.svg"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cheeky.png"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/kammok.svg"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/suds.png"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/box.png"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cheeky.png"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-two",
+        "marquee-one",
+        "marquee-four",
+        "marquee-three",
+        "marquee-six",
+        "marquee-seven",
+        "marquee-five"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "block_background": "even",
+        "marquee_speed": 80,
+        "reverse_direction": true,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "hover_cards": {
+      "type": "hover_cards",
+      "blocks": {
+        "card-1": {
+          "type": "cards",
+          "settings": {
+            "title": "Superfast Speed, quick load and checkout",
+            "body_text": "Experience lightning-fast speeds, quick load times, and seamless checkouts for your online store with SuprShops.",
+            "image": "shopify:\/\/shop_images\/rocket.svg",
+            "video": "shopify:\/\/files\/videos\/Checkout.mp4"
+          }
+        },
+        "card-2": {
+          "type": "cards",
+          "settings": {
+            "title": "Easy to use theme with 24\/7 support",
+            "body_text": "Effortlessly manage your online store with our user-friendly theme and enjoy round-the-clock support from SuprShops.",
+            "image": "shopify:\/\/shop_images\/headphone.svg",
+            "video": "shopify:\/\/files\/videos\/Support.mp4"
+          }
+        },
+        "card-3": {
+          "type": "cards",
+          "settings": {
+            "title": "Robust Design for all devices",
+            "body_text": "Responsive design ensures your store looks great and functions flawlessly on all devices with SuprShops.",
+            "image": "shopify:\/\/shop_images\/tv.svg",
+            "video": "shopify:\/\/files\/videos\/robust design.mp4"
+          }
+        },
+        "card-4": {
+          "type": "cards",
+          "settings": {
+            "title": "Cost Effective Design & Development",
+            "body_text": "Cost-effective design and development solutions tailored to your budget, without compromising on quality, with SuprShops",
+            "image": "shopify:\/\/shop_images\/money.svg",
+            "video": "shopify:\/\/files\/videos\/cost effective design and dev.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "heading": "Why Choose Us?",
+        "subheading": "<p>SuprShops offers expert Shopify design, development, and support to elevate your online business. Trust us for seamless e-commerce solutions.<\/p>",
+        "accent_color": "#143092"
+      }
+    },
+    "customer_cards": {
+      "type": "customer_cards",
+      "blocks": {
+        "card-1": {
+          "type": "cards",
+          "settings": {
+            "title": "Place an order",
+            "body_text": "Secure your custom e-commerce solution with a simple click: Place your order with SuprShops.",
+            "image": "shopify:\/\/shop_images\/card-1.svg",
+            "background": "#0F6D8B"
+          }
+        },
+        "card-2": {
+          "type": "cards",
+          "settings": {
+            "title": "Discuss with our Specialized team",
+            "body_text": "Connect with our experts for personalized guidance and support tailored to your needs.",
+            "image": "shopify:\/\/shop_images\/card-2.svg",
+            "background": "#02687E"
+          }
+        },
+        "card-3": {
+          "type": "cards",
+          "settings": {
+            "title": "Suprshop team delivers",
+            "body_text": "Experience seamless delivery of your custom Shopify solutions with SuprShops' reliable service.",
+            "image": "shopify:\/\/shop_images\/card-3.svg",
+            "background": "#152190"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 100,
+        "heading": "<h3>Order. Discuss. Deliver.<\/h3>",
+        "subheading": "<p>Place your order, engage with our team, and receive seamless delivery of your customized Shopify Store solutions from SuprShops<\/p>"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "title": "View Shopify Tasks",
+        "heading_size": "h3",
+        "description": "",
+        "show_description": false,
+        "collection": "all",
+        "products_to_show": 9,
+        "columns_desktop": 3,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "comment-1": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit. Mi in nulla posuere sollicitudin aliquam ultrices”",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-2": {
+          "type": "comments",
+          "settings": {
+            "rating": 5,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit. Mi in nulla posuere sollicitudin aliquam ultrices,volutpat maecenas volutpat blandit aliquam etiam erat velit.”",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-3": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-4": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.",
+            "author_name": "Annie Jane"
+          }
+        },
+        "comment-5": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.",
+            "author_name": "Laurence Hutcherson"
+          }
+        }
+      },
+      "block_order": [
+        "comment-1",
+        "comment-2",
+        "comment-3",
+        "comment-4",
+        "comment-5"
+      ],
+      "settings": {
+        "heading": "What customer say about us",
+        "body_text": "See what our clients are saying about their experience"
+      }
+    },
+    "image-with-text": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2>Launching your web presence is like a hot air balloon ride<\/h2>"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "view shopify tasks",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "background": "shopify:\/\/shop_images\/image-with-text-banner.jpg",
+        "image": "shopify:\/\/shop_images\/ballon.png",
+        "height": "large",
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "image_behavior": "ambient",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "featured-blog": {
+      "type": "featured-blog",
+      "settings": {
+        "heading": "Dive into our journal for insightful content that enhances your theme",
+        "blog": "news",
+        "post_row": 3,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq-1": {
+          "type": "faq-block",
+          "settings": {
+            "heading": "How Much Time it take to deliver a Task?",
+            "body_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq-block",
+          "settings": {
+            "heading": "How Much Time it take to deliver a Task?",
+            "body_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>  "
+          }
+        },
+        "faq-3": {
+          "type": "faq-block",
+          "settings": {
+            "heading": "How Much Time it take to deliver a Task?",
+            "body_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>  "
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3"
+      ],
+      "settings": {
+        "margin_top": 100,
+        "margin_bottom": 100,
+        "heading": "Frequently Asked Questions",
+        "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+        "btn_url": "shopify:\/\/pages\/contact-us"
+      }
+    },
+    "images-banner": {
+      "type": "images-banner",
+      "blocks": {
+        "image-1": {
+          "type": "background",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/decorative-office.png"
+          }
+        },
+        "image-2": {
+          "type": "background",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/section-cart.png"
+          }
+        },
+        "image-3": {
+          "type": "background",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/women-short.png"
+          }
+        },
+        "image-4": {
+          "type": "background",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/protrait-face.png"
+          }
+        },
+        "image-5": {
+          "type": "background",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cycle-shop.png"
+          }
+        }
+      },
+      "block_order": [
+        "image-1",
+        "image-2",
+        "image-3",
+        "image-4",
+        "image-5"
+      ],
+      "settings": {
+        "enable_quote": true,
+        "button_url": "#",
+        "button_label": "get a quote"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "New era of design & development starts now"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Get A Quote , put your email we will get back to you<\/p>"
+          }
+        },
+        "email_form": {
+          "type": "email_form",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
+      "settings": {
+        "gradient": "shopify:\/\/shop_images\/newsletter-gradient.svg",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "hero_section",
+    "logo_list",
+    "logo_list_2",
+    "featured_collection",
+    "hover_cards",
+    "customer_cards",
+    "testimonial",
+    "image-with-text",
+    "featured-blog",
+    "faq",
+    "images-banner",
+    "newsletter"
+  ]
+}

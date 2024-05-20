@@ -1,0 +1,34 @@
+<div
+  class="custom-class-snippet image-slider"
+>
+  {% if block.settings.image_1 != blank %}
+    <img
+      src="{{ block.settings.image_1 | image_url }}"
+      alt="{{ image_1.alt }}"
+      class=""
+      width="600"
+      height="600"
+    >
+  {% endif %}
+  {% if block.settings.image_2 != blank %}
+    <div class="scale-img-div">
+      <img
+        src="{{ block.settings.image_2 | image_url }}"
+        alt="{{ image_2.alt }}"
+        class="scale-img"
+        width="600"
+        height="600"
+      >
+    </div>
+  {% endif %}
+
+  <span>
+    <div class="image-slider-header sectionssss">
+      <h2 class="">{{ block.settings.offer_header | truncatewords }}</h2>
+      <p>{{ block.settings.offer_para_text | truncatewords }}</p>
+    </div>
+    <a href="{{ block.settings.collection1.url }}" class="collection-button">
+      {{ block.settings.collection_button_text | truncatewords }}
+    </a>
+  </span>
+</div>

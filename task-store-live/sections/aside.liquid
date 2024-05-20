@@ -1,0 +1,116 @@
+{{ 'section-aside.css' | asset_url | stylesheet_tag: preload: true }}
+{% style %}
+  .{{ section.id }} .sidebar_inner{
+      background-color: {{ section.settings.sidebar_bg }};
+  }
+  .order-body-gradient-bg{
+    background-color: {{ section.settings.sidebar_bg }};
+  }
+  @media screen and (min-width:1025px){
+    .layout-main-page {
+      padding-left: {{ section.settings.sidebar_width }}px;
+    }
+  }
+{% endstyle %}
+<aside class="main-aside {{ section.id }}" style="width:{{ section.settings.sidebar_width }}px;">
+  {% render 'aside-nav', section: section %}
+</aside>
+{% schema %}
+{
+  "name": "Sidebar Navigation",
+  "settings": [
+    {
+      "type": "color",
+      "id": "sidebar_bg",
+      "label": "Sidebar background color",
+      "default": "#1E293B"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Nav Link"
+    },
+    {
+      "type": "range",
+      "id": "sidebar_width",
+      "label": "Sidebar Width",
+      "max": 200,
+      "min": 100,
+      "default": 110,
+      "step": 10
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Icon",
+      "type": "icon",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_index",
+          "label": "Link Icon Index",
+          "info": "Specify the index for the item number you would like to apply this icon to",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script
+  defer
+>
+  let asideItems = document.querySelectorAll('.sidebar-menu > li');
+
+  if (asideItems) {
+    asideItems.forEach((item) => {
+      let index = item.getAttribute('data-index');
+      let icon = document.querySelector(`.sidebar-icons > li[data-index='${index}']`);
+      if (icon) {
+        item.querySelector('.header__menu-item').prepend(icon.querySelector('img'));
+      }
+    });
+  }
+</script>

@@ -1,0 +1,219 @@
+.map-section{
+  position: relative;
+}
+
+.map-section #map{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+}
+
+.location-info.contact-details-info{
+  width: 100%;
+  background: #000;
+  padding: 15px;
+  height: 463px;
+  overflow-y: scroll; 
+}
+
+.location-info-block{
+  margin-bottom: 40px;
+}
+
+.location-info-block:last-child {
+    margin-bottom: 0px;
+  }
+
+.location-info-wrap{
+  width: 100%;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.location-info-wrap .bg_one{
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.location-info-wrap .bg_one{
+    left: 0;
+}
+
+.location-info-wrap .bg_two{
+    right: 0;
+}
+
+  .location-info-wrap .map-content{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+.location-info{
+  width: 55%;
+}
+
+.map-content{
+pointer-events: none;  
+max-height: 100%;
+overflow-x:hidden;
+overflow-y: scroll;
+scrollbar-width: none;
+}
+
+.map-card .phone-number{
+  transition: .3s ease;
+}
+
+.map-card .phone-number:hover{
+   opacity: .7;
+}
+
+.map-card-col{
+  border-radius: 0 20px 20px 0 ;
+  pointer-events: all !important;
+}
+
+.map-card-col .map-card{
+  padding: 60px 60px 60px 150px;
+}
+
+.map-card-middle{
+  padding: 60px;
+  margin: auto;
+  border-radius: 20px ;
+}
+
+.map-card-middle .map-card{
+  padding: 60px ;
+}
+
+.map-card-right{
+  padding: 60px 150px 60px 60px ;
+  border-radius: 20px 0 0 20px;
+  margin-left: auto;
+}
+
+.map-card-right .map-card{
+  padding: 60px 150px 60px 60px ;
+}
+
+
+.map-card h4{
+  font-family: var(--secondary-h3-font-family);
+  font-size: var(--secondary-h5-font-size);
+}
+
+.map-card .location{
+  margin: 20px 0;
+}
+
+.location-info .location-title{
+    font-size: var(--small-font-size);
+    font-family: var(--primary-font-family);
+    font-weight: 600;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .location-info p{
+    font-size: var(--small-font-size);
+    line-height: 30px;
+    font-family: var(--primary-font-family);
+    color: #fff;
+  }
+
+  .location-info ul li{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--small-font-size);
+    line-height: 30px;
+    align-items: center;
+    font-family: var(--primary-font-family);
+    color: #fff;
+  
+  }
+
+.location-info ul li span{
+    width: 50%;
+    justify-content: flex-end;
+  }
+
+  .location-info ul li span:last-child{
+    text-align: right;
+  }
+
+  .location-info .address{
+    padding: 25px 0;
+  }
+
+
+.map-wrapper{
+  position: relative;
+  height: 100%;
+}
+
+@media screen and (max-width:1600px){
+  .map-card-col .map-card{
+    padding: 30px !important;
+  }
+}
+
+@media screen and (max-width:768px){
+  .map-card h3{
+    font-size: 24px ;
+  }
+}
+
+@media screen and (max-width:767px){
+  .map-section{
+    min-height: 100% !important;
+    height: 100% !important;
+  }
+  .map-card-col{
+    margin: 0 20px;
+border-radius: 20px;
+  }
+
+  .location-info-wrap{
+    padding-top: 500px;
+    padding-bottom: 40px;
+    align-items: flex-end;
+  }
+
+}
+
+@media screen and (max-width:576px){
+    .map-section  #map{
+        width: 100%;
+      }
+
+      .map-content{
+        pointer-events: all;
+      }
+
+      .location-info-wrap .container{
+        position: relative;
+      }
+    
+      .location-info-wrap  h3{
+        font-size: 22px;
+      }
+      .location-info {
+        width: 100%;
+      }
+
+      .map-wrapper .map-content {
+        max-width: 100%;
+        width: 100%;
+      }
+
+    
+}

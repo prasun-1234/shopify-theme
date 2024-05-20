@@ -1,0 +1,467 @@
+{% style %}
+  .shopify-section-{{ section.id }}{
+      height: 100dvh;
+      margin-top: {{ section.settings.section_margin_top }};
+      margin-bottom: {{ section.settings.section_margin_bottom }};
+  }
+  .shopify-section-{{ section.id }} .card{
+    background-repeat: no-repeat !important;
+      background-size: cover !important;
+      background-position: center top !important;
+  }
+  .text-alignment{
+      justify-content: {{ section.settings.text_alignment }};
+      align-items: center;
+  }
+  .swiper-slide .advertisement-box{
+    transform: translate(0px, 60px);
+    transition: 1s ease;
+    opacity: 0;
+  }
+  .swiper-slide.swiper-slide-active .advertisement-box{
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+  .page-title{
+      color: {{ block.settings.color }} !important;
+  }
+  .overlay-span{
+      background: {{ section.settings.overlay_color }};
+      opacity: calc({{ section.settings.overlay_opacity }}/10);
+  }
+  .heroSwiper .swiper-slide .card{
+      background-size: cover !important;
+      height:100%;
+      width:100%;
+      background-position: center top !important;
+      transition: 1s ease;
+      overflow: hidden;
+      position: relative;
+  }
+  .heroSwiper .card{
+    justify-content: {{ section.settings.text_alignment }};
+  }
+  .hero_section .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: var(--body-background) !important;
+  }
+  @media only screen and (max-width: 1024px){
+    .hero_section .swiper-pagination{
+      display:none
+    }
+  }
+{% endstyle %}
+<section
+  class="hero_section shopify-section-{{ section.id }}"
+  style="{% if section.settings.background_image != blank %} background: url('{{ section.settings.background_image | image_url }}');{% endif %}"
+>
+  <span class=" overlay-span absolute top-0 left-0 w-full h-full pointer-events-none"></span>
+  <div class="h-full">
+    <div class="h-full swiper heroSwiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'title' %}
+              <div class="swiper-slide">
+                {% if block.settings.title != blank %}
+                  <div
+                    class="card  flex h-full flex-col gap-y-5 items-center relative"
+                    style="background: url('{{ block.settings.card_background | image_url }}');"
+                  >
+                    <span
+                      class="absolute top-0 left-0 w-full h-full pointer-events-none"
+                      style="background: {{ block.settings.overlay_color }}; opacity: calc({{ block.settings.overlay_opacity }}/10);"
+                    ></span>
+                    <div>
+                      <h2 class="z-10 relative px-10 llp-text" style="color:{{ block.settings.color }}!important;">
+                        {{ block.settings.title }}
+                      </h2>
+                      {% if block.settings.button != blank %}
+                        <a
+                          class="z-10 relative flex justify-center"
+                          href="{{ block.settings.button_url }}"
+                          rel="nofollow"
+                        >
+                          {% render 'btn-secondary', src: block.settings.button %}
+                        </a>
+                      {% endif %}
+                      {% if block.settings.card_background == blank %}
+                        <span class="flex items-center absolute top-0 left-0 w-full h-full pointer-events-none">
+                          {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-full bg-gray-300 brightness-75' }}
+                        </span>
+                      {% endif %}
+                      {% if block.settings.adr_text != blank %}
+                        <div class="absolute bottom-0 left-0 w-full h-auto advertisement-box">
+                          {% render 'hero-advertisement', block: block %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% when 'video' %}
+              <div class="swiper-slide">
+                <div class="card relative">
+                  <span
+                    class="absolute top-0 left-0 w-full h-full pointer-events-none"
+                    style="background: {{ block.settings.overlay_color }}; opacity: calc({{ block.settings.overlay_opacity }}/10);"
+                  ></span>
+                  {% if block.settings.video != blank %}
+                    {{
+                      block.settings.video
+                      | video_tag: class: 'object-cover h-full w-full', loop: true, autoplay: true, controls: false
+                    }}
+                  {% else %}
+                    <video
+                      src="{{ 'test-video.mp4' | asset_url }}"
+                      loop="true"
+                      autoplay="true"
+                      controls="true"
+                      loading="lazy"
+                      class="object-cover h-full w-full"
+                    ></video>
+                  {% endif %}
+                  <div class="absolute z-10 top-0 left-0 w-full h-full">
+                    <div class="h-full w-full justify-center items-center flex flex-col gap-5">
+                      <h2 style="color:{{ block.settings.title_color }};">{{ block.settings.title }}</h2>
+                      {% if block.settings.button_text != blank %}
+                        <a href="{{ block.settings.button_url }}" rel="nofollow">
+                          {%- render 'btn-secondary', src: block.settings.button_text -%}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class=" z-20 absolute bottom-0 left-0 w-full h-auto advertisement-box">
+                    {% render 'hero-advertisement', block: block %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination swiper-pagi2"></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.hero-section.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.hero-section.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.hero-section.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.hero-section.settings.background"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:section.hero-section.settings.text_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "label": "t:section.hero-section.settings.text_alignment.left",
+          "value": "left"
+        },
+        {
+          "label": "t:section.hero-section.settings.text_alignment.center",
+          "value": "center"
+        },
+        {
+          "label": "t:section.hero-section.settings.text_alignment.right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.hero-section.settings.overlay_color"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.hero-section.settings.overlay_opacity",
+      "max": 10,
+      "min": 0,
+      "step": 1,
+      "default": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.hero-section.blocks.title",
+      "type": "title",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.hero-section.blocks.settings.title"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "t:section.hero-section.blocks.settings.color"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "t:section.hero-section.settings.overlay_color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "t:section.hero-section.settings.overlay_opacity",
+          "max": 10,
+          "min": 0,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "image_picker",
+          "id": "card_background",
+          "label": "t:section.hero-section.blocks.settings.card_background"
+        },
+        {
+          "type": "header",
+          "content": "t:section.hero-section.blocks.settings.button"
+        },
+        {
+          "type": "text",
+          "id": "button",
+          "label": "t:section.hero-section.blocks.settings.button",
+          "default": "Button",
+          "info": "t:section.hero-section.blocks.settings.show_button"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:section.hero-section.blocks.settings.button_url"
+        },
+        {
+          "type": "header",
+          "content": "t:section.hero-section.blocks.settings.Advertisement"
+        },
+        {
+          "type": "richtext",
+          "id": "adr_text",
+          "label": "t:section.hero-section.blocks.settings.adr_text",
+          "default": "<p>New Drop Coming - </p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:section.hero-section.blocks.settings.adr_text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "color",
+          "id": "adr_text_color",
+          "label": "t:section.hero-section.blocks.settings.adr_text_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "adr_bg",
+          "label": "t:section.hero-section.blocks.settings.adr_bg",
+          "default": "#27272A"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "t:section.hero-section.blocks.settings.url"
+        }
+      ]
+    },
+    {
+      "name": "t:section.hero-section.blocks.video",
+      "type": "video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:section.hero-section.blocks.video"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.hero-section.blocks.settings.title",
+          "default": "Comfortable"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "t:section.hero-section.blocks.settings.title_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "t:section.hero-section.settings.overlay_color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "t:section.hero-section.settings.overlay_opacity",
+          "max": 10,
+          "min": 0,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "header",
+          "content": "t:section.hero-section.blocks.settings.button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.hero-section.blocks.settings.button_text",
+          "default": "Button"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:section.hero-section.blocks.settings.button_url"
+        },
+        {
+          "type": "header",
+          "content": "t:section.hero-section.blocks.settings.Advertisement"
+        },
+        {
+          "type": "richtext",
+          "id": "adr_text",
+          "label": "t:section.hero-section.blocks.settings.adr_text",
+          "default": "<p>New Drop coming - 1.00pm EST</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:section.hero-section.blocks.settings.adr_text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "color",
+          "id": "adr_text_color",
+          "label": "t:section.hero-section.blocks.settings.adr_text_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "adr_bg",
+          "label": "t:section.hero-section.blocks.settings.adr_bg",
+          "default": "#27272A"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "t:section.hero-section.blocks.settings.url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.hero-section.presets.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "background_image": "",
+        "text_alignment": "center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 2
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "title"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let box = document.querySelectorAll('.advertisement-box');
+  if (box) {
+    box.forEach((item) => {
+      item.querySelector('.close-btn').addEventListener('click', () => {
+        item.style.display = 'none';
+      });
+    });
+  }
+  var mediaQuery = window.matchMedia('(max-width: 980px)');
+
+  if (mediaQuery.matches) {
+    var heroSwiper = new Swiper('.heroSwiper', {
+      slidesPerView: 1,
+      speed: 1000,
+      pagination: {
+        el: '.heroSwiper .swiper-pagination',
+        clickable: true,
+      },
+    });
+  } else {
+    var heroSwiper = new Swiper('.heroSwiper', {
+      direction: 'vertical',
+      mousewheel: true,
+      slidesPerView: 1,
+      speed: 1000,
+      pagination: {
+        el: '.heroSwiper .swiper-pagination',
+        clickable: true,
+      },
+    });
+
+    let section = document.querySelector('.hero_section');
+    heroSwiper.on('reachEnd', function () {
+      section.addEventListener('wheel', function (e) {
+        if (e.deltaY > 0 && heroSwiper.isEnd) {
+          heroSwiper.mousewheel.disable();
+        } else {
+          window.scrollTo(section.scrollTop, 0);
+          heroSwiper.mousewheel.enable();
+        }
+      });
+    });
+
+    section.addEventListener('wheel', function (e) {
+      if (e.deltaY < 0) {
+        heroSwiper.enable();
+        window.scrollTo(section.scrollTop, 0);
+      } else {
+      }
+    });
+  }
+{% endjavascript %}

@@ -1,0 +1,334 @@
+{% style %}
+  #{{ section.id }} {
+          margin-top: {{ section.settings.margin_top }}px !important;
+          margin-bottom: {{ section.settings.margin_bottom }}px !important;
+        }
+      @media only screen and (max-width: 980px) {
+        #{{ section.id }} {
+          margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+          margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+        }
+      }
+{% endstyle %}
+{% case section.settings.section_style %}
+  {% when 'style-1' %}
+    {% style %}
+      .gradient-text {
+        background: linear-gradient(100.38deg, #8841c5 33.56%, #fcb770 116.19%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+
+      .about-socials svg path {
+        fill: var(--global-font-color);
+      }
+      .about-socials svg.stroke path {
+        fill: none;
+        stroke: var(--global-font-color);
+      }
+
+      @media only screen and (max-width: 1023px) {
+        .heading {
+          align-items: center;
+        }
+      }
+    {% endstyle %}
+    <section
+      class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto flex flex-col gap-10"
+      id="{{ section.id }}"
+    >
+      <div class="relative overflow-hidden flex lg:flex-row flex-col items-center gap-10 lg:h-[400px]">
+        <div class="relative z-10 flex flex-col gap-[15px] text-center w-full lg:px-[15px] heading {% case section.settings.background_position %}{% when "left" %}lg:text-right{% when "center" %}lg:text-center{% when "right" %}lg:text-left{% else %}{% endcase %}">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <div {{ block.shopify_attributes }}>
+                  <h3 class="font-semibold">{{ block.settings.section_title | upcase }}</h3>
+                </div>
+              {% when 'heading' %}
+                <div class=" font-semibold" {{ block.shopify_attributes }}>
+                  <h2 class="leading-[1] !text-[2.5rem] md:!text-[3.5rem] lg:!text-[6.5rem] 2xl:!text-[10.5rem]">
+                    <span class="gradient-text">
+                      {% if block.settings.text_1 != blank %}
+                        {{ block.settings.text_1 | upcase }}
+                      {% else %}
+                        {{ 'about-us.title' | t }}
+                      {% endif %}
+                    </span>
+                    {{ block.settings.text_2 | upcase }}
+                  </h2>
+                </div>
+              {% when 'links' %}
+                <div
+                  class="about-socials flex gap-7 {% case section.settings.background_position %}{% when "left" %}md:justify-end{% when "center" %}md:justify-center{% when "right" %}md:justify-start{% else %}{% endcase %} justify-center"
+                  {{ block.shopify_attributes }}
+                >
+                  <a
+                    href="{{ settings.social_instagram_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-instagram' -%}
+                  </a>
+                  <a
+                    href="{{ settings.social_facebook_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-delta-facebook' -%}
+                  </a>
+                  <a
+                    href="{{ settings.social_youtube_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-delta-youtube' %}
+                  </a>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="flex lg:absolute relative lg:top-0 lg:left-0 w-full h-full {% case section.settings.background_position %}{% when 'right' %}justify-end{% when 'center' %}justify-center{% when 'left' %}justify-start{% else %}{% endcase %}">
+          <div class="{% if section.settings.background_position == "center" %}lg:w-full{% else %}lg:w-1/2{% endif %}  w-full">
+            {% if section.settings.image %}
+              {{
+                section.settings.image
+                | image_url: width: 1500
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '100',
+                  widths: '165, 360, 535, 750, 1070, 1500',
+                  class: 'object-cover lg:h-full h-[320px] w-full opacity-80 object-center'
+              }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'w-full h-full bg-[#ccc]' }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="page-content lg:text-left text-center">
+        <h2>{{ page.title }}</h2>
+        <span>
+          {{ page.content }}
+        </span>
+      </div>
+    </section>
+
+  {% when 'style-2' %}
+    <section
+      id="{{ section.id }}"
+    >
+      <div class="mx-auto {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %}">
+        <div class="text-center flex flex-col gap-5 mb-10">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <div {{ block.shopify_attributes }} class="max-w-5xl mx-auto">
+                  <h2>{{ block.settings.section_title }}</h2>
+                </div>
+              {% when 'heading' %}
+                <div {{ block.shopify_attributes }}>
+                  {% if block.settings.text_1 != blank %}
+                    <p>
+                      {{ block.settings.text_1 }}
+                    </p>
+                  {% else %}
+                    <p class="!text-[2rem] lg:!text-[4rem] !leading-none py-3">
+                      {{ 'about-us.title' | t }}
+                    </p>
+                  {% endif %}
+                </div>
+              {% when 'links' %}
+                <div
+                  class="about-socials flex gap-7 justify-center my-[20px]"
+                  {{ block.shopify_attributes }}
+                >
+                  <a
+                    href="{{ settings.social_instagram_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-instagram' -%}
+                  </a>
+                  <a
+                    href="{{ settings.social_facebook_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-delta-facebook' -%}
+                  </a>
+                  <a
+                    href="{{ settings.social_youtube_link }}"
+                    rel="nofollow"
+                    class="hover:scale-90 ease-in-out duration-150 inline-flex"
+                  >
+                    {% render 'icon-delta-youtube' %}
+                  </a>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="flex lg:flex-row flex-col items-center gap-10">
+          {% if section.settings.image != blank %}
+            {{
+              section.settings.image
+              | image_url: height: 500
+              | image_tag:
+                class: 'object-cover card duration-500 h-full lg:w-1/2 w-full ease-in-out max-h-[300px] lg:max-h-[600px]'
+            }}
+          {% else %}
+            {{
+              'collection-1'
+              | placeholder_svg_tag: 'h-full lg:w-1/2 w-full bg-[#ccc] max-h-[300px] lg:max-h-[600px]'
+            }}
+          {% endif %}
+
+          <div class="flex flex-col gap-[20px] text-left lg:w-1/2 w-full items-start">
+            {% if page.title %}
+              <h3>{{ page.title }}</h3>
+            {% endif %}
+            {% if page.content %}
+              <span>
+                {{ page.content }}
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  {% else %}
+
+{% endcase %}
+
+{% schema %}
+{
+  "name": "t:section.about-us.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "section_style",
+      "label": "t:section.about-us.settings.section_style.label",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "t:section.about-us.settings.section_style.options.style-1"
+        },
+        {
+          "value": "style-2",
+          "label": "t:section.about-us.settings.section_style.options.style-2"
+        }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:section.about-us.settings.image.label",
+      "info": "t:section.about-us.settings.image.info"
+    },
+    {
+      "type": "select",
+      "id": "background_position",
+      "label": "t:section.about-us.settings.background_position.label",
+      "options": [
+        {
+          "label": "t:section.about-us.settings.background_position.options.right",
+          "value": "right"
+        },
+        {
+          "label": "t:section.about-us.settings.background_position.options.left",
+          "value": "left"
+        },
+        {
+          "label": "t:section.about-us.settings.background_position.options.center",
+          "value": "center"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.about-us.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "t:section.about-us.blocks.title.settings.section_title",
+          "default": "Continue To"
+        }
+      ]
+    },
+    {
+      "name": "t:section.about-us.blocks.heading.name",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "t:section.about-us.blocks.heading.settings.text_1",
+          "default": "Prove"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "t:section.about-us.blocks.heading.settings.text_2",
+          "default": "ourself",
+          "info": "Use only when "
+        }
+      ]
+    },
+    {
+      "name": "t:section.about-us.blocks.links.name",
+      "type": "links",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.about-us.presets.name",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "image": "shopify:\/\/shop_images\/about-us.jpg"
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "links"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

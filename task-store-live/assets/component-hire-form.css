@@ -1,0 +1,150 @@
+.hire-team-form.active{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.hire-team-form::--webkit-scrollbar{
+    width: 0 !important;
+}
+
+.hire-team-form{
+    display: none;
+}
+.hire-your-team-form{
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+}
+.image-column{
+    width: 55%;
+    position: relative;
+}
+.image-column video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.form-column .heading{
+    font-weight: 700;
+}
+.form-column{
+    width: 45%;
+    padding: 5rem 0rem 5rem 5rem;
+    position: relative;
+    background-color: #020617;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+}
+.hireTeamSlide{
+    width: 100%;
+    height: auto;
+}
+.hireTeamSlide .swiper-slide {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+}
+.hireTeamSlide .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hire-your-team-form .context{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.hire-your-team-form .video-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.context-heading{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+}
+.hire-grid .circle-button{
+    background: none;
+    border: none;
+    color: rgb(var(--color-heading)) !important;
+    filter: drop-shadow(2px 2px 4px black);
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 1.8;
+    border-radius: 100%;
+    z-index: 5;
+    cursor: pointer;
+}
+.hire-grid .circle-button:focus-visible{
+    outline: 1px solid rgb(var(--color-foreground));
+}
+.hire-body-text h5{
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+    line-height: 160%;
+    max-width: 40rem;
+}
+.form-testimonial{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+.context-heading h4{
+    max-width: 40rem;
+}
+@media screen and (max-width: 1366px) {
+    .form-column{
+        padding: 4rem 0rem 3rem 3rem;
+    }   
+}
+@media screen and (max-width: 1024px) {
+    .hire-your-team-form{
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .image-column{
+        width: 100%;
+    }
+    .form-column{
+        width: 100%;
+    }
+    .image-column{
+        display: none;
+    }
+}
+@media screen and (max-width: 640px) {
+    .form-column{
+        padding: 4rem 0rem 2rem 2rem;
+    }  
+}

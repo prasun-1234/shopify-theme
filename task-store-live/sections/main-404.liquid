@@ -1,0 +1,160 @@
+{{ 'section-404.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top | divided_by: 2 }}px;
+    padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+  }
+  
+{% endstyle %}
+
+<div class="template-404" id="{{ section.id }}">
+  <div class="container">
+    <div class="error_grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'featured_image' %}
+            <div id="{{ block.id }}" {{ block.shopify_attributes }} class="image_div">
+              {% if block.settings.enable_bg != blank %}
+                <span class="gradient_lg" style="background-color:{{ block.settings.bg_color }};"></span>
+              {% endif %}
+              <figure>
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 1000 | image_tag }}
+                {% endif %}
+                {% if block.settings.video != blank %}
+                  {{ block.settings.video | video_tag: loop: true, autoplay: true, controls: false }}
+                {% endif %}
+                {% if block.settings.overlay_image != blank %}
+                  <img src="{{ block.settings.overlay_image | img_url: '800x' }}" alt="Overlay Image" class="overlay-image" width="auto" height="auto">
+                {% endif %}
+
+              </figure>
+            </div>
+          {% when 'content' %}
+            <div class="content" {{ block.shopify_attributes }}>
+              {{ block.settings.icon | image_url: width: 200 | image_tag: class: 'icon' }}
+              <span class="heading">
+                {{ block.settings.heading }}
+              </span>
+              <p>{{ block.settings.para }}</p>
+              <a
+                href="{{ block.settings.button_url }}"
+                class="button button_primary"
+                {{ block.shopify_attributes }}
+              >
+                {% render 'button-primary', text: block.settings.button_text | escape %}
+              </a>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "404",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 140,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 140,
+      "step": 10,
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Featured image",
+      "type": "featured_image",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Gradient"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_bg",
+          "label": "Enable gradient background",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color",
+          "default": "#143092"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "overlay_image",
+          "label": "404 image"
+        }
+      ]
+    },
+    {
+      "name": "Content",
+      "type": "content",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "<h3>Oops 404 Error, Page not found!</h3>"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "para",
+          "label": "Body text",
+          "default": "Oops! Looks like you've taken a wrong turn. Let's get you back on track. Please try again!"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "BACK TO HOME PAGE"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

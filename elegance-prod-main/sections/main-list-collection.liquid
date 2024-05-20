@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="{{ 'main-list-collection.css' | asset_url }}">
+
+<section id="collections-listing" class="collection-grid">
+  <div class="{%- if settings.layout == 'box_layout' -%}container{% endif %} {%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}">
+    <div class="pure-g">
+      <div class="pure-u-1-1 pure-u-sm-1-1">
+        <div class="l-box">
+          <div class="coll-top-block  {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+            <h3 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"></h3>
+          </div>
+        </div>
+        {% paginate collections by section.settings.number_of_items %}
+          {% if collections.size > 0 %}
+            <div class="col-list">
+              {% for collection in collections %}
+                {% if collections.size > 1 %}
+                  <div class="col-list-wrap">
+                    <div class="collection-block collection-block-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+                      <figure class="img-box">
+                        <a
+                          rel="nofollow"
+                          class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+                          href="{{ collection.url }}"
+                        >
+                          {% if collection.featured_image != blank %}
+                            <img
+                              srcset="
+                                {%- if collection.width >= 375 -%}{{ collection | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if collection.width >= 550 -%}{{ collection | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if collection.width >= 750 -%}{{ collection | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if collection.width >= 1100 -%}{{ collection | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if collection.width >= 1500 -%}{{ collection | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if collection.width >= 1780 -%}{{ collection | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if collection.width >= 2000 -%}{{ collection | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if collection.width >= 3000 -%}{{ collection | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if collection.width >= 3840 -%}{{ collection | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ collection | image_url }} {{ collection.width }}w
+                              "
+                              sizes="auto"
+                              src="{{ collection | image_url: width: 1500 }}"
+                              loading="lazy"
+                              alt="{{ collection.alt | escape }}"
+                              width="{{ collection.width }}"
+                              height="auto"
+                            >
+                          {% else %}
+                            <div class="placeholder_div">
+                              {{ 'collection-1' | placeholder_svg_tag }}
+                            </div>
+                          {% endif %}
+                        </a>
+                      </figure>
+                      <div class="collections-wrapper">
+                        <h3 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %}">
+                          <a rel="nofollow" href="{{ collection.url }}">{{ collection.title }}</a>
+                        </h3>
+                        <p class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+                          {{ collection.description | truncatewords: 25 }}
+                        </p>
+                        <div class="text-btn {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                          <a rel="nofollow" href="{{ collection.url }}">
+                            {{- 'collections.general.button' | t }}
+                            {% render 'arrow-next' -%}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="pagination-link {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+              <nav role="navigation {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                <ul class="pagination">
+                  {%- if paginate.previous -%}
+                    <li class="prev-arrow">
+                      <a rel="pagination" href="{{ paginate.previous.url }}">
+                        <span aria-hidden="true" class="prev">{% render 'icon-arrow-long' %}</span>
+                        <span class="visuallyhidden"></span>
+                      </a>
+                    </li>
+                  {%- endif -%}
+
+                  {%- for part in paginate.parts -%}
+                    {%- if part.is_link -%}
+                      <li>
+                        <a rel="nofollow" href="{{ part.url }}">
+                          <span class="visuallyhidden"></span> {{ part.title }}
+                        </a>
+                      </li>
+                    {%- else -%}
+                      {%- if part.title == paginate.current_page -%}
+                        <li class="active" aria-current="page">
+                          <span class="visuallyhidden"></span> {{ part.title }}
+                        </li>
+                      {%- else -%}
+                        <li><span class="visuallyhidden"></span> {{ part.title }}</li>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- if paginate.next -%}
+                    <li class="next-arrow">
+                      <a rel="nofollow" href="{{ paginate.next.url }}">
+                        <span class="visuallyhidden"></span>
+                        <span aria-hidden="true" class="next">{% render 'icon-arrow-long' %}</span>
+                      </a>
+                    </li>
+                  {%- endif -%}
+                </ul>
+              </nav>
+            </div>
+          {% else %}
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.list-collection.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "number_of_items",
+      "max": 12,
+      "min": 2,
+      "step": 2,
+      "label": "t:sections.list-collection.label",
+      "default": 6
+    }
+  ]
+}
+{% endschema %}

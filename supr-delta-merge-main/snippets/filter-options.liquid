@@ -1,0 +1,287 @@
+{%- style -%}
+  .range-input input {
+    -webkit-appearance: none;
+    background: none;
+    pointer-events: none;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    background-color: black;
+  }
+
+  .filter_val {
+    border-radius: var(--button-radius) px;
+    background-color: var(--primary-btn-bg);
+    border: 1px solid var(--primary-btn-text);
+    color: var(--primary-btn-text);
+    transition: 0.3s ease;
+    padding: 10px 15px;
+  }
+
+  .filter_val:hover {
+    background-color: transparent;
+    border: 1px solid var(--primary-btn-bg);
+    color: var(--primary-btn-bg);
+  }
+  @media screen and (max-width: 980px) {
+    .filter_clear {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 99;
+    }
+  }
+{%- endstyle -%}
+<div
+  id="collection_filter_main"
+  x-data="
+    {
+      loading: false
+    }
+  "
+  @filter-updated.window="
+    $nextTick(()=>{
+      const queryString = new URLSearchParams(new FormData($refs.filter_form)).toString()
+      console.log('filter updated', queryString)
+
+      loading = true;
+      fetch('/collections/{{ collection.handle }}?' + queryString)
+      .then(response => response.text())
+      .then(data => {
+       let html_div = document.createElement('div');
+       html_div.innerHTML = data;
+
+       let html_dom = html_div.querySelector('#productGridContainer').innerHTML;
+       document.querySelector('#productGridContainer').innerHTML = html_dom;
+       history.replaceState(null, null, '?' + queryString);
+      })
+      .catch(error => console.log('Error:', error))
+      .finally(() => loading = false)
+    })
+  "
+>
+  {% render 'loader' %}
+  <form class="flex flex-col gap-[30px]" x-ref="filter_form">
+    {%- for filter in collection.filters -%}
+      <details>
+        <summary class="flex items-center justify-between cursor-pointer">
+          <div>
+            <span class="font-medium text-[1.25rem]">{{ filter.label }}</span>
+
+            {%- if filter.active_values.size > 0 -%}
+              <span>({{ filter.active_values.size }})</span>
+            {%- endif -%}
+          </div>
+          {% render 'icon-arrow-down', class: 'w-[14px] h-[14px]' %}
+        </summary>
+
+        <div>
+          {%- case filter.type -%}
+            {%- when 'boolean', 'list' -%}
+              <ul class="flex {% if filter.label == 'Color' %}flex-row gap-[10px]{% else %}flex-col gap-[20px]{% endif %}  my-[20px] flex-wrap">
+                {%- for filter_value in filter.values -%}
+                  <li
+                    class="relative flex items-center {% if filter.label == "Color" %}color-swatch{% else %}checkbox-filter{% endif %}"
+                    tabindex="0"
+                  >
+                    {% assign color_swatch = filter_value.label | append: '.jpg' %}
+                    <div class="filter-check-box">
+                      <input
+                        type="checkbox"
+                        @change="$dispatch('filter-updated')"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}
+                          checked
+                        {%- endif -%}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}
+                          disabled
+                        {%- endif %}
+                      >
+                      <span
+                        {% if filter.label == 'Color' %}
+                          style="background:url('{{ color_swatch | file_img_url }}');"
+                        {% endif -%}
+                      >
+                        {%- render 'icon-check', class: 'w-[20px] h-[20px]' -%}
+                      </span>
+                    </div>
+
+                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}" title="{{- filter_value.label -}}">
+                      {{- filter_value.label -}}
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+            {%- when 'price_range' -%}
+              <div class="flex flex-col gap-[15px]">
+                <span
+                  class="price-slider"
+                  data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >
+                  <div class="py-[40px]">
+                    <div class="slider h-[5px] rounded-full relative bg-[#ccc]">
+                      <div class="progress h-[5px] rounded-xl absolute z-10 left-0 theme-bg right-0 "></div>
+                    </div>
+                    <div class="range-input relative z-30">
+                      <input
+                        type="range"
+                        class="range-min absolute top-[-5px] h-[5px] w-full bg-none z-30 border-none"
+                        min="0"
+                        @change="$dispatch('filter-updated')"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        value="0"
+                      >
+                      <input
+                        type="range"
+                        class="range-max absolute top-[-5px] h-[5px] w-full bg-none z-30 border-none"
+                        min="0"
+                        @change="$dispatch('filter-updated')"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center price-input gap-x-[10px]">
+                    <span class="price-min">
+                      <div class="rounded-[5px] border border-spacing-1 py-[10px] px-[15px] w-[100%]">
+                        <div class="flex items-center justify-between">
+                          <span>{{ cart.currency.symbol }}</span>
+
+                          <input
+                            class="text-end border-none outline-none !m-0 focus:!outline-none max-w-[80px]"
+                            name="{{ filter.min_value.param_name }}"
+                            id="Filter-{{ filter.min_value.param_name }}"
+                            {% if filter.min_value.value -%}
+                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif -%}
+                            type="number"
+                            @change="$dispatch('filter-updated')"
+                            placeholder="0"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+                        </div>
+                      </div>
+                    </span>
+                    <div class="flex justify-center w-[100%] items-center">-</div>
+                    <span class="price-max">
+                      <div>
+                        {% comment %} <label for="Filter-{{ filter.max_value.param_name }}">To:</label> {% endcomment %}
+                        <div class="rounded-[5px] border border-spacing-1 py-[10px] px-[15px] w-[100%]">
+                          <div class="flex items-center justify-between">
+                            <span>{{ cart.currency.symbol }}</span>
+
+                            <input
+                              name="{{ filter.max_value.param_name }}"
+                              id="Filter-{{ filter.max_value.param_name }}"
+                              {% if filter.max_value.value -%}
+                                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                              {%- endif -%}
+                              class="border-none outline-none !m-0 focus:!outline-none max-w-[80px]"
+                              type="number"
+                              @change="$dispatch('filter-updated')"
+                              placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </span>
+              </div>
+          {%- endcase -%}
+        </div>
+      </details>
+    {%- endfor -%}
+
+    <div class="filter_val_div flex flex-col gap-[10px] mt-[40px]">
+      {%- for filter in collection.filters -%}
+        {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+            <a
+              class="filter_val"
+              rel="nofollow"
+              href="{{ filter.url_to_remove }}"
+            >
+              {%- assign min_value = filter.min_value.value | default: 0 -%}
+              {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+              {{ min_value | money }} - {{ max_value | money }} X
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          {%- for filter_value in filter.active_values -%}
+            <a
+              rel="nofollow"
+              class="filter_val"
+              rel="nofollow"
+              href="{{ filter_value.url_to_remove }}"
+            >
+              {{ filter.label }}: {{ filter_value.label }} X
+            </a>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="flex flex-col gap-[15px] items-center space-x-4 p-[20px] filter_clear">
+      <a
+        rel="nofollow"
+        href="{{ routes.all_products_collection_url }}?sort_by={{ collection.sort_by }}"
+        class="!m-0 w-full h-[50px]"
+      >
+        {%- render 'btn-secondary', src: 'Clear filters', class: 'w-full', icon: 'icon-trash.svg' -%}
+      </a>
+    </div>
+  </form>
+</div>
+
+<script>
+  const rangeInput = document.querySelectorAll('.range-input input'),
+    priceInput = document.querySelectorAll('.price-input input'),
+    progress = document.querySelector('.slider .progress');
+
+  let priceGap = 1;
+
+  rangeInput.forEach((input) => {
+    input.addEventListener('input', (e) => {
+      let minVal = parseInt(rangeInput[0].value),
+        maxVal = parseInt(rangeInput[1].value);
+
+      if (maxVal - minVal < priceGap) {
+        if (e.target.className === 'range-min') {
+          rangeInput[1].value = minVal + priceGap;
+        } else {
+          rangeInput[0].value = maxVal - priceGap;
+        }
+        minVal = parseInt(rangeInput[0].value);
+        maxVal = parseInt(rangeInput[1].value);
+      }
+
+      if (maxVal - minVal < priceGap) {
+        if (e.target.className === 'range-min') {
+          rangeInput[0].value = maxVal - priceGap;
+        } else {
+          rangeInput[1].value = minVal + priceGap;
+        }
+        minVal = parseInt(rangeInput[0].value);
+        maxVal = parseInt(rangeInput[1].value);
+      }
+
+      priceInput[0].value = minVal;
+      priceInput[1].value = maxVal;
+      progress.style.left = (minVal / rangeInput[1].max) * 100 + '%';
+      progress.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + '%';
+    });
+  });
+</script>

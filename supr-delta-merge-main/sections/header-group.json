@@ -1,0 +1,99 @@
+{
+  "name": "Header Group",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega-menu-2": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "1",
+            "mega_left": "collection_list",
+            "mega_right": "products",
+            "left_title": "SHOP",
+            "featured_menu": "main-menu",
+            "featured_collections": [
+              "bicycles",
+              "apparels",
+              "e-bikes",
+              "accessories",
+              "trending"
+            ],
+            "right_title": "Trending News",
+            "products_slider": "bicycles",
+            "featured_article": "",
+            "banner_title": "",
+            "banner_text_align": "center",
+            "banner_button_text": "",
+            "banner_button_url": ""
+          }
+        },
+        "mega-menu-5": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "4",
+            "mega_left": "contact_info",
+            "mega_right": "right_banner",
+            "left_title": "Support",
+            "featured_menu": "main-menu",
+            "featured_collections": [
+              "bicycles"
+            ],
+            "right_title": "Trending News",
+            "image": "shopify:\/\/shop_images\/mega-banner.jpg",
+            "products_slider": "",
+            "featured_article": "",
+            "banner_title": "GET SERVICING AT YOUR DOOORSTEP",
+            "banner_text_align": "center",
+            "banner_button_text": "Contact Us",
+            "banner_button_url": "shopify:\/\/pages\/contact"
+          }
+        },
+        "mega-menu-7": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "6",
+            "mega_left": "default",
+            "mega_right": "article",
+            "left_title": "Legal",
+            "featured_menu": "main-menu",
+            "featured_collections": [
+              "bicycles"
+            ],
+            "right_title": "Trending News",
+            "products_slider": "",
+            "featured_article": "news\/the-bike-that-makes-you-wild-1",
+            "banner_title": "GET SERVICING AT YOUR DOORSTEP",
+            "banner_text_align": "center",
+            "banner_button_text": "Contact Us",
+            "banner_button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega-menu-2",
+        "mega-menu-5",
+        "mega-menu-7"
+      ],
+      "settings": {
+        "header_height": 80,
+        "margin_bottom": 0,
+        "sticky_header": true,
+        "header_bg": "#3a3a3a",
+        "header_content_color": "#ffffff",
+        "mega_menu_bg":"#3A3A3A",
+        "link_icon_1": "shopify:\/\/shop_images\/link_icon_1.png",
+        "link_icon_2": "shopify:\/\/shop_images\/link_icon_2.png",
+        "link_icon_3": "shopify:\/\/shop_images\/link_icon_3.png",
+        "link_icon_4": "shopify:\/\/shop_images\/link_icon_4.png",
+        "link_icon_5": "shopify:\/\/shop_images\/link_icon_5.png",
+        "link_icon_6": "shopify:\/\/shop_images\/link_icon_6.png",
+        "link_icon_7": "shopify:\/\/shop_images\/link_icon_7.png"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

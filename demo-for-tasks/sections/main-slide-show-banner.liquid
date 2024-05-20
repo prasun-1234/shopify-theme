@@ -1,0 +1,231 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'slide-show-style.css' | asset_url | stylesheet_tag }}
+{{ 'custom-section-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="main-slide-show-section section-{{ section.id }}-padding">
+  <div class="main-slide ">
+    <div class="swiper bannerSlide   ">
+      <div class="swiper-wrapper ">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image_block' %}
+              <div class="swiper-slide swiper-slide-card  {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {% render 'slider-first', block: block, settings: settings %}
+              </div>
+            {% when 'video_block' %}
+              <div class="swiper-slide swiper-slide-card swiper-slider-video {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {% render 'slider-video', block: block, settings: settings %}
+              </div>
+              {% comment %}
+                {% when 'collection_block' %}
+                <div class="swiper-slide swiper-slide-card swiper-slider-video {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                  {% render 'slider-collection', block: block, settings: settings %}
+                </div>
+              {% endcomment %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="swiper-button-next slider-next">
+        {% render 'new-icon-arrow' %}
+      </div>
+      <div class="swiper-button-prev slider-prev">
+        {% render 'new-icon-arrow' %}
+      </div>
+      <div class="swiper-pagination banner-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "slide show section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+
+      "label": "Background video"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "image blocks",
+      "type": "image_block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "image"
+        },
+        {
+          "type": "text",
+          "id": "offer_header",
+          "label": "Current offer text"
+        },
+        {
+          "type": "text",
+          "id": "offer_para_text",
+          "label": "Offer Para"
+        },
+        {
+          "type": "text",
+          "id": "collection_button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "collection",
+          "id": "collection1",
+          "label": "Collection"
+        }
+      ]
+    },
+    {
+      "name": "video blocks",
+      "type": "video_block",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "video block"
+        },
+        {
+          "type": "text",
+          "id": "offer_text",
+          "label": "Current offer text"
+        },
+        {
+          "type": "text",
+          "id": "offer_para",
+          "label": "Offer Para"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+    {
+      "name": "collection block",
+      "type": "collection_block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "featured_slider_image",
+          "label": "Featured image"
+        },
+        {
+          "type": "text",
+          "id": "custom_font_text",
+          "label": "custom font text"
+        },
+        {
+          "type": "text",
+          "id": "product_description_text",
+          "label": "Product description text"
+        },
+        {
+          "type": "text",
+          "id": "slider_collection_button_text",
+          "label": "Product description text"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Select Card product"
+        },
+        {
+          "type": "collection",
+          "id": "collection2",
+          "label": "Collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slideShow = new Swiper('.bannerSlide', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      pagination: {
+        el: '.bannerSlide .swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        320: {
+          spaceBetween: 16,
+        },
+        640: {
+          spaceBetween: 16,
+        },
+        768: {
+          spaceBetween: 20,
+        },
+
+        1366: {
+          slidesPerView: 1,
+          spaceBetween: 40,
+        },
+      },
+    });
+  });
+</script>

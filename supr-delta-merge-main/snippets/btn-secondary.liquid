@@ -1,0 +1,59 @@
+{% if color != blank and wrapper != blank %}
+  {% style %}
+     #{{ wrapper }} .btn-secondary {
+      border: var(--button-border-thickness) solid {{ color }} !important;
+      color:{{ color }} !important;
+    }
+     #{{ wrapper }} .btn-secondary svg:not(.stroke) path{
+      fill:{{ color }} !important;
+    }
+     #{{ wrapper }} .btn-secondary svg.stroke path{
+      stroke:{{ color }} !important;
+    }
+  {% endstyle %}
+{% endif %}
+
+<button
+  type="{% if type == 'submit' %}submit{%  elsif type == "reset" %}reset{% else %}button{% endif %}"
+  {{ attr }}
+  data-wrapper="{{ wrapper }}"
+  class="{{ class }} border flex items-center justify-center py-[10px] px-[32px]  font-semibold duration-300 ease-in-out overflow-hidden group/btn-secondary btn-secondary h-[48px]"
+>
+  <span class="overlay absolute left-0 top-0 w-0 h-full skew-x-6 duration-300 ease-in-out z-10 opacity-0"></span>
+  <span class="relative w-fit flex items-center justify-center z-50 h-full">
+    {{ src }}
+
+    {% if settings.btn_secondary_icon != blank or icon != blank or custom_icon != blank %}
+      <span class="pl-4 relative">
+        {% for i in (1..2) %}
+          {% liquid
+            if forloop.index == 1
+              assign class = 'absolute top-0 left-0 opacity-0 group-hover/btn-secondary:left-6 group-hover/btn-secondary:opacity-100 duration-300 !w-[20px] h-[16px] ease-in-out stroke'
+            else
+              assign class = 'group-hover/btn-secondary:opacity-0 group-hover/btn-secondary:translate-x-10 duration-300 ease-in-out stroke !w-[20px] h-[16px]'
+            endif
+          %}
+          {% if icon != blank %}
+            <img
+              src="{{ icon | asset_url }}"
+              alt="icon"
+              width="100"
+              height="100"
+              loading="lazy"
+              class="{{ class }}"
+            >
+          {% elsif custom_icon != blank %}
+            {{ custom_icon | image_url: width: 100 | image_tag: class: class }}
+
+          {% else %}
+            {% if settings.btn_secondary_icon != blank %}
+              {{ settings.btn_secondary_icon | image_url: width: 100 | image_tag: class: class }}
+            {% else %}
+
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </span>
+    {% endif %}
+  </span>
+</button>

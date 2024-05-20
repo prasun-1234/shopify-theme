@@ -1,0 +1,126 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega-menu-0": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "0",
+            "mega_top": "top_banner",
+            "mega_bottom": "menu_select",
+            "top_title": "",
+            "featured_blog": "",
+            "map_embed": "",
+            "image": "shopify:\/\/shop_images\/mega-menu-1.jpg",
+            "banner_title": "",
+            "banner_url": "https:\/\/www.instagram.com\/",
+            "left_title": "Support",
+            "featured_menu": "menu-1",
+            "featured_collections": [
+
+            ]
+          }
+        },
+        "mega-menu-1": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "1",
+            "mega_top": "top_banner",
+            "mega_bottom": "menu_select",
+            "top_title": "",
+            "featured_blog": "",
+            "map_embed": "",
+            "image": "shopify:\/\/shop_images\/mega-img-2.jpg",
+            "banner_title": "",
+            "banner_url": "https:\/\/www.instagram.com\/",
+            "left_title": "Support",
+            "featured_menu": "footer",
+            "featured_collections": [
+
+            ]
+          }
+        },
+        "mega-menu-2": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "3",
+            "mega_top": "blog",
+            "mega_bottom": "collection_list",
+            "top_title": "",
+            "featured_blog": "news",
+            "map_embed": "",
+            "banner_title": "Random Title",
+            "banner_url": "",
+            "left_title": "Support",
+            "featured_menu": "main-menu",
+            "featured_collections": [
+
+            ]
+          }
+        },
+        "mega-menu-3": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "2",
+            "mega_top": "map",
+            "mega_bottom": "contact_info",
+            "top_title": "",
+            "featured_blog": "",
+            "map_embed": "",
+            "banner_title": "",
+            "banner_url": "",
+            "left_title": "Support",
+            "featured_menu": "",
+            "featured_collections": [
+
+            ]
+          }
+        },
+        "mega-menu-4": {
+          "type": "mega-item",
+          "settings": {
+            "menu_index": "4",
+            "mega_top": "top_banner",
+            "mega_bottom": "menu_select",
+            "top_title": "",
+            "featured_blog": "",
+            "map_embed": "",
+            "image": "shopify:\/\/shop_images\/shifaaz-shamoon-vpQDPDDnDGY-unsplash.jpg",
+            "banner_title": "",
+            "banner_url": "https:\/\/www.instagram.com\/",
+            "left_title": "Support",
+            "featured_menu": "legal",
+            "featured_collections": [
+
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "mega-menu-0",
+        "mega-menu-1",
+        "mega-menu-2",
+        "mega-menu-3",
+        "mega-menu-4"
+      ],
+      "settings": {
+        "margin_bottom": 0,
+        "hamburger_img": "shopify:\/\/shop_images\/mega_bg_img.jpg",
+        "sticky_header": true,
+        "header_bg_opacity": 35,
+        "header_bg_blur": 8,
+        "header_bg": "#3a3a3a",
+        "header_content_color": "#ffffff",
+        "logo_overlay": true,
+        "link_icon_1": "",
+        "link_icon_2": ""
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

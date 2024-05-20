@@ -1,0 +1,65 @@
+{{ 'instagram-section-style.css' | asset_url | stylesheet_tag }}
+
+<div class="instagram-section-main page-width">
+  <div class="insta-header">
+    {% render 'instagram' %}
+    {% if section.settings.header_title != blank %}
+      <h2>{{ section.settings.header_title }}</h2>
+    {% endif %}
+  </div>
+  <div class="insta-banner">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'instagram-block' %}
+          <div class="banner-image">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 1024 | image_tag }}
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+  <div class="insta-link">
+    {% if section.settings.header_title != blank %}
+      <p class="link-para">{{ section.settings.header_title }}</p>
+    {% endif %}
+    {% if section.settings.insta_link != blank %}
+      <a href="{{ section.settings.insta_link }}" class="link-para">@luxecarry</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "instagram section",
+  "tag": "section",
+  "class": "instagram-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_title",
+      "label": "Title",
+      "default": "Follow us on Instagram"
+    },
+    {
+      "type": "text",
+      "id": "insta_link",
+      "label": "Instagram Link",
+      "default": "@luxecarry"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "insta block",
+      "type": "instagram-block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "custom image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

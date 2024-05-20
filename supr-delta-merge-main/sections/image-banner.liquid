@@ -1,0 +1,222 @@
+{% style %}
+  @media only screen and (max-width:980px){
+    #image-{{ section.id }}-banner{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+  #image-{{ section.id }}-banner .image-banner-inner{
+    padding-top:{{ section.settings.section_padding }}px;
+    padding-bottom:{{ section.settings.section_padding }}px;
+  }
+  @media screen and (max-width:980px){
+    #image-{{ section.id }}-banner .image-banner-inner{
+    padding-top:60px;
+    padding-bottom:60px;
+  }
+  }
+{% endstyle %}
+
+<section
+  id="image-{{ section.id }}-banner"
+  class="!bg-cover !bg-center scroll-animation"
+  style="
+    margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px; {% if section.settings.background_image != blank %}
+      background: url('{{ section.settings.background_image | image_url }}');
+    {% endif %}
+  "
+>
+  <div
+    class="flex justify-center relative overflow-hidden image-banner-inner"
+  >
+    {% if section.settings.enabled_video == true and section.settings.video != blank %}
+      <div class="absolute top-0 left-0 w-full h-full z-20">
+        {{
+          section.settings.video
+          | video_tag: class: 'object-cover h-full w-full', autoplay: true, loop: true, muted: true, controls: false
+        }}
+      </div>
+    {% endif %}
+
+    <span
+      class="banner-overlay absolute left-0 top-0 w-full h-full z-30"
+      style="background-color:{{ section.settings.overlay_color }}; opacity:calc({{ section.settings.overlay_opacity }}/10);"
+    ></span>
+
+    <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto relative z-50">
+      <div class="z-20 text-center relative flex flex-col gap-[40px]">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'banner_title' %}
+              <div {{ block.shopify_attributes }} class="banner_title" id="{{ block.id }}">
+                {% style %}
+                  #image-{{ section.id }}-banner .banner_title#{{ block.id }} *{
+                    color:{{ block.settings.banner_heading_color }} !important;
+                  }
+                {% endstyle %}
+                <h4 class="body-font !text-lg pb-5">
+                  {{ block.settings.banner_paragraph }}
+                </h4>
+                {% if block.settings.banner_heading != blank %}
+                  <span class="relative">
+                    {{ block.settings.banner_heading }}
+                  </span>
+                {% else %}
+                  {{ 'image-banner.banner_title' | t }}
+                {% endif %}
+              </div>
+            {% when 'banner_button' %}
+              <a
+                class="flex justify-center w-fit mx-auto"
+                rel="nofollow"
+                href="{{ block.settings.banner_button_url }}"
+                {{ block.shopify_attributes }}
+              >
+                {% render 'btn-primary', src: block.settings.banner_button_text %}
+              </a>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.image-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.image-banner.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.image-banner.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "t:section.image-banner.settings.section_padding.label",
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.image-banner.settings.overlay_color",
+      "default": "#253237"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.image-banner.settings.overlay_opacity",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.image-banner.settings.background_image.label",
+      "info": "t:section.image-banner.settings.background_image.info"
+    },
+    {
+      "type": "header",
+      "content": "t:section.image-banner.settings.header.video"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled_video",
+      "label": "t:section.image-banner.settings.enabled_video.label",
+      "info": "t:section.image-banner.settings.enabled_video.info"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:section.image-banner.settings.video"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.image-banner.blocks.banner_title.name",
+      "type": "banner_title",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "banner_heading",
+          "label": "t:section.image-banner.blocks.banner_title.settings.banner_heading",
+          "default": "<p> Get 30% off and free delivery, <br> our monsoon sale is live now </p>"
+        },
+        {
+          "type": "text",
+          "id": "banner_paragraph",
+          "label": "t:section.image-banner.blocks.banner_para.settings.banner_paragraph",
+          "default": "Monsoon sale"
+        },
+        {
+          "type": "color",
+          "id": "banner_heading_color",
+          "label": "t:section.image-banner.blocks.banner_title.settings.banner_heading_color",
+          "default": "#FFFFFF"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "name": "t:section.image-banner.blocks.banner_button.name",
+      "type": "banner_button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_button_text",
+          "label": "t:section.image-banner.blocks.banner_button.settings.banner_button_text",
+          "default": "Explore Collection"
+        },
+        {
+          "type": "url",
+          "id": "banner_button_url",
+          "label": "t:section.image-banner.blocks.banner_button.settings.banner_button_url"
+        }
+      ],
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.image-banner.presets.name",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_padding": 100,
+        "overlay_color": "#000",
+        "overlay_opacity": 4
+      },
+      "blocks": [
+        {
+          "type": "banner_title"
+        },
+        {
+          "type": "banner_button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

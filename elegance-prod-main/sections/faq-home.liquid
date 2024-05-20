@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="{{ 'faq-home.css' | asset_url }}">
+
+<section
+  class="faq-main"
+  style="text-align: {% case section.settings.text_align %} {% when 'left' %}left{% when 'center' %}center{% when 'right' %}right{% else %}{% endcase %};"
+>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} cta-container"
+  >
+    <h3 class="section-title" style="font-size:{{ section.settings.title_size }}px;">{{ section.settings.title }}</h3>
+    <div class="accordion-section">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'faq' %}
+            <div class="faq-div" tabindex="0" {{ block.shopify_attributes }}>
+              <div class="faq-inner">
+                <div class="faq-title">
+                  {% render 'icon-arrow-long', class: 'svg-left' %}
+                  <h3 style="font-size:{{ block.settings.faq_title_size }}px;">
+                    {{ block.settings.faq_title | truncatewords: 20 }}
+                  </h3>
+                  {% render 'icon-arrow-long', class: 'svg-right' %}
+                </div>
+                <div class="faq-content">
+                  <p>{{ block.settings.faq_text }}</p>
+                </div>
+              </div>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.faq-home.name",
+  "settings": [
+    {
+      "type": "text",
+      "label": "t:sections.faq-home.settings.title.label",
+      "id": "title",
+      "default": "FAQ"
+    },
+    {
+      "type": "range",
+      "label": "t:sections.faq-home.settings.title_size.label",
+      "id": "title_size",
+      "min": 70,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "default": "center",
+      "label": "t:sections.faq-home.settings.text_align.label",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.faq-home.settings.text_align.options.option_1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.faq-home.settings.text_align.options.option_2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.faq-home.settings.text_align.options.option_3.label"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.faq-home.blocks.name",
+      "limit": 5,
+      "type": "faq",
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.faq-home.blocks.settings.faq_title.label",
+          "id": "faq_title",
+          "default": "Choose the best skin care routine"
+        },
+        {
+          "type": "range",
+          "id": "faq_title_size",
+          "min": 40,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 56,
+          "label": "t:sections.faq-home.blocks.settings.faq_title_size.label"
+        },
+        {
+          "type": "textarea",
+          "label": "t:sections.faq-home.blocks.settings.faq_text.label",
+          "id": "faq_text",
+          "default": "Mus mauris vitae ultricies leo. Sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque eu. Malesuada fames ac turpis egestas sed tempus urna et. Tempus quam pellentesque nec nam aliquam sem et. Eros donec ac odio tempor orci dapibus ultrices. Massa placerat duis ultricies lacus sed turpis tincidunt. Pharetra vel turpis nunc eget lorem. Eros donec ac odio tempor. Maecenas pharetra convallis posuere morbi leo urna molestie at. Nisl rhoncus mattis rhoncus urna neque viverra. Nisi porta lorem mollis aliquam ut porttitor leo a diam. Augue eget arcu dictum varius duis at consectetur lorem donec."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq-home.presets.name",
+      "settings": {
+        "title": "FAQ",
+        "title_size": 100,
+        "text_align": "center"
+      },
+      "blocks": [
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}

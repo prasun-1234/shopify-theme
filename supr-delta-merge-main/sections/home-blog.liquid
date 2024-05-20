@@ -1,0 +1,182 @@
+{% style %}
+  .blog.swiper-button-next {
+    left: 80px;
+  }
+  @media only screen and (max-width: 980px){
+    #home-blog{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+    }
+{% endstyle %}
+{% assign blog = section.settings.featured_blog %}
+<section
+  id="home-blog"
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+>
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    {% if blog != blank %}
+      <div class="relative {% if section.settings.slider_or_grid == 'grid' %}product-grid-view-inner{% endif %}">
+        {% assign item_number = section.settings.post_row_limit | plus: 0 %}
+        <h2 class="mb-[20px] absolute left-0 top-0 z-20   sm:w-0 w-full sm:text-left text-center">
+          {{ blog.title | escape }}
+        </h2>
+        {% if section.settings.slider_or_grid == 'grid' %}
+          <ul class="grid gap-5 !pt-[100px] {% if item_number == 1 %}grid-cols-1 2xl:mx-[400px] {% elsif item_number == 2 %}md:grid-cols-2 grid-cols-1 mx-0{%elsif item_number == 3 %}lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-0{% endif %}">
+            {% for article in blog.articles %}
+              <li class="col-span-1">
+                {%- render 'article-card',
+                  article: article,
+                  show_date: section.settings.show_date,
+                  show_author: section.settings.show_author,
+                  class: 'article-card'
+                %}
+              </li>
+            {% endfor %}
+          </ul>
+
+        {% elsif section.settings.slider_or_grid == 'slider' %}
+          <div
+            class="swiper homeBlogSwiper !pb-[80px] lg:!pb-[60px] !pt-[60px] md:!pt-[80px]"
+            data-count="{{ item_number }}"
+          >
+            <div class="swiper-wrapper">
+              {% for article in blog.articles %}
+                <div class="swiper-slide">
+                  {%- render 'article-card',
+                    article: article,
+                    show_date: section.settings.show_date,
+                    show_author: section.settings.show_author,
+                    class: 'article-card'
+                  %}
+                </div>
+              {% endfor %}
+            </div>
+            {% if settings.btn_style == 'style-1' %}
+              <div class="absolute blog-btn  justify-between xl:justify-start top-[25%] sm:top-[35%] xl:top-[30px]  md:right-0 w-full xl:w-auto flex items-center gap-[15px] pr-[5px] h-[32px] slider-5">
+                <div class="slider-2-button swiper-button-prev !left-[2px] !top-auto !relative">
+                  {% render 'btn-swiper', class: 'rotate-180' %}
+                </div>
+                <div class="slider-2-button swiper-button-next !right-auto !top-auto !relative">
+                  {% render 'btn-swiper' %}
+                </div>
+              </div>
+            {% else %}
+              <div class="absolute blog-btn justify-between w-full flex items-center top-[40%] gap-[15px] slider-5">
+                <div class="slider-2-button swiper-button-prev !left-0 !top-auto !relative">
+                  {% render 'btn-swiper', class: 'rotate-180' %}
+                </div>
+                <div class="slider-2-button swiper-button-next !right-0 !top-auto !relative">
+                  {% render 'btn-swiper' %}
+                </div>
+              </div>
+            {% endif %}
+            <div class="swiper-pagination mt-[40px]"></div>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <h2>{{ 'home-blog.no_blogs' | t }}</h2>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.home-blog.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "label": "t:section.home-blog.settings.section_margin_top"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 60,
+      "label": "t:section.home-blog.settings.section_margin_bottom"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.home-blog.settings.background_color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "blog",
+      "id": "featured_blog",
+      "label": "t:section.home-blog.settings.featured_blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:section.home-blog.settings.show_date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "t:section.home-blog.settings.show_author"
+    },
+    {
+      "type": "range",
+      "id": "post_row_limit",
+      "label": "t:section.home-blog.settings.post_row_limit",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:section.home-blog.settings.product_view.content"
+    },
+    {
+      "type": "radio",
+      "id": "slider_or_grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:section.home-blog.settings.slider_or_grid.options.grid"
+        },
+        {
+          "value": "slider",
+          "label": "t:section.home-blog.settings.slider_or_grid.options.slider"
+        }
+      ],
+      "label": "t:section.home-blog.settings.slider_or_grid.label"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 9,
+      "step": 1,
+      "default": 9,
+      "label": "t:section.home-blog.settings.product_limit"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.home-blog.presets.name",
+      "settings": {
+        "background_color": "#FFFFFF",
+        "featured_blog": "news",
+        "show_date": true,
+        "show_author": true,
+        "post_row_limit": 3,
+        "slider_or_grid": "slider",
+        "product_limit": 9
+      }
+    }
+  ]
+}
+{% endschema %}

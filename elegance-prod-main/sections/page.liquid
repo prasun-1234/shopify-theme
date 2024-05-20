@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="{{ 'page.css' | asset_url }}">
+
+{% style %}
+  #{{ section.id }} .page-image{
+    height:{{ section.settings.image_height }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }} .page-image{
+    height:{{ section.settings.image_height | divided_by: 1.5 }}px;
+  }
+  }
+{% endstyle %}
+
+<section
+  id="{{ section.id }}"
+  style="margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px;"
+>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    {% if section.settings.page != blank %}
+      <div class="page-inner">
+        <a href="{{ section.settings.page.url }}">
+          <h2>{{ section.settings.page.title }}</h2>
+        </a>
+        {% if section.settings.page.content != blank %}
+          <span class="page-description">{{ section.settings.page.content }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if section.settings.section_image != blank %}
+      <figure class="page-image">
+        {{ section.settings.section_image | image_url: width: 1000 | image_tag }}
+      </figure>
+    {% else %}
+      <figure class="page-image" style="height:{{ section.settings.image_height }}px;">
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      </figure>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.page.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:sections.page.settings.margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:sections.page.settings.margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "page",
+      "id": "page",
+      "label": "t:sections.page.settings.page"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "t:sections.page.settings.section_image"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "t:sections.page.settings.image_height",
+      "max": 800,
+      "min": 400,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.page.name"
+    }
+  ]
+}
+{% endschema %}

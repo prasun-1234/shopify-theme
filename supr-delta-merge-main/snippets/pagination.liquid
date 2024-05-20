@@ -1,0 +1,103 @@
+{% case settings.btn_style %}
+  {% when 'style-1' %}
+    {% if pagination.pages > 0 %}
+      {% style %}
+        .pagi-active {
+          background-color: var(--global-font-color) !important;
+          color: var(--body-background) !important;
+        }
+      {% endstyle %}
+      <div class="flex justify-center mt-[20px]">
+        <nav>
+          <ul class="flex list-style-none items-center">
+            <li>
+              {% if pagination.previous %}
+                <a
+                  rel="nofollow"
+                  href="{{ pagination.previous.url }}"
+                >
+                  {% render 'btn-swiper', class: 'rotate-180' %}
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="relative py-1.5 px-[20px] font-normal text-base flex gap-[30px]">
+              {% for part in pagination.parts %}
+                {% if part.is_link %}
+                  <a
+                    rel="nofollow"
+                    href="{{ part.url }}"
+                    class="duration-150 ease-in-out hover:opacity-70 py-[3px] cursor-pointer"
+                  >
+                    {{- part.title -}}
+                  </a>
+                {% else %}
+                  <span class="duration-150 ease-in-out hover:opacity-70 px-[15px] py-[3px] rounded-full w-[40px] pagi-active flex justify-center items-center">
+                    {{- part.title -}}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </li>
+
+            <li>
+              {% if pagination.next %}
+                <a rel="nofollow" class="duration-150 ease-in-out hover:opacity-80" href="{{ pagination.next.url }}">
+                  {% render 'btn-swiper' %}
+                </a>
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
+      </div>
+    {% endif %}
+
+  {% when 'style-2' %}
+    {% if pagination.pages > 0 %}
+      <div class="flex justify-center sm:mt-[20px] ">
+        <nav>
+          <ul class="flex list-style-none items-center">
+            <li>
+              {% if pagination.previous %}
+                <a
+                  class=""
+                  rel="nofollow"
+                  href="{{ pagination.previous.url }}"
+                >
+                  {% render 'btn-pagi', class: 'rotate-180 prev' %}
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="relative py-1.5 px-[30px] font-semibold flex items-center gap-[40px]">
+              {% for part in pagination.parts %}
+                {% if part.is_link %}
+                  <a
+                    rel="nofollow"
+                    href="{{ part.url }}"
+                    class="duration-150 ease-in-out opacity-50 hover:opacity-100 !text-lg cursor-pointer leading-none"
+                  >
+                    {{- part.title -}}
+                  </a>
+                {% else %}
+                  <span class="duration-150 ease-in-out pagi-active !text-lg leading-none">
+                    {{- part.title -}}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </li>
+
+            <li>
+              {% if pagination.next %}
+                <a rel="nofollow" class="duration-150 ease-in-out " href="{{ pagination.next.url }}">
+                  {% render 'btn-pagi' %}
+                </a>
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
+      </div>
+    {% endif %}
+
+  {% else %}
+
+{% endcase %}

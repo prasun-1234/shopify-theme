@@ -1,0 +1,56 @@
+{
+    "sections": {
+      "breadcrumb": {
+        "type": "breadcrumb",
+        "settings": {
+          "section_margin_top": 40,
+          "section_margin_bottom": 40,
+          "text_color": "#CBD5E1"
+        }
+      },
+      "slide-show-section": {
+        "type": "main-slide-show-banner",
+        "settings": {
+          "padding_bottom": 36,
+          "padding_top": 36
+        },
+        "blocks": {
+          "image-block": {
+            "type": "image_block",
+            "settings": {
+              "image_1": "shopify://shop_images/slider-bg.jpg",
+              "image_2": "shopify://shop_images/slider-bg.jpg",
+              "offer_header": "10% off on Purse",
+              "offer_para_text": "sale is live now",
+              "collection_button_text": "View Collection",
+              "collection1": "Womens-Collection"
+            }
+          },
+          "video-block": {
+            "type": "video_block",
+            "settings": {
+              "video": "shopify://files/videos/SLIDER-VIDEO.mp4",
+              "offer_text": "Get 10% off on Purse",
+              "offer_para": "women’s day sale is live now",
+              "button_text": "View Collection",
+              "collection": "Womens-Collection"
+            }
+          },
+          "collection-block": {
+            "type": "collection_block",
+            "settings": {
+              "custom_font_text": "the bag",
+              "slider_collection_button_text": "View Collection",
+              "product_description_text": "Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet.",
+              "featured_slider_image": "shopify://shop_images/bag.webp",
+              "product": "hand-purse",
+              "collection2": "Womens-Collection"
+            }
+          }
+        },
+        "block_order": ["image-block", "video-block", "collection-block"]
+      }
+    },
+    "order": ["breadcrumb", "slide-show-section"]
+  }
+  

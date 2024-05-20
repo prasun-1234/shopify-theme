@@ -1,0 +1,67 @@
+<article>
+  <div>
+    <button
+      class="accordion-button bg-secondary w-full rounded-md sm:py-[32px] py-5 lg:px-[80px] sm:px-[60px] px-5"
+      onclick="toggleAccordion(this)"
+      data-bgColor="{{ '#E4E1DF' | color_modify: 'alpha', 0.85 }}"
+      aria-controls="{{ block.id }}"
+    >
+      <div class="flex justify-between items-center">
+        <h3 class="sm:font-medium lg:text-[40px] sm:text-[30px] text-[22px] leading-none md:tracking-[0.08em] sm:tracking-wider text-left">
+          {{ block.settings.faq_title }}
+        </h3>
+        <span class="accordion-icon  font-normal sm:text-[40px] text-[30px] leading-none">+</span>
+      </div>
+    </button>
+    <div
+      style="display: none;"
+      id="{{ block.id }}"
+      class="accordion-content hidden p-6 w-full lg:px-[80px] sm:px-[60px] px-[30px] bg-opacity-20 overflow-hidden "
+    >
+      <p class="text-base  font-normal">
+        {{ block.settings.faq_text }}
+      </p>
+    </div>
+  </div>
+</article>
+
+<script>
+  function toggleAccordion(button) {
+    const accordionContent = button.nextElementSibling;
+    const accordionIcon = button.querySelector('.accordion-icon');
+    const originalBgColor = '#F3F1F0';
+
+    // Store original background color in a data attribute
+
+    // Close all other accordions
+    const allAccordions = document.querySelectorAll('.accordion-content');
+    const allAccordionIcons = document.querySelectorAll('.accordion-icon');
+    const allAccordionButtons = document.querySelectorAll('.accordion-button');
+    allAccordions.forEach((content) => {
+      if (content !== accordionContent) {
+        content.style.display = 'none';
+      }
+    });
+    allAccordionIcons.forEach((icon) => {
+      if (icon !== accordionIcon) {
+        icon.textContent = '+';
+      }
+    });
+    allAccordionButtons.forEach((accordionButton) => {
+      if (accordionButton !== button) {
+        accordionButton.style.backgroundColor = originalBgColor; // Reset button background color
+      }
+    });
+
+    // Toggle the clicked accordion
+    if (accordionContent.style.display === 'none') {
+      accordionContent.style.display = 'block';
+      accordionIcon.textContent = '-';
+      button.style.backgroundColor = 'white'; // Change button background color
+    } else {
+      accordionContent.style.display = 'none';
+      accordionIcon.textContent = '+';
+      button.style.backgroundColor = originalBgColor; // Revert button background color
+    }
+  }
+</script>

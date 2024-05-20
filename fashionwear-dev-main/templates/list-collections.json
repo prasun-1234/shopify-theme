@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main_list_collection": {
+      "type": "main-list-collections",
+      "settings": {
+        "section_margin_top": 60,
+        "section_margin_bottom": 60,
+        "heading": "Collection",
+        "sort": "alphabetical",
+        "cards_height": 800,
+        "button_color": "#fff",
+        "image_position": 50,
+        "cards_to_show": 2,
+        "number_of_items": 6
+      }
+    }
+  },
+  "order": [
+    "main_list_collection"
+  ]
+}

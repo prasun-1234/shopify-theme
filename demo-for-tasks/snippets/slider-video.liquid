@@ -1,0 +1,20 @@
+<div
+  class="video-slider"
+  data="{{ block.settings.video }}"
+>
+  {% if block.settings.video != blank %}
+    {{ block.settings.video | video_tag: loop: true, autoplay: true, controls: false, class: 'slider-video' }}
+  {% endif %}
+  <span class="video-span">
+    <div class="span-content">
+      <h2 class="">{{ block.settings.offer_text | truncatewords }}</h2>
+      <p>{{ block.settings.offer_para | truncatewords }}</p>
+    </div>
+    <a
+      href="{{ block.settings.collection.url  }}"
+      class="collection-button"
+    >
+      {{ block.settings.button_text | truncatewords }}
+    </a>
+  </span>
+</div>

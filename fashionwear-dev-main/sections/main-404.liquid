@@ -1,0 +1,217 @@
+{% style %}
+  .section-background{
+    height: 120%;
+  }
+  #main404{
+    padding:{{ section.settings.section_padding }}px 0px;
+  }
+  @media screen and (max-width:980px) {
+    #main404{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+
+<section class="relative">
+  <span class="section-background w-full bottom-0 absolute left-0 pointer-events-none">
+    {% if section.settings.background != blank %}
+      {{
+        section.settings.background
+        | image_url: width: 1000
+        | image_tag: class: 'w-full h-full object-cover brightness-75'
+      }}
+    {% endif %}
+  </span>
+  <div
+    id="main404"
+    class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} z-10 relative mx-auto"
+    style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+  >
+    <div class="flex flex-col gap-5 items-center text-center">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'featured_image' %}
+            <div {{ block.shopify_attributes }} class="mb-[-2rem] lg:mb-[-7rem]">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'lg:h-[200px] h-[80px] object-contain sm:w-full w-auto'
+                }}
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'max-w-6xl w-full h-full' }}
+              {% endif %}
+            </div>
+          {% when '404_title' %}
+            <div {{ block.shopify_attributes }}>
+              <h2 class="!leading-none" style="color:{{ block.settings.error_heading_color }};">
+                {{ block.settings.error_heading }}
+              </h2>
+            </div>
+
+          {% when 'subtext_title' %}
+            <div
+              class="md:max-w-4xl w-full text-center relative"
+              style="color: {{ block.settings.error_paragraph_color }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.error_paragraph }}
+            </div>
+
+          {% when 'banner_button' %}
+            <div {{ block.shopify_attributes }} class="flex items-center gap-10">
+              {% style %}
+                .back-to-collection *{
+                  color: {{ block.settings.color }} !important;
+                }
+                .back-to-collection svg path{
+                  fill: {{ block.settings.color }};
+                }
+                .back-to-collection svg.stroke path{
+                  fill:transparent;
+                  stroke: {{ block.settings.color }};
+                }
+                .hover-link::before{
+                  background: var(--body-background) !important;
+                }
+              {% endstyle %}
+
+              <a href="{{ routes.root_url }}" rel="nofollow">
+                {% render 'btn-secondary', src: block.settings.banner_button_text %}
+              </a>
+              <div class="flex items-center justify-center gap-3 back-to-collection">
+                <a
+                  href="{{ routes.all_products_collection_url }}"
+                  rel="nofollow"
+                  class="flex items-center gap-3"
+                >
+                  {% render 'icon-cart', class: 'stroke w-5 h-5' %}
+                  {% render 'hover-link', src: 'Back to Shopping' %}
+                </a>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-404.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-404.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-404.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "t:section.main-404.settings.section_padding",
+      "max": 140,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "t:section.main-404.settings.background"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_image",
+      "name": "t:section.main-404.blocks.featured_image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.main-404.blocks.featured_image.settings.image",
+          "info": "t:section.main-404.blocks.featured_image.settings.png"
+        }
+      ]
+    },
+    {
+      "type": "404_title",
+      "name": "t:section.main-404.blocks.404_title.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "error_heading",
+          "label": "t:section.main-404.blocks.404_title.settings.error_heading",
+          "default": "Something Went wrong"
+        },
+        {
+          "type": "color",
+          "id": "error_heading_color",
+          "label": "t:section.main-404.blocks.404_title.settings.error_heading_color",
+          "default": "#333"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "type": "subtext_title",
+      "name": "t:section.main-404.blocks.subtext_title.name",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "error_paragraph",
+          "label": "t:section.main-404.blocks.subtext_title.settings.error_paragraph",
+          "default": "Body Text"
+        },
+        {
+          "type": "color",
+          "id": "error_paragraph_color",
+          "label": "t:section.main-404.blocks.subtext_title.settings.error_paragraph_color",
+          "default": "#333"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "name": "t:section.main-404.blocks.banner_button.name",
+      "type": "banner_button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_button_text",
+          "label": "t:section.main-404.blocks.banner_button.settings.banner_button_text",
+          "default": "Back to News"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "default": "#fff"
+        }
+      ],
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

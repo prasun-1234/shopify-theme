@@ -1,0 +1,19 @@
+.recommendations-swiper .swiper-slide .l-box{
+    padding: 0 !important;
+}
+.recommendations-swiper{
+    padding-bottom: 60px;
+}
+.related_title{
+    color: var(--primary-theme-color);
+    margin-bottom: 24px;
+}
+
+#recommendations-swiper .swiper-button-prev,#recommendations-swiper .swiper-button-next{
+    top: 42%;
+}
+
+#recommendations-swiper .swiper-pagination-bullet-active{
+    background-color: var(--primary-theme-color);
+}
+

@@ -1,0 +1,227 @@
+<link rel="stylesheet" href="{{ 'contact.css' | asset_url }}">
+
+<section class="contact-header">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="contact-wrapper">
+      <div class="form-div">
+        {% if section.settings.title != blank %}
+          <h2>{{ section.settings.title }}</h2>
+        {% else %}
+          <h2>{{ page.title }}</h2>
+        {% endif %}
+        {% if page.content != blank %}
+          <span>{{ page.content }}</span>
+        {% else %}
+          <p>{{ section.settings.description }}</p>
+        {% endif %}
+        {% form 'contact', class: 'contact-form-page' %}
+          {{ form.errors | default_errors }}
+          <div class="name">
+            <label for="name">{{ 'contact.form.name' | t }}</label>
+            <input
+              type="text"
+              name="contact[name]"
+              id="name"
+              placeholder="Name"
+            >
+          </div>
+          <div class="email">
+            <label for="email">{{ 'contact.form.email' | t }}</label>
+            <input
+              type="email"
+              name="contact[email]"
+              id="email"
+              placeholder="Email"
+            >
+          </div>
+          <div class="phone">
+            <label for="phone">{{ 'contact.form.phone' | t }}</label>
+            <input
+              type="tel"
+              name="contact[phone]"
+              id="phone"
+              placeholder="Phone-no."
+            >
+          </div>
+          <div class="message">
+            <label for="message">{{ 'contact.form.message' | t }}</label>
+            <textarea
+              name="contact[body]"
+              id="message"
+              placeholder="Your message.."
+            ></textarea>
+          </div>
+          <div class="submit theme-btn" tabindex="0">
+            <div class="btn-bg"></div>
+            <div class="btn-text">
+              <input type="submit" value="Send">
+            </div>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <h4 class="success-message" autofocus>{{ 'password.success-message' | t }}</h4>
+          {%- endif -%}
+        {% endform %}
+      </div>
+
+      <div class="contact-right">
+        <div class="contact-img" style="background-image: url('{{ section.settings.image_bg | image_url }}');">
+          <div class="img-overlay" style="background-color: {{ section.settings.overlay_color }};"></div>
+          {% if section.settings.image_bg == blank %}
+            <div class="placeholder_main">
+              {{ 'lifestyle-2' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          <div class="image-content">
+            {% if settings.footer_logo %}
+              <img
+                alt="Footer Logo"
+                srcset="
+                  {%- if settings.footer_logo.width >= 375 -%}
+                    {{ settings.footer_logo | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 550 -%}
+                    {{ settings.footer_logo | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 750 -%}
+                    {{ settings.footer_logo | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1100 -%}
+                    {{ settings.footer_logo | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1500 -%}
+                    {{ settings.footer_logo | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 1780 -%}
+                    {{ settings.footer_logo | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 2000 -%}
+                    {{ settings.footer_logo | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 3000 -%}
+                    {{ settings.footer_logo | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if settings.footer_logo.width >= 3840 -%}
+                    {{ settings.footer_logo | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ settings.footer_logo | image_url }} {{ settings.footer_logo.width }}w
+                "
+                sizes="auto"
+                src="{{ settings.footer_logo | image_url }}"
+                loading="lazy"
+                class="contact-logo"
+                alt="{{ settings.footer_logo.alt | escape }}"
+                width="100"
+                height="100"
+              >
+            {% else %}
+              <h1>{{ shop.name }}</h1>
+            {% endif %}
+            <div class="address-div">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'address' %}
+                    <div class="address" {{ block.shopify_attributes }}>
+                      <p style="color:{{ section.settings.image_content_color }}" class="address_title">
+                        {{ block.settings.location_name }}
+                      </p>
+                      <p style="color:{{ section.settings.image_content_color }}" class="address_location">
+                        {{ block.settings.location_address }}
+                      </p>
+                      <p style="color:{{ section.settings.image_content_color }}">
+                        <span class="address_city">
+                          {{- block.settings.location_city }},
+                          <span class="address_pin">{{ block.settings.location_pin }}</span>
+                        </span>
+                      </p>
+                    </div>
+                  {% else %}
+
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "url": "{{ shop.url }}",
+    "logo": "{{ settings.logo }}",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+918556254815",
+      "contactType": "Technical support",
+      "areaServed": "US",
+      "availableLanguage": "en"
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.contact.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Contact Us",
+      "label": "t:sections.contact.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Tell us more about yourself and what you have in mind",
+      "label": "t:sections.contact.settings.description.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "t:sections.contact.settings.image_bg.label"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000",
+      "label": "t:sections.contact.settings.overlay_color.label"
+    },
+    {
+      "type": "color",
+      "id": "image_content_color",
+      "default": "#fff",
+      "label": "t:sections.contact.settings.image_content_color.label"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.contact.blocks.name",
+      "type": "address",
+      "settings": [
+        {
+          "type": "text",
+          "id": "location_name",
+          "default": "Mid-town Mall",
+          "label": "t:sections.contact.blocks.settings.location_name.label"
+        },
+        {
+          "type": "text",
+          "id": "location_address",
+          "label": "t:sections.contact.blocks.settings.location_address.label",
+          "default": "Lorem street,  Lorem Corner"
+        },
+        {
+          "type": "text",
+          "id": "location_city",
+          "default": "New York",
+          "label": "t:sections.contact.blocks.settings.location_city.label"
+        },
+        {
+          "type": "number",
+          "id": "location_pin",
+          "default": 83023,
+          "label": "t:sections.contact.blocks.settings.location_pin.label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2
+}
+{% endschema %}

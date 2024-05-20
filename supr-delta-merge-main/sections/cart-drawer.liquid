@@ -1,0 +1,327 @@
+{% style %}
+  .active {
+    height: auto;
+  }
+  .rotate {
+    transform: rotate(45deg);
+  }
+
+  .cart_drawer_main svg path {
+    fill: var(--global-font-color);
+  }
+
+  .cart-drawer-inner {
+    background-color: var(--body-background);
+  }
+  .cart-drawer-inner::-webkit-scrollbar {
+    width: 0px !important;
+  }
+  #cart-drawer-billing .btn-secondary {
+    border: var(--button-border-thickness) solid var(--global-font-color) !important;
+    color: var(--global-font-color) !important;
+  }  
+  @media screen (min-width: 540px) and (max-width: 980px) {
+    .cart-drawer-inner {
+      border-radius: var(--button-radius);
+    }
+  }
+{% endstyle %}
+
+<section
+  id="cartDrawer"
+  class=" hidden cart_drawer_main fixed top-0 left-0 w-full h-full bg-[#00000040] sm:p-[20px] lg:p-0 z-[8999]"
+>
+  <aside class="cart-drawer-inner h-full w-full lg:w-[520px] overflow-auto lg:overflow-hidden ml-auto p-[20px] relative">
+    <span id="cartClose">
+      {% render 'icon-close-thin',
+        class: 'cursor-pointer w-[20px] h-[20px] absolute lg:top-[36px] top-[28px] right-[20px] ease-in-out duration-150 hover:scale-90'
+      %}
+    </span>
+    {% if cart.item_count > 0 %}
+      <div class="cart-drawer-header">
+        <h3>
+          {{ 'cart-drawer.cart' | t }}
+          <span class="font-normal text-base opacity-80"
+            >(<span id="drawer-item-count">{{ cart.item_count }}</span> {{ 'cart-drawer.items' | t }})</span
+          >
+        </h3>
+      </div>
+
+      <div class="cart" data-money-format="{{ shop.money_format }}">
+        <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-drawer-form">
+          <!-- cart section -->
+          <div class="container mx-auto !px-0 lg:!px-4 mt-[20px]">
+            <!-- cart & total -->
+            <div class="flex flex-col justify-between gap-[20px] lg:gap-[40px] w-full">
+              <!-- products -->
+              <div class="flex flex-col 2xl:h-[500px] h-[350px] overflow-auto">
+                <div class="cart-drawer-goal" data-free="{{ settings.free_shipping | times: 100 }}">
+                  {% if cart.requires_shipping == true %}
+                    {% assign cart_total = cart.total_price %}
+                    {% assign free_shipping = settings.free_shipping | times: 100 %}
+                    <div class="mb-[20px]">
+                      <div class="drawer-goal-msg">
+                        {% if cart.items.size == 0 %}{{ 'cart-drawer.add_item_to_free_shipping' | t }}{% endif -%}
+                        {%- if cart.items.size != 0 -%}
+                          {%- if cart_total >= free_shipping %}
+                            {{ 'cart-drawer.free_shipping' | t }}
+                          {%- elsif cart_total < free_shipping -%}
+                            {% assign amount_left = free_shipping | minus: cart_total %}
+                            {{ 'cart-drawer.You_are_only' | t }}
+                            {{ amount_left | money_with_currency }}
+                            {{ 'cart-drawer.cost_shipping' | t }}
+                          {%- endif -%}
+                        {%- endif %}
+                      </div>
+                      <progress
+                        class="w-full rounded-full h-[5px]"
+                        max="{{ free_shipping }}"
+                        value="{{ cart_total }}"
+                      ></progress>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="h-auto overflow-y-auto scrollbar-none">
+                  {% for item in cart.items %}
+                    <div class="cart-item-drawer" data-key="{{ item.key }}">
+                      <div class="border-b border-[#66666650] sm:pb-6 sm:mb-6 pb-5 mb-5">
+                        <div class="grid sm:grid-cols-2 sm:gap-6 gap-6">
+                          <div class=" col-span-1">
+                            <a href="{{ item.url }}" rel="nofollow">
+                              {% if item.image %}
+                                
+                                <img
+                                src="{{ item.image | image_url: width: 1500 }}"
+                                alt="icon"
+                                width="100"
+                                height="100"
+                                loading="lazy"
+                                sizes="100"
+                                class='{% if settings.cart_image_type == 'cover' %} object-cover {% else %} object-contain {% endif %} block mx-auto md:mx-0 w-full h-[200px]'
+                              >
+                              {% else %}
+                                {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 object-cover border' }}
+                              {% endif %}
+                            </a>
+                          </div>
+                          <div class=" col-span-1 flex justify-center sm:gap-4 gap-3 flex-col items-center sm:items-start sm:text-left text-center">
+                            <div class="">
+                              <h4 class=" ">
+                                <a class="text-[1.2rem] font-semibold" href="{{ item.url }}" rel="nofollow">
+                                  {{- item.product.title | truncatewords: 6 -}}
+                                </a>
+                              </h4>
+                            </div>
+                            <div class=" variant-title">
+                              <p class="theme-color">
+                                {{ item.variant.inventory_quantity }}
+                                {{ 'cart-drawer.in_stock' | t }}
+                              </p>
+                              <p class="text-sm md:text-base sm:text-left text-center">{{ item.variant.title }}</p>
+                            </div>
+                            <div>
+                              <div class="quantity-counter-drawer">
+                                <div class="wrapper !h-[50px]">
+                                  <button
+                                    type="button"
+                                    class="decrease rounded-l-lg bg-transparent outline-none inline-flex"
+                                  >
+                                    <span class="aria-label !text-[0px] !leading-[0px]">Decrease Quantity</span>
+                                    {% render 'icon-minus' %}
+                                  </button>
+                                  <input
+                                    class="quantity max-w-[40px]"
+                                    type="number"
+                                    name="updates[]"
+                                    value="{{ item.quantity }}"
+                                    min="1"
+                                    max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+                                  >
+                                  <button
+                                    type="button"
+                                    class="increase rounded-r-lg bg-transparent outline-none inline-flex"
+                                  >
+                                    <span class="aria-label !text-[0px] !leading-[0px]">Increase Quantity</span>
+                                    {% render 'icon-plus' %}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class=" sm:col-span-2 px-3">
+                            <div class="flex justify-between flex-col">
+                              <div class="flex justify-between items-center sm:flex-row flex-col gap-3 ">
+                                <h4 class="drawer_line_item_price font-semibold">
+                                  {{ item.final_line_price | money }}
+                                </h4>
+                                <div class="drawer-trash-item sm:w-auto w-full flex justify-center gap-2 py-2 sm:py-0">
+                                  <a
+                                    class=" sm:block flex justify-center items-center gap-2"
+                                    href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                                    rel="nofollow"
+                                    aria-label="Delete {{ item.product.title }}"
+                                  >
+                                    <span class="text-base sm:hidden ">{{ 'cart-drawer.remove_item' | t }}</span>
+                                    {%- render 'icon-trash', class: 'stroke ' -%}
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <!-- product -->
+              </div>
+
+              <!-- billing section -->
+              <div class="lg:mb-0 col-span-12 lg:absolute lg:bottom-0 lg:left-0 w-full" id="cart-drawer-billing">
+                <div
+                  class="cart-billing py-[20px] px-4 lg:px-[30px] mt-[20px]"
+                  style="background-color:{{ section.settings.cart_total_bg }};"
+                >
+                  <div class="flex flex-col gap-[10px]">
+                    <p>
+                      <strong> {{ 'cart-drawer.discount' | t }} </strong>
+                      <span id="drawer-total-discount">{{ cart.total_discounts | money }}</span>
+                    </p>
+                    <p>
+                      <strong> {{ 'cart-drawer.total' | t }} </strong>
+                      <span id="drawer-total-price">{{ cart.total_price | money }}</span>
+                    </p>
+                  </div>
+                  <div class="flex flex-col justify-center cart-drawer-bottom">
+                    <p class="opacity-80">{{ 'cart-drawer.checkout_calculation' | t }}</p>
+                    {% if settings.show_cart_note != false %}
+                      <!-- leave a note -->
+                      <div class="py-3 flex flex-col gap-[15px]">
+                        <div class="bg-opacity-20 w-full rounded-t-md accordion-drawer">
+                          <div class="flex justify-between w-full">
+                            <p class="underline font-medium !text-sm">{{ 'cart-drawer.order_note' | t }}</p>
+                            <button
+                              type="button"
+                              class="flex cursor-pointer"
+                              aria-label="Add a note"
+                              aria-controls="cartDrawerNote"
+                            >
+                            <span class="accordion-icon  leading-none bg-[#FFF] rounded-full w-[32px] h-[32px]  p-[4px]">
+
+                              {%- render 'icon-plus', class: 'accor-plus-img transition duration-300 ease' -%}
+                            </button>
+                          </div>
+                        </div>
+                        <div class="accordion-content-drawer w-full bg-opacity-20 h-0 overflow-hidden">
+                          <textarea
+                            name="note"
+                            id="cartDrawerNote"
+                            placeholder="Your Note"
+                            rows="10"
+                            class="w-full p-5 min-h-[80px] max-h-[140px] border note-form"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <!-- leave a note -->
+                    {% endif %}
+                    <a href="{{ routes.cart_url }}" rel="nofollow" class="w-full mb-[20px]">
+                      {% render 'btn-secondary', src: 'Go to Cart', class: 'w-full' %}
+                    </a>
+                    {% render 'btn-primary',
+                      attr: "name='checkout'",
+                      src: 'Checkout',
+                      type: 'submit',
+                      class: 'w-full'
+                    %}
+                  </div>
+                </div>
+              </div>
+              <!-- billing section -->
+              <!-- cart & total -->
+            </div>
+          </div>
+          <!-- cart section -->
+        </form>
+      </div>
+
+      <div class="items-center justify-start flex-col h-full cart-drawer-empty {% if cart.item_count == 0 %}drawer_empty_main{% endif %}">
+        <div class="flex gap-3 w-full items-center">
+          <h3 class="font-semibold">{{ 'cart-drawer.your_cart' | t }}</h3>
+          <p>(0 itmes)</p>
+        </div>
+        <div class="flex flex-col gap-[15px] w-full h-full justify-center">
+          {% render 'icon-empty-cart', class: 'w-[60px] stroke mx-auto' %}
+          <p class="text-center">{{ section.settings.empty_cart_title }}</p>
+          <div class="flex justify-center">
+            <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+              {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+            </a>
+          </div>
+        </div>
+      </div>
+
+    {% else %}
+      <div class="flex items-center justify-start h-full flex-col cart-drawer-empty {% if cart.item_count == 0 %}drawer_empty_main{% endif %}">
+        <div class="flex gap-3 w-full items-center">
+          <h3 class="font-semibold">{{ 'cart-drawer.your_cart' | t }}</h3>
+          <p>(0 itmes)</p>
+        </div>
+        <div class="flex flex-col gap-[15px] w-full h-full justify-center">
+          {% render 'icon-empty-cart', class: 'w-[60px] stroke mx-auto' %}
+          <p class="text-center">{{ section.settings.empty_cart_title }}</p>
+          <div class="flex justify-center">
+            <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+              {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </aside>
+</section>
+
+<script src="{{ 'axios.min.js' | asset_url }}" defer></script>
+
+<script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:section.cart-drawer.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "t:section.cart-drawer.settings.empty_cart_title",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "t:section.cart-drawer.settings.banner_button_text",
+      "default": "Add Item"
+    },
+    {
+      "type": "color",
+      "id": "cart_total_bg",
+      "default": "#F2F2F2",
+      "label": "t:section.cart-drawer.settings.cart_total_bg"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let drawerEmpty = document.querySelector('.cart-drawer-empty');
+  if (drawerEmpty.classList.contains('drawer_empty_main')) {
+  } else {
+    const accordion = document.querySelector('.accordion-drawer');
+    const accordionContent = document.querySelector('.accordion-content-drawer');
+    const accorpositive = accordion.querySelector('.accor-plus-img');
+    if (accordion) {
+      accordion.addEventListener('click', () => {
+        accorpositive.classList.toggle('rotate');
+        accordionContent.classList.toggle('active');
+      });
+    }
+  }
+{% endjavascript %}

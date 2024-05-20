@@ -1,0 +1,218 @@
+{% style %}
+  .shopify-section-{{ section.id }}{
+    background: {{ section.settings.background_color }};
+    margin-top: {{ section.settings.section_margin_top }}px;
+    margin-bottom: {{ section.settings.section_margin_bottom }}px;
+  }
+  .shopify-section-{{ section.id }} .text *{
+    color:{{ section.settings.content_color }};
+  }
+  @media only screen and (max-width: 1024px){
+    .shopify-section-{{ section.id }}{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+    }
+  }
+
+  @media screen and (max-width:1024px){
+    .main-banner-1 .image_block{
+      padding-left:0 !important;
+    }
+  }
+{% endstyle %}
+<section
+  class="shopify-section-{{ section.id }} main-banner-1"
+  data-handle="{{ product.selected_variant.url | default: product.url | prepend: request.origin }}"
+>
+  <div class="relative {% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} md:py-10 py-5 md:px-10 mx-auto">
+    <div class="lg:grid lg:grid-cols-12 flex flex-col-reverse gap-10 w-full">
+      <div class="lg:col-span-6 col-span-12 flex flex-col lg:gap-10 gap-5">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image_block' %}
+              <div
+                class="w-full image_block"
+                style="{% if forloop.index == 2 %}padding-left:140px;{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <figure class="overflow-hidden relative duration-300 ease max-h-[400px] sm:max-h-[600px] lg:max-h-[800px] grayscale-0 hover:grayscale rounded-none hover:rounded-[100px] hover:md:rounded-[16px] hover:xl:rounded-[240px]">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'object-cover w-full h-full group-hover/image:scale-110 card duration-500 ease-in-out',
+                        loading: 'lazy'
+                    }}
+
+                  {% else %}
+                    {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-gray-300' }}
+                  {% endif %}
+                </figure>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="lg:col-span-6 col-span-12 flex flex-col justify-center h-full lg:gap-10 gap-5">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'text_block' %}
+              <div
+                class="flex flex-col gap-10 w-full"
+                {{ block.shopify_attributes }}
+              >
+                <figure class="overflow-hidden relative duration-300 ease max-h-[400px] sm:max-h-[600px] lg:max-h-[800px] grayscale-0 hover:grayscale rounded-none hover:rounded-[100px] hover:md:rounded-[16px] hover:xl:rounded-[240px]">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'object-cover w-full h-full group-hover/image:scale-110 card duration-500 ease-in-out',
+                        loading: 'lazy'
+                    }}
+                  {% else %}
+                    {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-gray-300' }}
+                  {% endif %}
+                  <div class="absolute pointer-events-none top-0 left-0 w-full h-full justify-center items-center flex lg:hidden">
+                    <h2 style="color: {{ section.settings.content_color }} !important;">
+                      {{ section.settings.banner_text }}
+                    </h2>
+                  </div>
+                </figure>
+                <div class="flex flex-col gap-5 xl:w-4/5 w-full">
+                  <span class="relative text lg:text-left text-center">
+                    {{ block.settings.text_content }}
+                  </span>
+                  <a href="{{ block.settings.button_url }}" rel="nofollow" class="inline-block w-fit lg:mx-0 mx-auto">
+                    {% render 'btn-secondary', src: block.settings.button_text %}
+                  </a>
+                </div>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="absolute pointer-events-none top-0 left-0 w-full h-full justify-center items-center hidden lg:flex">
+      <h2 style="color: {{ section.settings.content_color }} !important;">
+        {{ section.settings.banner_text }}
+      </h2>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.main-banner-1.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-banner-1.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-banner-1.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "t:section.main-banner-1.settings.banner_text",
+      "default": "Modern"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.main-banner-1.settings.background_color"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "t:section.main-banner-1.settings.content_color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-banner-1.blocks.image_block",
+      "type": "image_block",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.main-banner-1.blocks.settings.image"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-banner-1.blocks.text_block",
+      "type": "text_block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.main-banner-1.blocks.settings.image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_content",
+          "label": "t:section.main-banner-1.blocks.settings.text_content",
+          "default": "<p>Odio ut enim blandit volutpat maecenas volutpat. Dictum at tempor commodo ullamcorper a lacus vestibulum.  Odio ut enim blandit volutpat maecenas volutpat. Dictum at tempor commodo ullamcorper a lacus vestibulum. </p>"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.main-banner-1.blocks.settings.button_text",
+          "default": "Button"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:section.main-banner-1.blocks.settings.button_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-banner-1.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "background_color": "#27272a",
+        "content_color": "#ffffff",
+        "banner_text": "Modern"
+      },
+      "blocks": [
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "text_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

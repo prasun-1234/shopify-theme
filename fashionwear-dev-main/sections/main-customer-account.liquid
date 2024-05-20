@@ -1,0 +1,264 @@
+{% style %}
+    #info_grid_cols {
+      {% case section.settings.grid_cols %}
+        {% when '3' %}
+        grid-template-columns: auto auto auto;
+        {% when '4' %}
+        grid-template-columns: auto auto auto auto;
+      {% endcase %}
+    }
+
+    @media screen and (max-width:1200px) {
+      #info_grid_cols {
+        grid-template-columns: auto auto;
+      }
+    }
+    @media screen and (max-width:540px) {
+      #info_grid_cols {
+        grid-template-columns: auto;
+      }
+    }
+    .overflow-y-scroll::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+  }
+
+  /* Track */
+  .overflow-y-scroll::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+
+  /* Handle */
+  .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background: #666666;
+  }
+
+  /* Handle on hover */
+  .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777777;
+  }
+  .order-table thead th{
+    padding: 20px 20px;
+  }
+  .order-table tbody td{
+    padding: 20px 20px;
+  }
+  @media screen and (max-width:1024px){
+    .order-table table, tbody, th, td, tr{
+        display: block;
+      }
+      .order-table thead{
+        display: none;
+      }
+      .order-table tbody{
+        margin-bottom: 20px;
+        border-radius: 6px;
+      }
+      .order-table tbody td {
+        padding: 14px 20px 8px 20px;
+      }
+  }
+  @media screen and (max-width:980px) {
+    #main-customer-account{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+
+<section>
+  <div
+    id="main-customer-account"
+    class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto"
+    style="margin-bottom:{{ section.settings.margin_bottom }}px; margin-top:{{ section.settings.margin_top }}px;"
+  >
+    <h3 class="md:mb-10 mb-5  text-center">{{ 'main-customer-account.my_account' | t }}</h3>
+    <div class="grid grid-cols-12 gap-5">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'account' %}
+            <div class="xl:col-span-3 col-span-12 relative" {{ block.shopify_attributes }}>
+              <p class="font-semibold">{{ 'customer.account_detail' | t }}</p>
+              <div
+                class="pt-5 pb-8 flex justify-center flex-col text-left items-start"
+                style="background-color:{{ section.settings.customer_card_bg }}30;"
+              >
+                <div class="mb-2">
+                  <p class="hidden font-normal sm:text-base text-sm  leading-7 opacity-70">
+                    {{ 'main-customer-account.name' | t }}
+                  </p>
+                  <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.name }}</p>
+                </div>
+
+                <div class="mb-2">
+                  <p class="hidden font-normal sm:text-base text-sm leading-7 opacity-70 text-Tertiary ">
+                    {{ 'main-customer-account.email' | t }}
+                  </p>
+                  <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.email }}</p>
+                </div>
+
+                {% if customer.default_address.phone != blank %}
+                  <div class="mb-2">
+                    <p class=" hidden font-normal sm:text-base text-sm leading-7 opacity-70 text-Tertiary ">
+                      {{ 'main-customer-account.phone_no' | t }}
+                    </p>
+                    <p class="font-medium sm:text-lg text-base leading-8 ">{{ customer.default_address.phone }}</p>
+                  </div>
+                {% endif %}
+
+                <div>
+                  <p class=" hidden font-normal sm:text-base text-sm leading-7 opacity-70">
+                    {{ 'main-customer-account.shipping_address' | t }}
+                  </p>
+                  <p class="font-medium sm:text-lg text-base leading-8 ">
+                    {% if customer.default_address.address1 != blank %}
+                      {{ customer.default_address.address1 }}
+                    {% elsif customer.default_address.address2 != blank %}
+                      {{ customer.default_address.address2 }}
+                    {% endif %}
+                    -{{ customer.default_address.zip }}
+                  </p>
+                </div>
+                <div class="md:mt-10 mt-5">
+                  <a class="flex items-center gap-2" href="{{ routes.account_addresses_url }}" rel="nofollow">
+                    {% render 'icon-home' %}
+                    {% render 'hover-link', src: 'View Addresses' %}
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% when 'order' %}
+            <div
+              class="xl:col-span-9 col-span-12 relative order-table global_border_color"
+              {{ block.shopify_attributes }}
+            >
+              <p class="font-semibold mb-4">{{ 'main-customer-account.order_history' | t }}</p>
+              <div class="max-h-[380px] overflow-y-auto border border-font rounded-md">
+                {% assign number_of_orders = customer.orders | size %}
+                {% if number_of_orders > 0 %}
+                  <table class="w-full border-collapse overflow-x-auto">
+                    <thead class="border-b border-font ">
+                      <tr>
+                        <th class="text-left font-semibold">{{ 'main-customer-account.order' | t }}</th>
+                        <th class="text-left font-semibold">{{ 'main-customer-account.date' | t }}</th>
+                        <th class="text-left font-semibold">{{ 'main-customer-account.payment_status' | t }}</th>
+                        <th class="text-left font-semibold">{{ 'main-customer-account.fulfillment_status' | t }}</th>
+                        <th class="text-left font-semibold">{{ 'main-customer-account.total_amount' | t }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in customer.orders %}
+                        <tr
+                          {% unless forloop.last %}
+                            class="border-b border-font xl:pb-0 pb-2"
+                          {% endunless %}
+                        >
+                          <td class="">
+                            <p class="xl:hidden block font-semibold">{{ 'main-customer-account.order' | t }}</p>
+                            <a href="{{ order.customer_url }}" rel="nofollow" class="">
+                              {% render 'hover-link', src: order.name, class: '!font-semibold' %}
+                            </a>
+                          </td>
+                          <td class="">
+                            <p class="xl:hidden block font-semibold">{{ 'main-customer-account.date' | t }}</p>
+                            {{ order.created_at | date: '%b %d, %Y' }}
+                          </td>
+                          <td class="">
+                            <p class="xl:hidden block font-semibold">
+                              {{ 'main-customer-account.payment_status' | t }}
+                            </p>
+                            <span class="relative z-20 text-sm">
+                              {{ order.financial_status_label }}
+                            </span>
+                          </td>
+                          <td class="">
+                            <p class="xl:hidden block font-semibold">
+                              {{ 'main-customer-account.fulfillment_status' | t }}
+                            </p>
+                            <span class="relative z-20 text-sm">
+                              {{- order.fulfillment_status_label -}}
+                            </span>
+                          </td>
+                          <td class="">
+                            <p class="xl:hidden block font-semibold">{{ 'main-customer-account.total_amount' | t }}</p>
+                            {{ order.total_price | money }}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                  <div class="flex justify-center items-center gap-5 flex-col min-h-[240px]">
+                    <h5>{{ 'main-customer-account.no_orders' | t }}</h5>
+                    <a href="{{ routes.collections_url }}" rel="nofollow">
+                      {% render 'btn-secondary', src: 'Add Item' %}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <div class="flex items-center gap-10 justify-center my-10">
+      <a rel="nofollow" href="/account/logout">
+        {% render 'btn-primary', src: 'Log Out' %}
+      </a>
+      <div class="">
+        <a class="flex items-center gap-3" href="{{ routes.collections_url }}" rel="nofollow">
+          {% render 'icon-cart-f' %}
+          {% render 'hover-link', src: 'Back To Shopping' %}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-customer-account.name",
+  "blocks": [
+    {
+      "type": "account",
+      "name": "t:section.main-customer-account.blocks.account.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "order",
+      "name": "t:section.main-customer-account.blocks.order.name",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-customer-account.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-customer-account.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "customer_card_bg",
+      "default": "#ccc",
+      "label": "t:section.main-customer-account.settings.customer_card_bg"
+    }
+  ]
+}
+{% endschema %}

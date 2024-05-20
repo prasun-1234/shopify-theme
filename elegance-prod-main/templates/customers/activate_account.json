@@ -1,0 +1,37 @@
+{
+    "sections": {
+      "main": {
+        "type": "main-activate-account",            
+        "settings": {           
+            "image_bg":"shopify:\/\/shop_images\/login.jpg"            
+        },
+        "blocks": {
+            "address1":{
+                "type": "address",
+                "settings": {
+                    "location_name":"Mid-town Mall",
+                    "location_address":"Lorem street,  Lorem Corner",
+                    "location_city":"New York",
+                    "location_pin":83023
+                }
+            },
+            "address2":{
+                "type": "address",
+                "settings": {
+                    "location_name":"General Stores",
+                    "location_address":"Lorem street,  Lorem Corner",
+                    "location_city":"New York",
+                    "location_pin":83023
+                }
+            }
+        },
+        "block_order": [
+            "address1",
+            "address2"
+        ]
+    }
+    },
+    "order": [
+      "main"
+    ]
+  }

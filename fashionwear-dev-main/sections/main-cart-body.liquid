@@ -1,0 +1,458 @@
+{% style %}
+    .active{
+     height: auto;
+    }
+    .accordian-content{
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+    .rotate{
+      transform :rotate(45deg);
+    }
+    .empty-cart{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom: {{ section.settings.section_margin_bottom }}px;
+    }
+
+    .icon-div svg path{
+      fill:var(--global-font-color);
+    }
+
+    .overflow-y-scroll::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+  }
+
+  /* Track */
+  .overflow-y-scroll::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+
+  /* Handle */
+  .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background: #666666;
+  }
+
+  /* Handle on hover */
+  .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: #777777;
+  }
+{% endstyle %}
+
+<section class="cart_main_sec my-[40px]">
+  {% if cart.item_count > 0 %}
+    <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid {% endif %} mx-auto cart-header">
+      <h3 class="flex items- justify-center font-medium sm:mb mb-5">
+        {{ 'main-cart-body.title' | t }}
+      </h3>
+      <div class="cart-goal" data-free="{{ settings.free_shipping | times: 100 }}">
+        {% if cart.requires_shipping == true %}
+          {% assign cart_total = cart.total_price %}
+          {% assign free_shipping = settings.free_shipping | times: 100 %}
+          <div class="mb-5 text-center px-5 max-w-[500px] mx-auto w-full">
+            <div class="goal-msg">
+              {% if cart.items.size == 0 %}Add items to your cart to receive free shipping.{% endif -%}
+              {%- if cart.items.size != 0 -%}
+                {%- if cart_total >= free_shipping %}
+                  {{ 'main-cart-body.free_shipping' | t }}
+                {%- elsif cart_total < free_shipping -%}
+                  {% assign amount_left = free_shipping | minus: cart_total %}
+                  {{ 'main-cart-body.only' | t }}
+                  {{ amount_left | money_with_currency }}
+                  {{ 'main-cart-body.away_from' | t }}
+                {%- endif -%}
+              {%- endif %}
+            </div>
+            <progress
+              class="w-full rounded-full h-[8px]"
+              max="{{ free_shipping }}"
+              value="{{ cart_total }}"
+            ></progress>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="cart" data-money-format="{{ shop.money_format }}">
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-form-main">
+        <!-- cart section -->
+        <!-- cart & total -->
+        <div class="flex flex-col gap-5 lg:gap-10 w-full">
+          <!-- products -->
+          <div class="w-full {% if settings.container == 'boxed' %} container {% else %} container-fluid px-0 {% endif %} mx-auto">
+            <div class="max-h-[500px] overflow-y-auto">
+              <table
+                id="cart_table"
+                class="w-full"
+              >
+                <thead class="text-left">
+                  <tr>
+                    <th class="p-5">{{ 'main-cart-body.product' | t }}</th>
+                    <th class="p-5">{{ 'main-cart-body.price' | t }}</th>
+                    <th class="p-5">{{ 'main-cart-body.quantity' | t }}</th>
+                    <th class="p-5">{{ 'main-cart-body.total' | t }}</th>
+                    <th class="p-5"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in cart.items %}
+                    <tr
+                      class="cart-item-main border-t {% if forloop.last %}border-b{% endif %} global_border_color"
+                      data-key="{{ item.key }}"
+                    >
+                      <td class="flex gap-3 relative p-5">
+                        <figure class="relative">
+                          <a href="{{ item.url }}" rel="nofollow">
+                            {% if item.image %}
+                              {{
+                                item.image
+                                | image_url: width: 1500
+                                | image_tag:
+                                  loading: 'lazy',
+                                  sizes: '100',
+                                  widths: '165, 360, 535, 750, 1070, 1500',
+                                  class: 'object-contain w-full max-w-[80px] max-h-[100px]'
+                              }}
+                            {% else %}
+                              {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 object-cover border' }}
+                            {% endif %}
+                          </a>
+                        </figure>
+                        <div class="flex flex-col gap-2 justify-center">
+                          <h5>
+                            <a class="!text-lg" href="{{ item.url }}" rel="nofollow">
+                              {{- item.product.title | truncatewords: 6 -}}
+                            </a>
+                          </h5>
+
+                          <p class="">
+                            <span class="font-semibold">{{ item.product.options | join: ' / ' }} : </span>
+                            {{ item.variant.title }}
+                          </p>
+                          {% if item.variant.available %}
+                            <p class="flex items-center gap-2 font-semibold">
+                              {% render 'icon-stock', class: 'w-5 h-5' %}
+                              {{ 'main-cart-body.in_stock' | t }}
+                            </p>
+                          {% else %}
+                            <p class="font-semibold">{{ 'main-cart-body.out_stock' | t }}</p>
+                          {% endif %}
+                          {%- if item.product.has_only_default_variant == false
+                            or item.properties.size != 0
+                            or item.selling_plan_allocation != null
+                          -%}
+                            <dl>
+                              {%- for property in item.properties -%}
+                                {%- assign property_first_char = property.first | slice: 0 -%}
+                                {%- if property.last != blank and property_first_char != '_' -%}
+                                  <div class="product-option">
+                                    <dt>{{ property.first }}:</dt>
+                                    <dd>
+                                      {%- if property.last contains '/uploads/' -%}
+                                        <a href="{{ property.last }}" class="link" target="_blank">
+                                          {{ property.last | split: '/' | last }}
+                                        </a>
+                                      {%- else -%}
+                                        {{ property.last }}
+                                      {%- endif -%}
+                                    </dd>
+                                  </div>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </dl>
+
+                            <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                          {%- endif -%}
+                        </div>
+                      </td>
+                      <td class="p-5">
+                        <div class="flex flex-col gap-2">
+                          {% if item.original_price != item.final_price %}
+                            <div>
+                              <s class="line-through">{{ item.original_price | money }}</s>
+                              <p>{{ item.final_price | money }}</p>
+                          {% else %}
+                            <p>{{ item.final_price | money }}</p>
+                            </div>
+                          {% endif %}
+                          {% if item.unit_price_measurement != blank %}
+                            <div class="xs:text-sm text-xs opacity-50 flex gap-2">
+                              {{ item.unit_price | money }}
+                              {% if item.unit_price_measurement.reference_value != 1 %}
+                                <div class="xs:text-sm text-xs flex gap-1 ">
+                                  {{ item.unit_price_measurement.reference_value -}}
+                                  {{- item.unit_price_measurement.reference_unit }}
+                                </div>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                          {% if item.line_level_discount_allocations.size > 0 %}
+                            <div class="discounts-line">
+                              <ul>
+                                {% for discount_allocation in item.line_level_discount_allocations %}
+                                  <li>
+                                    Discount:
+                                    {{ discount_allocation.discount_application.value | round }}% - (
+                                    {{- discount_allocation.amount | money }})
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </td>
+                      <td class="p-5">
+                        <div class="quantity-counter-main w-full max-w-[200px] relative">
+                          <div class="inner-wrapper ">
+                            <button
+                              id="inventoryQuantityDecrease"
+                              type="button"
+                              class="button minus decrease bg-transparent outline-none inline-flex h-full"
+                            >
+                              <span class="aria-label !text-[0px] !leading-[0px]">
+                                {{- 'main-cart-body.decrease_quantity' | t -}}
+                              </span>
+                              {% render 'icon-minus' %}
+                            </button>
+                            <input
+                              id="inventoryQuantityData"
+                              class="quantity max-w-[40px] h-full !m-0 !border-none"
+                              type="number"
+                              name="updates[]"
+                              value="{{ item.quantity }}"
+                              min="1"
+                              max="{{ item.variant.inventory_quantity }}"
+                            >
+                            <button
+                              id="inventoryQuantityIncrease"
+                              type="button"
+                              class="button plus  increase h-full bg-transparent outline-none inline-flex"
+                            >
+                              <span class="aria-label !text-[0px] !leading-[0px]">
+                                {{- 'main-cart-body.increase_quantity' | t -}}
+                              </span>
+                              {% render 'icon-plus' %}
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="p-5">
+                        <div class="line_item_price  text-[1.125rem]">
+                          <span class="xl:hidden">
+                            {{- 'main-cart-body.total' | t -}}
+                            :</span
+                          >
+                          {{- item.final_price | money }}
+                        </div>
+                      </td>
+                      <td class="p-5">
+                        <div class="flex justify-end trash-item">
+                          <a
+                            href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                            rel="nofollow"
+                            aria-label="Delete {{ item.product.title }}"
+                            class="flex items-center gap-2 font-semibold"
+                          >
+                            {%- render 'icon-trash', class: 'stroke w-5 h-5' -%}
+                            {% render 'hover-link', src: 'Remove' %}
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- product -->
+            </div>
+          </div>
+
+          <!-- billing section -->
+          <div class="">
+            <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto px-0">
+              <div class="px-5 mb-6 pb-6 border-b border-slate-600 flex justify-end">
+                <div class="flex flex-col gap-5 sm:min-w-[420px] justify-between">
+                  <div class="discount cart-total-main flex justify-between gap-5">
+                    <p class="data font-semibold">Total Cart Price</p>
+                    <p class="data" id="original-total-price">{{ cart.original_total_price | money }}</p>
+                  </div>
+                  {% if cart.cart_level_discount_applications.size > 0 %}
+                    <div class="cart-total-main flex justify-between gap-5">
+                      <p class="data font-semibold">Sale Discount</p>
+                      <div class="data">
+                        <ul id="discount-amount" class="flex flex-col gap-5">
+                          {% for discount_application in cart.cart_level_discount_applications %}
+                            <li class="flex flex-col items-end" data-title="{{ discount_application.title }}">
+                              <p class="discount-title" id="">{{ discount_application.title }}</p>
+                              <div>
+                                <span>{{ discount_application.total_allocated_amount | money }}</span>
+                              </div>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  {% endif %}
+                  <p class="flex justify-between gap-5">
+                    <strong>{{ 'main-cart-body.discount' | t }}:</strong>
+                    <span id="total-discount">{{ cart.total_discount | money }}</span>
+                  </p>
+                  {% if item.line_level_discount_allocations.size > 0 %}
+                    {{ 'main-cart-body.discounts' | t }}:
+                    <ul>
+                      {% for discount_allocation in item.line_level_discount_allocations %}
+                        <li>
+                          {{ discount_allocation.discount_application.title }}-
+                          {{- discount_allocation.amount | money }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="flex gap-5 lg:flex-row flex-col px-5 justify-between">
+                <div class="sm:min-w-[420px]">
+                  <!-- leave a note -->
+                  <div class="flex flex-col gap-4 w-full lg:min-w-[400px]">
+                    <div class="bg-opacity-20 w-full rounded-t-md accordion">
+                      <div class="flex justify-between w-full">
+                        <p>{{ 'main-cart-body.add_note' | t }}</p>
+                      </div>
+                    </div>
+                    <div class="w-full">
+                      <textarea
+                        id="cartNote"
+                        name="note"
+                        placeholder="Your Note"
+                        rows="10"
+                        class="w-full p-5 min-h-[80px] max-h-[200px] border note-form"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <!-- leave a note -->
+                </div>
+                <div class="sm:min-w-[420px]">
+                  <h5 class="lg:text-2xl text-lg lg:mb-4 mb-2">
+                    <strong>{{ 'main-cart-body.total' | t }}:</strong>
+                    <span id="total-price">{{ cart.total_price | money }}</span>
+                  </h5>
+                  <div class="opacity-80 lg:mb-10">
+                    <small class="tax-note caption-large rte">
+                      {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                        {{
+                          'main-cart-body.taxes_included_and_shipping_policy_html'
+                          | t: link: shop.shipping_policy.url
+                        }}
+                      {%- elsif cart.taxes_included -%}
+                        {{ 'main-cart-body.taxes_included_but_shipping_at_checkout' | t }}
+                      {%- elsif shop.shipping_policy.body != blank -%}
+                        {{
+                          'main-cart-body.taxes_and_shipping_policy_at_checkout_html'
+                          | t: link: shop.shipping_policy.url
+                        }}
+                      {%- else -%}
+                        {{ 'main-cart-body.taxes_and_shipping_at_checkout' | t }}
+                      {%- endif -%}
+                    </small>
+                  </div>
+                  {% render 'btn-primary',
+                    attr: "name='checkout'",
+                    src: 'Checkout',
+                    type: 'submit',
+                    class: ' my-10 min-w-[200px]'
+                  %}
+                  <div class="flex flex-col gap-3">
+                    <p class="!text-sm">{{ 'main-cart-body.accepted_payment' | t }}</p>
+                    <span class="flex flex-wrap gap-3">
+                      {% for type in shop.enabled_payment_types -%}
+                        {{ type | payment_type_svg_tag: class: 'w-[40px]' }}
+                      {% endfor %}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- billing section -->
+        </div>
+        <!-- cart section -->
+      </form>
+    </div>
+
+    <div class="justify-center my-[40px] cart-empty">
+      <div class="flex flex-col">
+        <h3 class="my-5 text-2xl">{{ section.settings.empty_cart_title }}</h3>
+        <div class="my-5 flex justify-center">
+          <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+            {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+          </a>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="flex justify-center my-[40px]">
+      <div class="flex flex-col">
+        <h3 class="my-5 text-2xl">{{ section.settings.empty_cart_title }}</h3>
+        <div class="my-5 flex justify-center">
+          <a href="{{ routes.all_products_collection_url }}" rel="nofollow">
+            {%- render 'btn-primary', src: section.settings.banner_button_text -%}
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<script src="{{ 'axios.min.js' | asset_url }}" defer></script>
+
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:section.main-cart-body.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 40,
+      "label": "t:section.main-cart-body.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-cart-body.settings.section_margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "t:section.main-cart-body.settings.empty_cart_title",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "t:section.main-cart-body.settings.banner_button_text",
+      "default": "Add Item"
+    }
+  ]
+}
+{% endschema %}
+{% javascript %}
+  const accordion = document.querySelector('.accordion');
+  const accordionContent = document.querySelector('.accordion-content');
+  const accorpositive = document.querySelector('.accor-plus-img');
+  if (accordion) {
+    accordion.addEventListener('click', () => {
+      accorpositive.classList.toggle('rotate');
+      accordionContent.classList.toggle('active');
+    });
+  }
+{% endjavascript %}

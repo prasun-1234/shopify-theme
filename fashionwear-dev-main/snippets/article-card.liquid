@@ -1,0 +1,99 @@
+{% style %}
+  .read-underline::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 0%;
+    height: 2px;
+    background: var(--theme-secondary-color);
+    transition: 0.3s ease;
+  }
+  .read-underline:hover::before {
+    width: 100%;
+  }
+  .read-underline {
+    color: var(--theme-secondary-color);
+    display: inline-block;
+  }
+
+  .blog {
+    transform-origin: center;
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .article_image {
+    transform-origin: center;
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media only screen and (max-width: 420px) {
+    .article {
+      text-align: center !important;
+    }
+  }
+
+  @media only screen and (max-width: 640px) {
+    .article_card_main {
+      padding: 16px;
+    }
+  }
+{% endstyle %}
+
+{% if class == 'article-card' %}
+  <div class="{{ class }} article_card_main hover:grayscale flex flex-col relative sm:gap-6 gap-4">
+    <figure class="relative">
+      {% if article.image != blank %}
+        <a rel="nofollow" href="{{ article.url }}" class="overflow-hidden block relative">
+          <img alt="{{ article.image.alt }}" class="object-cover w-full h-auto article_image max-h-[420px]"
+            src="{{ article.image | image_url }}" loading="lazy" sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+            srcset="
+              {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+             width="{{ article.image.width }}" height="auto"
+          >
+        </a>
+      {% else %}
+        <div class="overflow-hidden h-[300px] block relative">
+          {{
+            'collection-1'
+            | placeholder_svg_tag: 'w-full h-full hover:scale-110 duration-200 ease-in-out bg-gray-300'
+          }}
+        </div>
+      {% endif %}
+    </figure>
+    <div class="article_card flex flex-col sm:gap-6 gap-5 sm:px-0 px-2" style="color: {{ section.settings.content_color }}; text-align:{{ settings.blog_card_text_alignment }};">
+      <a rel="nofollow" href="{{ article.url }}">
+        <p class="font-semibold">
+          {{ article.title }}
+        </p>
+      </a>
+
+      <div class="flex items-center justify-between gap-4">
+        {% if show_date %}
+          <p class="article_date">
+            {{ article.created_at | date: '%d %b %Y' -}}
+          </p>
+        {%- endif %}
+        {% if show_author == true %}
+          <p class="font-normal text-base flex flex-col gap-2">By {{ article.author -}} 
+            {% if article.comments_count > 0 and blog.comments_enabled? %}
+              <span>Reviews: {{ article.comments_count }}</span>
+            {% endif %}
+          </p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{% endif %}

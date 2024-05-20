@@ -1,0 +1,258 @@
+{%- style -%}
+      .collection-main {
+        margin-top: {{ section.settings.margin_top }}px;
+        margin-bottom: {{ section.settings.margin_bottom }}px;
+      }
+      .sidebar-active{
+        left:0;
+      }
+  .filter_inner svg path,.filter_btn_group svg path{
+    fill:var(--global-font-color);
+  }
+    .sidebar{
+      border-right:1px solid var(--global-font-color);
+    }
+
+       .sidebar-title{
+        background-color:var(--body-background);
+       }
+
+       .sidebar-active ~ div .product-image{
+        height:300px;
+       }
+
+      @media screen and (max-width:1440px){
+      .sidebar-active{
+           width:250px;
+        }
+      }
+
+      @media screen and (max-width:1200px){
+        .sidebar{
+          border:none;
+           position:fixed;
+           z-index:9999;
+           left:0;
+           top:0;
+           width:100%;
+           height:100%;
+           opacity:0;
+           visibility:hidden;
+           background-color:#00000020;
+        }
+        #sidebar_inner,.filter_clear{
+          background-color:{{ section.settings.sidebar_bg }};
+        }
+        .sidebar-active{
+          opacity:1;
+          visibility:visible;
+        }
+      }
+
+       @media screen and (min-width:768px){
+         .collection-main #collection_grid{
+             {% case section.settings.items_per_row %}
+               {% when "2" %}
+                grid-template-columns:repeat(2,minmax(0,1fr));
+               {% when "3" %}
+                grid-template-columns:repeat(3,minmax(0,1fr));
+               {% when "4" %}
+                grid-template-columns:repeat(4,minmax(0,1fr));
+                 {% else %}
+             {% endcase %}
+         }
+       }
+{%- endstyle -%}
+
+<section class="collection-main">
+  <div class="{% if settings.container == 'boxed' %}container {% else %}container-fluid{% endif %} mx-auto flex">
+    <aside
+      id="collection_sidebar"
+      class="sidebar sidebar-hidden overflow-hidden z-10 h-auto duration-500 ease-in-out flex-shrink-0"
+    >
+      <div
+        class="relative w-full md:w-[400px] z-10 p-[20px] xl:p-0"
+        id="sidebar_inner"
+      >
+        <div class="filter_inner flex flex-col gap-[30px] pt-[80px] max-h-[700px] h-full overflow-auto lg:pr-[40px] pr-[20px]">
+          <div class="sidebar-title flex items-center justify-between absolute pt-[20px] pl-[20px] xl:pl-0 pr-[20px] lg:pr-[40px] left-0 top-0 w-full z-40">
+            <h3 class="uppercase">Filters</h3>
+            <span class="cursor-pointer" id="sidebar_close">
+              {% render 'icon-close-thin', class: 'w-[20px] h-[20px]' %}
+            </span>
+          </div>
+          <div
+            class="border-t pt-[40px] border-[#c4c4c4]"
+            x-data="
+                      {
+                        loading: false,
+                        filterCollection(event){
+                           let handle = event.target.getAttribute('data-handle')
+                           fetch('/collections/' + handle)
+              .then(response => response.text())
+              .then(data => {
+               let html_div = document.createElement('div');
+               html_div.innerHTML = data;
+               let html_dom = html_div.querySelector('#productGridContainer').innerHTML;
+               let html_banner = html_div.querySelector('#productBanner').innerHTML;
+               let html_filter = html_div.querySelector('#collection_filter_main').innerHTML;
+               let title = html_div.querySelector('#collectionTitle').innerHTML;
+               document.querySelector('#productGridContainer').innerHTML = html_dom;
+               document.querySelector('#productBanner').innerHTML = html_banner;
+               document.querySelector('#collection_filter_main').innerHTML = html_filter;
+               document.querySelector('#collectionTitle').innerHTML = title;
+               history.replaceState(null,null, '/collections/' + handle);
+              })
+              .catch(error => console.log('Error:', error))
+              .finally(() => loading = false)
+                        }
+                      }
+            "
+          >
+            {% render 'loader' %}
+            <form
+              name="filter-collection"
+              id="filter_by_collection"
+              class="relative z-10"
+            >
+              <details>
+                <summary class="flex items-center justify-between cursor-pointer">
+                  <div>
+                    <span class="font-medium text-[1.25rem]">{{ 'main-collection.filter_collection' | t }}:</span>
+                  </div>
+                  {% render 'icon-arrow-down', class: 'w-[14px] h-[14px]' %}
+                </summary>
+
+                <div>
+                  <ul class="flex flex-col gap-[20px] my-[20px] flex-wrap">
+                    {% for collection in collections %}
+                      {% if collection.products.size > 0 %}
+                        <li class="flex items-center gap-[20px] relative radio-filter" tabindex="0">
+                          <div class="filter-check-box">
+                            <input
+                              type="radio"
+                              name="collection_filter"
+                              @change="filterCollection($event)"
+                              style="background-color:{{ block.settings.sidebar_bg_color }}"
+                              value="{{ collection.url }}"
+                              id="{{ collection.title }}"
+                              data-handle="{{ collection.handle }}"
+                            >
+                            <span>{% render 'icon-check', class: 'w-[20px] h-[20px]' %}</span>
+                          </div>
+                          <label for="{{ collection.title }}">{{ collection.title }}</label>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </details>
+            </form>
+          </div>
+          {% render 'filter-options' %}
+        </div>
+      </div>
+    </aside>
+    <div class="flex flex-col gap-[40px] w-full ">
+      <div class="flex gap-[40px] flex-col">
+        <div>
+          <h2 class=" sm:text-left text-center" id="collectionTitle">{{ collection.title }}</h2>
+        </div>
+        {% if collection.products.size > 0 %}
+          <div class="flex items-center justify-between gap-[15px] filter_btn_group">
+            <button
+              type="button"
+              id="collection_options"
+              class="flex items-center gap-[10px] cursor-pointer font-semibold text-lg tracking-[1.5px]"
+            >
+              {%- render 'icon-filter', class: 'w-[20px] h-[20px]' -%}
+              {{- 'main-collection.filter' | t -}}
+            </button>
+            {% render 'sort-options' %}
+          </div>
+        {% else %}
+
+        {% endif %}
+      </div>
+      <div id="productGridContainer">
+        {% paginate collection.products by 12 %}
+          {% if collection.products.size > 0 %}
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-y-5 gap-x-5"
+              id="collection_grid"
+            >
+              {% for product in collection.products %}
+                {% if product.available %}
+                  {% render 'product-item', product: product %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div>
+              <p>{{ 'main-collection.no_products' | t }}</p>
+              <a rel="nofollow" href="{{ shop.url }}/{{ block.settings.empty_url }}" class="theme-btn">
+                <div>{{ block.settings.empty_link_label }}</div>
+              </a>
+            </div>
+          {% endif %}
+          <div class="max-w-6xl mx-auto">
+            {% render 'pagination', pagination: paginate %}
+          </div>
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-collection.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-collection.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-collection.settings.margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "sidebar_bg",
+      "label": "t:section.main-collection.settings.sidebar_bg",
+      "default": "#fff"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let filterBtn = document.querySelector('#collection_options');
+  let filterCloseBtn = document.querySelector('#sidebar_close');
+  let sidebar = document.querySelector('#collection_sidebar');
+
+  if (filterBtn != null) {
+    filterBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-active');
+    });
+  }
+
+  if (filterCloseBtn) {
+    filterCloseBtn.addEventListener('click', () => {
+      sidebar.classList.remove('sidebar-active');
+    });
+  }
+{% endjavascript %}

@@ -1,0 +1,212 @@
+{% comment %}
+  Renders an article card for a given blog with settings to either show the image or not.
+
+  Accepts:
+  - blog: {Object} Blog object
+  - article: {Object} Article object
+  - media_aspect_ratio: {String} The setting changes the aspect ratio of the article image, if shown
+  - media_height: {String} The setting changes the height of the article image. Overrides media_aspect_ratio.
+  - show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+  - show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+  - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+  - show_badge: {String} The setting either show the blog badge or not.
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+
+  Usage:
+  {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image, show_date: section.settings.show_date  %}
+{% endcomment %}
+
+{% if class == 'article-bg' %}
+  <div
+    class="group-article"
+  >
+    <div class="banner-img">
+      {% if article.image != blank %}
+        <a
+          rel="nofollow"
+          href="{{ article.url }}"
+          class=""
+        >
+          <img
+            alt="{{ article.image.alt }}"
+            class="object-cover w-full h-full hover:scale-110 blog"
+            src="{{ article.image | image_url }}"
+            loading="lazy"
+            srcset="
+              {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            widths="50,100,165, 360, 535, 750, 1070, 1500"
+            sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+            width="{{ article.image.width }}"
+            height="auto"
+          >
+        </a>
+      {% else %}
+        <div class="no-cards">
+          {{ 'collection-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+    <div
+      class="banner-content"
+      {% if settings.blog_card_style == 'card' %}
+        style="background:{{ section.settings.card_bg }};"
+      {% endif -%}
+    >
+      {% if settings.blog_card_style == 'standard' %}
+        <div class="contents">
+          <p
+            style="text-align:{{ settings.blog_card_text_alignment }}; color:#fff;"
+          >
+            {% if show_date %}
+              {{ article.created_at | date: '%d %b %Y' -}}
+            {%- endif %}
+          </p>
+          <a
+            rel="nofollow"
+            href="{{ article.url }}"
+            class="article h3"
+            style="text-align:{{ settings.blog_card_text_alignment }};"
+          >
+            <h5 class="h4">{{ article.title | truncatewords: 14 }}</h5>
+          </a>
+        </div>
+      {% endif %}
+      <a href="{{ article.url }}" class="contents-btn button button_primary">
+        {% render 'button-primary', text: 'VIEW JOURNAL' %}
+      </a>
+    </div>
+  </div>
+{% elsif class == 'article-card' %}
+  <div class="group-grid article_card_main">
+    <div class="article_card_image">
+      <a rel="nofollow" href="{{ article.url }}" class="article-img-link" aria-label="{{ article.title }}">
+        {% if article.image != blank %}
+          <img
+            alt="{{ article.image.alt }}"
+            class=""
+            src="{{ article.image | image_url }}"
+            loading="lazy"
+            sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+            srcset="
+              {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            width="{{ article.image.width }}"
+            height="auto"
+          >
+        {% else %}
+          {{ 'collection-1' | placeholder_svg_tag }}
+        {% endif %}
+      </a>
+    </div>
+    <div class="article-card-content">
+      {% if settings.blog_card_style == 'standard' %}
+        <a href="{{ article.url }}" class="content-hover">
+          <h4 class="text-body">
+            {{ article.title | strip_html | truncatewords: 7 }}
+          </h4>
+        </a>
+      {% endif %}
+      {% if settings.blog_card_style == 'standard' %}
+        <p class=" article_date">
+          {% if show_date %}
+            {{ article.created_at | date: '%B %d %Y' -}}
+          {%- endif %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+{% elsif class == 'custom-article-card-2' %}
+  <div class="group-grid custom-gradient">
+    <div class="custom-article-card-3">
+      <div class="article-header">
+        {% if settings.blog_card_style == 'standard' %}
+          <p class=" article-date-3">
+            {% if show_date %}
+              {{ article.created_at | date: '%B %d %Y' -}}
+            {%- endif %}
+          </p>
+        {% endif %}
+        {% if settings.blog_card_style == 'standard' %}
+          <p class="header-text-body-3">
+            {{ article.title | strip_html | truncatewords: 7 }}
+          </p>
+        {% endif %}
+      </div>
+      <div class="article-link-div">
+        <a href="{{ article.url }}" class="article-link-button custom-color">View Journal</a>
+        <div class="custom-card-img">
+          <a rel="nofollow" href="{{ article.url }}" class="article-img-link" aria-label="{{ article.title }}">
+            {% if article.image != blank %}
+              <img
+                alt="{{ article.image.alt }}"
+                class=""
+                src="{{ article.image | image_url }}"
+                loading="lazy"
+                sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw"
+                srcset="
+                  {%- if article.image.width >= 100 -%}{{ article.image | image_url: width: 100 }} 100w,{%- endif -%}
+                  {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ article.image | image_url }} {{ article.image.width }}w
+                "
+                width="{{ article.image.width }}"
+                height="auto"
+              >
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag }}
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% elsif class == 'custom-article-card-3' %}
+  <div class="group-grid custom-article-card-4">
+    <div class="article-header">
+      {% if settings.blog_card_style == 'standard' %}
+        <p class=" article-date white-text">
+          {% if show_date %}
+            {{ article.created_at | date: '%B %d %Y' -}}
+          {%- endif %}
+        </p>
+      {% endif %}
+      {% if settings.blog_card_style == 'standard' %}
+        <h6 class="header-text-body">
+          {{ article.title | strip_html | truncatewords: 7 }}
+        </h6>
+      {% endif %}
+    </div>
+    <div class="article-link">
+      <a href="{{ article.url }}" class="article-link-button article-link-color"> View Journal </a>
+    </div>
+  </div>
+{% endif %}

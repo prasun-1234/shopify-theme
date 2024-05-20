@@ -1,0 +1,238 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+<section class="contact-us-section header_sticky_section">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'image' %}
+        {% if block.settings.contact__img != blank %}
+          <div class="contact-img-div">
+            {{
+              block.settings.contact__img
+              | image_url: width: 1000
+              | image_tag:
+                loading: 'lazy',
+                sizes: '100',
+                widths: '165, 360, 535, 750, 1070, 1500',
+                class: 'contact-page-image'
+            }}
+          </div>
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: '' }}
+        {% endif %}
+      {% when 'form' %}
+        <div class="form-div   gradient">
+          <div class="contact  section-{{ section.id }}-padding">
+            {%- if block.settings.formTitle != blank -%}
+              <h2 class="form-header title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {{ block.settings.formTitle }}
+              </h2>
+            {%- else -%}
+              <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
+            {%- endif -%}
+            {%- liquid
+              assign contact_form_class = 'isolate'
+              if settings.animations_reveal_on_scroll
+                assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
+              endif
+            -%}
+            {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+              {%- if form.posted_successfully? -%}
+                <h2 class="form-title form-status form-status-list form__message" tabindex="-1" autofocus>
+                  {% render 'icon-success' %}
+                  {{ 'templates.contact.form.post_success' | t }}
+                </h2>
+              {%- elsif form.errors -%}
+                <div class="form__message">
+                  <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                    {% render 'icon-error' %}
+                    {{ 'templates.contact.form.error_heading' | t }}
+                  </h2>
+                </div>
+                <ul class="form-error-state form-status-list caption-large" role="list">
+                  <li>
+                    <a href="#ContactForm-email" class="link error-text">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </a>
+                  </li>
+                </ul>
+              {%- endif -%}
+              <div class="contact-lable-div">
+                <label class="form__label field__label" for="ContactForm-name">
+                  {{- 'templates.contact.form.name' | t -}}
+                </label>
+                <input
+                  class="field__input"
+                  autocomplete="name"
+                  type="text"
+                  id="ContactForm-name"
+                  name="contact[name]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.name' | t }}"
+                >
+              </div>
+              <div class="contact-lable-div">
+                <label class="form__label field__label" for="ContactForm-email">
+                  {{- 'templates.contact.form.email' | t }}
+                  <span aria-hidden="true" class="star-field">*</span></label
+                >
+                <input
+                  autocomplete="email"
+                  type="email"
+                  id="ContactForm-email"
+                  class="field__input"
+                  name="contact[email]"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="ContactForm-email-error"
+                  {% endif %}
+                  placeholder="{{ 'templates.contact.form.email' | t }}"
+                >
+                {%- if form.errors contains 'email' -%}
+                  <small class="contact__field-error" id="ContactForm-email-error">
+                    <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                    <span class="form__message">
+                      {%- render 'icon-error' -%}
+                      <p>
+                        {{- form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email -}}
+                      </p>
+                    </span>
+                  </small>
+                {%- endif -%}
+              </div>
+              <div class="contact-lable-div">
+                <label class="form__label field__label" for="ContactForm-task-type"> Task type </label>
+                <select
+                  class="field__input custom-select"
+                  aria-labelledby="select-topic-label"
+                  name="contact[task_type]"
+                  select-topic-description
+                >
+                  <option value="development">Development</option>
+                  <option value="designing">Designing</option>
+                </select>
+              </div>
+              <div class="contact-lable-div">
+                <label class="form__label field__label" for="ContactForm-message">
+                  {{- 'templates.contact.form.comment' | t -}}
+                </label>
+                <textarea
+                  rows="10"
+                  id="ContactForm-body"
+                  class="text-area field__input"
+                  name="contact[body]"
+                  placeholder="{{ 'templates.contact.form.comment' | t }}"
+                >
+                    {{- form.body -}}
+                  </textarea>
+              </div>
+              <div class="contact__button">
+                <button class="button button_primary" type="submit">
+                  {% if block.settings.buttonText != blank %}
+                    {% render 'button-primary', text: block.settings.buttonText %}
+                  {% endif %}
+                </button>
+              </div>
+            {%- endform -%}
+          </div>
+        </div>
+    {% endcase %}
+  {% endfor %}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.contact-form.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "contact__img",
+          "label": "Image for the Contact Form"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "limit": 1,
+      "name": "Form",
+      "settings": [
+        {
+          "type": "text",
+          "id": "formTitle",
+          "label": "Form Title",
+          "placeholder": "Form Title"
+        },
+        {
+          "type": "text",
+          "id": "lableName",
+          "label": "Name lable text"
+        },
+        {
+          "type": "text",
+          "id": "lableEmail",
+          "label": "Email lable text"
+        },
+        {
+          "type": "text",
+          "id": "lableTask",
+          "label": "Task lable text"
+        },
+        {
+          "type": "text",
+          "id": "lableMessage",
+          "label": "Message box lable text"
+        },
+        {
+          "type": "text",
+          "id": "buttonText",
+          "label": "Button Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form.presets.name"
+    }
+  ]
+}
+{% endschema %}

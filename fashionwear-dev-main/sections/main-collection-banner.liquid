@@ -1,0 +1,137 @@
+<section
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+  id="productBanner"
+>
+  {% if request.path == routes.all_products_collection_url %}
+    {% render 'breadcrumb' %}
+    {% if section.settings.image1 == blank and section.settings.image2 == blank %}
+      {% assign noCol = true %}
+    {% endif %}
+    <div class="{% if settings.container == 'boxed' %}container {% else %}container-fluid{% endif %} mx-auto">
+      <div class="relative mt-5 lg:mt-10">
+        {% if noCol != true %}
+          <div class="lg:absolute lg:left-0 lg:top-0 w-full lg:h-full flex items-center justify-center text-center mb-0 z-50">
+            <h2>{{ section.settings.title }}</h2>
+          </div>
+        {% else %}
+          <h3 class="lg:text-center mb-5 lg:mb-0 z-50">{{ section.settings.title }}</h3>
+        {% endif %}
+        <div class="grid grid-cols-12 gap-5 lg:gap-10">
+          {% if section.settings.image1 == blank or section.settings.image2 == blank %}
+            {% assign singleCol = true %}
+          {% endif %}
+          {% if section.settings.image1 != blank %}
+            <div class="{% if singleCol == true %}col-span-12{% else %}col-span-12 lg:col-span-6{% endif %}">
+              <figure class="w-full relative">
+                {% if singleCol == true %}
+                  <span class="absolute left-0 top-0 w-full h-full bg-white opacity-20 z-20"></span>
+                {% endif %}
+                {{
+                  section.settings.image1
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'object-cover w-full h-[400px] lg:h-[800px] object-top relative',
+                    widths: '165, 360, 535, 750, 1070',
+                    sizes: '(max-width:640px) 250px, 100'
+                }}
+              </figure>
+            </div>
+          {% endif %}
+          {% if section.settings.image2 != blank %}
+            <div class="{% if singleCol == true %}col-span-12{% else %}col-span-12 lg:col-span-6 lg:mt-[200px]{% endif %}">
+              <figure class="w-full relative">
+                {% if singleCol == true %}
+                  <span class="absolute left-0 top-0 w-full h-full bg-white opacity-20 z-20"></span>
+                {% endif %}
+                {{
+                  section.settings.image2
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'object-cover w-full h-[400px] lg:h-[800px] object-top relative',
+                    widths: '165, 360, 535, 750, 1070',
+                    sizes: '(max-width:640px) 250px, 100'
+                }}
+              </figure>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="w-full">
+      <figure class="relative w-full h-screen">
+        {{
+          collection.featured_image
+          | image_url: width: 1500
+          | image_tag:
+            class: 'w-full h-full object-cover object-top brightness-90',
+            widths: '165, 360, 535, 750, 1070, 1500'
+        }}
+        <div class="absolute left-0 top-0 w-full h-full flex items-center justify-center">
+          <h2 class="!text-white">{{ collection.title | escape }}</h2>
+        </div>
+      </figure>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-collection-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-collection-banner.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.main-collection-banner.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:section.main-collection-banner.settings.all_collection_page"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:section.main-collection-banner.settings.title",
+      "default": "Shop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "t:section.main-collection-banner.settings.image1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "t:section.main-collection-banner.settings.image2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-collection-banner.presets.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 40,
+        "title": "Shop",
+        "image1": "shopify:\/\/shop_images\/image1.jpg",
+        "image2": "shopify:\/\/shop_images\/image2.jpg"
+      }
+    }
+  ]
+}
+{% endschema %}

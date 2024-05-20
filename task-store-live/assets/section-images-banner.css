@@ -1,0 +1,160 @@
+.images-banner-section .border-gradient{
+    background: radial-gradient(circle, rgba(var(--color-foreground),1) 0%, rgba(var(--color-background),0.10) 100%);
+    padding: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.images-headding{
+    font-weight: 700;
+    margin: 0 auto;
+}
+.images-banner-section .body-text{
+    margin-bottom: 20px;
+}
+.images-banner-section .images-banner-container{
+    position: relative;
+    border-radius: 20px;
+    background-color: rgb(var(--color-background));
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.images-banner-section .body-content{
+    width: fit-content;
+    height: auto;
+    padding: 20px;    
+}
+.images-banner-section .body-content .content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: auto;
+    padding-block: 60px;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.images-banner-section .body-content .content *{
+    z-index: 3;
+    max-width: 46rem;
+}
+
+.images-banner-section .images-board{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.images-banner-section .images-banner-section-image{
+    position: absolute;
+    height: fit-content;
+    max-height: 380px;
+    opacity: 0.2;
+    transition: .3s ease;
+    object-fit: cover;
+    z-index: 1;
+}
+.images-banner-section .images-banner-section-image:hover{
+    opacity: 1;
+}
+.images-banner-section .images-banner-section-image:nth-child(1){
+    max-width: 460px;
+}
+.images-banner-section .images-banner-section-image:nth-child(2){
+    max-width: 340px;
+}
+.images-banner-section .images-banner-section-image:nth-child(3){
+    max-width: 380px;
+}
+.images-banner-section .images-banner-section-image:nth-child(4){
+    max-width: 570px;
+}
+.images-banner-section .images-banner-section-image:nth-child(5){
+    max-width: 580px;
+}
+
+
+.images-banner-section .images-banner-section-image:nth-child(1){
+    top: 5%;
+    left: 0;
+}
+.images-banner-section .images-banner-section-image:nth-child(2){
+    top: 0;
+    left: 40%;
+}
+.images-banner-section .images-banner-section-image:nth-child(3){
+    top: 5%;
+    right: 0;
+}
+.images-banner-section .images-banner-section-image:nth-child(4){
+    left: 0;
+    bottom: 30px;
+}
+.images-banner-section .images-banner-section-image:nth-child(5){
+    bottom: 30px;
+    right: 0;
+}
+
+@media screen and (max-width: 1536px){
+    .images-banner-section .images-banner-section-image:nth-child(1){
+        max-width: 360px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(2){
+        max-width: 240px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(3){
+        max-width: 280px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(4){
+        max-width: 470px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(5){
+        max-width: 480px;
+    }
+}
+@media screen and (max-width: 1200px){
+    .images-banner-section .images-banner-container{
+        height: 600px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(1){
+        max-width: 200px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(2){
+        max-width: 140px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(3){
+        max-width: 180px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(4){
+        max-width: 270px;
+    }
+    .images-banner-section .images-banner-section-image:nth-child(5){
+        max-width: 280px;
+    }
+}
+@media screen and (max-width:767px){
+    .images-banner-section .images-board{
+        display: none;
+    }
+
+    .images-banner-section .images-banner-container{
+        height: fit-content;
+    }
+
+    .images-banner-section .body-content{
+        position: relative;
+        padding: 0 20px;
+    }
+    .images-banner-section .images-banner-container{
+        position: relative;
+        border-radius: 20px;
+        padding: 0;
+    }
+}

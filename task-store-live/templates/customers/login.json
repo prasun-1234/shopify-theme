@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-login",
+      "blocks": {
+        "featured_image": {
+          "type": "featured_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/login-featured.jpg"
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "formTitle": "Login to your account..",
+            "resetTitle": "Reset your Password",
+            "buttonText": "Login"
+          }
+        }
+      },
+      "block_order": [
+        "featured_image",
+        "form"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

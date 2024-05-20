@@ -1,0 +1,297 @@
+{% style %}
+   .section-title *{
+     color:{{ section.settings.text_color }};
+   }
+   .collection-banner-button{
+   {% if section.settings.text_align == "center" %}
+     margin: auto;
+   {% elsif section.settings.text_align == "right" %}
+     margin-left: auto;
+   {% else %}
+     margin-right: auto;
+   {% endif %}
+   }
+   .shop-button .hover-link{
+     color: {{ section.settings.text_color }}!important;
+   }
+   .shop-button p::before{
+     background: {{ section.settings.text_color }}!important;
+   }
+   #collection-{{ section.id }}-banner{
+       margin-top: {{ section.settings.section_margin_top }}px;
+       margin-bottom: {{ section.settings.section_margin_bottom }}px;
+     }
+
+   @media only screen and (max-width: 1024px){
+     #collection-{{ section.id }}-banner{
+       margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+       margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+     }
+   }
+   @media screen and (max-width:767px){
+     .collection-banner .banner-inner{
+       text-align:center !important;
+       align-items:center !important;
+     }
+   }
+
+  #section_height{
+     padding-block:{{ section.settings.section_padding }}px;
+    }
+   @media screen and (max-width:980px){
+      #section_height{
+       padding-block: 140px;
+       }
+    }
+{% endstyle %}
+
+{% assign collection = section.settings.collection %}
+<section
+  id="collection-{{ section.id }}-banner"
+  class="section collection-banner overflow-hidden relative scroll-animation"
+>
+  <span class="w-full h-full absolute left-0 top-0">
+    {% if section.settings.image != blank or collection.image != blank %}
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1000
+          | image_tag: class: 'w-full h-full object-cover object-center', loading: 'lazy'
+        }}
+      {% else %}
+        {{
+          collection.image
+          | image_url: width: 1000
+          | image_tag: class: 'w-full h-full object-cover object-center', loading: 'lazy'
+        }}
+      {% endif %}
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-full bg-gray-300' }}
+    {% endif %}
+  </span>
+  <span
+    class="absolute top-0 left-0 w-full h-full z-20"
+    style="background:{{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+  ></span>
+
+  <div
+    id="section_height"
+    class="mx-auto {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} relative z-40"
+  >
+    {% if section.settings.image != blank %}
+      {% assign collection = section.settings.collection %}
+      <div
+        class="flex flex-col gap-[20px] banner-inner"
+        style="
+          text-align:{{ section.settings.text_align }};
+          align-items:{% case section.settings.text_align %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% endcase %};
+        "
+      >
+        {% if section.settings.custom_title != blank %}
+          <span class="section-title">{{ section.settings.custom_title }}</span>
+        {% else %}
+          <h3 style="color:{{ section.settings.text_color }};">{{ collection.title }}</h3>
+        {% endif %}
+        <div class="shop-button">
+          <a class="flex justify-center gap-3 items-center" href="{{ collection.url }}" rel="nofollow">
+            {% render 'btn-secondary', src: section.settings.button_text %}
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div
+        class="flex flex-col gap-[20px] banner-inner"
+        style="
+          text-align:{% case section.settings.text_align %}{% when 'left' %}left{% when 'center' %}center{% when 'right' %}right{% endcase %};
+          align-items:{% case section.settings.text_align %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% endcase %};
+        "
+        data-handle="{{ collection.handle }}"
+      >
+        {% if section.settings.title == true %}
+          <h2
+            style="color:{{ section.settings.text_color }};"
+            class="text-center leading-none{% if section.settings.text_align == "center" %} md:text-center {% elsif section.settings.text_align == "right" %} md:text-right {% else %} md:text-left {% endif %} "
+          >
+            {% if collection.title %}
+              {{ collection.title }}
+            {% else %}
+              {{ 'collection-banner.title' | t }}
+            {% endif %}
+          </h2>
+        {% endif %}
+        {% if section.settings.description == true %}
+          <span
+            class="max-w-[34rem] inline-block md:text-base text-sm banner-desc"
+            style="color:{{ section.settings.text_color }};"
+          >
+            {% if collection.description %}
+              {{ collection.description | truncatewords: 25 }}
+            {% else %}
+              {{ 'collection-banner.text' | t }}
+            {% endif %}
+          </span>
+        {% endif %}
+        <div class="shop-button">
+          <a class="flex justify-center gap-3 items-center" href="{{ collection.url }}" rel="nofollow">
+            {% render 'btn-secondary', src: section.settings.button_text %}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.collection-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "label": "t:section.collection-banner.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "label": "t:section.collection-banner.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Featured Image",
+      "info": "Filling this option will disable 'Featured Collection'"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "max": 400,
+      "min": 100,
+      "step": 10,
+      "default": 200,
+      "label": "t:section.collection-banner.settings.section_padding",
+      "unit": "px"
+    },
+    {
+      "type": "richtext",
+      "id": "custom_title",
+      "label": "t:section.collection-banner.settings.custom_title",
+      "default": "<h3>Formal wears Up to</h3> <h3>30% Off</h3>"
+    },
+    {
+      "type": "header",
+      "content": "t:section.collection-banner.settings.header.collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "title",
+      "label": "t:section.collection-banner.settings.title"
+    },
+    {
+      "type": "checkbox",
+      "id": "description",
+      "label": "t:section.collection-banner.settings.description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:section.collection-banner.settings.collection"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:section.collection-banner.settings.text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.collection-banner.settings.overlay_color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.collection-banner.settings.overlay_opacity",
+      "max": 10,
+      "min": 0,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "t:section.collection-banner.settings.text_align.label",
+      "options": [
+        {
+          "label": "t:section.collection-banner.settings.text_align.options.left",
+          "value": "left"
+        },
+        {
+          "label": "t:section.collection-banner.settings.text_align.options.center",
+          "value": "center"
+        },
+        {
+          "label": "t:section.collection-banner.settings.text_align.options.right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:section.collection-banner.settings.header.button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:section.collection-banner.settings.button_text",
+      "info": "Type something to enable Button",
+      "default": "Shop Now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.collection-banner.presets.name",
+      "settings": {
+        "section_margin_top": 80,
+        "section_margin_bottom": 80,
+        "section_padding": 180,
+        "title": false,
+        "description": false,
+        "collection": "t-shirts",
+        "text_color": "#ffffff",
+        "overlay_color": "#3a3a3a",
+        "overlay_opacity": 2,
+        "text_align": "center"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const target = document.querySelector('.collection-banner');
+
+  function handleIntersection(entries) {
+    entries.map((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver(handleIntersection);
+
+  observer.observe(target);
+{% endjavascript %}

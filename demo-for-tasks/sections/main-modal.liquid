@@ -1,0 +1,153 @@
+{{ 'modal-style.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .newsletter-input.field__input {
+    outline: 2px solid #b4b4b4;
+  }
+{% endstyle %}
+
+<section class="modal-section closed" id="modal">
+  <dialog class="dialog">
+    <div class="modal-content">
+      <div class="image-">
+        <img src="{{ section.settings.modal_image |  image_url}}" alt="modal-img" width="300" height="200">
+        <button id="modalClose" class="modal-close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M15 1L1 15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 1L15 15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-text-content">
+        <div class="text">
+          <h2>Sign Up</h2>
+          <p>Entice customers to sign up for your mailing list with discounts or exclusive offers.</p>
+        </div>
+
+        {% form 'customer', class: 'newsletter-form' %}
+          <span class="lable-span"><p>Email</p></span>
+          <span
+            class=" field modal"
+          >
+            <input
+              type="hidden"
+              name="contact[tags]"
+              value="newsletter"
+            >
+
+            <input
+              class="newsletter-input field__input"
+              type="email"
+              id="email"
+              autocomplete="off"
+              placeholder="Your Email"
+            >
+            <label for="email " class="field__label">
+              <p>Email</p>
+            </label>
+          </span>
+
+          <div class="submit form-input">
+            <button>
+              <p>Subscribe</p>
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </dialog>
+  <div class="overlay"></div>
+</section>
+{% schema %}
+{
+  "name": "modal",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "enable_modal",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "modal_image",
+      "label": "Modal Image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "title name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "title text",
+          "default": "Sign Up"
+        },
+        {
+          "type": "text",
+          "id": "title_description",
+          "label": "title description",
+          "default": "Entice customers to sign up for your mailing list with discounts or exclusive offers."
+        }
+      ]
+    },
+    {
+      "name": "form name",
+      "type": "form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "button_text",
+          "default": "Submit"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script defer>
+  function initializeModal() {
+    const modal = document.querySelector('#modal');
+    const closeModalBtn = document.querySelector('#modalClose');
+    let modalState = sessionStorage.getItem('modalState') || 'closed';
+
+    const toggleModal = function () {
+      if (modalState === 'closed') {
+        setTimeout(() => {
+          modal.classList.remove('closed');
+          modal.classList.add('open');
+          sessionStorage.setItem('modalState', 'open');
+        }, 2000);
+      } else {
+        modal.classList.remove('open');
+        modal.classList.add('closed');
+      }
+    };
+
+    const closeModal = function () {
+      if (modal.classList.contains('open')) {
+        modal.classList.remove('open');
+        modal.classList.add('closed');
+      }
+    };
+
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Optional: Close modal when pressing Escape key
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    toggleModal();
+  }
+
+  initializeModal();
+</script>

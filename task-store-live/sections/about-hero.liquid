@@ -1,0 +1,132 @@
+{{ 'section-about-us.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+    #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+    padding-top:{{ section.settings.padding_top | divided_by: 2 }}px;
+    padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+
+<section class="about_hero" id="{{ section.id }}">
+  <div class="container">
+    <div class="hero_inner {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {% if section.settings.image_1 != blank %}
+        <figure class="image_1 zoom_gsap_bg">
+          {{ section.settings.image_1 | image_url: width: 1000 | image_tag }}
+        </figure>
+      {% endif %}
+      {% if section.settings.heading_1 != blank %}
+        <h2 lang="en" class="h0 about-us-heading">
+          {{ section.settings.heading_1 }}
+        </h2>
+      {% endif %}
+      {% if section.settings.heading_2 != blank %}
+        <h2 lang="en" class="h0 about-us-heading heading_2">
+          {{ section.settings.heading_2 }}
+        </h2>
+        <h2 lang="en" class="h0 about-us-heading heading_3">
+          Develop-
+          <br>
+          ment
+        </h2>
+      {% endif %}
+      {% if section.settings.image_2 != blank %}
+        <figure class="image_2 scale_x_gsap_bg">
+          {{ section.settings.image_2 | image_url: width: 1000 | image_tag }}
+        </figure>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero_bottom">
+    <div class="container">
+      {% if section.settings.description != blank %}
+        <p class="desktop_hidden">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+      {% if section.settings.button_url != blank %}
+        <a
+          href="{{ section.settings.button_url }}"
+          class="button button_primary"
+        >
+          {% render 'button-primary', text: section.settings.button_label | escape %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About - Hero",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading 1",
+      "default": "Engaging"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading 2",
+      "default": "Development"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "View shopify tasks"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ]
+}
+{% endschema %}

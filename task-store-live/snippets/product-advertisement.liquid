@@ -1,0 +1,118 @@
+{% assign metaFields = product.metafields.custom.image_link.value %}
+{% if metaFields %}
+<div class="product-add-box">
+  <div class="product-add-inner">
+    <div>
+      {% if metaFields != blank or images != blank %}
+        <h5 class="heading">
+          View task in live store
+          <svg
+            viewBox="0 0 14 10"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            class="icon icon-arrow"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
+          </svg>
+        </h5>
+      {% endif %}
+      {% if metaFields != blank %}
+        <figure class="image-box">
+          {% for field in metaFields %}
+            {% if forloop.index <= 3 %}
+              <a class="metaFields-circle" rel="nofollow" href="{{ field.link }}">
+                {{
+                  field.image
+                  | image_url: width: 200
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '400',
+                    widths: '200, 400, 600, 800',
+                    class: 'metaFields-circle-image'
+                }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </figure>
+      {% else %}
+        {% if images != blank %}
+          <figure class="image-box">
+            {% for image in images %}
+              {% if forloop.index <= 3 %}
+                {{
+                  image
+                  | image_url: width: 200
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '400',
+                    widths: '200, 400, 600, 800',
+                    class: 'product-circle-image'
+                }}
+              {% endif %}
+            {% endfor %}
+          </figure>
+        {% endif %}
+      {% endif %}
+
+      {% assign bodyText = product.metafields.custom.body_text.value %}
+      {% if bodyText != blank %}
+        <div class="body-text">
+          {% for field in bodyText %}
+            <div class="text-item">
+              {{ field.icon | image_url: width: 20 | image_tag: loading: 'lazy', class: '' }}
+              <p>{{ field.text }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="time">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="22" viewBox="0 0 19 22" fill="none">
+            <path d="M13.3333 4.66663H14.6667V5.99996H13.3333V4.66663Z" fill="white"/>
+            <path d="M12 5.99996H13.3333V7.33329H12V5.99996Z" fill="white"/>
+            <path d="M10.6667 7.33329H12V8.66663H10.6667V7.33329Z" fill="white"/>
+            <path d="M1.33333 4.66663H2.66667V5.99996H1.33333V4.66663Z" fill="white"/>
+            <path d="M2.66667 5.99996H4V7.33329H2.66667V5.99996Z" fill="white"/>
+            <path d="M4 7.33329H5.33333V8.66663H4V7.33329Z" fill="white"/>
+            <path d="M10.6667 11.3333H12V12.6666H10.6667V11.3333Z" fill="white"/>
+            <path d="M12 12.6666H13.3333V14H12V12.6666Z" fill="white"/>
+            <path d="M13.3333 14H14.6667V15.3333H13.3333V14Z" fill="white"/>
+            <path d="M4 11.3333H5.33333V12.6666H4V11.3333Z" fill="white"/>
+            <path d="M2.66667 12.6666H4V14H2.66667V12.6666Z" fill="white"/>
+            <path d="M1.33333 14H2.66667V15.3333H1.33333V14Z" fill="white"/>
+            <path d="M16 15.3333H14.6667V18H16V15.3333Z" fill="white"/>
+            <path d="M14.6667 19.3333V18H1.33333V19.3333H14.6667Z" fill="white"/>
+            <path d="M1.33333 15.3333H0V18H1.33333V15.3333Z" fill="white"/>
+            <path d="M6.66667 8.66663H5.33333V11.3333H6.66667V8.66663Z" fill="white"/>
+            <path d="M10.6667 8.66663H9.33333V11.3333H10.6667V8.66663Z" fill="white"/>
+            <path d="M14.6667 4.66663H16V1.99996H14.6667V4.66663Z" fill="white"/>
+            <path d="M1.33333 0.666626V1.99996H14.6667V0.666626H1.33333Z" fill="white"/>
+            <path d="M0 4.66663H1.33333V1.99996H0V4.66663Z" fill="white"/>
+          </svg>
+          <p>24 hrs Turn Around Time</p>
+        </div>
+        <div class="money">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="22" viewBox="0 0 19 22" fill="none">
+            <path d="M3.52145 15.4515V14.2781H2.34766V15.4515H3.52145Z" fill="white"/>
+            <path d="M2.34537 6.06128H1.17188V8.40867H2.34537V6.06128Z" fill="white"/>
+            <path d="M2.34537 11.9302H1.17188V14.2782H2.34537V11.9302Z" fill="white"/>
+            <path d="M1.1735 8.40869H0V11.9301H1.1735V8.40869Z" fill="white"/>
+            <path d="M3.52145 4.88727H2.34766V6.06126H3.52145V4.88727H5.86962V3.71387H3.52145V4.88727Z" fill="white"/>
+            <path d="M8.21507 5.86935H9.38886V4.69595H10.5624V3.52196H11.737V2.34798H10.5624V1.17458H9.38886V0H8.21507V2.54026H5.86719V3.71396H8.21507V5.86935Z" fill="white"/>
+            <path d="M15.2188 6V7.17369H16.3922V6H15.2188Z" fill="white"/>
+            <path d="M17.5641 13.043H16.3906V15.3904H17.5641V13.043Z" fill="white"/>
+            <path d="M17.5641 7.17358H16.3906V9.52156H17.5641V7.17358Z" fill="white"/>
+            <path d="M18.736 9.52148H17.5625V13.0429H18.736V9.52148Z" fill="white"/>
+            <path d="M15.2193 16.5644H16.3928V15.3904H15.2193V16.5644H12.8711V17.7378H15.2193V16.5644Z" fill="white"/>
+            <path d="M10.5217 15.5823H9.34817V16.7557H8.17438V17.9297H7V19.1037H8.17438V20.2771H9.34817V21.4516H10.5217V18.9111H12.8698V17.7377H10.5217V15.5823Z" fill="white"/>
+            <path d="M7 13.2H8V14.1H9V15H10V14.1H12V13.2H13V11.4H12V10.5H10V9.6H8V7.8H12V8.7H13V7.8H12V6.9H11V6H10V6.9H8V7.8H7V9.6H8V10.5H10V11.4H12V13.2H8V12.3H7V13.2Z" fill="white"/>
+          </svg>
+          <p>100% Money Back Guarantee</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>  
+{% endif %}
+

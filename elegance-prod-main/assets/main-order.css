@@ -1,0 +1,21 @@
+.order-show-table{
+  position: relative;
+  overflow-y: auto;
+}
+
+.order-show-table table{
+  width: 100%;
+}
+
+.order-show-table::-webkit-scrollbar{
+  height: 5px;
+}
+
+@media screen and (max-width:540px) {
+  .order-show-table table{
+    width: max-content;
+  }
+  #order_address{
+    flex-direction: column;
+ } 
+}

@@ -1,0 +1,20 @@
+.top-bar-1{
+    overflow: hidden;
+    position: relative;
+}
+.bar-1-row{
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    padding-block: 9px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+@media screen and (max-width: 640px) {
+    .topBarSlide .swiper-button-next, .topBarSlide .swiper-button-prev{
+        display: none;
+    }    
+}

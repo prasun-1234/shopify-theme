@@ -1,0 +1,542 @@
+<link rel="stylesheet" href="{{ 'home-collection-product.css' | asset_url }}">
+
+<section class="product-grid-view">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="product-grid-view-fade-in-up {% if settings.enable_animation %}scrollmagic-element{% endif %} {% if section.settings.slider_or_grid == 'grid' %}product-grid-view-inner{% endif %}">
+      <h3 class="section-header {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+        {{ section.settings.section_title }}
+      </h3>
+
+      {% liquid
+        assign featured_collection = section.settings.featured_collection
+        assign no_of_coloumn = section.settings.post_row_limit | plus: 0
+      %}
+      {% if section.settings.slider_or_grid == 'grid' %}
+        <div class="pure-g product-grid-div">
+          {% if collections[featured_collection].all_products_count > 0 %}
+            {% for product in collections[featured_collection].products limit: section.settings.product_limit %}
+              <div
+                class="pure-u-1-1 pure-u-sm-1-1 {% if no_of_coloumn == 2 %}pure-u-md-1-2{%elsif no_of_coloumn == 3 %}pure-u-md-1-3{% endif %} product_item_main"
+                tabindex="0"
+                aria-label="{{ product.handle }}"
+              >
+                <div class="l-box">
+                  <div class="product-grid inner-grid-item {% if settings.product_display_style == 'always_shows_add_to_cart' %}show-add-to-cart{% endif %}">
+                    <div class="product-grid-inner product-grid-inner-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %} product-grid-hover">
+                      <div class="product-image {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                        {%- assign tag_showed = false -%}
+                        {% for tag in product.tags %}
+                          {% if tag contains 'offer' and tag_showed == false %}
+                            <span class="tags {{ tag }}">{{ tag | remove: 'offer_' }}</span>
+                            {%- assign tag_showed = true -%}
+                          {% endif %}
+                        {% endfor %}
+                        <figure class="img-box">
+                          <img
+                            srcset="
+                              {%- if product.featured_image.width >= 300 -%}{{ product.featured_image | image_url: width: 300 }} 300w,{%- endif -%}
+                              {%- if product.featured_image.width >= 550 -%}{{ product.featured_image | image_url: width: 550 }} 550w{%- endif -%}
+                            "
+                            sizes="(max-width: 320px) 280px,(max-width: 640px) 580px"
+                            src="{{ product.featured_image | image_url: width: 100 }}"
+                            loading="lazy"
+                            alt="{{ product.featured_image.alt | escape }}"
+                            width="100"
+                            height="auto"
+                          >
+                        </figure>
+                        <div class="icon-wrap">
+                          <a href="{{ product.url }}" rel="nofollow" aria-label="{{ product.handle }}-view" class="product-link" tabindex="0"></a>
+                          <div class="product-button" tabindex="0">
+                            {% if product.options.size > 1 %}
+                              <span
+                                class="icons"
+                                title="View Product"
+                              >
+                                <a
+                                  rel="nofollow"
+                                  href="{{ product.url }}"
+                                  aria-label="{{ product.handle }}-view"
+                                  class="theme-btn primary-btn"
+                                  ><span class="btn-bg"></span
+                                  ><span class="btn-text">
+                                    {{- 'home-collection-product.product-button.view_product' | t -}}
+                                  </span></a
+                                >
+                              </span>
+                            {% else %}
+                              <div class="product-add">
+                                <a
+                                  href="{% if settings.cart_settings == 'page' %}{{- shop.url -}}/cart/add/{{- product.first_available_variant.id -}} {% else %} javascript:void(0) {% endif %}"
+                                  rel="nofollow"
+                                  aria-label="{{ product.handle }}-add"
+                                  {% if settings.cart_settings != 'page' %}
+                                    onclick="productItemAddToCart('{{ product.first_available_variant.id }}', event)"
+                                  {% endif %}
+                                  class="theme-btn primary-btn"
+                                >
+                                  <div class="btn-overlay"></div>
+                                  <div class="btn-text">{{ 'home-collection-product.button.title' | t }}</div>
+                                  <span style="display:none" class="added-span-product">
+                                    {{- 'products.product.added' | t -}}
+                                  </span>
+                                </a>
+                                <p class="stock-avail" style="display:none;">{{ 'products.product.no_stock' | t }}</p>
+                                {% render 'loader' %}
+                              </div>
+                            {% endif %}
+                          </div>
+                          {% if product.type != blank %}
+                            <span class="icons product-type" title="{{ product.type }}">{{ product.type }}</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="product-info">
+                        <div class="info-col">
+                          <h4 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+                            <a href="{{ product.url }}" rel="nofollow">{{ product.title }}</a>
+                          </h4>
+                          <div class="review-block">
+                            {% if product.selected_or_first_available_variant.unit_price_measurement != blank %}
+                              <div class="unitprice ">
+                                <span class="unit-price" var-id="{{- variant.id -}}">
+                                  {{ product.selected_or_first_available_variant.unit_price | money }}/
+
+                                  {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                                      != 1
+                                  -%}
+                                    {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                                  {%- endif -%}
+                                  {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+                                </span>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="price-wrap {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                          <p class="prduct-price">{{ product.price | money_with_currency }}</p>
+                          {% if product.compare_at_price %}
+                            <p class="prduct-compare-price">{{ product.compare_at_price_max | money_with_currency }}</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..4) %}
+              <div class="pure-u-1-1 pure-u-sm-1-1 {% if no_of_coloumn == 2 %}pure-u-md-1-2{%elsif no_of_coloumn == 3 %}pure-u-md-1-3{% endif %} product_item_main">
+                <div class="l-box">
+                  <div class="product-grid {% if settings.product_display_style == 'always_shows_add_to_cart' %}show-add-to-cart{% endif %}">
+                    <div class="product-grid-inner product-grid-inner-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %} product-grid-hover">
+                      <a aria-label="{{ product.handle }}" href="{{ product.url }}" rel="nofollow" tabindex="-1">
+                        <div class="product-image {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                          <figure class="img-box">
+                            <div class="placeholder-background">
+                              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            </div>
+                          </figure>
+                          <div class="icon-wrap">
+                            <a href="{{ product.url }}" rel="nofollow" aria-label="{{ product.handle }}-view" class="product-link" tabindex="0"></a>
+                            <div class="product-button" tabindex="0">
+                              {% if product.options.size > 1 %}
+                                <span class="icons" title="View Product">
+                                  <a
+                                    rel="nofollow"
+                                    href="{{ product.url }}"
+                                    aria-label="{{ product.handle }}-view"
+                                    class="theme-btn primary-btn"
+                                    ><span class="btn-bg"></span
+                                    ><span class="btn-text">
+                                      {{- 'home-collection-product.product-button.view_product' | t -}}
+                                    </span></a
+                                  >
+                                </span>
+
+                              {% else %}
+                                <div class="product-add">
+                                  <a
+                                    href="javascript:void(0)"
+                                    rel="nofollow"
+                                    aria-label="{{ product.handle }}-add"
+                                    class="theme-btn primary-btn"
+                                  >
+                                    <div class="btn-overlay"></div>
+                                    <div class="btn-text">{{ 'home-collection-product.button.title' | t }}</div>
+                                    <span style="display:none" class="added-span-product">
+                                      {{- 'products.product.added' | t -}}
+                                    </span>
+                                  </a>
+                                  <p class="stock-avail" style="display:none;">{{ 'products.product.no_stock' | t }}</p>
+                                  {% render 'loader' %}
+                                </div>
+                              {% endif %}
+                            </div>
+                            {% if product.type != blank %}
+                              <span class="icons product-type" title="{{ product.type }}">{{ product.type }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </a>
+                      <div class="product-info ">
+                        <div class="info-col">
+                          <h4 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+                            <a href="{{ product.url }}" rel="nofollow">{{ product.title }}</a>
+                          </h4>
+                          <div class="review-block">
+                            {% if product.selected_or_first_available_variant.unit_price_measurement != blank %}
+                              <div class="unitprice ">
+                                <span class="unit-price" var-id="{{- variant.id -}}">
+                                  {{ product.selected_or_first_available_variant.unit_price | money }}/
+
+                                  {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                                      != 1
+                                  -%}
+                                    {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                                  {%- endif -%}
+                                  {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+                                </span>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="price-wrap {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                          <p class="prduct-price">{{ product.price | money_with_currency }}</p>
+                          {% if product.compare_at_price %}
+                            <p class="prduct-compare-price">{{ product.compare_at_price_max | money_with_currency }}</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% elsif section.settings.slider_or_grid == 'slider' %}
+        {% assign product_limit = section.settings.product_limit | plus: 0 %}
+        <div class="swiper-container product-slider" data-count="{{ no_of_coloumn }}">
+          <div class="swiper-wrapper">
+            {% if collections[featured_collection] != blank
+              and collections[featured_collection].all_products_count > 0
+            %}
+              {% for product in collections[featured_collection].products limit: product_limit %}
+                <div class="swiper-slide">
+                  <div class="pure-u-1-1 product_item_main" tabindex="0" aria-label="{{ product.handle }}">
+                    <div class="l-box">
+                      <div class="product-grid {% if settings.product_display_style == 'always_shows_add_to_cart' %}show-add-to-cart{% endif %}">
+                        <div class="product-grid-inner product-grid-inner-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %} product-grid-hover">
+                          <div class="product-image {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                            {%- assign tag_showed = false -%}
+                            {% for tag in product.tags %}
+                              {% if tag contains 'offer' and tag_showed == false %}
+                                <span class="tags {{ tag }}">{{ tag | remove: 'offer_' }}</span>
+                                {%- assign tag_showed = true -%}
+                              {% endif %}
+                            {% endfor %}
+                            <figure class="img-box">
+                              <img
+                                srcset="
+                                  {%- if product.featured_image.width >= 300 -%}{{ product.featured_image | image_url: width: 300 }} 300w,{%- endif -%}
+                                  {%- if product.featured_image.width >= 550 -%}{{ product.featured_image | image_url: width: 550 }} 550w{%- endif -%}
+                                "
+                                sizes="(max-width: 320px) 280px,(max-width: 640px) 580px"
+                                src="{{ product.featured_image | image_url: width: 100 }}"
+                                loading="lazy"
+                                alt="{{ product.featured_image.alt | escape }}"
+                                width="100"
+                                height="auto"
+                              >
+                            </figure>
+                            <div class="icon-wrap">
+                              <a href="{{ product.url }}" rel="nofollow" aria-label="{{ product.handle }}-view" class="product-link" tabindex="0"></a>
+                              <div class="product-button" tabindex="0">
+                                {% if product.options.size > 1 %}
+                                  <span
+                                    class="icons"
+                                    title="View Product"
+                                  >
+                                    <a
+                                      rel="nofollow"
+                                      href="{{ product.url }}"
+                                      class="theme-btn primary-btn"
+                                      aria-label="{{ product.handle }}-view"
+                                      ><span class="btn-bg"></span
+                                      ><span class="btn-text">
+                                        {{- 'home-collection-product.product-button.btn-text' | t -}}
+                                      </span></a
+                                    >
+                                  </span>
+
+                                {% else %}
+                                  <div class="product-add">
+                                    {% if product.available %}
+                                      <a
+                                        href="{% if settings.cart_settings == 'page' %}{{- shop.url -}}/cart/add/{{- product.first_available_variant.id -}} {% else %} javascript:void(0) {% endif %}"
+                                        rel="nofollow"
+                                        aria-label="{{ product.handle }}-add"
+                                        {% if settings.cart_settings != 'page' %}
+                                          onclick="productItemAddToCart('{{ product.first_available_variant.id }}', event)"
+                                        {% endif %}
+                                        class="theme-btn primary-btn"
+                                      >
+                                        <div class="btn-overlay"></div>
+                                        <div class="btn-text">{{ 'home-collection-product.button.title' | t }}</div>
+                                        <span style="display:none" class="added-span-product">
+                                          {{- 'products.product.added' | t -}}
+                                        </span>
+                                        {% render 'loader' %}
+                                      </a>
+                                      <p class="stock-avail" style="display:none;">
+                                        {{ 'products.product.no_stock' | t }}
+                                      </p>
+                                    {% else %}
+                                      <a
+                                        rel="nofollow"
+                                        href="javascript:void(0)"
+                                        class="theme-btn secondary-btn sold-out sold-btn"
+                                        disabled
+                                      >
+                                        {{- 'product-item.sold-btn' | t }}
+                                      </a>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+                              {% if product.type != blank %}
+                                <span class="icons product-type" title="{{ product.type }}">
+                                  {{- product.type -}}
+                                </span>
+                              {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="product-info ">
+                            <div class="info-col">
+                              <h4 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+                                <a href="{{ product.url }}" rel="nofollow">{{ product.title }}</a>
+                              </h4>
+                              <div class="review-block">
+                                {% if product.selected_or_first_available_variant.unit_price_measurement != blank %}
+                                  <div class="unitprice ">
+                                    <span class="unit-price" var-id="{{- variant.id -}}">
+                                      {{ product.selected_or_first_available_variant.unit_price | money }}/
+
+                                      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                                          != 1
+                                      -%}
+                                        {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                                      {%- endif -%}
+                                      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+                                    </span>
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="price-wrap {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                              <p class="prduct-price">{{ product.price | money_with_currency }}</p>
+                              {% if product.compare_at_price %}
+                                <p class="prduct-compare-price">
+                                  {{ product.compare_at_price_max | money_with_currency }}
+                                </p>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for i in (1..4) %}
+                <div class="swiper-slide">
+                  <div class="pure-u-1-1 product_item_main">
+                    <div class="l-box">
+                      <div class="product-grid {% if settings.product_display_style == 'always_shows_add_to_cart' %}show-add-to-cart{% endif %}">
+                        <div class="product-grid-inner product-grid-inner-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %} product-grid-hover">
+                          <a aria-label="{{ product.handle }}" href="{{ product.url }}" rel="nofollow" tabindex="-1">
+                            <div class="product-image {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                              <figure class="img-box">
+                                <div class="placeholder-background">
+                                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                </div>
+                              </figure>
+                              <div class="icon-wrap">
+                                <a href="{{ product.url }}" rel="nofollow" aria-label="{{ product.handle }}-view" class="product-link" tabindex="0"></a>
+                                <div class="product-button" tabindex="0">
+                                  {% if product.options.size > 1 %}
+                                    <span class="icons" title="View Product">
+                                      <a
+                                        rel="nofollow"
+                                        href="{{ product.url }}"
+                                        class="theme-btn primary-btn"
+                                        aria-label="{{ product.handle }}-view"
+                                        tabindex="-1"
+                                        ><span class="btn-bg"></span
+                                        ><span class="btn-text">
+                                          {{- 'home-collection-product.product-button.view_product' | t -}}
+                                        </span></a
+                                      >
+                                    </span>
+
+                                  {% else %}
+                                    <div class="product-add">
+                                      <a
+                                        href="javascript:void(0)"
+                                        rel="nofollow"
+                                        aria-label="{{ product.handle }}-add"
+                                        class="theme-btn primary-btn"
+                                      >
+                                        <div class="btn-overlay"></div>
+                                        <div class="btn-text">{{ 'home-collection-product.button.title' | t }}</div>
+                                        <span style="display:none" class="added-span-product">
+                                          {{- 'products.product.added' | t -}}
+                                        </span>
+                                      </a>
+                                      <p class="stock-avail" style="display:none;">
+                                        {{ 'products.product.no_stock' | t }}
+                                      </p>
+                                      {% render 'loader' %}
+                                    </div>
+                                  {% endif %}
+                                </div>
+                                {% if product.type != blank %}
+                                  <span class="icons product-type" title="{{ product.type }}">{{ product.type }}</span>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </a>
+                          <div class="product-info ">
+                            <div class="info-col">
+                              <h4 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+                                <a href="{{ product.url }}" rel="nofollow">{{ product.title }}</a>
+                              </h4>
+                              <div class="review-block">
+                                {% if product.selected_or_first_available_variant.unit_price_measurement != blank %}
+                                  <div class="unitprice ">
+                                    <span class="unit-price" var-id="{{- variant.id -}}">
+                                      {{ product.selected_or_first_available_variant.unit_price | money }}/
+
+                                      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                                          != 1
+                                      -%}
+                                        {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                                      {%- endif -%}
+                                      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+                                    </span>
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="price-wrap {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                              <p class="prduct-price">{{ product.price | money_with_currency }}</p>
+                              {% if product.compare_at_price %}
+                                <p class="prduct-compare-price">
+                                  {{ product.compare_at_price_max | money_with_currency }}
+                                </p>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <div class="swiper-pagination"></div>
+
+          {% if settings.product_slider_nav_active %}
+            <div class="product-swiper">
+              <div
+                class="swiper-button-next {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                {% render 'icon-arrow-long', class: 'svg-arrow-right' %}
+              </div>
+              <div
+                class="swiper-button-prev {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                {% render 'icon-arrow-long', class: 'svg-arrow-left' %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:sections.home-collection-product.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "t:sections.home-collection-product.section_title.label"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "t:sections.home-collection-product.featured_collection.label"
+    },
+    {
+      "type": "range",
+      "id": "post_row_limit",
+      "label": "t:sections.home-collection-product.post_row_limit.label",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:sections.home-collection-product.headers.products_show"
+    },
+    {
+      "type": "radio",
+      "id": "slider_or_grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.home-collection-product.slider_or_grid.options_1"
+        },
+        {
+          "value": "slider",
+          "label": "t:sections.home-collection-product.slider_or_grid.options_2"
+        }
+      ],
+      "label": "t:sections.home-collection-product.slider_or_grid.label"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.home-collection-product.product_limit.label"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "t:sections.home-collection-product.presets.name",
+      "settings": {
+        "section_title": "Featured Products",
+        "featured_collection": "",
+        "post_row_limit": 3,
+        "slider_or_grid": "slider",
+        "product_limit": 6
+      }
+    }
+  ]
+}
+{% endschema %}

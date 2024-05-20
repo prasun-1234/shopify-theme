@@ -1,0 +1,158 @@
+{% style %}
+  .unitprice {
+    display: flex;
+    font-size: 12px;
+    align-items: baseline;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+
+  p {
+    padding: 0px 0;
+  }
+
+  p.price-style-one {
+    margin-top: 1.3rem !important;
+  }
+
+  p.prduct-compare-price.price-style-one {
+    width: max-content;
+  }
+
+  .info-col {
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-wrap {
+    gap: 0.5rem;
+  }
+{% endstyle %}
+
+<div class="pure-u-1 {{ class }} product_item_main" tabindex="0" aria-label="{{ product.handle }}">
+  <div class="l-box">
+    <div class="product-grid {% if settings.product_display_style == 'always_shows_add_to_cart' %}show-add-to-cart{% endif %} product-title-{{ product.handle }}">
+      <div class="product-grid-inner product-grid-hover">
+        <div class="product-image loading">
+          {%- assign tag_showed = false -%}
+          {% for tag in product.tags %}
+            {% if tag contains 'offer' and tag_showed == false %}
+              <span class="tags {{ tag }}">{{ tag | remove: 'offer_' }}</span>
+              {%- assign tag_showed = true -%}
+            {% endif %}
+          {% endfor %}
+          {%- assign featured_image = product.featured_image -%}
+          <a href="{{ product.url }}" rel="nofollow">
+          <figure class="img-box 1">
+            {% if featured_image %}
+              <img
+                srcset="
+                  {%- if featured_image.width >= 375 -%}{{ featured_image | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if featured_image.width >= 550 -%}{{ featured_image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if featured_image.width >= 750 -%}{{ featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if featured_image.width >= 1100 -%}{{ featured_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if featured_image.width >= 1500 -%}{{ featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if featured_image.width >= 1780 -%}{{ featured_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if featured_image.width >= 2000 -%}{{ featured_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if featured_image.width >= 3000 -%}{{ featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if featured_image.width >= 3840 -%}{{ featured_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ featured_image | image_url }} {{ featured_image.width }}w
+                "
+                sizes="auto"
+                src="{{ featured_image | image_url: width: 1500 }}"
+                loading="lazy"
+                alt="{{ featured_image.alt | escape }}"
+                width="{{ featured_image.width }}"
+                height="auto"
+              >
+            {% else %}
+              <div class="placeholder-background">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </figure>
+          </a>
+          <div class="icon-wrap">
+            <a href="{{ product.url }}" rel="nofollow" aria-label="{{ product.handle }}-view" class="product-link" tabindex="0"></a>
+            <div class="product-button" tabindex="0">
+              {% if product.options.size > 1 %}
+                <span class="icons" title="View Product">
+                  <a
+                    rel="nofollow"
+                    href="{{ product.url }}"
+                    class="theme-btn primary-btn"
+                    tabindex="-1"
+                    aria-label="{{ product.handle }}-view"
+                    ><span class="btn-bg"></span><span class="btn-text">{{ 'product-item.primary-btn' | t }}</span></a
+                  >
+                </span>
+              {% else %}
+                <div class="product-add">
+                  {% if product.available %}
+                    <a
+                      rel="nofollow"
+                      href="{% if settings.cart_settings == 'page' %}{{- shop.url -}}/cart/add/{{- product.first_available_variant.id -}}{% else %}javascript:void(0){% endif %}"
+                      {% if settings.cart_settings != 'page' %}
+                        onclick="productItemAddToCart('{{ product.first_available_variant.id }}', event)"
+                      {% endif %}
+                      aria-label="Add to cart"
+                      class="theme-btn secondary-btn"
+                    >
+                      <div class="btn-overlay"></div>
+                      <div class="btn-text">{{ 'product-item.secondary-btn' | t }}</div>
+                      <span style="display:none" class="added-span-product">{{ 'product-item.btn-text' | t }}</span>
+                      {% render 'loader' %}
+                    </a>
+                    <p class="stock-avail" style="display:none;">{{ 'product-item.stock-avail' | t }}</p>
+                  {% else %}
+                    <a
+                      rel="nofollow"
+                      href="javascript:void(0)"
+                      class="theme-btn secondary-btn sold-out sold-btn"
+                      disabled
+                    >
+                      {{- 'product-item.sold-btn' | t }}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+            {% if product.type != blank %}
+              <span class="icons product-type" title="{{ product.type }}">{{ product.type }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="info-col">
+            <h4 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-3{% endif %}">
+              <a href="{{ product.url }}" rel="nofollow">{{ product.title }}</a>
+            </h4>
+            <div class="review-block">
+              {% if product.selected_or_first_available_variant.unit_price_measurement != blank %}
+                <div class="unitprice ">
+                  <span class="unit-price" var-id="{{- variant.id -}}">
+                    {{ product.selected_or_first_available_variant.unit_price | money -}}</span
+                  >&nbsp;/ per
+
+                  {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                    {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                  {%- endif -%}
+                  {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="price-wrap {% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+            <p class="prduct-price">{{ product.price | money_with_currency }}</p>
+            {% if product.compare_at_price %}
+              <p class="prduct-compare-price">
+                {{ product.compare_at_price_max | money_with_currency }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

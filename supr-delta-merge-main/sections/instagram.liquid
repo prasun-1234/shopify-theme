@@ -1,0 +1,169 @@
+<section style="margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px;">
+  <div class="flex items-center h-auto lg:h-[450px] flex-col lg:flex-row flex-nowrap relative">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'image_block' %}
+          <div class="{% if forloop.length > 2 and section.settings.equal_box == false %}lg:w-3/12 {% endif %} w-full h-[300px] lg:h-full lg:group/image">
+            <a href="{{ block.settings.link }}" rel="nofollow" class="h-full inline-block w-full">
+              <figure class="w-full overflow-hidden h-full">
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1000
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'object-cover w-full h-full group-hover/image:scale-110 card duration-500 ease-in-out'
+                  }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-[#ccc]' }}
+                {% endif %}
+              </figure>
+            </a>
+          </div>
+        {% when 'text_block' %}
+          {% style %}
+            .insta_text_block svg.social_icon path {
+                fill:{{ block.settings.content_color }};
+            }
+          {% endstyle %}
+          <div class="{% if forloop.length > 2 and section.settings.equal_box == false %}lg:w-6/12 {% endif %} w-full insta_text_block h-[300px] lg:h-full relative overflow-hidden lg:group/image">
+            <a href="{{ block.settings.link }}" rel="nofollow" class="h-full inline-block w-full">
+              <div
+                class="flex flex-col gap-[20px] items-center justify-center p-[40px] mx-auto text-left w-full h-full"
+                {% if block.settings.background_color != blank %}
+                  style="background: {{ block.settings.background_color }};"
+                {% endif %}
+              >
+                <figure class="absolute left-0 top-0 w-full h-full z-10 overflow-hidden">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 1000
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'object-cover w-full h-full brightness-75 group-hover/image:scale-110 duration-500 ease-in-out'
+                    }}
+                  {% endif %}
+                </figure>
+                <div class="flex flex-col gap-[15px] z-50 relative {% if section.settings.equal_box == true %}items-center{% endif %}">
+                  <p class="flex items-center gap-[15px]" style="color:{{ block.settings.content_color }};">
+                    {{ 'instagram.follow_us' | t }}
+                    {% render 'icon-instagram', class: 'w-[20px] h-[20px] social_icon' %}
+                  </p>
+                  <h2
+                    style="color:{{ block.settings.content_color }};"
+                    class="relative {% if section.settings.equal_box == false %} font-semibold leading-none !text-[3.5rem] md:!text-[4.5rem] 2xl:!text-[10.625rem]{% endif %}"
+                  >
+                    {{ block.settings.social_tag | escape }}
+                  </h2>
+                  {% if block.settings.button_text != blank %}
+                    <div>
+                      {% render 'btn-primary', src: block.settings.button_text %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% else %}
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.instagram.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:section.instagram.settings.margin_top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:section.instagram.settings.margin_bottom",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "equal_box",
+      "label": "t:section.instagram.settings.equal_box",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.instagram.blocks.image_block.name",
+      "type": "image_block",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.instagram.blocks.image_block.settings.image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:section.instagram.blocks.image_block.settings.link"
+        }
+      ]
+    },
+    {
+      "name": "t:section.instagram.blocks.text_block.name",
+      "type": "text_block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.instagram.blocks.text_block.settings.image"
+        },
+        {
+          "type": "text",
+          "id": "social_tag",
+          "label": "t:section.instagram.blocks.text_block.settings.social_tag",
+          "default": "@furni-ture"
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "t:section.instagram.blocks.text_block.settings.content_color",
+          "default": "#fff"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:section.instagram.blocks.text_block.settings.link"
+        },
+        {
+          "type": "header",
+          "content": "t:section.instagram.blocks.text_block.headers.button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.instagram.blocks.text_block.settings.button_text.label",
+          "placeholder": "t:section.instagram.blocks.text_block.settings.button_text.placeholder"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

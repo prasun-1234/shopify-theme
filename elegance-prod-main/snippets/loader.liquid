@@ -1,0 +1,14 @@
+
+{%- if settings.loader_style == '1' -%}
+  <div class="spinner spinner-style1 {{ id }}" style="display:none;">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+{%- endif -%}
+{%- if settings.loader_style == '2' -%}
+  <div class="spinner spinner-style2 {{ id }}" style="display:none;">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+{%- endif -%}

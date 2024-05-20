@@ -1,0 +1,31 @@
+.value{
+    position: relative;
+}
+
+.error-text{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: var(--error-font-color);
+}
+
+.account-wrapper select:focus-visible{
+    outline: 2px solid var(--primary-font-color);
+  }
+
+@media screen and (max-width:980px) {
+    #address_tables{
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width:767px){
+    .customer_address{
+        flex-direction: column;
+    }
+    .address_table .view_address{
+        max-width: 100%;
+        max-height: 350px;
+    }
+   
+}

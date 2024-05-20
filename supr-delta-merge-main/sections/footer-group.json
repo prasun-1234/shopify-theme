@@ -1,0 +1,68 @@
+{
+  "name": "Footer Group",
+  "type": "footer",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading": "Subscribe to our Newsletter",
+        "featured_image":"shopify:\/\/shop_images\/newsletter-vector.svg",
+        "background_color": "linear-gradient(90deg, rgba(58, 58, 58, 1), rgba(58, 58, 58, 1) 15%)",
+        "heading_color": "#ffffff"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu1": {
+          "type": "collection_links",
+          "settings": {
+            "title": "Collection",
+            "collection_list": [
+              "bicycles",
+              "e-bikes",
+              "apparels",
+              "accessories"
+            ],
+            "link_limit": 7
+          }
+        },
+        "menu2": {
+          "type": "page_links",
+          "settings": {
+            "title": "Legal",
+            "menu_links": "footer-menu-2",
+            "link_limit": 3
+          }
+        },
+        "menu3": {
+          "type": "page_links",
+          "settings": {
+            "title": "Company",
+            "menu_links": "footer",
+            "link_limit": 3
+          }
+        }
+      },
+      "block_order": [
+        "menu1",
+        "menu2",
+        "menu3"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "border_top": true,
+        "description": true,
+        "footer_menu": "footer",
+        "background_color": "linear-gradient(90deg, rgba(58, 58, 58, 1), rgba(58, 58, 58, 1) 15%)",
+        "content_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "newsletter",
+    "footer"
+  ]
+}

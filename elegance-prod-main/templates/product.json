@@ -1,0 +1,149 @@
+{
+  "sections": {
+    "product": {
+      "type": "product-information",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "reviews": {
+          "type": "review_count",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "options": {
+          "type": "options",
+          "settings": {
+            "option_style": "pill"
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "payment": {
+          "type": "payment",
+          "settings": {
+          }
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "pairs well with",
+            "make_collapsible_row": true,
+            "product_list_limit": 10,
+            "products_per_page": 3
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "reviews",
+        "description",
+        "options",
+        "quantity",
+        "price",
+        "payment"
+      ],
+      "settings": {
+        "title_font-size": 56
+      }
+    },
+    "related-product": {
+      "type": "product-recommendations",
+      "settings": {
+        "section_title": "Related products",
+        "product_type": "related",
+        "product_view": "slider",
+        "items_number": 6,
+        "slider_arrows": true
+      }
+    },
+    "cta": {
+      "type": "cta",
+      "settings": {
+        "margin_bottom": 60,
+        "cta_bg_color": "linear-gradient(300deg,#A9AF7E, #D9D9D900)",
+        "cta_bg_align": "right",
+        "title_size": 100,
+        "title": "Section Title",
+        "cta_text": "cta section description text",
+        "text_align": "center",
+        "btn_url": "#",
+        "btn_text": "button text"
+      }
+    },
+    "marquee-div": {
+      "type": "marquee-section",
+      "settings": {
+        "marquee_text_1": "marquee text",
+        "marquee_text_2": "marquee text",
+        "marquee_text_3": "marquee text",
+        "marquee_text_4": "marquee text",
+        "margin_bottom": 60,
+        "marquee_bg_color": "#222222",
+        "marquee_content_color": "#a9af7e",
+        "marquee_height": 100
+      }
+    },
+    "faq-product": {
+      "type": "faq-home",
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Faq item title",
+            "faq_title_size": 56,
+            "faq_text": "Faq item description text"
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Faq item title",
+            "faq_title_size": 56,
+            "faq_text": "Faq item description text"
+          }
+        },
+        "faq3": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Faq item title",
+            "faq_title_size": 56,
+            "faq_text": "Faq item description text"
+          }
+        }
+      },
+      "block_order": [
+        "faq1",
+        "faq2",
+        "faq3"
+      ],
+      "settings": {
+        "title": "FAQ",
+        "title_size": 100,
+        "text_align": "center"
+      }
+    }
+  },
+  "order": [
+    "product",
+    "related-product",
+    "cta",
+    "marquee-div",
+    "faq-product"
+  ]
+}

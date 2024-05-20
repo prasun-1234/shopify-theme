@@ -1,0 +1,96 @@
+@media screen and (max-width:1536px){
+  :root{
+    --h1-font-size:5.8rem;
+    --h2-font-size:2.2rem;
+    --h3-font-size:1.8rem;
+    --h4-font-size:1.5rem;
+    --h5-font-size:1.125rem;
+    --h6-font-size:1rem;
+    --p-font-size:1rem;
+  }
+}
+
+@media screen and (max-width:1200px){
+  .dropdown-icon:not(.mobile-icon){
+    display: none !important;
+  }
+}
+
+@media screen and (max-width:980px){
+  :root{
+        --h1-font-size:2.8rem;
+        --h2-font-size:2.0rem;
+        --h3-font-size:1.7rem;
+        --h4-font-size:1.5rem;
+        --h5-font-size:1.125rem;
+        --h6-font-size:1rem;
+        --p-font-size: 1rem;
+      }
+    
+    body {
+      font-size: calc(var(--p-font-size)*var(--body-font-scale)/100);
+    }
+    
+    h1{
+      font-family: var(--header-font-family);
+      font-size: calc(var(--h1-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 400;
+    }
+    h2{
+      font-family: var(--header-font-family);
+      font-size: calc(var(--h2-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 400;
+    }
+    h3{
+      font-family: var(--header-font-family);
+      font-size: calc(var(--h3-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 400;
+    }
+    h4{
+      font-family: var(--header-font-family);
+      font-size: calc(var(--h4-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 400;
+    }
+    h5{
+      font-family: var(--header-font-family);
+      font-size: calc(var(--h5-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 400;
+    }
+    h6{
+      font-family: var(--body-font-family);
+      font-size: calc(var(--h6-font-size)*var(--heading-font-scale)/100) !important;
+      font-weight: 600;
+    }
+    
+    a,p{
+      font-family: var(--body-font-family);
+      font-size: calc(var(--p-font-size)*var(--body-font-scale)/100);
+    }
+    
+  }
+  @media screen and (max-width:768px){
+      #search-bar .search-item-single img{
+          max-width: 400px;
+          margin: 0 auto 20px;
+      }
+      #search-bar .search-item-single > div{
+          max-width: 400px;
+          margin: auto;
+      }
+    }
+
+    @media screen and (max-width:767px){
+      .swiper-pagination-bullet{
+        margin: 0 10px!important;
+        width: 10px !important;
+        height: 10px !important;
+        margin-top: 20px !important;
+      }
+
+      .product_item_main:hover{
+        box-shadow: none !important;
+      }
+      select{
+        width: auto !important;
+      }
+    }

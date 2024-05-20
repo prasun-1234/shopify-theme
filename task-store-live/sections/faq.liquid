@@ -1,0 +1,134 @@
+{{ 'section-faq.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #{{ section.id }}{
+    margin-top:{{ section.settings.margin_top }}px;
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+
+  @media screen and (max-width:767px){
+    #{{ section.id }}{
+    margin-top:{{ section.settings.margin_top | divided_by: 2 }}px;
+    margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+
+<section class="faq-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="faq-heading">
+      {% if section.settings.heading != blank %}
+        <h2 class="review-header h3">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+      {% if section.settings.body_text != blank %}
+        <h6 class="h5 side-heaing">
+          {{ section.settings.body_text }}
+        </h6>
+      {% endif %}
+    </div>
+    <div id="faqBlocksBox">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'faq-block' %}
+            <div class="faq-block {% if forloop.index == 1 %}active {% endif %}" {{ block.shopify_attributes }} tabindex="0">
+              {% if block.settings.heading != blank %}
+                <div class="number-heading">
+                  <h2 class="h1 gradient-heading">{% if forloop.index <= 9 %}0{% endif %}{{ forloop.index }}</h2>
+                  <div class="heading-text">
+                    <h4 class="faq_title">{{ block.settings.heading }}</h4>
+                  </div>
+                </div>
+              {% endif %}
+              {% if block.settings.body_text != blank %}
+                <div class="body-text">
+                  <div class="main-text"><span>{{ block.settings.body_text }}</span></div> 
+                  <div class="long-arrow-icon">{% render 'long-arrow' %}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="faq-block" {{ block.shopify_attributes }}>
+                <h4 class="faq_title">Heading</h4>
+                <p>Body text....</p>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <p class="still-ques">
+      Still have Questions? <a href="{{ section.settings.btn_url }}" class="mail hover-icon">Contact Us</a>
+    </p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Section margin top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Section margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "body_text",
+      "label": "Body text"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Faq",
+      "type": "faq-block",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "body_text",
+          "label": "Body Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<script defer>
+  const faqBox = document.querySelector('#faqBlocksBox');
+  if (faqBox) {
+    faqBox.querySelectorAll('.faq-block').forEach((faqBlock)=> {
+      faqBlock.addEventListener('click', ()=> {
+        faqBox.querySelectorAll('.faq-block').forEach(item => item.classList.remove('active'));
+        faqBlock.classList.add('active');
+      })
+    })
+  }
+</script>

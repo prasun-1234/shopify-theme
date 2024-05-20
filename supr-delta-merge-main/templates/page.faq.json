@@ -1,0 +1,177 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "enable_box_shadow": true,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "banner": {
+      "type": "main-page-banner",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Question & Queries",
+            "text_color": "#fff"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "banner_text": "<h2>LEGAL</h2>",
+            "banner_color": "#fff"
+          }
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product_title": "Product related queries",
+            "Product_email": "storeinfo@gmail.co",
+            "service_title": "Service related queries",
+            "service_email": "support@demo.co.in",
+            "tel_title": "Call Us",
+            "tel_email": "9876543210",
+            "title_color": "#fff",
+            "text_color": "#fff"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "title",
+        "product"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 60,
+        "section_height": 500,
+        "background_image": "shopify:\/\/shop_images\/contactbanner.jpg",
+        "overlay_background": "#3A3A3A",
+        "overlay_opacity": 3
+      }
+    },
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3A3A3A"
+      }
+    },
+    "legal": {
+      "type": "legal",
+      "settings": {
+      }
+    },
+    "main-faq": {
+      "type": "main-faq",
+      "blocks": {
+        "accordian": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "Labore et dolore magna ?",
+            "faq_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun .Refund Policy"
+          }
+        },
+        "accordiantwo": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "How to refund ?",
+            "faq_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun .Refund Policy"
+          }
+        },
+        "accordianthree": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "Excepteur sint occaecat ?",
+            "faq_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun .Refund Policy"
+          }
+        },
+        "accordianfour": {
+          "type": "accordion",
+          "settings": {
+            "faq_title": "Where can I view my orders ?",
+            "faq_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserun .Refund Policy"
+          }
+        }
+      },
+      "block_order": [
+        "accordian",
+        "accordiantwo",
+        "accordianthree",
+        "accordianfour"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 60,
+        "accordion_style": "style_two",
+        "enable_side_text": false,
+        "title": "Still Have Questions?",
+        "text": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip",
+        "button_text": "Contact Us",
+        "button_url": "shopify:\/\/pages\/contact"
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "banner",
+    "breadcrumb",
+    "legal",
+    "main-faq"
+  ]
+}

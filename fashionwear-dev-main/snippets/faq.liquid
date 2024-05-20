@@ -1,0 +1,56 @@
+{% style %}
+  /* Add this CSS to your stylesheet */
+  .accordion-button:last-child {
+    border-bottom: 1px solid var(--global-border-color);
+  }
+  /* Adjust the color as needed */
+  .faq_item,
+  .faq_item * {
+    border-color: var(--global-border-color);
+  }
+{% endstyle %}
+
+<article class="faq_item border-t {% if last %}border-b{% endif %} relative overflow-hidden lg:py-10 py-6 sm:px-4 lg:px-[60px]">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <button
+      class="accordion-button info_item w-full"
+      onclick="toggleAccordion(this)"
+      aria-controls="{{ block.id }}"
+    >
+      <div class="flex justify-between items-center gap-3">
+        <h4 class="leading-none md:tracking-[0.08em] sm:tracking-wider text-left">
+          {{ block.settings.faq_title }}
+        </h4>
+        <span class="accordion-icon leading-none rounded-full w-[36px] h-[36px] text-[32px]  border">+</span>
+      </div>
+    </button>
+    <div
+      id="{{ block.id }}"
+      class="accordion-content w-full overflow-hidden ease-in-out duration-300"
+    >
+      <p>
+        {{ block.settings.faq_text }}
+      </p>
+    </div>
+  </div>
+</article>
+
+<script>
+  function toggleAccordion(button) {
+    const accordionContent = button.closest('.faq_item');
+    const accordionIcon = button.querySelector('.accordion-icon');
+    accordionContent.classList.toggle('active');
+
+    // Close all other accordions
+    const allAccordions = document.querySelectorAll('.accordion-content');
+    const allAccordionIcons = document.querySelectorAll('.accordion-icon');
+    const allAccordionButtons = document.querySelectorAll('.accordion-button');
+
+    // Toggle the clicked accordion
+    if (accordionContent.classList.contains('active')) {
+      accordionIcon.textContent = '-';
+    } else {
+      accordionIcon.textContent = '+';
+    }
+  }
+</script>

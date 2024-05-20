@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="{{ 'testimonial.css' | asset_url }}">
+
+<section class="testimonial-section {% if settings.enable_animation %}scrollmagic-element{% endif %}" tabindex="-1">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-1 l-box">
+        {% if section.settings.title != blank %}
+          <div class="section-header">
+            <h4 class="section-title {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+              {{ section.settings.title | escape }}
+            </h4>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    {%- if section.settings.testimonial_type == 'single_slide' -%}
+      <div class="swiper-container single-slide">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <span></span>
+              <div class="author-comment">
+                {{ block.settings.review }}
+              </div>
+              <div class="author-image">
+                {% if block.settings.author_image %}
+                  <img
+                    src="{{ block.settings.author_image | image_url }}"
+                    alt="{{ block.settings.author_image.alt | escape }}"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="placeholder_div">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="swiper-slide {% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %}">
+                <p>{{ 'homepage.onboarding.testimonial_text' | t }}</p>
+                <div class="author-image">
+                  <div class="placeholder-background">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        {% if section.settings.show_bullets %}
+          <div class="swiper-pagination"></div>
+        {% endif %}
+      </div>
+    {%- endif -%}
+    {%- if section.settings.testimonial_type == 'multi_slide' -%}
+      <div class="swiper-container multi-slide">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <span></span>
+              <div class="author-comment">
+                {{ block.settings.review }}
+              </div>
+              <div class="author-image">
+                {% if block.settings.author_image %}
+                  <img
+                    src="{{ block.settings.author_image | image_url }}"
+                    alt="{{ block.settings.author_image.alt | escape }}"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="placeholder_div">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="swiper-slide {% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %}">
+                <p>{{ 'homepage.onboarding.testimonial_text' | t }}</p>
+                <div class="author-image">
+                  <div class="placeholder-background">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        {% if section.settings.show_bullets %}
+          <div class="swiper-pagination"></div>
+        {% endif %}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.testimonial.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.testimonial.title.label",
+      "default": "t:sections.testimonial.title.default"
+    },
+    {
+      "type": "radio",
+      "id": "testimonial_type",
+      "options": [
+        {
+          "value": "single_slide",
+          "label": "t:sections.testimonial.testimonial_type.options_1"
+        },
+        {
+          "value": "multi_slide",
+          "label": "t:sections.testimonial.testimonial_type.options_2"
+        }
+      ],
+      "label": "t:sections.testimonial.testimonial_type.label",
+      "default": "single_slide"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.testimonial.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bullets",
+      "label": "t:sections.testimonial.show_bullets.label",
+      "default": false
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:sections.testimonial.blocks.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "t:sections.testimonial.blocks.author_image.label",
+          "info": "t:sections.testimonial.blocks.author_image.info"
+        },
+        {
+          "type": "richtext",
+          "id": "review",
+          "label": "t:sections.testimonial.blocks.review.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.testimonial.presets.name",
+      "category": "Image",
+      "settings": {
+        "title": "What Customers are Saying",
+        "testimonial_type": "multi_slide",
+        "show_bullets": true
+      },
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,98 @@
+{% style %}
+  .focal-item {
+    width: 51px;
+    height: 51px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .focal-item .focal-outer {
+    background-color: #fff;
+    border-width: 2px;
+    border-color: transparent;
+  }
+  .focal-item.active .focal-outer {
+    border-color: #27272a;
+  }
+  .focal-item.active .focal-inner {
+    /* background-color: #27272a; */
+    opacity: 1;
+  }
+  .focal-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform-origin: center;
+  }
+  .focal-inner {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background: #fff;
+  }
+  .focal-outer:hover,
+  .focal-outer:focus {
+    transform: scale(1.25);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .focal-outer {
+    display: block !important;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    transition-duration: 0.5s;
+    -webkit-animation: scaleAnimation 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0;
+  }
+  @keyframes scaleAnimation {
+    0% {
+      -webkit-transform: scale(0.1, 0.1);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scale(1.2, 1.2);
+      opacity: 0;
+    }
+  }
+{% endstyle %}
+<div class="focal-item ">
+  <div class="focal-outer  "></div>
+  <span class="focal-inner">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+      <path d="M12.9936 13.1198C13.0097 13.2628 12.9953 13.4076 12.9514 13.5446C12.9074 13.6816 12.835 13.8078 12.7388 13.9149C12.6424 14.0217 12.5244 14.107 12.3926 14.1649C12.2608 14.2229 12.1183 14.2523 11.9743 14.2512H2.02569C1.88173 14.2523 1.73918 14.2229 1.60741 14.1649C1.47564 14.107 1.35764 14.0217 1.26119 13.9149C1.165 13.8078 1.09256 13.6816 1.04864 13.5446C1.00472 13.4076 0.990309 13.2628 1.00636 13.1198L1.90337 5.0773H12.0966L12.9936 13.1198Z" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4.45166 5.0773V3.54832C4.45166 2.87246 4.72014 2.22429 5.19804 1.74638C5.67595 1.26848 6.32412 1 6.99998 1C7.67583 1 8.324 1.26848 8.80191 1.74638C9.27981 2.22429 9.54829 2.87246 9.54829 3.54832V5.0773" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+</div>
+
+<script>
+  document.querySelectorAll('.focal-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      // Remove active class from all items
+      document.querySelectorAll('.focal-item').forEach((item) => {
+        item.classList.remove('active');
+      });
+
+      // Add active class to the clicked item
+      item.classList.add('active');
+    });
+  });
+</script>

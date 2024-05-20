@@ -1,0 +1,57 @@
+{
+    "name": "t:sections.footer.name",
+    "type": "footer",
+    "sections": {
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "color_scheme": "scheme-6",
+          "newsletter_enable": true,
+          "newsletter_heading": "Subscribe to our emails",
+          "enable_follow_on_shop": true,
+          "show_social": true,
+          "enable_country_selector": true,
+          "enable_language_selector": true,
+          "payment_enable": true,
+          "show_policy": false,
+          "margin_top": 0,
+          "padding_top": 80,
+          "padding_bottom": 60
+        },
+        "blocks": {
+            "link_list-1": {
+                "type": "link_list",
+                "settings": {
+                    "heading": "Shop",
+                    "menu": "shop"
+                }
+            },
+            "link_list-2": {
+                "type": "link_list",
+                "settings": {
+                    "heading": "Store",
+                    "menu": "store"
+                }
+            },
+            "link_list-3": {
+                "type": "link_list",
+                "settings": {
+                    "heading": "Legal",
+                    "menu": "legal"
+                }
+            },
+            "link_list-4": {
+                "type": "link_list",
+                "settings": {
+                    "heading": "Quick Links",
+                    "menu": "quick-links"
+                }
+            }
+        },
+        "block_order": ["link_list-4", "link_list-1", "link_list-2", "link_list-3"]
+      }
+    },
+    "order": [
+      "footer"
+    ]
+  }

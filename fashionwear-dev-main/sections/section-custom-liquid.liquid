@@ -1,0 +1,49 @@
+{% style %}
+   .{{ section.id }}{
+      margin-top: {{ section.settings.section_margin_top }}px;
+      margin-bottom: {{ section.settings.section_margin_top }}px;
+   }
+   @media only screen and (max-widht: 1024px){
+      .{{ section.id }}{
+         margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+         margin-bottom: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+      }  
+   }
+{% endstyle %}
+<section class="{{ section.id }}">{{ section.settings.custom_liquid }}</section>
+{% schema %}
+{
+   "name": "Custom Liquid",
+   "settings": [
+   {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "Custom Liquid",
+      "info": "Add app snippets or other liquid code to create advanced customizations."
+   },
+   {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Margin Top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "unit": "px"
+   },
+   {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Margin Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0,
+      "unit": "px"
+   } ],
+   "presets": [
+   {
+      "name": "Custom Liquid"
+   }]
+}
+{% endschema %}

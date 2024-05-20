@@ -1,0 +1,40 @@
+.text-block-main h3{
+    width: fit-content !important;
+}
+
+.text-block-main .text-left{
+    text-align: right;
+    margin-left: auto;
+    pointer-events: none;
+}
+
+.text-block-main .text-right{
+    text-align: left;
+    margin-right: auto;
+    pointer-events: none;
+}
+
+.text-block-main .color-right,.text-block-main .color-left{
+    transition:.3s ease;
+}
+
+@media screen and (max-width:767px) {
+    .text-block-wrapper .dark-bg{
+        width: 100%;
+        height: 50%;
+    }
+    .text-block-wrapper .light-bg{
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        top: auto;
+    }
+    .text-block-main .text-left,.text-block-main .text-right{
+        text-align: center;
+        margin: 60px auto !important;
+    }
+    .text-block-main{
+        padding: 60px 0 !important;
+    }
+    
+}

@@ -1,0 +1,44 @@
+{% style %}
+  .marquee-inner .marquee-content .icons{
+    color: {{ section.settings.marquee_content_color }};
+  }
+{% endstyle %}
+<div class="banner-marquee" style="background-color: {{ section.settings.marquee_bg_color }}; height: {{ section.settings.marquee_height }}px;">
+  <div class="marquee marquee-home">
+    <span class="left-overlay" style="background: linear-gradient(90deg, #222222 19.03%, rgba(34, 34, 34, 0) 100%);"></span>
+    <h3 class="marquee-inner" style="color: {{ section.settings.marquee_content_color }};">
+      <div class="marquee-content">
+        {{ section.settings.marquee_text_1 -}}
+        <span class="icons">{{ 'marquee.marquee_text_1' | t }}</span>
+        {{ section.settings.marquee_text_2 -}}
+        <span class="icons">{{ 'marquee.marquee_text_2' | t }}</span>
+        {{ section.settings.marquee_text_3 -}}
+        <span class="icons">{{ 'marquee.marquee_text_3' | t }}</span>
+        {{ section.settings.marquee_text_4 }}
+        <span class="icons">{{ 'marquee.marquee_text_1' | t }}</span>
+      </div>
+      <div class="marquee-content">
+        {{ section.settings.marquee_text_1 -}}
+        <span class="icons">{{ 'marquee.marquee_text_4' | t }}</span>
+        {{ section.settings.marquee_text_2 -}}
+        <span class="icons">{{ 'marquee.marquee_text_5' | t }}</span>
+        {{ section.settings.marquee_text_3 -}}
+        <span class="icons">{{ 'marquee.marquee_text_6' | t }}</span>
+        {{ section.settings.marquee_text_4 }}
+      </div>
+      <div class="marquee-content">
+        {{ section.settings.marquee_text_1 -}}
+        <span class="icons">{{ 'marquee.marquee_text_7' | t }}</span>
+        {{ section.settings.marquee_text_2 -}}
+        <span class="icons">{{ 'marquee.marquee_text_8' | t }}</span>
+        {{ section.settings.marquee_text_3 -}}
+        <span class="icons">{{ 'marquee.marquee_text_9' | t }}</span>
+        {{ section.settings.marquee_text_4 }}
+      </div>
+    </h3>
+    <span
+      class="right-overlay"
+      style="background: linear-gradient(-90deg, #222222 19.03%, rgba(34, 34, 34, 0) 100%);"
+    ></span>
+  </div>
+</div>

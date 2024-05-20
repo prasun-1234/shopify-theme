@@ -1,0 +1,84 @@
+.contact img {
+  max-width: 100%;
+}
+
+.contact .form__message {
+  align-items: flex-start;
+}
+
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+
+.contact .field {
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact .field {
+    margin-bottom: 2rem;
+  }
+}
+
+.contact__button {
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact__button {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: end;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .contact__fields {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-column-gap: 2rem;
+  }
+}
+.contact-contaier{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+}
+.contact-page-content iframe{
+  width: 100%;
+}
+.location-details, .tel{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.tel a{
+  color: #313131;
+}
+.content-box{
+  display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+    margin-block: 20px;
+}
+.map{
+  margin-bottom: 20px;
+}
+.contact-page-content .sub-heading{
+  font-weight: 600;
+}
+@media screen and (max-width: 1280px) {
+  .contact-contaier{
+    gap: 40px;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .content-box {
+    grid-template-columns: auto;
+  }
+}
+@media screen and (max-width: 767px) {
+  .contact-contaier{
+    grid-template-columns: auto;
+  }
+}

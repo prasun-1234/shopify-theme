@@ -1,0 +1,111 @@
+.image-text-block .feature-image-wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .image-text-block .feature-image-sm{
+    position: absolute;
+    width: 200px;
+    height: 255px;
+    bottom: 40px;
+  }
+
+  .placeholder-background.img-bg svg{
+    min-width: 450px;
+  }
+
+  .image-overlay{
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+.image-text-block h3{
+    font-size: var(--secondary-h2-font-size);
+    line-height: 1.2;
+  }
+
+  .image-text-block .theme-btn{
+    border: 1px solid var(--color-btn-secondary);
+    color: var(--color-btn-secondary-text);
+  }
+
+  .image-text-block .text-block{
+    text-align: center;
+    position: relative;
+    z-index: 99;
+  }
+
+  .image-text-block .text-block p{
+    margin: 25px auto 60px;
+    max-width: 370px;
+  }
+
+  .image-text-block .feature-image img
+{
+  width:100%;
+  object-fit: cover;
+  max-height: 700px;
+}
+
+@media screen and (max-width:1366px){
+  .image-text-block h3{
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width:980px){
+  .image-text-block .feature-image-wrapper{
+    margin: 0 !important;
+  }
+
+  .placeholder-background.img-bg svg{
+    height: 400px;
+    max-width: 400px;
+  }
+  .placeholder-background.img-sm svg{
+    height: 200px;
+    width: 170px;
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+  }
+  .image-text-block .text-block{
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width:576px) {
+    .image-text-block h3 {
+        line-height: 1;
+        font-size: 24px;
+        margin:0 0 20px !important;
+      }
+
+      .image-text-block .image-block img{
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .image-text-block .feature-image-sm{
+        width: 145px;
+height: fit-content;
+bottom: 20px;
+      }
+
+.image-text-block .space4 {
+    height: 10px;
+  }
+
+  .placeholder-background.img-bg svg{
+    position: absolute;
+    right: 0;
+    min-width: 300px;
+  }
+
+}

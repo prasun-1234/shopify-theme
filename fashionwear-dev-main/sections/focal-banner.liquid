@@ -1,0 +1,237 @@
+{% style %}
+  .{{ section.id }}{
+      margin-top:{{ section.settings.margin-top }}px;
+      margin-bottom:{{ section.settings.margin-bottom }}px;
+    }
+
+    .focal-banner .product_item_bottom{
+    opacity:1;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .{{ section.id }}{
+      margin-top:{{ section.settings.margin-top | divided_by: 2 }}px;
+      margin-bottom:{{ section.settings.margin-bottom | divided_by: 2 }}px;
+    }
+
+    .focal-banner .product_item_bottom{
+    opacity:0;
+  }
+
+  .focal-banner .swiper-slide-active .product_item_bottom{
+    opacity:1;
+  }
+
+  }
+  @media screen and (min-width: 767px) {
+    .focal-active .focal-content {
+      display: block;
+    }
+  }
+{% endstyle %}
+
+<section id="focal-{{ section.id }}-banner" class="{{ section.id }} focal-banner">
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto grid grid-cols-12 gap-5 2xl:gap-16">
+    <div class="col-span-12 xl:col-span-8 relative">
+      <div class="relative h-full max-h-[800px] z-20">
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 1500
+            | image_tag:
+              loading: 'lazy',
+              sizes: '100',
+              widths: '165, 360, 535, 750, 1070, 1500',
+              class: 'w-full h-full object-cover'
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'object-contain w-full h-full bg-gray-300' }}
+        {% endif %}
+      </div>
+      <div class="focal_points_main w-full h-full absolute left-0 top-0 z-50">
+        <!-- focal image -->
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'focal_point' %}
+              {% comment %} focal point {% endcomment %}
+              {% assign product = block.settings.focal_product %}
+              <div
+                class="z-50 absolute focal_outer"
+
+                style="top :{{ block.settings.image.presentation.focal_point.y }}%; left :{{ block.settings.image.presentation.focal_point.x }}%;"
+              >
+                <div class="relative focal-point min-w-10 min-h-10 rounded-full">
+                  <button class="relative focal_button overflow-visible">
+                    {% render 'focal-icon' %}
+                    <a
+                      href="{{ product.url }}"
+                      class=" w-[40px] h-[40px] bg-red-400 block opacity-0 pointer-events-auto xl:pointer-events-none left-0 absolute top-0"
+                    ></a>
+                  </button>
+                  <div
+                    class="bg-body lg:p-[10px] md:p-[6px] focal-content hidden lg:w-[280px] md:w-[250px] lg:h-[120px] md:h-[100px] absolute {% if block.settings.image.presentation.focal_point.x >= 50 %}right-0{% endif %} {% if block.settings.image.presentation.focal_point.y >= 50 %} bottom-0 translate-y-[-50px] translate-x-[-50px] {% endif %}"
+                    focal-handel="{{ product.handle }}"
+                  >
+                    <div class="flex lg:gap-[10px] md:gap-[10px] items-center lg:h-[100px] md:h-[88px]">
+                      <div class="block ">
+                        {% if product.images != blank %}
+                          {{
+                            product.images[0]
+                            | image_url: width: 1500
+                            | image_tag:
+                              loading: 'lazy',
+                              sizes: '100',
+                              widths: '165, 360, 535, 750, 1070, 1500',
+                              class: ' object-contain w-auto max-h-[100px] h-full'
+                          }}
+                        {% else %}
+                          {{ 'product-1' | placeholder_svg_tag: 'w-[100px]' }}
+                        {% endif %}
+                      </div>
+                      <div class="flex flex-col justify-around gap-[6px]">
+                        <p class="block lg:!text-[.900rem] md:!text-[0.875rem]">
+                          {{ product.title | truncatewords: 3 }}
+                        </p>
+                        <p class="lg:!text-[1rem] md:!text-[0.875rem]">{{ product.price | money_with_currency }}</p>
+                        <div class="flex items-center gap-2">
+                          <a class=" text-[#5A9DE5] lg:!text-[1rem] md:!text-[0.875rem]" href="{{ product.url }}"
+                            >View Product</a
+                          >
+                          {% render 'icon-focal-arrow' %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% comment %} focal point {% endcomment %}
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+        <!-- focal image -->
+      </div>
+    </div>
+    <div class="col-span-12 xl:col-span-4 hidden xl:block relative">
+      <div class="swiper focalSwiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'focal_point' %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  {% assign product = block.settings.focal_product %}
+                  {% render 'product-item', product: product, hover-state: false %}
+                </div>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="swiper-button-prev !top-[33%] lg:!top-[40%]">
+          {% render 'btn-swiper', class: 'rotate-180' %}
+        </div>
+        <div class="swiper-button-next !top-[33%] lg:!top-[40%]">
+          {% render 'btn-swiper' %}
+        </div>
+        <div class="swiper-pagination !bottom-[20px] mx-auto pt-10 lg:pt-0 !relative"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.focal-banner.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin-top",
+      "max": 100,
+      "min": 0,
+      "step": 20,
+      "default": 0,
+      "unit": "px",
+      "label": "t:section.focal-banner.settings.margin_top"
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "max": 100,
+      "min": 0,
+      "step": 20,
+      "default": 80,
+      "unit": "px",
+      "label": "t:section.focal-banner.settings.margin_bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.focal-banner.settings.background_image",
+      "info": "Recommended size for focal Image '1920 x 980' "
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.focal-banner.blocks.name",
+      "type": "focal_point",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.focal-banner.blocks.settings.image.label",
+          "info": "t:section.focal-banner.blocks.settings.image.info"
+        },
+        {
+          "type": "product",
+          "id": "focal_product",
+          "label": "t:section.focal-banner.blocks.settings.focal_product"
+        }
+      ],
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.focal-banner.name",
+      "settings": {
+        "margin-top": 0,
+        "margin-bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/main-focal-img.jpg"
+      },
+      "blocks": [
+        {
+          "type": "focal_point"
+        },
+        {
+          "type": "focal_point"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let focalPoints = document.querySelectorAll('.focal-point');
+  const focalSwiper = new Swiper(`.focalSwiper`, {
+    slidesPerView: 2,
+    spaceBetween: 0,
+    pagination: {
+      el: '.focalSwiper .swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.focalSwiper .swiper-button-next',
+      prevEl: '.focalSwiper .swiper-button-prev',
+    },
+  });
+
+  if (focalPoints) {
+    focalPoints.forEach((focalpoint, index) => {
+      focalpoint.querySelector('.focal_button').addEventListener('click', () => {
+        focalSwiper.slideTo(index);
+      });
+    });
+  }
+{% endjavascript %}

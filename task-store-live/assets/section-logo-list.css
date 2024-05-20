@@ -1,0 +1,82 @@
+.logo-list-section{
+    width: 100%;
+}
+.logo-list-section .box{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+.logo-list-section .box::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    background: linear-gradient(91deg, #020617 -11.5%, rgba(2, 6, 23, 0.00) 83.46%);
+}
+.logo-list-section .box::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 10%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(270deg,#020617 -11.5%,rgba(2,6,23,0) 83.46%);
+}
+.logo-list-section .marquee-div{
+    display: flex;
+    flex-shrink: 0;
+    gap: 4rem;
+    justify-content: space-between;
+} 
+.logo-list-section .marquee{
+    flex-shrink: 0;
+    padding-inline: 20px;
+}
+.logo-list-section .marquee-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-list-section .marquee-image img{
+    height: 60px;
+    object-fit: contain;
+    width: auto;
+    opacity: 0.5;
+    transition: .3s ease;
+}
+.logo-list-section .marquee-image img:hover{
+    opacity: 1;
+}
+@media screen and (max-width: 1024px){
+    .main-aside nav ul{
+        flex-direction: row;
+        height: auto;
+        gap: 12px;
+        justify-content: space-between;
+    }
+    .main-aside nav{
+        height: auto;
+    }
+}
+@media only screen and (max-width: 980px){
+    .logo-list-section{
+        width: 100%;
+    }
+}
+@media screen and (max-width:767px){
+    .logo-list-section .box::after{
+        width: 5%;
+    }
+    .logo-list-section .box::before{
+        width: 5%;
+    }    
+}
+@media screen and (max-width: 640px) {
+    .logo-list-section .marquee-image img{
+        width: auto;
+    }
+}

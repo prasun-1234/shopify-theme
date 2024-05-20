@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "banner": {
+      "type": "main-page-banner",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "banner_text": "<h2>GET SERVICING AT YOUR DOORSTEP IN NO TIME</h2>",
+            "banner_color": "#3a3a3a"
+          }
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product_title": "Product related queries",
+            "Product_email": "support@demo.co.in",
+            "service_title": "Service related queries",
+            "service_email": "support@demo.co.in",
+            "tel_title": "Call Us",
+            "tel_email": "9876543210",
+            "title_color": "#686868",
+            "text_color": "#3a3a3a"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_height": 500,
+        "background_image": "shopify:\/\/shop_images\/contact-banner.jpg",
+        "overlay_background": "#253237",
+        "overlay_opacity": 0
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "logo": {
+          "type": "logo",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/BLACK.svg"
+          }
+        },
+        "top-text": {
+          "type": "text",
+          "settings": {
+            "top_text": "FRIDAY SALE"
+          }
+        },
+        "link-text": {
+          "type": "link",
+          "settings": {
+            "link_url": "",
+            "link_text": "25% OFF"
+          }
+        }
+      },
+      "block_order": [
+        "logo",
+        "top-text",
+        "link-text"
+      ],
+      "settings": {
+        "top_bar_bg": "shopify:\/\/shop_images\/topbar.jpg",
+        "overlay_color": "#000000",
+        "overlay_value": 4,
+        "content_color": "#ffffff"
+      }
+    },
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "contact": {
+      "type": "main-contact",
+      "blocks": {
+        "map": {
+          "type": "map",
+          "settings": {
+        
+          }
+        }
+      },
+      "block_order": [
+        "map"
+      ],
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 60,
+        "contact_title": "Contact Us",
+        "button_text": "Send Message"
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "banner",
+    "announcement-bar",
+    "breadcrumb",
+    "contact"
+  ]
+}

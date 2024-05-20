@@ -1,0 +1,349 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Zum Inhalt springen",
+      "error": "Aufgabenliste",
+      "close": "Aufgabenliste",
+      "link_messages": {
+        "new_window": "Neues Fenster"
+      }
+    }
+  },
+  "customer": {
+    "addresses": {
+      "set_default": "Standardadresse"
+    },
+    "account_detail": "Kontodetails"
+  },
+  "main-address": {
+    "Address": "Adresse"
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Geschenkkarte",
+      "subtext": "Hier ist Ihre kostenlose Geschenkkarte",
+      "expired": "Diese Geschenkkarte ist abgelaufen",
+      "remaining_html": "Ihr Guthaben der Geschenkkarte beträgt: ",
+      "add_to_apple_wallet": "apple-wallet-image ",
+      "gift_card_code": "Geschenkkartencode",
+      "copy_code": "Hier einlösen",
+      "copy_code_success": "Code kopiert",
+      "shop_link": "Jetzt einkaufen",
+      "print_gift_card": "Geschenkkarte drucken",
+      "qr_image_alt": "QR-Code der Geschenkkarte"
+    }
+  },
+  "breadcrumb": {
+    "nav": {
+      "home": "Startseite"
+    }
+  },
+  "about-us": {
+    "title": "Titel"
+  },
+  "quickview": {
+    "options": "Optionen auswählen",
+    "quantity": "Menge",
+    "description": "Beschreibung",
+    "add_cart": "In den Warenkorb legen"
+  },
+  "cart-drawer": {
+    "cart": "Warenkorb",
+    "add_item_to_free_shipping": "Fügen Sie Artikel Ihrem Warenkorb hinzu, um kostenlosen Versand zu erhalten.",
+    "free_shipping": "Sie haben kostenlosen Versand",
+    "You_are_only": "Sie sind nur noch",
+    "cost_shipping": "vom kostenlosen Versand entfernt.",
+    "in_stock": "auf Lager",
+    "discount": "Rabatt:",
+    "total": "Gesamt:",
+    "checkout_calculation": "Versandkosten und Rabatt werden beim Bezahlen berechnet.",
+    "order_note": "Eine Notiz zu Ihrer Bestellung hinzufügen",
+    "decrease_quantity": "Menge verringern",
+    "increase_quantity": "Menge erhöhen"
+  },
+  "collection-banner": {
+    "title": "Titel der Kollektion",
+    "text": "Text der Kollektion"
+  },
+  "feature-collection": {
+    "card_title": "Kartentitel"
+  },
+  "featured-product": {
+    "title": "Titel",
+    "body_text": "Fließtext ....!"
+  },
+  "main-search": {
+    "search_products": "Produkte suchen",
+    "not_found": "Hoppla... Artikel nicht gefunden",
+    "search_term": "Keine Artikel mit Suchbegriff",
+    "results": "Ergebnisse gefunden für"
+  },
+  "main-register": {
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "sign_in": "Anmelden.",
+    "account_status": "Sie haben bereits ein Konto?",
+    "errors": "Fehler:"
+  },
+  "main-product": {
+    "by": "Von",
+    "product_description": "Produktbeschreibung",
+    "quantity": "Menge:",
+    "for": "Für",
+    "taxes": "Steuern",
+    "not": "NICHT",
+    "included": "Inklusive",
+    "out_of_stock": "Nicht auf Lager",
+    "unavailable": "Produkte nicht verfügbar",
+    "add_cart": "In den Warenkorb legen",
+    "buy_now": "Jetzt kaufen"
+  },
+  "main-password": {
+    "enter": "Eingabe mit Passwort",
+    "email": "E-Mail"
+  },
+  "main-order": {
+    "my_orders": "Meine Bestellungen",
+    "product": "Produkt:",
+    "sku": "Artikelnummer",
+    "price": "Preis",
+    "quantity": "Menge",
+    "total": "Gesamt",
+    "track_shipment": "Sendungsverfolgung",
+    "regular_price": "Regulärer Preis",
+    "sale_price": "Verkaufspreis",
+    "unit_price": "Stückpreis",
+    "subtotal": "Zwischensumme",
+    "discount": "Rabatt",
+    "shipping": "Versand:",
+    "tax": "Steuern",
+    "total_duties": "Gesamtzölle:",
+    "total_refund": "Gesamterstattung",
+    "billing_address": "Rechnungsadresse",
+    "payment_status": "Zahlungsstatus:",
+    "shipping_address": "Lieferadresse",
+    "fulfilling_status": "Lieferstatus:"
+  },
+  "main-login": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "forgot_pw": "Passwort zurücksetzen",
+    "new_customer": "Neuer Kunde",
+    "Forgot_Your_Password": "Passwort vergessen?",
+    "Already_have_an_account": "Bereits ein Konto?",
+    "create_new": "Neues Konto erstellen",
+    "send_instructions": "Keine Sorge, wir senden Ihnen Anweisungen zum Zurücksetzen.",
+    "back_to_Login": "Zurück zur Anmeldung"
+  },
+  "main-reset-password": {
+    "password": "Passwort",
+    "confirm_pw": "Passwort bestätigen",
+    "reset_pw": "Passwort zurücksetzen"
+  },
+  "main-activate-account": {
+    "password": "Passwort eingeben",
+    "confirm_pw": "Passwort bestätigen"
+  },
+  "main-customer-account": {
+    "home": "Startseite",
+    "my_account": "Konto",
+    "name": "Name",
+    "email": "E-Mail",
+    "payment_status": "Zahlungsstatus",
+    "fulfillment_status": "Lieferstatus",
+    "phone_no": "Telefonnummer",
+    "shipping_address": "Lieferadresse",
+    "total_amount": "Gesamtbetrag",
+    "date": "Datum",
+    "orders": "Bestellungen",
+    "order_id": "Bestellnummer",
+    "order_history": "Bestellverlauf",
+    "order": "Bestellung",
+    "price": "Preis",
+    "status": "Status",
+    "no_orders": "Bisher keine Bestellungen!"
+  },
+  "main-contact": {
+    "first_name": "Name",
+    "email": "E-Mail",
+    "phone_no": "Telefonnummer",
+    "message": "Nachricht"
+  },
+  "main-collection": {
+    "filter_collection": "Nach Kollektion filtern",
+    "no_products": "Keine Produkte gefunden",
+    "filter": "Filtern"
+  },
+  "main-cart-item": {
+    "cart": "Warenkorb",
+    "leave_note": "Hinterlassen Sie eine Notiz zu Ihrer Bestellung",
+    "add_items": "Weitere Artikel hinzufügen",
+    "shipping_placeholder": "Sie sind $10 vom kostenlosen Versand entfernt",
+    "total": "Gesamt",
+    "shipping_msg": "Versandkosten und Rabatt werden beim Bezahlen berechnet.",
+    "checkout": "Zur Kasse"
+  },
+  "main-cart-body": {
+    "title": "Warenkorb",
+    "items": "Artikel",
+    "discounts": "Rabatte",
+    "discount": "Rabatt",
+    "total": "Gesamt",
+    "in_stock": "Auf Lager",
+    "out_stock": "Nicht auf Lager",
+    "decrease_quantity": "Menge verringern",
+    "increase_quantity": "Menge erhöhen",
+    "free_shipping": "Sie sind für kostenlosen Versand berechtigt!",
+    "only": "Sie sind nur noch",
+    "away_from": "vom kostenlosen Versand entfernt.",
+    "add_note": "Fügen Sie Ihrer Bestellung eine Notiz hinzu",
+    "accepted_payment": "Akzeptierte Zahlungsmethoden",
+    "taxes_and_shipping_policy_at_checkout_html": "Steuern und <a href=\"{{ link }}\">Versand<\/a> werden an der Kasse berechnet",
+    "taxes_included_but_shipping_at_checkout": "Steuern enthalten und Versand wird an der Kasse berechnet",
+    "taxes_included_and_shipping_policy_html": "Steuern enthalten. <a href=\"{{ link }}\">Versand<\/a> wird an der Kasse berechnet.",
+    "taxes_and_shipping_at_checkout": "Steuern und Versand werden an der Kasse berechnet",
+    "product": "Produkt",
+    "price": "Preis",
+    "quantity": "Menge"
+  },
+  "main-banner": {
+    "heading": "Überschrift des Abschnitts"
+  },
+  "main-blog": {
+    "no_items": "Keine Artikel für diese Seite verfügbar"
+  },
+  "article-card": {
+    "read_more": "Mehr lesen"
+  },
+  "main-list-collections": {
+    "no_items": "Keine Kollektionen verfügbar"
+  },
+  "main-banner-1": {
+    "heading": "Titel",
+    "text": "Banner-Überschrift"
+  },
+  "main-article": {
+    "editor": "Redakteur",
+    "share": "Diesen Blog teilen",
+    "no_comment": "Es gibt keine Kommentare in diesem Artikel",
+    "post_comments": "Veröffentlichen Sie Ihre Kommentare",
+    "comment": "Ihr Kommentar"
+  },
+  "card-collection": {
+    "no_title": "Kein Titel",
+    "no_description": "Keine Beschreibung",
+    "sample_title": "Beispiel-Titel",
+    "sample_description": "Beispielbeschreibung"
+  },
+  "selling_plan": {
+    "name": "Verkaufsplan",
+    "purchase_options": "Kaufoptionen",
+    "sale": "Verkauf"
+  },
+  "testimonial": {
+    "title": "Kundenaussage",
+    "customer": "John Doe",
+    "item_title": "Titel",
+    "para": "Absatztext des Banners",
+    "date": "01 Januar 2023"
+  },
+  "footer": {
+    "visit_store": "Besuchen Sie unseren Shop",
+    "view_map": "Auf Karte anzeigen",
+    "all_collection": "Alle Kollektionen",
+    "follow_us": "Folgen Sie uns:",
+    "product_queries": "Produktbezogene Anfragen",
+    "call_us": "Rufen Sie uns an",
+    "contact_us": "Kontaktieren Sie uns",
+    "all_rights_reserved": "Alle Rechte vorbehalten.",
+    "back_to_top": "Nach oben"
+  },
+  "copyright": {
+    "copyright": "Urheberrecht"
+  },
+  "header": {
+    "follow_us": "Folgen Sie uns:",
+    "search": "Suche",
+    "cart": "Warenkorb",
+    "menu": "Menü",
+    "mega-menu-main": {
+      "read_article": "Mehr lesen"
+    }
+  },
+  "home-blog": {
+    "no_blogs": "Keine Blogs zum Anzeigen verfügbar"
+  },
+  "info-grid": {
+    "title":"Feature-Titel",
+    "no_info": "Kein Info-Raster ausgewählt"
+  },
+  "multicolumn": {
+    "heading_text": "Überschrift des Abschnitts",
+    "para_text": "Absatztext des Abschnitts"
+  },
+  "newsletter": {
+    "success": "Formular erfolgreich übermittelt"
+  },
+  "legal": {
+    "FAQ": "FAQ's",
+    "privacy_policy": "Datenschutzbestimmungen"
+  },
+  "pickup": {
+    "available_at": "Abholung möglich bei",
+    "unavailable_at": "Abholung nicht verfügbar in",
+    "store_info": "Filialinformationen anzeigen",
+    "no_store_info": "Filialinformationen nicht verfügbar",
+    "product": "Produkt"
+  },
+  "product-details": {
+    "no_products": "Keine Produktinformationen verfügbar"
+  },
+  "main-404": {
+    "back_to_shopping": "Zurück zum Einkaufen"
+  },
+  "main-addresses": {
+    "addresses": "Adressen",
+    "name": "Name:",
+    "first_name": "Vorname:",
+    "last_name": "Nachname:",
+    "email": "E-Mail:",
+    "phone_number": "Telefonnummer:",
+    "company_name": "Firmenname:",
+    "address_1": "Adresse 1:",
+    "address_2": "Adresse 2:",
+    "shipping_addresses": "Lieferadresse:",
+    "city": "Stadt:",
+    "province": "Bundesland:",
+    "country": "Land:",
+    "zip": "Postleitzahl:",
+    "edit_details": "Details bearbeiten",
+    "first_address": "1. Adresse",
+    "cancel": "Abbrechen",
+    "new_address": "Neue Adresse hinzufügen"
+  },
+  "search-bar": {
+    "title": "Produkte suchen"
+  },
+  "instagram": {
+    "follow_us_instagram": "Folgen Sie uns auf Instagram"
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Ich möchte dies als Geschenk senden",
+      "expanded": "Formular für den Geschenkkartenempfänger erweitert",
+      "collapsed": "Formular für den Geschenkkartenempfänger eingeklappt",
+      "email_label": "E-Mail des Empfängers",
+      "email_label_optional_for_no_js_behavior": "E-Mail des Empfängers (optional)",
+      "email": "E-Mail",
+      "name_label": "Name des Empfängers (optional)",
+      "name": "Name",
+      "message_label": "Nachricht (optional)",
+      "message": "Nachricht",
+      "max_characters": "{{ max_chars }} Zeichen max",
+      "send_on": "JJJJ-MM-TT",
+      "send_on_label": "Senden am (optional)"
+    }
+  }  
+}

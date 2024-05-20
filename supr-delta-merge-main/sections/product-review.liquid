@@ -1,0 +1,156 @@
+{% style %}
+  @media screen and (max-width:980px){
+     #review_main{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+   }
+{% endstyle %}
+<link rel="stylesheet" href="{{ 'review.css' | asset_url }}">
+
+<section
+  id="review_main"
+  style="margin-top:{{ section.settings.section_margin_top }}; margin-bottom: {{ section.settings.section_margin_bottom }};"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    <div class="grid grid-cols-12 xl:gap-12 gap-0">
+      {% if section.blocks != blank %}
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'review' %}
+              <div
+                id="shopify-product-reviews"
+                class="column-one relative flex justify-center {% if forloop.length > 1 %}xl:col-span-6 col-span-12{% else %}col-span-12{% endif %}"
+                data-id="{{ product.id }}"
+              >
+                {{ product.metafields.spr.reviews }}
+              </div>
+            {% when 'featured-image' %}
+              <div class="column-two bg-center bg-cover relative object-contain flex flex-col  {% if forloop.length > 1 %}lg:col-span-6 col-span-12{% else %}col-span-12{% endif %}">
+                <div
+                  class=" sm:py-[100px] py-[60px] px-[15px] bg-cover bg-no-repeat bg-center relative"
+                  style="background-image:url('{{ section.settings.background_image | image_url }}');"
+                >
+                  {% if section.settings.background_image == blank %}
+                    {{
+                      'collection-2'
+                      | placeholder_svg_tag: 'object-cover h-full w-full absolute left-0 top-0 bg-[#ccc] z-10'
+                    }}
+                  {% endif %}
+                  <div
+                    class="flex flex-col items-center sm:max-w-[60%] mx-auto text-center relative z-40"
+                    id="product_review_banner"
+                  >
+                    <figure class="relative overflow-hidden">
+                      {% if block.settings.image != blank %}
+                        {{ block.settings.image | image_url: width: 100 | image_tag: class: 'w-[240px]' }}
+                      {% else %}
+                        {% render 'vector-black', class: 'w-[240px]' %}
+                      {% endif %}
+                    </figure>
+
+                    {% if block.settings.title_text != blank %}
+                      <h2 class="body-font uppercase mt-[-1rem]" style="color:{{ section.settings.text_color }};">
+                        {{ block.settings.title_text }}
+                      </h2>
+                    {% endif %}
+
+                    <a href="{{ block.settings.btn_url }}" rel="nofollow" class="mt-5">
+                      {%
+                        render 'btn-secondary',
+                        src: block.settings.btn_text,
+                        color: section.settings.text_color,
+                        class: 'custom',
+                        wrapper: 'product_review_banner', icon: 'Arrow right.png',
+                      %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.product-review.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-review.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 80,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-review.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.product-review.settings.background_image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#fff",
+      "label": "t:section.product-review.settings.text_color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-banner-1.blocks.banner_one.name",
+      "type": "review",
+      "settings": [],
+      "limit": 1
+    },
+    {
+      "name": "t:section.main-banner-1.blocks.banner_two.name",
+      "type": "featured-image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.product-review.blocks.featured_image.settings.image"
+        },
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:section.product-review.blocks.title.settings.title_text.label",
+          "default": "Friday sale 25% off",
+          "placeholder": "t:section.product-review.blocks.title.settings.title_text.placeholder"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "t:section.product-review.blocks.button.settings.btn_text.label",
+          "default": "Shop Now",
+          "placeholder": "t:section.product-review.blocks.button.settings.btn_text.placeholder"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "t:section.product-review.blocks.button.settings.btn_url"
+        }
+      ],
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

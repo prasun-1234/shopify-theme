@@ -1,0 +1,167 @@
+
+
+  .spr-form form .spr-form-input{
+    border: none;
+    border: 1px solid #686868;
+    border-radius: 5px;
+    color: black;
+    padding: 10px;
+}
+.spr-form form .spr-form-input.spr-starrating{
+    height: 50px;
+}
+
+/* .spr-form form .spr-form-input-textarea{
+    border: none;
+    outline: none;
+}  */
+
+.spr-form-title{
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.spr-form form .spr-form-input-textarea{
+  padding: 0px;
+  border: none !important;
+  outline: none !important;
+  height: 80px;
+}
+
+.textarea{
+  overflow: auto;
+  -webkit-appearance: none;
+}
+
+.spr-reviews{
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+#shopify-product-reviews{
+  margin-top: 0px;
+}
+
+.spr-container{
+  padding: 0px !important;
+  margin-bottom: 30px;
+}
+
+.spr-button, .spr-button-primary {
+  padding: 0 20px;
+  height: 50px;
+  background: var(--primary-btn-bg) !important;
+  border-radius: var(--button-radius);
+  color: var(--primary-btn-text);
+  border: none;
+  cursor: pointer;
+  transition: .5s ease;
+}
+.spr-button:hover, .spr-button-primary:hover{
+  transform: scale(.95);
+}
+
+.spr-summary-actions-newreview:hover{
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px) {
+
+  .spr-button, .spr-button-primary{
+    width: 20%;
+  }
+}
+
+  @media screen and (max-width: 640px) {
+
+    .spr-button, .spr-button-primary{
+      width: 30%;
+    }
+    
+    }
+
+    @media screen and (max-width: 480px) {
+
+      .spr-button, .spr-button-primary{
+        width: 100%;
+      }
+      
+      }
+
+      /* Judge.me Reviews App */
+.jdgm-rev-widg{
+  padding: 0 !important;
+}
+      .jdgm-rev-widg__title{
+        font-size: 4.5rem !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+      }
+
+      .jdgm-row-stars{
+        flex-direction: column;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 1.5rem 0 !important;
+      }
+      .jdgm-rev-widg .jdgm-star, .jdgm-revs-tab .jdgm-star, .jdgm-all-reviews .jdgm-star, .jdgm-gallery-popup .jdgm-star{
+        color: var(--global-font-color) !important;
+      }
+      .jdgm-sort-dropdown-wrapper .jdgm-sort-dropdown, .jdgm-sort-dropdown-wrapper .jdgm-sort-dropdown-arrow{
+        color: var(--global-font-color) !important;  
+      }
+      .jdgm-sort-dropdown{
+        border: 1px solid var(--global-font-color) !important;
+      }
+      .jdgm-rev__author, .jdgm-rev__icon:before{
+        color: var(--global-font-color) !important;              
+      }
+      .jdgm-rev-widg__summary-inner{
+        display: flex !important;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .jdgm-rev-widg__summary-stars{
+        display: flex;
+        justify-content: center;
+      }
+
+      .jdgm-rev-widg__summary-average{
+        display: none !important;
+      }
+      .jdgm-histogram{
+         display: none !important;
+      }
+       .jdgm-rev-widg__sort-wrapper,.jdgm-rev__header,.jdgm-rev__content,.jdgm-rev__actions{
+        max-width: 1400px;
+        width: 100%;
+        margin: auto;
+       }
+      .jdgm-row-actions{
+        padding: 1.5rem !important;
+      }
+      .jdgm-row-media, .jdgm-row-search, .jdgm-subtab, .jdgm-row-actions, .jdgm-quest, .jdgm-rev, .jdgm-paginate{
+        border-top: 1px solid var(--global-font-color) !important;
+      }
+      .jdgm-write-rev-link.jdgm-write-rev-link{
+        background-color: transparent !important;
+        border-color: transparent !important;
+        color:var(--global-font-color) !important;
+        max-width: fit-content !important;
+        font-weight: 400 !important;
+        text-decoration: underline;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .jdgm-write-rev-link.jdgm-write-rev-link::before{
+          content: '';
+          position: relative;
+          background-repeat: no-repeat;
+          background-size: contain;
+          width: 20px;
+          height: 20px;
+      }

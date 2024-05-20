@@ -1,0 +1,218 @@
+{{ 'focal-banner-style.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .{{ section.id }}{
+      margin-top:{{ section.settings.margin-top }}px;
+      margin-bottom:{{ section.settings.margin-bottom }}px;
+    }
+
+    .focal-banner .product_item_bottom{
+    opacity:1;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .{{ section.id }}{
+      margin-top:{{ section.settings.margin-top | divided_by: 2 }}px;
+      margin-bottom:{{ section.settings.margin-bottom | divided_by: 2 }}px;
+    }
+
+    .focal-banner .product_item_bottom{
+    opacity:0;
+  }
+
+  .focal-banner .swiper-slide-active .product_item_bottom{
+    opacity:1;
+  }
+
+  }
+{% endstyle %}
+
+<section id="focal-{{ section.id }}-banner" class="{{ section.id }} focal-banner">
+  <div class="page-width focal-grid">
+    <div class="focal-column">
+      <div class="focal_img_bg">
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 1500
+            | image_tag:
+              loading: 'lazy',
+              sizes: '100',
+              widths: '165, 360, 535, 750, 1070, 1500',
+              class: 'focal-banner-img'
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'object-contain w-full h-full bg-gray-300' }}
+        {% endif %}
+      </div>
+      <div class="focal_points_main">
+        <!-- focal image -->
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'focal_point' %}
+              {% comment %} focal point {% endcomment %}
+              {% assign product = block.settings.focal_product %}
+              <div
+                class="focal_outer"
+                style="top :{{ block.settings.image.presentation.focal_point.y }}%; left :{{ block.settings.image.presentation.focal_point.x }}%;"
+              >
+                <div class="focal-point ">
+                  <button class="focal_button">
+                    {% render 'focal-item' %}
+                    <a
+                      href="{{ product.url }}"
+                      class=" prod-link"
+                    ></a>
+                  </button>
+                </div>
+              </div>
+              {% comment %} focal point {% endcomment %}
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+
+        <!-- focal image -->
+      </div>
+    </div>
+
+    <div class="focal-swiper-column ">
+      <div class="swiper focalSwiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'focal_point' %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  {% assign product = block.settings.focal_product %}
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    show_quick_add: section.settings.enable_quick_add,
+                    section_id: section.id,
+                    hover-state: false
+                  %}
+                </div>
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="swiper-button-prev focal-prev ">
+          {% render 'icon-arrow', class: 'rotate-180' %}
+        </div>
+        <div class="swiper-button-next focal-next ">
+          {% render 'icon-arrow' %}
+        </div>
+        <div class="swiper-pagination focal-pagination !bottom-[20px] mx-auto pt-10 lg:pt-0 !relative"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Focal banner",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin-top",
+      "max": 100,
+      "min": 0,
+      "step": 20,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin top"
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "max": 100,
+      "min": 0,
+      "step": 20,
+      "default": 80,
+      "unit": "px",
+      "label": "Margin Bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Recommended size for focal Image '1920 x 980' "
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Focal point",
+      "type": "focal_point",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Focal image",
+          "info": "Add similar image for focal point with different image name. If the image name is same the focal position remain same."
+        },
+        {
+          "type": "product",
+          "id": "focal_product",
+          "label": "Focal Product"
+        }
+      ],
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.focal-banner.name",
+      "settings": {
+        "margin-top": 0,
+        "margin-bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/focal-banner-img.png"
+      },
+      "blocks": [
+        {
+          "type": "focal_point"
+        },
+        {
+          "type": "focal_point"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+
+<script defer>
+  document.addEventListener('DOMContentLoaded', function () {
+    let focalPoints = document.querySelectorAll('.focal-point');
+    const focalSwiper = new Swiper(`.focalSwiper`, {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      pagination: {
+        el: '.focalSwiper .swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.focalSwiper .swiper-button-next',
+        prevEl: '.focalSwiper .swiper-button-prev',
+      },
+    });
+
+    if (focalPoints) {
+      focalPoints.forEach((focalpoint, index) => {
+        focalpoint.querySelector('.focal_button').addEventListener('click', () => {
+          focalSwiper.slideTo(index);
+        });
+      });
+    }
+  });
+</script>

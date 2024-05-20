@@ -1,0 +1,130 @@
+.template-404 .error_grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:60px;
+}
+
+.template-404 .image_div figure{
+    position: relative;
+    z-index: 4;
+    width: fit-content;
+    margin: auto;
+}
+
+.template-404 #featured_image{
+  position: relative;
+}
+
+.template-404 .image_div figure img{
+  height: 800px;
+  object-fit: contain;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+.template-404 .image_div figure video{
+  position: absolute;
+    left: 15%;
+    top: 15%;
+    height: 300px;
+    width: 70%;
+    object-fit: cover;
+}
+
+
+.template-404 .image_div figure .overlay-image {
+  position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    object-fit: contain;
+    margin-right: auto;
+    z-index: 5;
+    height: 10rem;
+    width: 24rem;
+}
+
+.template-404 .content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  gap: 20px;
+  padding-right: 100px;
+}
+
+.template-404 .content .heading,.template-404 p{
+  max-width: 500px;
+}
+
+.template-404 .content .icon{
+  width: 70px;
+  height: 70px;
+}
+
+.template-404 .gradient_lg{
+  width: 100%;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  filter: blur(70px);
+  border-radius: 100%;
+  position: absolute;
+}
+
+@media screen and (max-width:1536px){
+  .template-404 .image_div figure img{
+    height: 500px;
+  }
+
+  .template-404 .image_div figure .overlay-image {
+    height: 6rem;
+    width: 16rem;
+  }
+
+}
+
+@media screen and (max-width:1200px){
+  .template-404 .content{
+    padding: 0 !important;
+    gap: 1.5rem;
+  }
+  .template-404 .gradient_lg{
+    width: 50%;
+    left: 25%;
+  }
+}
+
+@media screen and (max-width:767px){
+  .template-404 .image_div figure img{
+    height: 400px;
+  }
+}
+
+@media screen and (max-width:640px){
+  .template-404 .image_div figure .overlay-image{
+    height: 5rem;
+    width: 14rem;
+  }
+  .template-404 .error_grid{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .template-404 .content{
+    align-items: center;
+  }
+  .template-404 .content .icon {
+    width: 40px;
+    height: 40px;
+  }
+  .template-404 .error_grid {
+    gap: 40px;
+  }
+}

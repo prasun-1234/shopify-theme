@@ -1,0 +1,205 @@
+<link rel="stylesheet" href="{{ 'brand-list.css' | asset_url }}">
+
+<section>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <h3>{{ section.settings.title }}</h3>
+    <div class="brand-grid">
+      <div class="pure-g">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'brand_item' %}
+              <div
+                {{ block.shopify_attributes }}
+                class="brand-grid-item pure-u-1-2 logo-item {% case section.settings.grid_row_limit %} {% when '6' %}pure-u-lg-1-6 grid-6{% when '4' %}pure-u-lg-1-4 grid-4{% when '3' %}pure-u-lg-1-3 grid-3{% else %}{% endcase %}"
+                style="border-color: {{ block.settings.brand_border_color }};"
+              >
+                <figure class="brand-img">
+                  {% if block.settings.brand_logo %}
+                    <img
+                      srcset="
+                        {%- if block.settings.brand_logo.width >= 375 -%}{{ block.settings.brand_logo | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 550 -%}{{ block.settings.brand_logo | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 750 -%}{{ block.settings.brand_logo | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 1100 -%}{{ block.settings.brand_logo | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 1500 -%}{{ block.settings.brand_logo | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 1780 -%}{{ block.settings.brand_logo | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 2000 -%}{{ block.settings.brand_logo | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 3000 -%}{{ block.settings.brand_logo | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if block.settings.brand_logo.width >= 3840 -%}{{ block.settings.brand_logo | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ block.settings.brand_logo | image_url }} {{ block.settings.brand_logo.width }}w
+                      "
+                      tabindex="0"
+                      sizes="auto"
+                      src="{{ block.settings.brand_logo | image_url }}"
+                      loading="lazy"
+                      alt="{{ block.settings.brand_logo.alt | escape }}"
+                      width="{{ block.settings.brand_logo.width }}"
+                      height="auto"
+                    >
+                  {% else %}
+                    <div class="placeholder-background">
+                      {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </figure>
+              </div>
+
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:sections.brand_list.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "featured collections",
+      "label": "t:sections.brand_list.settings.brand_list_label"
+    },
+    {
+      "type": "select",
+      "id": "grid_row_limit",
+      "label": "t:sections.brand_list.settings.logo_row_label",
+      "default": "6",
+      "options": [
+        {
+          "value": "3",
+          "label": "t:sections.brand_list.settings.options.option_1.label"
+        },
+        {
+          "value": "4",
+          "label": "t:sections.brand_list.settings.options.option_2.label"
+        },
+        {
+          "value": "6",
+          "label": "t:sections.brand_list.settings.options.option_3.label"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.brand_list.blocks.name",
+      "limit": 12,
+      "type": "brand_item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_logo",
+          "label": "t:sections.brand_list.blocks.settings.brand_logo.label"
+        },
+        {
+          "type": "color",
+          "label": "t:sections.brand_list.blocks.settings.brand_border_color.label",
+          "id": "brand_border_color",
+          "default": "#8B8888"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.brand_list.presets.name",
+      "settings": {
+        "title": "featured collections",
+        "grid_row_limit": "6"
+      },
+      "blocks": [
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        },
+        {
+          "type": "brand_item",
+          "settings": {
+            "brand_logo": "",
+            "brand_border_color": "#8b8888"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

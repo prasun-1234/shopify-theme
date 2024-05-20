@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="{{ 'logo_list.css' | asset_url }}">
+
+{% liquid
+  assign no_of_coloumn = section.settings.post_limit | plus: 0
+  case no_of_coloumn
+    when 2
+      assign class = 'two'
+    when 3
+      assign class = 'three'
+    when 4
+      assign class = 'four'
+    else
+      assign class = 'five'
+  endcase
+-%}
+
+{%- capture section-demo-with-carousel -%}
+  {%- for i in (1..section.settings.post_limit) -%}
+    <div  class="swiper-slide logo-bar-item  fadeIn {{ class }} " >
+      <div class="placeholder-background">
+        {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    </div>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture section-demo-without-carousel -%}
+  {%- for i in (1..section.settings.post_limit) -%}
+    <li class="logo-bar-item  fadeIn {{ class }} " >
+      <a rel="nofollow" href="{{ block.settings.link }}" class="logo-bar-link" target="_blank" aria-label="Logo link {{ forloop.index }}" rel="nofollow">
+        <div class="placeholder-background">
+          {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      </a>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+
+<section
+  class="logo-list"
+  style="background-color: {{ section.settings.logo_list_bg_color }};margin-bottom:{{ section.settings.margin_bottom }}px"
+>
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-1 l-box">
+        {%- if section.settings.title != blank -%}
+          <div class="section-header text-center {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+            <h3 class="section-title {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+              {{ section.settings.title | escape }}
+            </h3>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.enable_carousel -%}
+          <div class="swiper-container logo-slider" data-count="{{ no_of_coloumn }}">
+            <div class="swiper-wrapper">
+              {%- for block in section.blocks -%}
+                <div class="swiper-slide logo-bar-item {{ class }}" {{ block.shopify_attributes }}>
+                  <a
+                    href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}"
+                    class="logo-bar-link"
+                    target="_blank"
+                    aria-label="Logo link {{ forloop.index }}"
+                    rel="nofollow"
+                  >
+                    {% if block.settings.image != blank %}
+                      <img
+                        srcset="{{ block.settings.image | image_url: width: 1000 }}"
+                        alt="{{ block.settings.image.alt | escape }}"
+                        loading="lazy"
+                      >
+
+                    {% else %}
+                      <div class="placeholder-background">
+                        {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                  </a>
+                </div>
+              {%- endfor -%}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        {%- else -%}
+          <ul
+            class="logo-bar {% if settings.enable_animation %}scrollmagic-element{% endif %}"
+            style="
+              grid-template-columns:
+              {% case section.settings.post_limit %}
+                {% when 2 %}
+                  auto auto
+                  {% when 3 %}
+                    auto auto auto
+                    {% when 4 %}
+                      auto auto auto auto
+                      {% when 5 %}
+                        auto auto auto auto auto
+                {% else %}
+
+              {% endcase %};
+            "
+          >
+            {%- for block in section.blocks -%}
+              {%- assign class = class -%}
+              <li
+                {{ block.shopify_attributes }}
+                class="logo-bar-item {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %} {{ class }} "
+              >
+                <a
+                  rel="nofollow"
+                  href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}"
+                  class="logo-bar-link"
+                  aria-label="Logo link {{ forloop.index }}"
+                  target="_blank"
+                >
+                  {% if block.settings.image != blank %}
+                    <img
+                      srcset="{{ block.settings.image | image_url: width: 200, height: 50 }}"
+                      alt="logo"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="placeholder-background">
+                      {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.logo-list.name",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "default": 0,
+      "label": "t:sections.logo-list.margin_bottom.label",
+      "max": 60,
+      "min": 0,
+      "info": "t:sections.logo-list.margin_bottom.info",
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.logo-list.title.label",
+      "default": "Logo List"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "t:sections.logo-list.post_limit.label",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_carousel",
+      "default": true,
+      "label": "t:sections.logo-list.enable_carousel.label"
+    },
+    {
+      "type": "color",
+      "id": "logo_list_bg_color",
+      "label": "Logo List Background Color",
+      "default": "#F4F4F2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "t:sections.logo-list.blocks.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.logo-list.blocks.image.label",
+          "info": "t:sections.logo-list.blocks.image.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.logo-list.blocks.link.label",
+          "info": "t:sections.logo-list.blocks.link.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.logo-list.presets.name",
+      "category": "t:sections.logo-list.presets.name",
+      "settings": {
+        "margin_bottom": 0,
+        "title": "Our Brand Logos",
+        "post_limit": 5,
+        "enable_carousel": true,
+        "logo_list_bg_color": "#F3EFE0"
+      },
+      "blocks": [
+        {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "image": "",
+            "link": "#"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

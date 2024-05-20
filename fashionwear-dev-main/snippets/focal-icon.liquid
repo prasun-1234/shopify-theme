@@ -1,0 +1,49 @@
+{% style %}
+  .focal-item {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .focal-item .focal-outer {
+    background-color: var(--body-background);
+    border-width: 2px;
+    border-color: transparent;
+  }
+  .focal-item .focal-inner {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    position: relative;
+    background: #777;
+  }
+  .focal-item.active .focal-outer {
+    border-color: var(--theme-primary-color);
+  }
+  .focal-item.active .focal-inner {
+    background-color: var(--theme-primary-color);
+    opacity: 1;
+  }
+{% endstyle %}
+<div class="focal-item group/focal">
+  <div
+    class="focal-outer rounded-full w-full h-full group-hover/focal:scale-125 origin-center ease-in-out duration-500 absolute top-0 left-0"
+  ></div>
+  <span class="focal-inner"></span>
+</div>
+
+<script>
+  document.querySelectorAll('.focal-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      // Remove active class from all items
+      document.querySelectorAll('.focal-item').forEach((item) => {
+        item.classList.remove('active');
+      });
+
+      // Add active class to the clicked item
+      item.classList.add('active');
+    });
+  });
+</script>

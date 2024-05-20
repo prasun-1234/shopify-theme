@@ -1,0 +1,23 @@
+{% style %}
+  .hover-link {
+    color: var(--global-font-color);
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .hover-link::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--global-font-color);
+    transition: 0.3s ease;
+  }
+  .hover-link:hover::before {
+    width: 100%;
+  }
+{% endstyle %}
+
+<a id="{{ id }}" class="{{ class }} hover-link relative" href="{{ link }}" rel="nofollow">{{ src }}</a>

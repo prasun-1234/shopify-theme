@@ -1,0 +1,316 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Ir al contenido",
+      "error": "Todo",
+      "close": "Todo",
+      "link_messages": {
+        "new_window": "Nueva ventana"
+      }
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Tarjeta de regalo",
+      "subtext": "Aquí está tu tarjeta de regalo gratuita",
+      "expired": "Esta tarjeta de regalo ha caducado",
+      "remaining_html": "Tu saldo de tarjeta de regalo es: ",
+      "add_to_apple_wallet": "Imagen de Apple Wallet ",
+      "gift_card_code": "Código de tarjeta de regalo",
+      "copy_code": "Reclamar aquí",
+      "copy_code_success": "Código copiado",
+      "shop_link": "Comprar ahora",
+      "print_gift_card": "Imprimir tarjeta de regalo",
+      "qr_image_alt": "Código QR de la tarjeta de regalo"
+    }
+  },
+  "breadcrumb": {
+    "nav": {
+      "home": "Inicio"
+    }
+  },
+  "about-us": {
+    "title": "Título"
+  },
+  "instagram": {
+    "follow_us": "Síguenos en Instagram"
+  },
+  "cart-drawer": {
+    "items": "artículos",
+    "cart": "Carrito",
+    "add_item_to_free_shipping": "Agrega artículos a tu carrito para recibir envío gratuito.",
+    "free_shipping": "Tienes envío gratis",
+    "You_are_only": "Estás a solo",
+    "cost_shipping": "de envío gratis.",
+    "in_stock": "en stock",
+    "discount": "Descuento:",
+    "total": "Total:",
+    "checkout_calculation": "Envío y descuento calculados al momento de pagar.",
+    "order_note": "Agregar una nota a tu pedido",
+    "remove_item": "Eliminar artículo",
+    "your_cart": "TU CARRITO"
+  },
+  "collection-banner": {
+    "title": "Título de colección",
+    "text": " Texto de colección"
+  },
+  "feature-collection": {
+    "card_title": "Título de tarjeta"
+  },
+  "featured-product": {
+    "title": "Título",
+    "body_text": "Texto del cuerpo ....!"
+  },
+  "main-search": {
+    "search_products": "Buscar productos",
+    "not_found": "Ups... Artículo no encontrado",
+    "search_term": "No hay artículos con el término de búsqueda",
+    "results": "Resultados encontrados para"
+  },
+  "main-register": {
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "sign_in": "Iniciar sesión.",
+    "account_status": "¿Ya tienes una cuenta?",
+    "errors": "Errores:"
+  },
+  "main-product": {
+    "by": "Por",
+    "product_description": "Descripción del producto",
+    "quantity": "Cantidad :",
+    "for": "Para",
+    "taxes": "Impuestos",
+    "not": "NO",
+    "included": "Incluidos",
+    "out_of_stock": "Sin stock",
+    "unavailable": "Productos no disponibles",
+    "add_cart": "Agregar al carrito",
+    "buy_now": "Comprar ahora"
+  },
+  "main-password": {
+    "enter": "Ingresar con contraseña",
+    "email": "Correo electrónico"
+  },
+  "main-order": {
+    "my_orders": "Mis Pedidos",
+    "product": "Producto:",
+    "sku": "SKU",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "track_shipment": "Seguir Envío",
+    "regular_price": "Precio Regular",
+    "sale_price": "Precio de Oferta",
+    "unit_price": "Precio Unitario",
+    "subtotal": "Subtotal",
+    "discount": "Descuento",
+    "shipping": "Envío:",
+    "tax": "Impuesto",
+    "total_duties": "Total de Impuestos:",
+    "total_refund": "Total Reembolsado",
+    "billing_address": "Dirección de Facturación",
+    "payment_status": "Estado de Pago:",
+    "shipping_address": "Dirección de Envío:",
+    "fulfilling_status": "Estado de Cumplimiento:"
+  },
+  "main-login": {
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "forgot_pw": "¿Olvidaste tu contraseña?",
+    "new_customer": "¿Nuevo Cliente?",
+    "create_new": "Crear una nueva cuenta",
+    "send_instructions": "No te preocupes, te enviaremos instrucciones para restablecerla.",
+    "back_to_login": "Volver al inicio de sesión"
+  },
+  "main-reset-password": {
+    "password": "Contraseña",
+    "confirm_pw": "Confirmar Contraseña",
+    "reset_pw": "Restablecer Contraseña"
+  },
+  "main-activate-account": {
+    "password": "Ingresar Contraseña",
+    "confirm_pw": "Confirmar Contraseña"
+  },
+  "main-customer-account": {
+    "home": "Inicio",
+    "my_account": "Mi Cuenta",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone_no": "Número de Teléfono",
+    "shipping_address": "Dirección de Envío",
+    "orders": "Pedidos",
+    "order_id": "ID de Pedido",
+    "order": "Pedido",
+    "price": "Precio",
+    "status": "Estado",
+    "no_orders": "¡Aún no hay pedidos!"
+  },
+  "main-contact": {
+    "name": "Nombre",
+    "first_name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone_no": "Número de Teléfono",
+    "message": "Mensaje"
+  },
+  "image-banner": {
+    "banner_title": "Título",
+    "banner_para": "Texto del párrafo del banner"
+  },
+  "main-collection": {
+    "filter_collection": "Filtrar por Colección",
+    "no_products": "No se encontraron productos",
+    "filter": "Filtro"
+  },
+  "main-cart-item": {
+    "cart": "Carrito",
+    "leave_note": "Dejar una nota con tu pedido",
+    "add_items": "Agregar más artículos",
+    "shipping_placeholder": "Estás a $10 de envío gratis",
+    "total": "Total",
+    "shipping_msg": "Envío y descuento calculados al finalizar la compra.",
+    "checkout": "Finalizar Compra",
+    "items": "artículos"
+  },  
+  "main-cart-body": {
+    "your_cart": "Tu Carrito",
+    "items": "artículos",
+    "discounts": "Descuentos",
+    "discount": "Descuento",
+    "total": "Total",
+    "free_shipping": "¡Eres elegible para envío gratis!",
+    "only": "Estás a solo",
+    "away_from": "de envío gratis.",
+    "shipping_msg": "Envío y descuento calculados al finalizar la compra.",
+    "add_note": "Agregar una nota a tu pedido",
+    "accepted_payment": "Métodos de Pago Aceptados"
+  },
+  "main-banner": {
+    "heading": "Texto del Encabezado de la Sección"
+  },
+  "main-blog": {
+    "no_items": "No hay artículos disponibles para esta página"
+  },
+  "article-card": {
+    "read_more": "Leer Más"
+  },
+  "main-list-collections": {
+    "no_items": "No hay colecciones disponibles"
+  },
+  "main-banner-1": {
+    "heading": "Título",
+    "text": "Título del Banner"
+  },
+  "main-article": {
+    "editor": "Editor",
+    "share": "Compartir",
+    "no_comment": "No hay comentarios en este artículo",
+    "post_comments": "Publica tus comentarios"
+  },
+  "card-collection": {
+    "no_title": "Sin título",
+    "no_description": "Sin descripción",
+    "sample_title": "Título de ejemplo",
+    "sample_description": "Descripción de ejemplo"
+  },
+  "selling_plan": {
+    "name": "Plan de Venta",
+    "purchase_options": "Opciones de Compra",
+    "sale": "Venta"
+  },
+  "slide-show": {
+    "placeholder": {
+      "slide_title": "Título",
+      "paragraph": "Texto del párrafo del slide",
+      "video_title": "Título del Video",
+      "video_para": "Texto del párrafo del video"
+    }
+  },
+  "testimonial": {
+    "title": "Testimonio",
+    "customer": "Juan Pérez",
+    "item_title": "Título",
+    "para": "Texto del párrafo del banner",
+    "date": "01 Ene, 2023"
+  },
+  "footer": {
+    "visit_store": "Visita nuestra Tienda",
+    "view_map": "Ver en el Mapa",
+    "all_collection": "Todas las Colecciones",
+    "follow_us": "Síguenos:",
+    "product_queries": "Consultas relacionadas con productos",
+    "call_us": "Llámanos",
+    "contact_us": "Contáctanos",
+    "all_rights_reserved": "Todos los derechos reservados.",
+    "back_to_top": "Volver arriba",
+    "support_column": "Soporte"
+  },
+  "copyright": {
+    "copyright": "Derechos de autor"
+  },
+  "header": {
+    "follow_us": "Síguenos:",
+    "mega-menu-main": {
+      "read_article": "Leer Más"
+    }
+  },
+  "home-blog": {
+    "no_blogs": "No hay blogs disponibles para mostrar"
+  },
+  "info-grid": {
+    "no_info": "No se ha seleccionado info_grid",
+    "button_default": "Enlace",
+    "title_default": "Título"
+  },
+  "multicolumn": {
+    "heading_text": "Texto del Encabezado de la Sección",
+    "para_text": "Texto del Párrafo de la Sección"
+  },
+  "newsletter": {
+    "success": "Formulario enviado exitosamente"
+  },
+  "legal": {
+    "FAQ": "Preguntas frecuentes (FAQ)",
+    "privacy_policy": "Política de privacidad"
+  },
+  "pickup": {
+    "available_at": "Recogida disponible en",
+    "store_info": "Ver información de la tienda",
+    "no_store_info": "Información de la tienda no disponible",
+    "product": "producto"
+  },
+  "product-details": {
+    "no_products": "No hay detalles de productos disponibles"
+  },
+  "main-addresses": {
+    "addresses": "Direcciones",
+    "name": "Nombre",
+    "first_name": "Nombre",
+    "set_default": "Establecer como dirección predeterminada",
+    "last_name": "Apellido",
+    "phone_number": "Número de Teléfono",
+    "email_id": "Correo Electrónico",
+    "company_name": "Nombre de la Empresa",
+    "contact": "Número de Contacto",
+    "shipping_addresses": "Dirección de Envío",
+    "address_line_one": "Dirección Línea 1",
+    "address_line_two": "Dirección Línea 2",
+    "city": "Ciudad",
+    "country": "País",
+    "zip": "Código Postal",
+    "edit_details": "Editar Detalles",
+    "first_address": "1ra Dirección",
+    "cancel": "Cancelar",
+    "new_address": "Agregar Nueva Dirección"
+  },
+  "search-bar": {
+    "title": "Buscar Productos"
+  },
+  "new-marquee": {
+    "title": "Texto del Marquesina"
+  },
+  "main-image-video-banner": {
+    "video_title": "Reproducir Video"
+  }
+}

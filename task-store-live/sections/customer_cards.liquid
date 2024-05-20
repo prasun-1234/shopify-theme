@@ -1,0 +1,162 @@
+{{ 'section-customer-card.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #{{ section.id }}{
+      margin-top:{{ section.settings.margin_top }}px;
+      margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+      margin-top:{{ section.settings.margin_top | divided_by: 2 }}px;
+      margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+
+<section class="customer-card-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="heading-box">
+      <div>
+        {{ section.settings.heading }}
+      </div>
+      <span>
+        {{ section.settings.subheading }}
+      </span>
+    </div>
+    <div class="card-container">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'cards' %}
+            {% style %}
+              #{{ section.id }} #{{ block.id }} .inner-card{
+                background: linear-gradient(180deg,{{ block.settings.background }} 0%, rgb(var(--color-background)) 50%);
+              }
+              #{{ section.id }} #{{ block.id }} .inner-card:before{
+                background: linear-gradient(180deg,{{ block.settings.background }} 0%, rgb(var(--color-background)) 80%);
+              }
+              #{{ section.id }} #{{ block.id }}:hover .inner-card{
+                /* border:3px solid {{ block.settings.background }}; */
+                -webkit-box-shadow: 0px 0px 0px 2px {{ block.settings.background }};
+                box-shadow: 0px 0px 0px 2px{{ block.settings.background }};
+              }
+            {% endstyle %}
+            <div class="card" id="{{ block.id }}" {{ block.shopify_attributes }}>
+              <span class="gradient-border"></span>
+              <div class="inner-card">
+                <div class="card-header">
+                  <h4 class="h5">
+                    {% if forloop.index <= 9 %}0{% endif -%}
+                    {{- forloop.index }}.
+                  </h4>
+                  <div>
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 200
+                        | image_tag: loading: 'lazy', sizes: '800', widths: '100, 200, 260, 400', class: 'c-card-image'
+                      -}}
+                    {%- else %}
+                      {{ 'product-3' | placeholder_svg_tag: 'h-[100px] scale-[1.5]' }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h5>
+                    {% if block.settings.title != blank %}
+                      {{ block.settings.title }}
+                    {% endif %}
+                  </h5>
+                  <p>
+                    {% if block.settings.body_text != blank %}
+                      {{ block.settings.body_text }}
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Customer Cards",
+  "limit": 2,
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Section margin top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Section margin bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section headings"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h3>Order. Discuss. Deliver.</h3>"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-heading",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p>"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Cards",
+      "type": "cards",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title"
+        },
+        {
+          "type": "text",
+          "id": "body_text",
+          "label": "Body Text",
+          "default": "Body text....."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Card Background"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border Color"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

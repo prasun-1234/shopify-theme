@@ -1,0 +1,239 @@
+  #search_filter_btn.hide{
+    opacity: 0;
+    pointer-events: none;
+  }
+  #search_filter_btn{
+    transition: .3s ease;
+  }
+  .search_filter_title{
+    margin-bottom: 30px;
+  }
+  .search_filter_modal .close-sidebar{
+    position: absolute;
+    right: 20px;
+    top: 38px;
+    background-color: transparent;
+    border: none;
+  }
+  .search_filter_modal .filter_clear{
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .search_filter_modal .price-div{
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .search_filter_modal .checkbox-input{
+    width: 25px;
+    display: inline-flex;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--form-border-color);
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  #search_filters .color-swatch .checkbox-input span:before {
+    content: "";
+    height: 3px;
+    width: 50%;
+    background-color: var(--global-font-color);
+    position: absolute;
+    left: 24%;
+    bottom: -8px;
+    transition: .3s ease;
+    display: none;
+  }
+  #search_filters .color-swatch .checkbox-input input:checked~span:before {
+    display: block;
+  }
+  
+  .search_filter_modal .color-swatch .checkbox-input{
+    border-radius: 100%;
+    position: static;
+  } 
+  .search_filter_modal .filter-list label{
+    display: flex;
+    align-items: center;
+  }
+  .search_filter_modal .checkbox-input input{
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99;
+  }
+  .search_filter_modal .checkbox-input svg{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: .3s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 3px;
+  }
+  .search_filter_modal .checkbox-input.color-input svg{
+    mix-blend-mode: difference;
+  }
+  .search_filter_modal .color-input .color-shape{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 1.5px;
+    border-radius: 100%;
+    transition: .3s ease;
+    top: 1.5px;
+  }
+  .search_filter_modal .checkbox-input input:checked ~ svg{
+    opacity: 1;
+  }
+  .search_filter_modal .close-sidebar svg{
+    width: 16px;
+    height: 16px;
+  }
+  #search_filters{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 40px;
+    gap: 20px;
+  }
+  .filter_remove{
+    display: flex;
+    flex-direction: column;
+  }
+  #search_filters summary{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #search_filters summary svg{
+    width: 20px;
+    height: 20px;
+    transition: .3s ease;
+  }
+  #search_filters summary svg.active{
+    transform: rotate(180deg);
+  }
+  #search_filters details ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 12px;
+  }
+  #search_filters details input{
+    border: none;
+    outline: none;
+  }
+  .search_filter_modal *::placeholder{
+    opacity: .5;
+  }
+  #search_filters details .price_input{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-width: 1px;
+    border-style: solid;
+  }
+  #search_filters details .price_input .currency_symbol{
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #search_filters details .price_input input{
+    width: 100%;
+    height: 100%;
+    padding: 8px 20px 8px 36px;
+  }
+  .result-filter-box .search-grid{
+    padding-inline: 20px;
+    padding-bottom: 60px;
+  }
+  .result-filter-box .search-grid.borderActive{
+    border-left: 1px solid var(--global-border-color);
+  }
+  .result-filter-box{
+    border-top: 1px solid var(--global-border-color);
+    border-bottom: 1px solid var(--global-border-color);
+  }
+  .search_filter_modal{
+    position: sticky;
+    top: 100px;
+    left: 0;
+    width: 0px;
+    height: 100%;
+    z-index: 998;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+  }
+  .search_filter_modal.modal-active{
+    width: 320px;
+  }
+  .search_filter_modal.modal-active aside{
+    transform: translateX(0px);
+  }
+  .search_filter_modal aside{
+    transform: translateX(-200px);
+    transition: .7s ease;
+  }
+  .filter-options{
+    position: relative;
+    padding-inline: 28px;
+    padding-block: 28px;
+    width: 100%;
+    height: 100%;
+  }
+  .plain-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  .filter-button{
+    margin-block: 32px;
+    width: fit-content;
+  }
+  @media only screen and (max-width:1366px){
+    .search_filter_modal{
+      top: 80px;
+    }
+    .search_filter_modal.modal-active{
+      width: 280px;
+    }
+    .filter-options{
+      padding-inline: 20px;
+      padding-block: 14px;
+    }
+  }
+  @media only screen and (max-width: 1280px){
+    .search_filter_modal.modal-active{
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      background-color: #00000060;
+      top: 0px;
+    }
+    .search_filter_modal aside{
+      background-color: white;
+      padding-top: 80px;
+      padding-bottom: 40px;
+    }
+    .search_filter_modal .close-sidebar {
+      right: 41px;
+      top: 20px;
+    }
+  }

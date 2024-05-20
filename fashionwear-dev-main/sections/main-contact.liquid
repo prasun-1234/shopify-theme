@@ -1,0 +1,294 @@
+{% style %}
+  .contact_map {
+    filter: grayscale(100%) invert(92%) contrast(83%);
+    height: calc(100% - 250px);
+  }
+  .contact_details {
+    height: 250px;
+  }
+  @media screen and (max-width: 1200px) {
+    .contact_map {
+      height: 400px;
+    }
+    .contact_details {
+      height: auto;
+    }
+  }
+  @media screen and (max-width: 639px) {
+    .contact_map {
+      height: 320px;
+    }
+    .contact_details {
+      height: auto;
+    }
+  }
+{% endstyle %}
+<section
+  class="relative contact_main"
+  style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+>
+  <div
+    class="contact-section border-t border-b  flex justify-start gap-20 items-start {% if settings.container == 'boxed' %}container mx-auto{% else %}container-fluid px-0{% endif %}"
+    style="border-color: {{ section.settings.border_color }}"
+  >
+    <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+      <div class="grid grid-cols-12">
+        <div class="xl:col-span-6 col-span-12 md:my-12 my-6 lg:px-10">
+          {% form 'contact' %}
+            <h3 class="md:leading-none md:text-left text-center lg:max-w-3xl">
+              {{ section.settings.contact_title }}
+            </h3>
+            <p class="lg:py-5 py-4 md:text-left text-center 2xl:w-4/5">
+              {{ section.settings.contact_subtext }}
+            </p>
+            <div class="mb-[40px] w-full">
+              <ul class="flex flex-col gap-8 xxs:max-sm:gap-5 px-[1px]">
+                <li>
+                  <label for="firstname" class="">{{ 'main-contact.first_name' | t }}</label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="name"
+                    placeholder="Full Name"
+                    class="pl-[30px] block p-3 rounded-md border border-spacing-2 w-full mt-1"
+                    required
+                  >
+                </li>
+                <li>
+                  <label for="email" class="">{{ 'main-contact.email' | t }}</label>
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    id="fname"
+                    name="name"
+                    placeholder="Email"
+                    class="pl-[30px] block p-3 rounded-md border border-spacing-2 w-full mt-1"
+                    required
+                  >
+                </li>
+                <li>
+                  <label for="contact" class="">{{ 'main-contact.phone_no' | t }}</label>
+                  <input
+                    type="tel"
+                    name="contact[phone]"
+                    id="fname"
+                    name="name"
+                    placeholder="Phone No."
+                    class="pl-[30px] block p-3 rounded-md border border-spacing-2  w-full mt-1"
+                    required
+                  >
+                </li>
+                <li>
+                  <label for="comment" class="">{{ 'main-contact.message' | t }}</label>
+                  <textarea
+                    name="comment"
+                    id=""
+                    cols="30"
+                    rows="5"
+                    placeholder="Your Message"
+                    contact[body]
+                    class="pl-[30px] block p-3 rounded-md  border border-spacing-2  pb-[132px]  w-full mt-1"
+                  ></textarea>
+                </li>
+              </ul>
+            </div>
+            <div class="flex xl:justify-start justify-center items-center xxs:max-xl:place-content-center  w-full">
+              {% if section.settings.button_text != blank %}
+                {% assign buttonText = section.settings.button_text %}
+              {% else %}
+                {% assign buttonText = 'Submit' %}
+              {% endif %}
+              {% render 'btn-primary', src: buttonText, class: 'w-full rounded-full', type: 'submit' %}
+            </div>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {%- if form.posted_successfully? -%}
+                <h5 class=" flex gap-2 flex-wrap items-center" tabindex="-1" autofocus>
+                  {% render 'icon-success', class: 'w-5 h-5' %}
+                  Submitted Successfully !
+                </h5>
+              {%- elsif form.errors -%}
+                <div class="">
+                  <h5 class="text-red-400 text-body " role="alert" tabindex="-1" autofocus>
+                    Submitted Failed !
+                  </h5>
+                </div>
+                <ul>
+                  {% for error in form.errors %}
+                     <li class="error_main">
+                       {% if error == 'form' %}
+                         {{ form.errors.messages[error] }}
+                       {% else %}
+                         {{ form.errors.translated_fields[error] }} - {{ form.errors.messages[error] }}
+                       {% endif %}
+                     </li>
+                  {% endfor %}
+                </ul>
+              {%- endif -%}
+            </div>
+          {% endform %}
+        </div>
+        <div class="xl:absolute xl:right-0 xl:top-0 xl:w-1/2 h-full  xl:col-span-6 col-span-12">
+          <div class="relative h-full flex flex-col justify-between">
+            <iframe
+              class="contact_map w-full"
+              src="{% if section.settings.contact_map != blank %}{{ section.settings.contact_map }}{% else %}https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin{% endif %}"
+              width="840"
+              height="auto"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div
+              class="
+                md:border-l xl:border-r-0 md:border-r contact_details  flex items-center
+                md:justify-start justify-center px-5 lg:px-10 py-5 sm:py-10 h-full gap-5 w-full
+              "
+              style="border-color: {{ section.settings.border_color }}"
+            >
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'card' %}
+                    <div>
+                      <h4 class="leading-none mb-5 md:text-left text-center">{{ block.settings.card_title }}</h4>
+                      <div class="flex md:flex-row flex-col md:gap-14 gap-5">
+                        <div class=" flex flex-col justify-center gap-2">
+                          <div class="flex flex-row items-center md:justify-start justify-center gap-2">
+                            {% render 'icon-location', class: 'stroke' %}
+                            <p>{{ block.settings.shop_address }}</p>
+                          </div>
+                          <div class="flex flex-row items-center md:justify-start justify-center gap-2">
+                            {% render 'icon-contact', class: 'stroke' %}
+                            <p>{{ block.settings.contact }}</p>
+                          </div>
+                        </div>
+                        <div class="flex flex-col md:items-start items-center gap-2">
+                          <p>{{ block.settings.timing_one }}</p>
+                          <p>{{ block.settings.timing_two }}</p>
+                        </div>
+                      </div>
+                    </div>
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.main-contact.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-contact.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-contact.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "t:section.main-contact.settings.border_color",
+      "default": "#737373"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "default": "Contact Us",
+      "label": "t:section.main-contact.settings.contact_title"
+    },
+    {
+      "type": "text",
+      "id": "contact_subtext",
+      "default": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet purus gravida quis. Ut pharetra sit amet ",
+      "label": "t:section.main-contact.settings.contact_subtext"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Send Message",
+      "label": "t:section.main-contact.settings.button_text"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_map",
+      "label": "t:section.main-contact.settings.contact_map",
+      "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "t:section.main-contact.blocks.card.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "t:section.main-contact.blocks.card.settings.card_title",
+          "default": "Visit Our Store"
+        },
+        {
+          "type": "text",
+          "id": "shop_address",
+          "label": "t:section.main-contact.blocks.card.settings.shop_address",
+          "default": "915 Heath Dr, Montgomery, AL 36108"
+        },
+        {
+          "type": "text",
+          "id": "contact",
+          "label": "t:section.main-contact.blocks.card.settings.contact",
+          "default": "+91-876-543"
+        },
+        {
+          "type": "text",
+          "id": "timing_one",
+          "label": "t:section.main-contact.blocks.card.settings.timing_one",
+          "default": "Monday - Friday : 10AM to 9PM"
+        },
+        {
+          "type": "text",
+          "id": "timing_two",
+          "label": "t:section.main-contact.blocks.card.settings.timing_two",
+          "default": "Monday - Friday : 10AM to 9PM"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-contact.presets.name",
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 60,
+        "border_color": "#737373",
+        "contact_title": "Feel free to Contact Us or Write us",
+        "contact_subtext": "Lacinia at quis risus sed vulputate. Lacus viverra vitae congue eu. Praesent tristique magna sit amet purus gravida quis. Ut pharetra sit amet",
+        "button_text": "Submit",
+        "contact_map": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin"
+      },
+      "blocks": [
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

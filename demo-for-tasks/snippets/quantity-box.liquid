@@ -1,0 +1,34 @@
+{% style %}
+  .quantity-counter svg path {
+    fill: rgb(var(--color-button));
+  }
+{% endstyle %}
+
+<div class="quantity-counter">
+  <div class="inner-wrapper">
+    <button
+      type="button"
+      class="minus"
+    >
+      {% render 'icon-minus' %}
+    </button>
+    <input
+      class="quantity"
+      type="number"
+      {% if id != ' blank' %}
+        id="{{ id }}"
+      {% endif %}
+      name="quantity"
+      value="1"
+      min="1"
+      max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+    >
+    <label for="{{ id }}" class="hidden">Quantity</label>
+    <button
+      type="button"
+      class="plus"
+    >
+      {% render 'icon-plus' %}
+    </button>
+  </div>
+</div>

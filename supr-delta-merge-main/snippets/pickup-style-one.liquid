@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="{{ 'component-pickup-availability.css' | asset_url }}" rel="nofollow">
+
+
+{%- assign pick_up_availabilities = product_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+
+{%- if pick_up_availabilities.size > 0 -%}
+  <pickup-availability-preview class="pickup-availability-preview">
+    {%- liquid
+      assign closest_location = pick_up_availabilities.first
+    -%}
+
+    <div class="pickup-availability-info ">
+      {%- if closest_location.available -%}
+        <p class="caption-large gap-[10px] mb-[10px]">
+          {% liquid
+            if closest_location.available
+              render 'icon-pickup', class: 'stroke'
+            endif
+          %}
+          {{ 'pickup.available_at' | t }}
+          {{ closest_location.location.name }}
+        </p>
+        {% comment %} <p class="caption">{{ closest_location.pick_up_time }}</p> {% endcomment %}
+        <button
+          type="button"
+          id="ShowPickupAvailabilityDrawer"
+          class="pickup-availability-button link link--text underlined-link text-btn relative "
+          aria-haspopup="dialog"
+        >
+          <a
+            rel="nofollow"
+            href="#"
+            class=" font-semibold text-[#5A9DE5] md:text-lg text-base"
+          >
+            {%- if pick_up_availabilities.size == 1 -%}
+              {{ 'pickup.store_info' | t }}
+            {%- else -%}
+              {{ 'pickup.store_info' | t }}
+              {{ 'pickup.no_store_info' | t }}
+            {%- endif -%}
+          </a>
+          <span class="absolute bottom-0 bg-[#5A9DE5] left-0 w-0 h-[2px] hover-line duration-300 ease rounded-full"></span>
+        </button>
+      {%- else -%}
+        <p class="caption-large">product</p>
+        {%- if pick_up_availabilities.size > 1 -%}
+          <button
+            type="button"
+            id="ShowPickupAvailabilityDrawer"
+            class="pickup-availability-button link link--text underlined-link text-btn"
+            aria-haspopup="dialog"
+          >
+            <a rel="nofollow" href="#"> {{ 'pickup.product' | t }} </a>
+          </button>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </pickup-availability-preview>
+  <pickup-availability-drawer
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="PickupAvailabilityHeading"
+  >
+    <div class="pickup-availability-header">
+      <h3 class=" pickup-availability-drawer-title" id="PickupAvailabilityHeading">
+        {{ product_variant.product.title | escape }}
+      </h3>
+      <button
+        class="pickup-availability-drawer-button"
+        type="button"
+        aria-label="Product"
+      >
+        {%- render 'icon-close' -%}
+      </button>
+    </div>
+
+    {%- unless product_variant.product.has_only_default_variant -%}
+      <p class="pickup-availability-variant">
+        {{ product_variant.title }}
+      </p>
+    {%- endunless -%}
+
+    <ul
+      class="pickup-availability-list list-unstyled"
+      role="list"
+      data-store-availability-drawer-content
+    >
+      {%- for availability in pick_up_availabilities -%}
+        <li class="pickup-availability-list__item">
+          <h3 class="h4">{{ availability.location.name | escape }}</h3>
+          <p class="pickup-availability-preview caption-large">
+            {%- if availability.available -%}
+              {% render 'icon-tick' %}
+
+              {{ availability.pick_up_time | downcase }}
+            {%- endif -%}
+          </p>
+
+          {%- assign address = availability.location.address -%}
+          <address class="pickup-availability-address">
+            {{ address | format_address }}
+
+            {%- if address.phone.size > 0 -%}
+              <p>{{ address.phone }}</p>
+            {%- endif -%}
+          </address>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </pickup-availability-drawer>
+{% endif %}

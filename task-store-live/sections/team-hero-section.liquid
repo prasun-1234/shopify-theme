@@ -1,0 +1,236 @@
+{{ 'team-hero.css' | asset_url | stylesheet_tag }}
+{{ 'section-tasks-banner.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .section-{{ section.id }}-padding .link_text{
+    color:{{ section.settings.bg_text_color | color_to_rgb }};
+  }
+
+  .section-{{ section.id }}-padding .main_el{
+    color:{{ section.settings.slide_text_color | color_to_rgb }};
+  }
+
+  @media screen and (max-width: 980px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | divided_by: 2 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 2 }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="team-hero-section page-width section-{{ section.id }}-padding" id="{{ section.id }}">
+  <div class="team-hero-main container">
+    <div class="team-hero-main-inner">
+      <div class="team-video-div">
+        {% if section.settings.video != blank %}
+          {{ section.settings.video | video_tag: loop: true, autoplay: true, controls: false }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: '' }}
+        {% endif %}
+      </div>
+
+      <div class="hero_text_content">
+        <span class="rich_type_animate">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'animate_text' %}
+                {% if block.settings.link_text != blank %}
+                  <h2 class="link_text">
+                    {{- block.settings.link_text }}
+                  </h2>
+                {% endif %}
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="taskst-inner-banner body__inner-wrapper">
+    <div class="marquee {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="marquee__inner-wrap">
+        <ul class="marquee__inner">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'marquee_blocks' %}
+                {% if block.settings.marquee_text != blank %}
+                  <li class="list__item" {{ block.shopify_attributes }}>
+                    {{ block.settings.marquee_text }}
+                    <span class="">
+                      {% if block.settings.image != blank %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 200
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '200',
+                            widths: '92, 120, 200',
+                            class: 'arrow-right-marquee'
+                        }}
+                      {% endif %}
+                    </span>
+                  </li>
+                {% endif %}
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "team hero",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "bg_text_color",
+      "label": "Background text color",
+      "default": "#1E293B"
+    },
+    {
+      "type": "color",
+      "id": "slide_text_color",
+      "label": "Slide in text color",
+      "default": "#fff"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading-line-1",
+      "default": "Team header",
+      "label": "Heading line one"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading-line-2",
+      "default": "Team header",
+      "label": "Heading line one"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading-line-3",
+      "default": "Team header",
+      "label": "Heading line one"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading-line-4",
+      "default": "Team header",
+      "label": "Heading line one"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video background"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "animate_text",
+      "name": "Animated Text",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "link_text",
+          "label": "Button label 1",
+          "default": "unlock the power of collaboration with our agency, where team work isn'tour agency, where team work isn't just a concept – it's the drivingjust a concept – it's the driving force that transforms ideasforce that transforms ideas"
+        }
+      ]
+    },
+    {
+      "name": "Marquee blocks",
+      "type": "marquee_blocks",
+      "settings": [
+        {
+          "type": "text",
+          "id": "marquee_text",
+          "label": "Marquee text",
+          "default": "marquee text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Marquee Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<script defer>
+  // Typing animation
+
+  let richText = document.querySelector('#{{ section.id }} .rich_type_animate');
+
+  if (richText) {
+    // These are the words we want to display
+    const txtArray = [];
+    let texts = richText.querySelectorAll(':scope > *');
+    texts.forEach((txt) => {
+      txtArray.push(txt.textContent);
+    });
+    let span = document.createElement('h2');
+    span.classList.add('main_el');
+    richText.prepend(span);
+    // These are increment and decrement counters
+    let i = 0,
+      j = 0;
+
+    // This is for checking if all the characters of the word have been typed
+    let end = false;
+
+    // This will be the waiting function, to give delay after typing
+    function wait(seconds) {
+      return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+    }
+
+    // The main funcion to type and backspace multiple words
+    async function main() {
+      // Check if the value of i is less than array length of txt containg all the words
+      if (i < txtArray.length) {
+        // This is for the auto typing
+        if (end == false && j <= txtArray[i].length) {
+          span.innerHTML += txtArray[i][j];
+          j++;
+        }
+
+        // This is for checking if all the characters have been typed
+        if (j == txtArray[i].length) {
+          end = true;
+          await wait(1);
+        }
+      }
+      // If the value of i becomes greater than
+      else i = 0;
+      setTimeout(main, 50);
+    }
+    main();
+  }
+</script>

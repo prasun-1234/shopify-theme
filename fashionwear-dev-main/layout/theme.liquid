@@ -1,0 +1,301 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link
+      rel="preconnect"
+      href="https://cdn.shopify.com"
+      crossorigin
+    >
+
+    {% comment %} favicon {% endcomment %}
+
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {% comment %} Title {% endcomment %}
+    <title>
+      {{ page_title }}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"
+      {%- endif -%}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page -}}
+      {%- endif -%}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name -}}
+      {%- endunless -%}
+    </title>
+
+    {% comment %} page description {% endcomment %}
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% else %}
+      <meta name="description" content="Page Description">
+    {% endif %}
+
+    {%- render 'open-graph-tags' -%}
+    {%- render 'twitter-card' -%}
+
+    {% comment %} meta tags {% endcomment %}
+    {% render 'meta-tags' %}
+
+    {% comment %} Font settings {% endcomment %}
+    {% style %}
+            {% for scheme in settings.color_schemes -%}
+              {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+              {% if forloop.index == 1 -%}
+                :root,
+              {%- endif %}
+              .color-{{ scheme.id }} {
+                --body-background: {{ scheme.settings.body_background }};
+              {% if scheme.settings.background_gradient != empty %}
+                --gradient-background: {{ scheme.settings.background_gradient }};
+              {% else %}
+                --gradient-background: {{ scheme.settings.body_background }};
+              {% endif %}
+              --global-font-color: {{ scheme.settings.color_body_text }};
+              --title-text-color: {{ scheme.settings.color_header }};
+              --error-text-color: {{ scheme.settings.color_error_text }};
+              --theme-primary-color: {{ scheme.settings.primary_theme_color }};
+              --theme-secondary-color: {{ scheme.settings.secondary_theme_color }};
+              --primary-btn-bg: {{ scheme.settings.primary_button }};
+              --primary-btn-text: {{ scheme.settings.primary_button_text }};
+              --secondary-btn-bg: {{ scheme.settings.secondary_button }};
+              --secondary-btn-text: {{ scheme.settings.secondary_button_text }};
+              --icons-color: {{ scheme.settings.icons }};
+              --links-color: {{ scheme.settings.links }};
+              --form-label-color: {{ scheme.settings.color_text_field_text }};
+              --form-border-color: {{ scheme.settings.color_text_field_border }};
+              --global-border-color: {{ scheme.settings.global_border_color }};
+
+            }
+            {% endfor %}
+
+            :root {
+              /* Fonts */
+
+              --header-font-family: {{ settings.type_header_font.family }}, {{ settings.type_body_font.fallback_families }};
+              --body-font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+
+              /* Font Sizes */
+
+              --page-title-font-size: {{ settings.page_title_font_size }}px;
+              --section-title-font-size: {{ settings.section_title_font_size }}px;
+              --heading-font-size: {{ settings.heading_font_size }}px;
+              --sub-heading-font-size: {{ settings.sub_heading_font_size }}px;
+              --body-font-size: {{ settings.body_font_size }}px;
+              --caption-font-size: {{ settings.caption_font_size }}px;
+
+              --button-opacity: {{ settings.buttons_opacity }};
+              --button-radius: {{ settings.buttons_radius }}px;
+              --input-field-border-radius: {{ settings.input_field_border_radius }}px;
+              --button-shadow-horizontal: {{ settings.buttons_shadow_horizontal_offset }}px;
+              --button-shadow-vertical: {{ settings.buttons_shadow_vertical_offset }}px;
+              --button-shadow-blur: {{ settings.buttons_shadow_blur }}px;
+              --button-shadow-opacity: {{ settings.buttons_shadow_opacity }};
+
+              /* Variant Pill */
+
+              --variant-pill-border-thickness: {{ settings.variant_pills_border_thickness }}px;
+              --variant-pill-radius: {{ settings.variant_pills_radius }}px;
+              --variant-pill-opacity: {{ settings.variant_pills_border_opacity }};
+              --variant-pill-shadow-opacity: {{ settings.variant_pills_shadow_opacity }};
+              --variant-pill-shadow-horizontal: {{ settings.variant_pills_shadow_horizontal_offset }}px;
+              --variant-pill-shadow-vertical: {{ settings.variant_pills_shadow_vertical_offset }}px;
+              --variant-pill-shadow-blur: {{ settings.variant_pills_shadow_blur }}px;
+
+              /* Badges */
+
+              --badge-radius: {{ settings.badge_corner_radius }}px;
+              --badge-bg-color: {{ settings.sale_badge_color }};
+              --badge-text-color: {{ settings.sale_badge_text_color }};
+
+              /* Product Cards */
+
+              --product-item-padding: {{ settings.product_image_padding }}px;
+              --product-item-border-thickness: {{ settings.product_border_thickness }}px;
+              --product-item-border-color: {{ settings.product_border_color }};
+              --product-item-border-radius: {{ settings.product_corner_radius }}px;
+              --product-item-shadow-opacity: {{ settings.product_shadow_opacity }};
+              --product-item-shadow-horizontal: {{ settings.product_shadow_horizontal_offset }}px;
+              --product-item-shadow-vertical: {{ settings.product_shadow_vertical_offset }}px;
+              --product-item-shadow-blur: {{ settings.product_shadow_blur }}px;
+
+              /* Collection Card */
+
+              --collection-card-padding: {{ settings.collection_card_image_padding }}px;
+              --collection-card-border-thickness: {{ settings.collection_card_border_thickness }}px;
+              --collection-card-content-color: {{ settings.collection_card_content_color }};
+              --collection-card-border-radius: {{ settings.collection_card_corner_radius }}px;
+              --collection-card-shadow-opacity: {{ settings.collection_card_shadow_opacity }};
+              --collection-card-shadow-horizontal: {{ settings.collection_card_shadow_horizontal_offset }}px;
+              --collection-card-shadow-vertical: {{ settings.collection_card_shadow_vertical_offset }}px;
+              --collection-card-shadow-blur: {{ settings.collection_card_shadow_blur }}px;
+
+              /* Blog Card */
+
+              --blog-card-padding: {{ settings.blog_card_image_padding }}px;
+              --blog-card-border-thickness: {{ settings.blog_card_border_thickness }}px;
+              --blog-card-border-color: {{ settings.blog_card_border_color }};
+              --blog-card-border-radius: {{ settings.blog_card_corner_radius }}px;
+              --blog-card-shadow-opacity: {{ settings.blog_card_shadow_opacity }};
+              --blog-card-shadow-horizontal: {{ settings.blog_card_shadow_horizontal_offset }}px;
+              --blog-card-shadow-vertical: {{ settings.blog_card_shadow_vertical_offset }}px;
+              --blog-card-shadow-blur: {{ settings.blog_card_shadow_blur }}px;
+
+            }
+
+            {{ settings.type_header_font | font_face: font_display: 'swap' }}
+              {{ settings.type_body_font | font_face: font_display: 'swap' }}
+
+              {%- assign bold_header_font = settings.type_header_font | font_modify: 'weight', 'bold' -%}
+      {%- assign italic_header_font = settings.type_header_font | font_modify: 'style', 'italic' -%}
+      {%- assign heavy_header_font = settings.type_header_font | font_modify: 'weight', '900' | default: bold_font -%}
+      {%- assign oblique_header_font = settings.type_header_font | font_modify: 'style', 'oblique' | default: italic_font -%}
+              {%- assign bold_body_font = settings.type_body_font | font_modify: 'weight', 'bold' -%}
+      {%- assign italic_body_font = settings.type_body_font | font_modify: 'style', 'italic' -%}
+      {%- assign heavy_body_font = settings.type_body_font | font_modify: 'weight', '900' | default: bold_font -%}
+      {%- assign oblique_body_font = settings.type_body_font | font_modify: 'style', 'oblique' | default: italic_font -%}
+
+      .body_font_style {
+        {% if oblique_body_font -%}
+          font-style: {{ oblique_body_font.style }};
+        {%- elsif italic_body_font -%}
+          font-style: {{ italic_body_font.style }};
+          {%- elsif bold_body_font -%}
+          font-style: {{ bold_body_font.style }};
+          {%- elsif heavy_body_font -%}
+          font-style: {{ heavy_body_font.style }};
+        {%- endif %}
+      }
+
+      .header_font_style {
+        {% if oblique_header_font -%}
+          font-style: {{ oblique_header_font.style }};
+        {%- elsif italic_header_font -%}
+          font-style: {{ italic_header_font.style }};
+          {%- elsif bold_header_font -%}
+          font-style: {{ bold_header_font.style }};
+          {%- elsif heavy_header_font -%}
+          font-style: {{ heavy_header_font.style }};
+        {%- endif %}
+      }
+
+              .single-product-options .product_option .option_main.product-variant-option:not(.hasStock),
+              .single-product-options .product_option .option_main.color_swatch:not(.hasStock) .label-inner:after{
+                background-image:url('{{ 'disabled-x.svg' | asset_url }}');
+              }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag }}
+    {{ 'tailwind_output.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper.css' | asset_url | stylesheet_tag }}
+
+    {% comment %} Global JS {% endcomment %}
+    <script src="{{ 'jquery-2.1.4.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'alpine.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'swiper.js' | asset_url }}" defer></script>
+    <script src="{{ 'url-parse.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'quickview.js' | asset_url }}" defer></script>
+    <script src="{{ 'global.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+
+    {% comment %} Fonts {% endcomment %}
+    {%- unless settings.body_font.system? and settings.body_font.system? -%}
+      <link
+        rel="preconnect"
+        href="https://fonts.shopifycdn.com"
+        crossorigin
+      >
+    {%- endunless -%}
+
+    {{ content_for_header }}
+
+    {% comment %} Fonts {% endcomment %}
+    {%- unless settings.body_font.system? and settings.body_font.system? -%}
+      <link
+        rel="preconnect"
+        href="https://fonts.shopifycdn.com"
+        crossorigin
+      >
+    {%- endunless -%}
+
+    {%- unless settings.body_font.system? -%}
+      <link
+        href="{{ settings.body_font | font_url | preload_tag: as: 'font' }}"
+        type="font/woff2"
+        crossorigin
+      >
+    {%- endunless -%}
+    <meta name="google-site-verification" content="cB4pVon80fleoX5alFsGEE6xKATkjfkD2e8UUzoLFOc">
+  </head>
+  <body
+    {% if template == 'product' or template == 'search' %}
+      class="overflow-auto"
+    {% else %}
+      class="overflow-x-clip"
+    {% endif %}
+  >
+    {% if settings.enable_page_transition %}
+      <div
+        id="page_loader"
+        class="fixed top-0 left-0 w-full h-full z-[10999] justify-center items-center flex"
+        style="background-color:{{ settings.loader_color }};opacity:calc({{ settings.loader_opacity }}/10);"
+        tabindex="-1"
+        class="loading"
+      >
+        {% if settings.loader_svg != blank %}
+          {{ settings.loader_svg }}
+        {% else %}
+          <img
+            alt="Lazy Loader"
+            src="{{ 'loader.gif' | asset_img_url }}"
+            alt="loader-gif"
+            class="w-[100px]"
+            width="100"
+            height="100"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    {% endif %}
+    <a
+      rel="nofollow"
+      class="visuallyhidden focusable skip-link"
+      href="#MainContent"
+    >
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
+    {% section 'main-modal' %}
+    {% section 'quickview' %}
+
+    {% sections 'header-group' %}
+
+    {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
+      {% section 'cart-drawer' %}
+    {% endif %}
+
+    <main
+      id="MainContent"
+      class="content-for-layout focus-none"
+      role="main"
+      tabindex="-1"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+  </body>
+</html>

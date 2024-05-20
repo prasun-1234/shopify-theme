@@ -1,0 +1,287 @@
+{% layout none %}
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link
+      rel="preconnect"
+      href="https://cdn.shopify.com"
+      crossorigin
+    >
+
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? -%}
+      <link
+        rel="preconnect"
+        href="https://fonts.shopifycdn.com"
+        crossorigin
+      >
+    {%- endunless -%}
+
+    {%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros | strip_html -%}
+
+    <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value, shop: shop.name }}</title>
+
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    {{ content_for_header }}
+    {% comment %} TODO: Font settings {% endcomment %}
+    {% style %}
+      :root
+      {
+        /* Fonts */
+
+        {% if settings.type_header_default == true %}
+          --header-font-family: 'Marcellus', serif;
+        {% else %}
+          --header-font-family: {{ settings.type_header_font.family }}
+          , {{ settings.type_body_font.fallback_families }}
+          ;
+        {% endif %}
+        --body-font-family: {{ settings.type_body_font.family }}
+        , {{ settings.type_body_font.fallback_families }}
+        ;
+
+        --heading-font-scale: {{ settings.heading_scale }}
+        ;
+        --body-font-scale: {{ settings.body_scale }}
+        ;
+
+        /* Colors */
+
+        --body-background: {{ settings.body_background }}
+        ;
+        --global-font-color: {{ settings.color_body_text }}
+        ;
+        --theme-primary-color: {{ settings.primary_theme_color }}
+        ;
+        --primary-btn-bg: {{ settings.color_button }}
+        ;
+        --primary-btn-text: {{ settings.color_button_text }}
+        ;
+        --secondary-btn-bg: {{ settings.color_button_two }}
+        ;
+        --secondary-btn-text: {{ settings.color_button_two_text }}
+        ;
+        --link-btn-bg: {{ settings.color_btn_link_bg }}
+        ;
+        --link-btn-text: {{ settings.color_button_texts }}
+        ;
+        --title-text-color: {{ settings.color_header }}
+        ;
+
+        --form-label-color: {{ settings.color_text_field_text }};
+        --form-border-color: {{ settings.color_text_field_border }}
+        ;
+
+
+        /* General */
+
+        --button-opacity: {{ settings.buttons_opacity }}
+        ;
+        --button-border-thickness: {{ settings.buttons_border_thickness }}
+        px;
+        --button-radius: {{ settings.buttons_radius }}
+        px;
+        --button-shadow-horizontal: {{ settings.buttons_shadow_horizontal_offset }}
+        px;
+        --button-shadow-vertical: {{ settings.buttons_shadow_vertical_offset }}
+        px;
+        --button-shadow-blur: {{ settings.buttons_shadow_blur }}
+        px;
+        --button-shadow-opacity: {{ settings.buttons_shadow_opacity }}
+        ;
+      }
+    {% endstyle %}
+
+    {% comment %} TODO: Css {% endcomment %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag }}
+    {{ 'tailwind_output.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'template-giftcard.css' | asset_url }}">
+
+    {% comment %} TODO: Global js {% endcomment %}
+    <script src="{{ 'alpine.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'swiper.js' | asset_url }}" async="async"></script>
+
+    {{ content_for_header }}
+
+    {% comment %} TODO: Fonts {% endcomment %}
+    {%- unless settings.body_font.system? and settings.body_font.system? -%}
+      <link
+        rel="preconnect"
+        href="https://fonts.shopifycdn.com"
+        crossorigin
+      >
+    {%- endunless -%}
+
+    {%- unless settings.body_font.system? -%}
+      <link
+        rel="preload"
+        as="font"
+        href="{{ settings.body_font | font_url }}"
+        type="font/woff2"
+        crossorigin
+      >
+    {%- endunless -%}
+    >
+  </head>
+
+  <body class="gradient">
+    <header class="gift-card__title">
+      <span class="h2">{{ shop.name }}</span>
+      <h1 class="gift-card__heading">{{ 'gift_cards.issued.subtext' | t }}</h1>
+      <div class="gift-card__price">
+        <p>
+          {% if settings.currency_code_enabled %}
+            {{ gift_card.initial_value | money_with_currency }}
+          {% else %}
+            {{ gift_card.initial_value | money }}
+          {% endif %}
+        </p>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="gift-card__label badge badge--{{ settings.sold_out_badge_color_scheme }}">
+            {{ 'gift_cards.issued.expired' | t }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {% if settings.currency_code_enabled %}
+        {%- assign gift_card_balance = gift_card.balance | money_with_currency -%}
+      {% else %}
+        {%- assign gift_card_balance = gift_card.balance | money -%}
+      {% endif %}
+      {%- if gift_card.balance != gift_card.initial_value -%}
+        <p class="gift-card__label caption-large">
+          {{ 'gift_cards.issued.remaining_html' | t: balance: gift_card_balance }}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <main class="gift-card">
+      <div class="gift-card__image-wrapper">
+        <img
+          src="{{ 'gift-card/card.svg' | shopify_asset_url }}"
+          alt="Gift Card"
+          class="gift-card__image"
+          height="{{ 570 | divided_by: 1.5 }}"
+          width="570"
+          loading="lazy"
+        >
+      </div>
+      <div class="gift-card__qr-code" data-identifier="{{ gift_card.qr_identifier }}"></div>
+      <div class="gift-card__information">
+        <input
+          type="text"
+          class="gift-card__number"
+          value="{{ gift_card.code | format_code }}"
+          aria-label="{{ 'gift_cards.issued.gift_card_code' | t }}"
+          readonly
+        >
+        <div class="gift-card__copy-code">
+          <button class="link gift-card__copy-link">{{ 'gift_cards.issued.copy_code' | t }}</button>
+          <span class="gift-card__copy-success form__message" role="status"></span>
+          <template>
+            {%- render 'icon-success' -%}
+            {{ 'gift_cards.issued.copy_code_success' | t }}
+          </template>
+        </div>
+        {%- if gift_card.pass_url -%}
+          <a
+            rel="nofollow"
+            href="{{ gift_card.pass_url }}"
+            class="gift_card__apple-wallet"
+          >
+            <img
+              src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+              width="120"
+              height="40"
+              alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+              loading="lazy"
+            >
+          </a>
+        {%- endif -%}
+        <div class="gift-card__buttons no-print flex flex-col items-center">
+          <a
+            href="{{ shop.url }}"
+            target="_blank"
+            rel="nofollow"
+            aria-describedby="a11y-new-window-message"
+          >
+            <button
+              type="button"
+              class="py-4 px-12 font-normal flex justify-center items-center hover:opacity-90 ease-in-out duration-300 leading-none {% if settings.color_button_two != blank and settings.color_button_two_text != blank %} btn-secondary {% else %} btn-default{% endif %}"
+            >
+              <span class="btn-overlay absolute left-0 top-0 w-full h-full z-10"></span>
+              <span class="btn-text relative text-center z-20 font-medium">
+                {{ 'gift_cards.issued.shop_link' | t }}
+              </span>
+            </button>
+          </a>
+          <a
+            href="{{ shop.url }}"
+            target="_blank"
+            rel="noopener"
+            aria-describedby="a11y-new-window-message"
+          >
+            <button
+              type="button"
+              class="py-4 px-12 font-normal flex justify-center items-center hover:opacity-90 ease-in-out duration-300 leading-none {% if settings.color_button != blank and settings.color_button_text != blank %} btn-primary {% else %} btn-default{% endif %}"
+            >
+              <span class="btn-overlay absolute left-0 top-0 w-full h-full z-10"></span>
+              <span class="btn-text relative text-center z-20 font-medium leading-[1.3rem]">
+                {{ 'gift_cards.issued.print_gift_card' | t }}
+              </span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <div hidden>
+      <span id="a11y-new-window-message">{{ 'general.accessibility.link_messages.new_window' | t }}</span>
+    </div>
+  </body>
+</html>
+<script>
+  var string = {
+    qrImageAlt: {{ 'gift_cards.issued.qr_image_alt' | t | json }}
+  };
+  document.addEventListener('DOMContentLoaded', function() {
+    new QRCode(document.querySelector('.gift-card__qr-code'), {
+      text: document.querySelector('.gift-card__qr-code').dataset.identifier,
+      width: 120,
+      height: 120,
+      imageAltText: string.qrImageAlt
+    });
+  });
+
+  var template = document.getElementsByTagName("template")[0];
+  var clonedTemplate = template.content.cloneNode(true);
+
+  var isMessageDisplayed = false
+  document.querySelector('.gift-card__copy-link').addEventListener('click', () => {
+    navigator.clipboard.writeText(document.querySelector('.gift-card__number').value).then(function() {
+      if (! isMessageDisplayed) {
+        document.querySelector('.gift-card__copy-success').appendChild(clonedTemplate);
+        isMessageDisplayed = true
+      }
+    });
+  });
+</script>

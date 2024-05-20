@@ -1,0 +1,262 @@
+{{ 'section-hover-cards.css' | asset_url | stylesheet_tag }}
+{% style %}
+  #{{ section.id }}{
+      padding-top:{{ section.settings.padding_top }}px;
+      padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width:767px){
+    #{{ section.id }}{
+      padding-top:{{ section.settings.padding_top | divided_by: 2 }}px;
+      padding-bottom:{{ section.settings.padding_bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+<section
+  class="choose-us-section"
+  id="{{ section.id }}"
+>
+  <div class="container">
+    <div class="choose-us-heading">
+      <h2 class="h3 cards-heading-title">{{ section.settings.heading }}</h2>
+      <span class="cards-heading-text">
+        {{ section.settings.subheading }}
+      </span>
+    </div>
+    <div class="choose-us-body">
+      <div class="body-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'cards' %}
+              {% if block.settings.image.alt != blank %}
+                {% assign alt = block.settings.image.alt %}
+              {% else %}
+                {% assign alt = 'icon' %}
+              {% endif %}
+              <button
+                type="button"
+                class="choose-card hoverTitle {% if forloop.index == 1 %}active{% endif %}"
+                aria-controls="hoverImage--{{ forloop.index }}"
+                aria-expanded="false"
+              >
+                <div class="icon_div">
+                  <span class="image-icon">
+                    {{
+                      block.settings.image
+                      | image_url: width: 20
+                      | image_tag: loading: 'lazy', sizes: '24', widths: '26, 40, 60', class: 'icon', alt: alt
+                    }}
+                  </span>
+                </div>
+                <div>
+                  {% if block.settings.title != blank %}
+                    <h3 class="cards-body-title h5">
+                      {{ block.settings.title }}
+                    </h3>
+                  {% endif %}
+                  {% if block.settings.body_text != blank %}
+                    <p class="cards-body-text">{{ block.settings.body_text }}</p>
+                  {% endif %}
+                </div>
+              </button>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="card_content">
+        <div class="imageWraper">
+          <span
+            class="hover_gradient vector_el"
+            style="background-color:{{ section.settings.accent_color }};"
+          ></span>
+          <div class="wrapper_inner">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'cards' %}
+                  <div
+                    class="hoverImage {% if forloop.index == 1 %}active{% endif %}"
+                  >
+                    {% if block.settings.video != blank %}
+                      {{
+                        block.settings.video
+                        | video_tag: loop: true, autoplay: true, controls: false, class: 'tabHidden'
+                      }}
+                    {% else %}
+                      {{
+                        block.settings.hover_image
+                        | image_url: width: 1000
+                        | image_tag: alt: block.settings.hover_image.alt
+                      }}
+                    {% endif %}
+                    <div class="play_bar" id="hoverImage--{{ forloop.index }}">
+                      <button type="button" class="play-btn">
+                        {% render 'icon-play2', class: 'play' %}
+                        {% render 'icon-pause', class: 'pause' %}
+                      </button>
+                      <progress
+                        id="{{ forloop.index }}-video-progress"
+                        value="0"
+                        max=""
+                      ></progress>
+                    </div>
+                  </div>
+                {% else %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hover Cards",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Section margin top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Section margin bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Why Choose Us?"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-heading",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#143092"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "card-content",
+      "type": "cards",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card heading",
+          "default": "Title"
+        },
+        {
+          "type": "text",
+          "id": "body_text",
+          "label": "Card text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Featured image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Filling this option will disable the 'Featured image' option above"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+<script>
+  const hoverTitle = document.querySelectorAll('#{{ section.id }} .hoverTitle');
+
+  hoverTitle.forEach((title, index) => {
+    title.addEventListener('click', () => {
+      hoverTitle.forEach((item, index) => {
+        item.classList.remove('active');
+        hoverTitle[index].setAttribute('aria-expanded', false);
+      });
+      title.classList.add('active');
+      title.setAttribute('aria-expanded', true);
+      showCard(index);
+    });
+    title.addEventListener('keyup', (e) => {
+      if (e.key == 'Enter') {
+        hoverTitle.forEach((item) => {
+          item.classList.remove('active');
+          hoverTitle[index].setAttribute('aria-expanded', false);
+        });
+        title.classList.add('active');
+        title.setAttribute('aria-expanded', true);
+        showCard(index);
+      }
+    });
+  });
+
+
+
+  function showCard(titleIndex) {
+    const hoverImage = document.querySelectorAll('#{{ section.id }} .hoverImage');
+    hoverImage.forEach((image, index) => {
+      index === titleIndex ? image.classList.add('active') : image.classList.remove('active');
+      if (index === titleIndex) {
+        image.querySelector('video').currentTime = 0;
+      }
+    });
+  }
+
+  
+  const hoverDivs = document.querySelectorAll('#{{ section.id }} .hoverImage');
+  hoverDivs.forEach((image) => {
+    let playDiv = image.querySelector('.play_bar');
+    let playButton = playDiv.querySelector('.play-btn');
+    let progressBar = playDiv.querySelector('progress');
+    let mediaElement = image.querySelector('video');
+    // Set the max value of the progress bar to the duration of the media on load
+    mediaElement.addEventListener('loadedmetadata', function () {
+      progressBar.max = mediaElement.duration;
+    });
+
+    playButton.addEventListener('click', function () {
+      if (mediaElement.paused) {
+        mediaElement.play();
+        playButton.classList.remove('paused');
+      } else {
+        mediaElement.pause();
+        playButton.classList.add('paused');
+      }
+    });
+
+    mediaElement.addEventListener('timeupdate', function () {
+      progressBar.value = mediaElement.currentTime;
+    });
+
+    mediaElement.addEventListener('ended', function () {
+      progressBar.value = 0;
+    });
+  });
+</script>

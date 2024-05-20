@@ -1,0 +1,133 @@
+var isAnimationEnabled;
+var checkIfScrollmagicLoaded;
+function checkIfScrollmagicIsLoaded()
+{
+  if(typeof isScrollmagicLoaded != undefined)
+  {
+    clearInterval(checkIfScrollmagicLoaded);
+    scriptLoadListener.isCriticalJsLoaded = 'thirdPartJsLoaded';
+  }
+}
+
+
+function loadScript(url, callback = null){
+
+    var script = document.createElement("script")
+    script.type = "text/javascript";
+
+    if (script.readyState){  //IE
+        script.onreadystatechange = function(){
+            if (script.readyState == "loaded" ||
+                    script.readyState == "complete"){
+                script.onreadystatechange = null;
+                callback();
+            }
+        };
+    } else {  //Others
+        script.onload = function(){
+            callback(url);
+        };
+    }
+
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+function loadJsFiles(libraries, part = null)
+{
+  for( var i = 0; i < libraries.length; i++)
+  {
+    loadScript(libraries[i], function(jsFile){
+      //initialization code
+      if(jsFile.includes('lazysizes'))
+      {
+        document.getElementsByTagName("body")[0].classList.remove("page-load");
+        scriptLoadListener.isCriticalJsLoaded = 'criticalJsLoaded';
+      }
+    });
+    if( i == libraries.length - 1 && part != null )
+    {
+      if(part == 2)
+      {
+        scriptLoadListener.isCriticalJsLoaded = 'secondPartJsLoaded';
+      }
+      if(part == 3)
+      {
+        scriptLoadListener.isCriticalJsLoaded = 'thirdPartJsLoaded';
+      }
+      if(part == 4)
+      {
+        scriptLoadListener.isCriticalJsLoaded = 'fourthPartJsLoaded';
+      }
+    }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  scriptLoadListener = {
+    criticalJsLoaded: '',
+    criticalJsListener: function(val) {},
+    
+    set isCriticalJsLoaded(val) {
+      this.criticalJsLoaded = val;
+      this.criticalJsListener(val);
+    },
+    get isCriticalJsLoaded() {
+      return this.criticalJsLoaded;
+    },
+    registerListener: function(listener) {
+      this.criticalJsListener = listener;
+      this.secondPartJsListener = listener;
+    }
+  }
+
+  scriptLoadListener.registerListener(function(val) {
+    if(val == 'criticalJsLoaded')
+    {
+      let libraries = [
+        "{{ 'swiper.min.js' | asset_url }}",
+        "{{ 'CSSPlugin.js' | asset_url }}",
+        "{{ 'isotope-masonry.js' | asset_url }}"
+      ];
+      loadJsFiles(libraries, 2);
+    }
+    if(val == 'secondPartJsLoaded' && isAnimationEnabled)
+    {
+      let libraries = [
+        "{{ 'tweenlite.js' | asset_url }}",  
+      ];
+      loadJsFiles(libraries, 3);
+    }
+    if((val == 'thirdPartJsLoaded') || (val == 'secondPartJsLoaded' && !isAnimationEnabled))
+    {
+      let libraries = [
+        "{{ 'instafeed.js' | asset_url }}",
+        "{{ 'functions.js' | asset_url }}",
+        "{{ 'custom.js' | asset_url }}",
+        "{{ 'api.jquery.js' | shopify_asset_url }}"
+      ];
+      loadJsFiles(libraries, 4);
+    }
+  });
+  
+  if(document.getElementsByTagName("BODY")[0].getAttribute('data-animation') == 'true')
+  {
+    isAnimationEnabled = true;
+  }
+  else
+  {
+    isAnimationEnabled = false;
+  }
+  
+  let libraries = [
+    "{{ 'ls.bgset.min.js' | asset_url }}",
+    "{{ 'lazysizes.min.js' | asset_url }}",
+    "{{ 'tweenmax.min.js' | asset_url }}",
+  ];
+  loadJsFiles(libraries);
+
+  document.addEventListener('readystatechange', function(ev) {
+  });
+});
+
+

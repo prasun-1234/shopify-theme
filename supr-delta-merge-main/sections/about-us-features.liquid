@@ -1,0 +1,327 @@
+{% style %}
+    .placeholder svg {
+      stroke: white;
+      fill: white;
+    }
+  .about-banner .banner-card{
+    padding:{{ section.settings.section_padding }}px 0;
+  }
+
+  @media screen and (max-width:980px){
+    .about-banner .banner-card{
+    padding:0;
+  }
+  }
+
+    @media only screen and (max-width: 1024px) {
+      .chain-card {
+        padding-block: 20px;
+      }
+    }
+    @media only screen and (max-width: 980px){
+    #about-us-banner{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 | at_least: 40 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 | at_least: 40 }}px !important;
+      }
+    }
+{% endstyle %}
+
+<section
+  class="about-banner"
+  id="about-us-banner"
+  style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+>
+  <div class="relative overflow-hidden">
+    <div class="relative lg:absolute flex lg:top-0 lg:left-0 lg:w-[75%] w-full h-full">
+      {% if section.settings.background_image != blank %}
+        {{
+          section.settings.background_image
+          | image_url: width: 1500
+          | image_tag:
+            alt: section.settings.background_image.alt,
+            loading: 'lazy',
+            sizes: '100',
+            widths: '165, 360, 535, 750, 1070, 1500',
+            class: 'object-cover w-full lg:h-auto md:h-[400px] h-[300px]'
+        }}
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-[300px] md:h-full bg-[#ccc] p-[10px] md:p-[60px]' }}
+      {% endif %}
+    </div>
+    <div class="banner-card relative flex sm:-mt-[8rem] -mt-[4rem] lg:mt-0 lg:justify-end justify-center">
+      <div
+        class="inline-flex lg:mr-[60px] p-[40px] flex-col gap-[20px] max-w-[600px] w-full lg:mx-0 mx-5"
+        style="background: {{ section.settings.card_color }};"
+      >
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'icon' %}
+              <div class="placeholder" {{ block.shopify_attributes }}>
+                {% if block.settings.image %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1500
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '100',
+                      widths: '165, 360, 535, 750, 1070, 1500',
+                      class: 'w-[126px] xxs:max-lg:mx-auto'
+                  }}
+                {% else %}
+                  <div>
+                    {{ 'product-1' | placeholder_svg_tag: 'w-full h-[160px] scale-[1.5]' }}
+                  </div>
+                {% endif %}
+              </div>
+            {% when 'title' %}
+              <div class=" lg:text-left text-center" {{ block.shopify_attributes }}>
+                <h3
+                  class="font-semibold"
+                  style="color:{{ block.settings.title_color }};"
+                >
+                  {{ block.settings.title }}
+                </h3>
+              </div>
+            {% when 'records' %}
+              <div
+                class="flex flex-row lg:justify-start justify-center gap-[40px] lg:text-left text-center"
+                {{ block.shopify_attributes }}
+              >
+                <div class="flex flex-col ">
+                  <h2
+                    class=" font-semibold xxs:max-sm:text-center tracking-[0.08em] leading-[48px]"
+                    style="color:{{ block.settings.text_color }};"
+                  >
+                    {{ block.settings.number_a }}
+                  </h2>
+                  <p
+                    class="font-medium xxs:max-md:font-normal text-lg leading-[32px] text-opacity-[0.6]"
+                    style="color:{{ block.settings.text_color_body }};"
+                  >
+                    {{ block.settings.text_a }}
+                  </p>
+                </div>
+                <div class=" flex flex-col">
+                  <h2
+                    class=" font-semibold xxs:max-sm:text-center tracking-[0.08em] leading-[48px]"
+                    style="color:{{ block.settings.text_color }};"
+                  >
+                    {{ block.settings.number_b }}
+                  </h2>
+                  <p
+                    class="font-medium xxs:max-md:font-normal text-lg leading-[32px] text-opacity-[0.6]"
+                    style="color:{{ block.settings.text_color_body }};"
+                  >
+                    {{ block.settings.text_b }}
+                  </p>
+                </div>
+              </div>
+            {% when 'button' %}
+              <div
+                class="mt-[40px] flex lg:justify-start justify-center"
+                id="{{ block.id }}"
+                {{ block.shopify_attributes }}
+              >
+                <a href="{{ block.settings.button_url }}" rel="nofollow">
+                  {% render 'btn-secondary',
+                    src: block.settings.button_text,
+                    class: 'custom',
+                    icon: 'Arrow right.png',
+                    wrapper: block.id,
+                    color: block.settings.text_color
+                  %}
+                </a>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.about-us-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us-banner.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us-banner.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "t:section.about-us-banner.settings.section_padding",
+      "max": 200,
+      "min": 0,
+      "step": 20,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.about-us-banner.settings.background_image.label",
+      "info": "t:section.about-us-banner.settings.background_image.info"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "t:section.about-us-banner.settings.card_color",
+      "default": "#3A3A3A"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "t:section.about-us-banner.blocks.icon.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.about-us-banner.blocks.icon.settings.image_picker"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:section.about-us-banner.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:section.about-us-banner.blocks.title.settings.title",
+          "default": "ALWAYS AT YOUR SERVICE"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "t:section.about-us-banner.blocks.title.settings.title_color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "type": "records",
+      "name": "t:section.about-us-banner.blocks.records.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number_a",
+          "label": "t:section.about-us-banner.blocks.records.settings.number_a",
+          "default": "200k"
+        },
+        {
+          "type": "text",
+          "id": "text_a",
+          "label": "t:section.about-us-banner.blocks.records.settings.text_a",
+          "default": "Happy Customers"
+        },
+        {
+          "type": "text",
+          "id": "number_b",
+          "label": "t:section.about-us-banner.blocks.records.settings.number_b",
+          "default": "300k"
+        },
+        {
+          "type": "text",
+          "id": "text_b",
+          "label": "t:section.about-us-banner.blocks.records.settings.text_b",
+          "default": "Product Delivered"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:section.about-us-banner.blocks.records.settings.text_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "text_color_body",
+          "label": "t:section.about-us-banner.blocks.records.settings.text_color_body",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.about-us-banner.settings.button_text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:section.about-us-banner.settings.button_url"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:section.about-us-banner.blocks.records.settings.text_color",
+          "default": "#fff"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Secondary Button Icon for Side Banner"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.about-us-banner.presets.name",
+      "settings": {
+        "background_image": "shopify:\/\/shop_images\/about-banner.jpg",
+        "margin_top": 60,
+        "margin_bottom": 60,
+        "section_padding": 80,
+        "card_color": "#3A3A3A"
+      },
+      "blocks": [
+        {
+          "type": "icon"
+        },
+        {
+          "type": "title"
+        },
+        {
+          "type": "records"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

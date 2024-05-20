@@ -1,0 +1,215 @@
+{
+  "sections": {
+    "about-us": {
+      "type": "about-us",
+      "settings": {
+        "margin_top": 80,
+        "margin_bottom": 80,
+        "image": "shopify:\/\/shop_images\/about_us_1.jpg",
+        "text_content": "Welcome to a world where sensuality meets sophistication. At Fashionwear, we curate an exquisite lingerie collection that celebrates individuality, empowering every woman to embrace her confidence and allure."
+      }
+    },
+    "video": {
+      "type": "video",
+      "settings": {
+        "container_height": 800,
+        "margin_top": 80,
+        "margin_bottom": 80,
+        "overlay_opacity": 4,
+        "overlay_color": "#000000",
+        "background_image": "shopify:\/\/shop_images\/video-feature-img.jpg",
+        "demo_video": "shopify:\/\/files\/videos\/hero_section_video.mp4",
+        "video_url": ""
+      }
+    },
+    "new-marquee": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-two",
+        "marquee-one",
+        "marquee-four",
+        "marquee-three",
+        "marquee-six",
+        "marquee-seven",
+        "marquee-five"
+      ],
+      "settings": {
+        "section_margin_top": 200,
+        "section_margin_bottom": 40,
+        "block_background": "even",
+        "marquee_speed": 90,
+        "reverse_direction": false,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "new-marquee-two": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-two.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.png",
+            "title": "Collections you’ll fall in love with"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-one",
+        "marquee-two",
+        "marquee-three",
+        "marquee-four",
+        "marquee-five",
+        "marquee-six",
+        "marquee-seven"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 200,
+        "block_background": "odd",
+        "marquee_speed": 90,
+        "reverse_direction": true,
+        "background_color": "#27272a",
+        "content_color": "#ffffff"
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "blocks": {
+        "image1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_1.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image3": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_3.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta_2.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        }
+      },
+      "block_order": [
+        "image1",
+        "image3",
+        "image2"
+      ],
+      "settings": {
+        "margin_top": 100,
+        "margin_bottom": 100,
+        "section_heading": "Instagram",
+        "social_tag": "@womenswear",
+        "social_url": "https:\/\/www.instagram.com\/"
+      }
+    }
+  },
+  "order": [
+    "about-us",
+    "video",
+    "new-marquee",
+    "new-marquee-two",
+    "instagram"
+  ]
+}

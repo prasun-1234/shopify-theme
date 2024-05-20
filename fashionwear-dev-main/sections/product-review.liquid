@@ -1,0 +1,135 @@
+{% style %}
+  @media screen and (max-width:980px){
+     #review_main{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+      }
+   }
+
+   .jdgm-write-rev-link.jdgm-write-rev-link::before{
+    background-image:url('{{ 'icon-write.svg' | asset_url }}');
+   }
+{% endstyle %}
+<link rel="stylesheet" href="{{ 'review.css' | asset_url }}">
+
+<section
+  id="review_main"
+  style="margin-top:{{ section.settings.section_margin_top }}; margin-bottom: {{ section.settings.section_margin_bottom }};"
+>
+  <div
+    id="judgeme_product_reviews"
+    class="jdgm-widget jdgm-review-widget"
+    data-id="{{ product.id }}"
+  >
+    {{ product.metafields.judgeme.widget }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.product-review.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-review.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 80,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-review.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.product-review.settings.background_image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#fff",
+      "label": "t:section.product-review.settings.text_color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.product-review.blocks.featured_image.name",
+      "type": "featured_image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.product-review.blocks.featured_image.settings.image"
+        }
+      ]
+    },
+    {
+      "name": "t:section.product-review.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:section.product-review.blocks.title.settings.title_text.label",
+          "default": "Friday sale 25% off",
+          "placeholder": "t:section.product-review.blocks.title.settings.title_text.placeholder"
+        }
+      ]
+    },
+    {
+      "name": "t:section.product-review.blocks.button.name",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "t:section.product-review.blocks.button.settings.btn_text.label",
+          "default": "Shop Now",
+          "placeholder": "t:section.product-review.blocks.button.settings.btn_text.placeholder"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "t:section.product-review.blocks.button.settings.btn_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.product-review.presets.name",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/product_review_banner.jpg",
+        "text_color": "#fff"
+      },
+      "blocks": [
+        {
+          "type": "featured_image"
+        },
+        {
+          "type": "title"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

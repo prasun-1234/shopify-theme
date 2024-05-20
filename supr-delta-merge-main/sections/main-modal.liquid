@@ -1,0 +1,222 @@
+{% if section.settings.enable_modal == true %}
+  {% style %}
+    .modal-form {
+      border: 1px solid var(--global-font-color);
+    }
+  {% endstyle %}
+
+  <section id="modal" class="hidden z-[9999] w-full h-full fixed top-0 left-0 justify-center items-center px-[15px]">
+    <!-- modal section -->
+    <div class="relative w-full max-w-[770px]  mx-auto bg-body z-[99] overflow-auto max-h-[90%] lg:max-h-full h-auto">
+      <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto relative flex lg:flex-row flex-col-reverse !px-[0] lg:gap-[80px]">
+        <div class="absolute right-[20px] top-[20px] sm:z-50 z-50">
+          <button class="btn-close" type="button" aria-label="close modal">
+            {% render 'icon-close-thin', class: 'w-[20px] h-[20px] ease-in-out duration-150 hover:scale-90' %}
+          </button>
+        </div>
+        <figure class="flex relative group w-full z-20">
+          {% if section.settings.image != blank and section.settings.image_fit == 'fit' %}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'lazy',
+                sizes: '100',
+                width: '100',
+                class: 'w-full object-cover object-contain h-full max-h-[300px] lg:max-h-[400px]'
+            }}
+          {% elsif section.settings.image != blank and section.settings.image_fit == 'stretch' %}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: 'lazy',
+                sizes: '100',
+                width: '100',
+                class: 'w-full object-cover object-contain h-full max-h-[300px] lg:max-h-[400px]'
+            }}
+          {% else %}
+            {{
+              'collection-1'
+              | placeholder_svg_tag: 'w-full h-full absolute bottom-0 left-0 max-h-[300px] lg:max-h-[400px]'
+            }}
+          {% endif %}
+        </figure>
+        <div class="flex flex-col justify-center lg:-translate-x-[3rem] px-[20px] lg:px-0 sm:py-[40px] py-[20px] mt-[20px] lg:mt-0 text-left z-40 w-full ">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'title' %}
+                <h3 class=" w-full" {{ block.shopify_attributes }}>
+                  {{ block.settings.title_text }}
+                </h3>
+              {% when 'description' %}
+                <span class="mb-[20px]" {{ block.shopify_attributes }}>
+                  {{ block.settings.description_text }}
+                </span>
+
+              {% when 'form' %}
+                {% form 'customer', class: 'newsletter-form w-full flex flex-col' %}
+                  <span
+                    {{ block.shopify_attributes }}
+                    class="modal-form border rounded-[6px] w-full"
+                  >
+                    <input
+                      type="hidden"
+                      name="contact[tags]"
+                      value="newsletter"
+                    >
+                    <input
+                      class="w-full !border-none px-4 py-3 h-[50px] focus:!outline-none newsletter-input"
+                      type="email"
+                      id="email"
+                      autocomplete="off"
+                      placeholder="Email"
+                    >
+                  </span>
+
+                  <div class="submit form-input">
+                    {% render 'btn-primary', src: 'Submit', class: 'w-full mt-[20px]', type: 'submit' %}
+                  </div>
+                {% endform %}
+
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="fixed top-0 bottom-0 left-0 right-0 w-full h-full  bg-[#00000060]"></div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:section.main-modal.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "t:section.main-modal.settings.enable_modal",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:section.main-modal.settings.image"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "options": [
+        {
+          "value": "fit",
+          "label": "t:section.about-us.settings.section_style.options.style-1"
+        },
+        {
+          "value": "stretch",
+          "label": "t:section.about-us.settings.section_style.options.style-2"
+        }
+      ],
+      "default": "fit"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-modal.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:section.main-modal.blocks.title.settings.title_text",
+          "default": "Join Us"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-modal.blocks.description.name",
+      "type": "description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description_text",
+          "label": "t:section.main-modal.blocks.description.settings.description_text",
+          "default": "<p>Subscribe to score 10% off your first order, get notified about product launches, special offersand news.</p>"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-modal.blocks.form.name",
+      "type": "form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.main-modal.blocks.form.settings.button_text",
+          "default": "Submit"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-modal.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/modal-main.jpg"
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "form"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const modal = document.querySelector('#modal');
+
+  if (modal) {
+    const closeModalBtn = modal.querySelector('.btn-close');
+    // close modal function
+    const closeModal = function () {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      console.log('Close Modal');
+      sessionStorage.setItem('modalStatus', 'hidden');
+    };
+
+    setTimeout(() => {
+      let status = sessionStorage.getItem('modalStatus');
+
+      if (status === 'hidden') {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      } else {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }, 5000);
+
+    // close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  }
+{% endjavascript %}

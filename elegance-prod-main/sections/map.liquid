@@ -1,0 +1,207 @@
+<link rel="stylesheet" href="{{ 'map.css' | asset_url }}">
+
+<section
+  class="map-section"
+  style="
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+    height:{{ section.settings.map_banner_height }}px;
+  "
+>
+  <div class="map-wrapper">
+    {% if section.settings.framelink != blank %}
+      <iframe
+        id="map"
+        width="100%"
+        height="100%"
+        class="lazyload"
+        style="border:none;"
+        tabindex="-1"
+        data-src="{{ section.settings.framelink }}"
+      >
+      </iframe>
+    {% else %}
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2800.461181388282!2d-75.69798896710118!3d45.42020397756009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce0502f07d210b%3A0xa1502f7f1d25c118!2sShopify!5e0!3m2!1sen!2sin!4v1679909411231!5m2!1sen!2sin"
+        width="100%"
+        id="map"
+        height="100%"
+        style="border:none;"
+        allowfullscreen=""
+        loading="lazy"
+        tabindex="-1"
+        title="Map"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    {% endif %}
+    <div class="location-info-wrap {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+      <span
+        class="bg_one"
+        tabindex="-1"
+        style="background-color: {{ section.settings.overlay_color }}; opacity: calc({{ section.settings.bg_overlay_opacity }}/10);"
+      ></span>
+      <div class="map-content">
+        <div class="pure-g align-center">
+          <div
+            class="
+              pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 map-card-col
+              {% case section.settings.map_card_align %}
+                {% when "middle" %}
+
+                  map-card-middle
+
+                  {% when "right" %}
+
+                    map-card-right
+
+                {% else %}
+
+              {% endcase %}
+            "
+            style="background-color: {{ section.settings.map_card_color }};"
+          >
+            <div class="map-card">
+              <div class="container">
+                <div class="l-box">
+                  <h3 style="color: {{ section.settings.header_color }};">
+                    {{ section.settings.header }}
+                  </h3>
+                  <h4 class="location">{{ section.settings.location }}</h4>
+                  <a class="phone-number" tabindex="0" href="tel:{{ section.settings.phone_number }}">
+                    <h4>{{ section.settings.phone_number }}</h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- if section.settings.framelink != '' -%}
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "t:sections.map.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.map.settings.headers.text_block_settings"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 60,
+      "step": 10,
+      "default": 0,
+      "label": "t:sections.map.settings.banner-margin-bottom.label",
+      "unit": "px",
+      "id": "margin_bottom"
+    },
+    {
+      "type": "text",
+      "id": "header",
+      "label": "t:sections.map.settings.header.label",
+      "default": "beaufy store"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "t:sections.map.settings.location.label",
+      "default": "Metrotech Center, Brooklyn, NY 11201, USA"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "t:sections.map.settings.phone_number.label",
+      "default": "234 234 2344"
+    },
+    {
+      "type": "color",
+      "id": "header_color",
+      "label": "t:sections.map.settings.header_color.label",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "map_card_color",
+      "label": "t:sections.map.settings.map_card_color.label",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:sections.map.settings.overlay_color.label",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "bg_overlay_opacity",
+      "label": "t:sections.map.settings.bg_overlay_opacity.label",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "t:sections.map.settings.headers.map_and_content"
+    },
+    {
+      "type": "select",
+      "default": "left",
+      "id": "map_card_align",
+      "label": "t:sections.map.settings.map_card_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.map.settings.map_card_align.options.left.label"
+        },
+        {
+          "value": "middle",
+          "label": "t:sections.map.settings.map_card_align.options.middle.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.map.settings.map_card_align.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "min": 400,
+      "max": 650,
+      "step": 50,
+      "default": 450,
+      "unit": "px",
+      "id": "map_banner_height",
+      "label": "t:sections.map.settings.map_banner_height.label"
+    },
+    {
+      "type": "text",
+      "id": "framelink",
+      "label": "t:sections.map.settings.framelink.label",
+      "info": "t:sections.map.settings.framelink.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.map.presets.name",
+      "category": "Map",
+      "settings": {
+        "margin_bottom": 0,
+        "header": "Heading text",
+        "location": "Main Avenue, Brooklyn, NY 11201, USA",
+        "phone_number": "234-234-2344",
+        "header_color": "#222222",
+        "map_card_color": "#ffffff",
+        "overlay_color": "#000000",
+        "bg_overlay_opacity": 4,
+        "map_card_align": "left",
+        "map_banner_height": 450,
+        "framelink": "https:\/\/snazzymaps.com\/embed\/243413"
+      }
+    }
+  ]
+}
+{% endschema %}

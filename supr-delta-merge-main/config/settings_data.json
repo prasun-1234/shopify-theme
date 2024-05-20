@@ -1,0 +1,113 @@
+{
+  "current": {
+    "logo_header": "shopify:\/\/shop_images\/logo_new.png",
+    "logo_footer": "shopify:\/\/shop_images\/logo_new.png",
+    "container": "boxed",
+    "type_header_font": "rajdhani_n5",
+    "heading_scale": 100,
+    "type_body_font": "inter_n4",
+    "color_scheme": "background-1",
+    "search_only": "product_page_article",
+    "enable_page_transition": false,
+    "loader_opacity": 10,
+    "favicon": "shopify:\/\/shop_images\/favicon_new.jpg",
+    "btn_primary_icon": "shopify:\/\/shop_images\/primary_button_icon_d8421f92-90bc-4924-bdaa-4e891ed5db9c.svg",
+    "btn_secondary_icon": "shopify:\/\/shop_images\/secondary_button_icon_cb2f150a-c12c-4bce-87ef-e6baa29064a1.svg",
+    "btn_style": "style-1",
+    "product_card_style": "slider",
+    "enable_swatch": true,
+    "enable_product_range": false,
+    "cart_image_type": "contain",
+    "blog_card_style": "style-1",
+    "primary_theme_color": "#E20000",
+    "color_button": "#E20000",
+    "color_button_text": "#FFFFFF",
+    "color_button_two": "#403B3A",
+    "color_button_two_text": "#403B3A",
+    "button_background_color": "#d3e6e6",
+    "border_thickness": 1,
+    "corner_radius": 50,
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "item1": {
+            "type": "mega-item",
+            "settings": {
+              "menu_index": "1"
+            }
+          }
+        },
+        "block_order": [
+          "item1"
+        ],
+        "settings": {
+          "margin_bottom": 0
+        }
+      },
+      "main-modal": {
+        "type": "main-modal",
+        "blocks": {
+          "title": {
+            "type": "title",
+            "settings": {
+              "title_text": "SAVE 10% ON YOUR FIRST ORDER"
+            }
+          },
+          "text": {
+            "type": "description",
+            "settings": {
+              "description_text": "<p>Entice customers to sign up for your mailing list with discounts or exclusive offers. Include an image for extra impact.<\/p>"
+            }
+          },
+          "form": {
+            "type": "form",
+            "settings": {
+              "button_text": "Submit"
+            }
+          }
+        },
+        "block_order": [
+          "title",
+          "text",
+          "form"
+        ],
+        "settings": {
+          "enable_modal": true,
+          "image": "shopify:\/\/shop_images\/modal_img.png"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "empty_cart_title": "Your cart is empty",
+          "banner_button_text": "Add Item",
+          "cart_total_bg": "#f2f2f2"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ],
+    "color_schemes": {
+      "background-1": {
+        "settings": {
+          "color_header": "#253237",
+          "color_body_text": "#253237",
+          "color_error_text": "#ff6d6f",
+          "body_background": "#ffffff",
+          "background_gradient": "",
+          "primary_theme_color": "#e20000",
+          "secondary_theme_color": "rgba(228, 225, 223, 0.30)",
+          "primary_button": "#e20000",
+          "primary_button_text": "#ffffff",
+          "secondary_button": "#253237",
+          "secondary_button_text": "#253237",
+          "color_text_field_text": "#686868",
+          "color_text_field_border": "#686868",
+          "color_accent": "#5A9DE5"
+        }
+      }
+    }
+  }
+}

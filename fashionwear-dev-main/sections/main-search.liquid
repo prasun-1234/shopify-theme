@@ -1,0 +1,322 @@
+<link rel="stylesheet" href="{{ 'main-search.css' | asset_url }}">
+{% style %}
+  .{{ section.id }}{
+    margin-top: {{ section.settings.section_margin_top }}px;
+    margin-bottom: {{ section.settings.section_margin_bottom }}px;
+  }
+  @media only screen and (max-width: 1024px){
+    .{{ section.id }}{
+      margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px;
+      margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+   }
+  }
+{% endstyle %}
+
+<section class="{{ section.id }}">
+  <div
+    class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto px-0"
+    id="searchProductGrid"
+  >
+    <div class="flex flex-col items-center sm:px-0">
+      <h3 class="sm:text-[40px] text-[30px] font-normal leading-none mb-[30px]">
+        {{ 'main-search.search_products' | t }}
+      </h3>
+
+      <div class="w-full container mx-auto"
+        x-data="
+          {
+            loading: false
+          }
+        "
+        @search-updated.window="
+          $nextTick(()=>{
+            const queryString = new URLSearchParams(new FormData($refs.search_form)).toString()
+            loading = true;
+            fetch('/search/?' + queryString)
+            .then(response => response.text())
+            .then(data => {
+             let html_div = document.createElement('div');
+             html_div.innerHTML = data;
+
+             let html_dom = html_div.querySelector('#searchProductGrid').innerHTML;
+             document.querySelector('#searchProductGrid').innerHTML = html_dom;
+             history.replaceState(null, null, '/search/?' + queryString);
+            })
+            .catch(error => console.log('Error:', error))
+            .finally(() => loading = false)
+          })
+        "
+      >
+        {% render 'loader' %}
+        <form
+          action="{{ routes.search_url }}"
+          x-ref="search_form"
+          @submit="(e)=>{e.preventDefault()}"
+          method="get"
+          class="max-w-[768px] w-full mx-auto"
+        >
+          <div class="relative flex justify-center items-center">
+            <input
+              @change="$dispatch('search-updated')"
+              type="text"
+              name="q"
+              placeholder="Search"
+              class=" search-input border w-full border-opacity-40 rounded-md py-[16px] px-[20px] block  leading-tight"
+            >
+            <button type="submit" class="absolute right-4">
+              {% render 'icon-search', class: 'stroke h-full' %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if search.performed %}
+      {% paginate search.results by 9 %}
+        {% if search.results_count == 0 %}
+          <div class="flex flex-col items-center gap-[15px] my-[40px]">
+            {% render 'icon-empty-search', class: 'w-[120px] stroke' %}
+            <h3 class="leading-none font-medium">{{ 'main-search.not_found' | t }}</h3>
+            <p class="text-center !text-lg">
+              {{ 'main-search.search_term' | t }}
+              <span>"{{ search.terms }}"</span>
+            </p>
+          </div>
+        {% else %}
+          <div class="flex justify-center my-[30px]">
+            <h5>
+              {{ search.results.size }}
+              {{ 'main-search.results' | t }}
+              <span>"{{ search.terms }}"</span>
+            </h5>
+          </div>
+
+          <div class="flex result-filter-box">
+            {% if section.settings.search_filter == true %}
+              <div class="search_filter_modal shrink-0" id="search-filter-modal">
+                <aside class="md:max-w-[420px] w-full h-full">
+                  {% render 'search-filters', section: section %}
+                </aside>
+              </div>
+            {% endif %}
+            <div class="flex flex-col search-grid">
+              <button
+                type="button"
+                class="plain-button filter-button flex gap-2 items-center aria-hidden"
+                id="search_filter_btn"
+                aria-controls="search-filter-modal"
+              >
+                {% render 'icon-filter' %}
+                <span class="font-semibold text-lg">Filter:</span>
+              </button>
+              {% case settings.search_only %}
+                {% when 'product' %}
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] search-grid">
+                    {% for item in search.results %}
+                      {% if item.object_type == 'product' %}
+                        {% render 'product-item' with product: item %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% when 'product_article' %}
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                    {% for item in search.results %}
+                      {% if item.object_type == 'product' %}
+                        {% render 'product-item' with product: item %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% assign hasArticles = false %}
+
+                  {% for item in search.results %}
+                    {% if item.object_type == 'article' %}
+                      {% assign hasArticles = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if hasArticles %}
+                    <h3 class="sm:text-left text-center uppercase font-semibold">Blog</h3>
+                  {% endif %}
+
+                  <ul class="grid grid-cols-12 lg:gap-[30px] sm:gap-12 gap-y-[40px]">
+                    {%- for item in search.results -%}
+                      {% assign articleClass = 'article-card' %}
+
+                      {% if item.object_type == 'article' %}
+                        <li class="col-span-12 md:col-span-6 lg:col-span-4">
+                          {%- render 'article-card',
+                            article: item,
+                            show_date: true,
+                            show_author: true,
+                            class: articleClass
+                          %}
+                        </li>
+                      {% endif %}
+                    {%- endfor -%}
+                  </ul>
+
+                {% when 'product_page' %}
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                    {% for item in search.results %}
+                      {% if item.object_type == 'product' %}
+                        {% render 'product-item' with product: item %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  <ul class="list-none mt-[20px] flex flex-col gap-[10px]">
+                    {%- for item in search.results -%}
+                      {% if item.object_type == 'page' %}
+                        <li>
+                          <a class="hover:opacity-90 duration-150 ease-in-out" href="{{ item.url }}">
+                            <h3>
+                              {{- item.title -}}
+                            </h3>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {%- endfor -%}
+                  </ul>
+                  </div>
+                {% when 'product_page_article' %}
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                    {% for item in search.results %}
+                      {% if item.object_type == 'product' %}
+                        {% render 'product-item' with product: item %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  <div>
+                    {% assign hasArticles = false %}
+
+                    {% for item in search.results %}
+                      {% if item.object_type == 'article' %}
+                        {% assign hasArticles = true %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if hasArticles %}
+                      <h3 class="sm:text-left text-center uppercase font-semibold">Blog</h3>
+                    {% endif %}
+
+                    <ul class="grid grid-cols-12 lg:gap-[30px] sm:gap-12 gap-y-[40px]">
+                      {%- for item in search.results -%}
+                        {% assign articleClass = 'article-card' %}
+
+                        {% if item.object_type == 'article' %}
+                          <li class="col-span-12 md:col-span-6 lg:col-span-4">
+                            {%- render 'article-card',
+                              article: item,
+                              show_date: true,
+                              show_author: true,
+                              class: articleClass
+                            %}
+                          </li>
+                        {% endif %}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  <div>
+                    {% assign hasPages = false %}
+                    {% for item in search.results %}
+                      {% if item.object_type == 'page' %}
+                        {% assign hasPages = true %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if hasPages %}
+                      <h3 class="sm:text-left text-center uppercase font-semibold">Pages</h3>
+                    {% endif %}
+                    <ul class="list-none flex flex-col gap-[10px]">
+                      {%- for item in search.results -%}
+                        {% if item.object_type == 'page' %}
+                          <li>
+                            <a class="hover:opacity-50 duration-150 ease-in-out" href="{{ item.url }}">
+                              {{- item.title -}}
+                            </a>
+                          </li>
+                        {% endif %}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {% else %}
+
+              {% endcase %}
+            </div>
+          </div>
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Main Search",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "search_filter",
+      "label": "Enable Search Filters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Section Margin Top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Section Margin Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ]
+}
+{% endschema %}
+{% javascript %}
+  let searchFilterButton = document.querySelector('#search_filter_btn');
+  if (searchFilterButton) {
+    let searchGrid = document.querySelector('.search-grid');
+    let searchSection = document.querySelector('#search-listing');
+    let searchSidebar = document.querySelector('.search_filter_modal');
+    searchFilterButton.addEventListener('click', (e) => {
+      searchSidebar.classList.add('modal-active');
+      searchFilterButton.classList.add('hide');
+      searchGrid.classList.add('borderActive');
+    });
+    let closeBtn = searchSidebar.querySelector('.close-sidebar');
+    closeBtn.addEventListener('click', (e) => {
+      searchSidebar.classList.remove('modal-active');
+      searchFilterButton.classList.remove('hide');
+      searchGrid.classList.remove('borderActive');
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.key == 'Escape') {
+        searchSidebar.classList.remove('modal-active');
+      }
+    });
+    let filterSummary = document.querySelectorAll('#search_filters summary');
+    filterSummary.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        let icon = item.querySelector('svg');
+        icon.classList.toggle('active');
+      });
+    });
+  }
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key == 'Tab') {
+      console.log(e.target);
+    }
+  });
+{% endjavascript %}

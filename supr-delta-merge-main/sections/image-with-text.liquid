@@ -1,0 +1,48 @@
+<section>
+    <div class="mx-auto {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %}">
+        <div class="text-center flex flex-col gap-[10px] mb-[40px]">
+            <div>
+                <p>Made of finest woods</p>
+            <h3 class="">Our furniture are handcrafted with<br> finest wood,
+             with exceptional designs</h3>
+            </div>
+            
+        </div>
+        <div class="flex xl:flex-row flex-col items-center gap-10 2xl:gap-[80px]">
+            
+                {% if section.settings.background_image != blank %}
+                  {{
+                    section.settings.background_image
+                    | image_url: height: 500
+                    | image_tag:
+                      class: 'object-cover   card duration-500 ease-in-out'
+                  }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-[#ccc]' }}
+                {% endif %}
+            
+            <div class="flex flex-col lg:gap-[20px] gap-3 text-left items-start">
+                <h3>{{ pages['about-us'].title }}</h3>
+                <p>{{ pages['about-us'].content }}</p>
+            </div>
+        </div>
+        
+
+    </div>
+</section>
+
+
+
+{% schema %} 
+{
+    "name": "Image with Text",
+    "settings": [
+        {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.image-banner.settings.background_image",
+      "info": "If this option is left blank, above background color will be enabled"
+    }
+    ]
+}
+{% endschema %} 

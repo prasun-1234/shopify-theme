@@ -1,0 +1,21 @@
+<a
+  rel="nofollow"
+  href="{{ href }}"
+  class="{{ class }} inline-flex items-center gap-3 font-normal link-btn relative w-fit cursor-pointer underline group/link-btn"
+  {% if color != blank %}
+    style="color:{{ color }};"
+  {% endif %}
+>
+  {% if text != blank %}
+    {{- text -}}
+  {% else %}
+    Shop Now
+  {% endif %}
+  {% if icon != blank %}
+    <span class="duration-200 ease-in-out group-hover/link-btn:translate-x-2">
+      {{ icon | image_url: width: 100 | image_tag: class: 'w-4 h-4 object-contain' }}
+    </span>
+  {% else %}
+    {% render 'icon-cart', class: 'stroke w-5 h-5' %}
+  {% endif %}
+</a>

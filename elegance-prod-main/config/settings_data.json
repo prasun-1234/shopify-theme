@@ -1,0 +1,735 @@
+{
+  "current": {
+    "favicon": "shopify:\/\/shop_images\/favicon.png",
+    "layout": "box_layout",
+    "logo": "",
+    "logo_max_width": 135,
+    "footer_logo": "",
+    "type_header_font": "playfair_display_n4",
+    "type_header_base_size": 28,
+    "type_header_font_h2": "playfair_display_n4",
+    "type_header_base_size_h2": 56,
+    "type_header_font_h3": "playfair_display_n4",
+    "type_header_base_size_h3": 30,
+    "type_header_font_h4": "roboto_n4",
+    "type_header_base_size_h4": 18,
+    "type_header_font_h5": "playfair_display_n4",
+    "type_header_base_size_h5": 24,
+    "type_header_font_h6": "roboto_n4",
+    "type_header_base_size_h6": 16,
+    "type_secondary_font": "playfair_display_n4",
+    "type_base_font": "roboto_n4",
+    "type_base_size": 16,
+    "type_menu_font_size": 16,
+    "type_small_size": 14,
+    "type_medium_size": 18,
+    "color_scheme": "background-1",
+    "secondary_button_style": "2",
+    "social_twitter_link": "https:\/\/twitter.com",
+    "social_facebook_link": "https:\/\/facebook.com",
+    "social_pinterest_link": "#!",
+    "social_instagram_link": "#!",
+    "social_tumblr_link": "#!",
+    "social_snapchat_link": "#!",
+    "social_youtube_link": "#!",
+    "social_vimeo_link": "#!",
+    "enable_currency": true,
+    "search_only": "product,page,article",
+    "select_menu": "normal-menu",
+    "enable_swatch": true,
+    "product_display_style": "show_add_to_cart_on_hover",
+    "loader_style": "1",
+    "enable_collection_image": true,
+    "banner_image_position": "center center",
+    "banner_height": "large",
+    "banner_overlay_color": "#222",
+    "banner_overlay_opacity": 70,
+    "enable_sort": true,
+    "products_per_row": "3",
+    "pagination_limit": "9",
+    "pagination-type": "infinite-load",
+    "enable_sidebar": true,
+    "filter_block_height": "330",
+    "cart_settings": "drawer",
+    "custom_css": "",
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "small",
+    "checkout_body_background_color": "#ffffff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#197bbd",
+    "checkout_button_color": "#197bbd",
+    "checkout_error_color": "#e32c2b",
+    "color_menu": "#232323",
+    "color_header": "#253237",
+    "color_body_text": "#000000",
+    "color_error_text": "#ff6d6f",
+    "color_button": "#253237",
+    "color_button_text": "#ffffff",
+    "color_button_two": "#000000",
+    "color_button_two_text": "#000000",
+    "color_text_field_text": "#232323",
+    "color_text_field_border": "#000000",
+    "enable_breadcrumb": false,
+    "twitter_icon": "shopify:\/\/shop_images\/twitter.png",
+    "facebook_icon": "shopify:\/\/shop_images\/facebook.png",
+    "pinterest_icon": "shopify:\/\/shop_images\/pinterest.png",
+    "instagram_icon": "shopify:\/\/shop_images\/instagram.png",
+    "enable_animation": true,
+    "enable_overlay": false,
+    "overlay_opacity": 50,
+    "overlay_color": "#253237",
+    "overlay-logo-svg": "",
+    "select_template": "template_one",
+    "enable_ajax_add_to_cart": true,
+    "enable_dynamic_checkout": true,
+    "use_image": false,
+    "tab_title": "Taxes & Others",
+    "tab_desc": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum.",
+    "tab_title_2": "Shipping Details",
+    "tab_desc_2": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum.",
+    "enable_author_info": false,
+    "enable_reading_time": false,
+    "enable_blog_category": true,
+    "enable_blog_tags": true,
+    "blog_overlay": "#515151",
+    "blog_overlay_opacity": 50,
+    "enable_cataloge": true,
+    "button_text": "Get Quote",
+    "enable_mega_menu_1": true,
+    "enable_mega_menu_2": true,
+    "enable_mega_menu_3": false,
+    "enable_mega_menu_4": false,
+    "color_default_theme": "#7a44e4",
+    "header_white_logo": "shopify:\/\/shop_images\/beta-logo_600x_a7d9199a-c82f-44cb-8deb-81cb7fb94e1e.png",
+    "white_logo_max_width": 250,
+    "enable_show_results": true,
+    "type_big_content_size": 20,
+    "logo_mobile": "shopify:\/\/shop_images\/logo_5f232dbe-8534-45d7-9557-d702f6a62830.png",
+    "logo_mobile_max_width": 140,
+    "lock_screen_image": "",
+    "slider_arr_color": "#1b0000",
+    "slider_arr_bg_color": "#fff",
+    "page_link_color": "#76809b",
+    "page_link_color_hover": "#626a81",
+    "pagination_pattern": "square",
+    "color_button_text_bg": "#aec3b0",
+    "color_text_field": "#ffffff",
+    "select_qv_template": "template_two",
+    "blog_header": "blog_header_1",
+    "shipping_info": "This is test",
+    "product_variant_style": "show_dropdown",
+    "overlay-logo": "shopify:\/\/shop_images\/logo.png",
+    "share_image_pass": "shopify:\/\/shop_images\/fezbot1.jpg",
+    "error_bg": "shopify:\/\/shop_images\/Image.jpg",
+    "header_pattern": "bottom",
+    "enable_hover_image": true,
+    "show_arrow": true,
+    "enable_cart_drawer": "false",
+    "enable_quick_view": true,
+    "enable_quick_view_description": true,
+    "color_button_white": "#ffffff",
+    "color_small_button_border": "#dddddd",
+    "review_text_color": "#1c1c1e",
+    "color_review": "#7a94c0",
+    "scrollbar_color": "#4015ac",
+    "newsletter_popup_enable": "true",
+    "newsletter_popup_show": "once_per_day",
+    "newsletter_popup_time": "10",
+    "newsletter_image": "shopify:\/\/shop_images\/image-5.jpg",
+    "newsletter_title": "NEWSLETTER SIGN UP",
+    "newsletter_subtitle": "Enter your email below to receive a $30 coupon, special offers, exclusive discounts and more!",
+    "newform_field": "",
+    "enable_quick_view_loader": true,
+    "enable_collection_ajax_product_load_loader": true,
+    "description_truncated_words": "25",
+    "enable_menu_1": true,
+    "enable_menu_2": true,
+    "enable_menu_3": true,
+    "enable_menu_4": true,
+    "show_ab": true,
+    "show_cross": true,
+    "ab_image": "",
+    "ab_text": "",
+    "ab_link_text": "SHOP NOW",
+    "ab_link": "",
+    "ab_color": "#ff9b9b",
+    "ab_text_color": "#292727",
+    "ab_text_alignment": "center",
+    "ab_collection_text": "",
+    "ab_collection_link_text": "",
+    "ab_collection_link": "",
+    "show_multiple_currencies": true,
+    "currency_format": "money_with_currency_format",
+    "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+    "default_currency": "INR",
+    "top_bg_color": "#e9eeff",
+    "top_font_color": "#76809b",
+    "phone": "9856325410",
+    "single_product_add_to_cart_ajax": true,
+    "customer_layout": "theme",
+    "example_option": "option",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "82142f20-8f1d-4954-b0e9-2d66e122e3d8": {
+            "type": "menu-item",
+            "settings": {
+              "menu_index": "1",
+              "mega_menu": "custom-menu",
+              "select_block": "collection",
+              "menu_collection": "",
+              "menu_article": ""
+            }
+          },
+          "38bfeca6-cea8-4258-8aff-fa981dbc59ea": {
+            "type": "menu-item",
+            "settings": {
+              "menu_index": "2",
+              "mega_menu": "custom-menu",
+              "select_block": "article",
+              "menu_collection": "",
+              "menu_article": ""
+            }
+          }
+        },
+        "block_order": [
+          "82142f20-8f1d-4954-b0e9-2d66e122e3d8",
+          "38bfeca6-cea8-4258-8aff-fa981dbc59ea"
+        ],
+        "settings": {
+          "header_type": "header_2",
+          "top_bar_active": true,
+          "currency_wrapper_bg": "#b9b9b9",
+          "menu_list": "main-menu",
+          "title_color": "#3d8361"
+        }
+      },
+      "home-blog": {
+        "type": "home-blog",
+        "settings": {
+          "title": "Journal",
+          "blog": "",
+          "post_limit": 3
+        }
+      },
+      "home-collection-product": {
+        "type": "home-collection-product",
+        "settings": {
+          "section_title": "Featured Products",
+          "featured_collection": "",
+          "slider_or_grid": "slider"
+        }
+      },
+      "slide-show": {
+        "type": "slide-show",
+        "blocks": {
+          "5c380e97-dfec-417f-b46e-d860da2f84af": {
+            "type": "slide",
+            "settings": {
+              "slider_overlay_opacity": 50,
+              "slider_overlay_color": "#cccccc",
+              "slider_text_alignment": "left",
+              "slide_heading": "<p>An Extraordinary Classic Watch<\/p>",
+              "slide_heading_color": "#222222",
+              "slide_subheading": "<p>This is the best in class effective watches from the luxury brand watch.co and Gizmo has put into.<\/p>",
+              "slide_subheading_color": "#222222",
+              "slide_btn_text": "Explore Collection",
+              "slide_button_color": "#000000",
+              "slide_btn_link": "",
+              "slide_buttontext_color": "#ffffff",
+              "slide_btn_text_2": "Explore Collection",
+              "slide_button_color_2": "#000000",
+              "slide_btn_link_2": ""
+            }
+          }
+        },
+        "block_order": [
+          "5c380e97-dfec-417f-b46e-d860da2f84af"
+        ],
+        "settings": {
+          "slider_height": "medium",
+          "slider_image_position": "left top",
+          "show_arrow": true,
+          "show_fraction": true
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "text1": {
+            "type": "text",
+            "settings": {
+              "custom_text": "Bar text one"
+            }
+          },
+          "text2": {
+            "type": "text",
+            "settings": {
+              "custom_text": "Bar text one"
+            }
+          }
+        },
+        "block_order": [
+          "text1",
+          "text2"
+        ],
+        "settings": {
+          "enable_top_bar": true,
+          "overlay_color": "#000000",
+          "overlay_opacity": 3,
+          "button_text": "BUTTON",
+          "button_link": "",
+          "text_color": "#ffffff",
+          "text_align": "center"
+        }
+      },
+      "1589890238923": {
+        "type": "collection-banner",
+        "blocks": {
+          "74bf573e-c7ae-4f71-b9c0-2b00eaea9b4b": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "fd1b203d-3f68-415b-b718-6b0902d2dbce": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "306b644e-93bd-41b5-b7b5-076f8dd1cedb": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "238a079d-9a7f-44ef-9b1e-5adbd2b1e1e2": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          }
+        },
+        "block_order": [
+          "74bf573e-c7ae-4f71-b9c0-2b00eaea9b4b",
+          "fd1b203d-3f68-415b-b718-6b0902d2dbce",
+          "306b644e-93bd-41b5-b7b5-076f8dd1cedb",
+          "238a079d-9a7f-44ef-9b1e-5adbd2b1e1e2"
+        ],
+        "settings": {
+          "title": "Collections",
+          "description": "The thing about fresh fashion is that it automatically inspires the wearer and spawns newer, bolder, chicer looks. Our collection boasts of tops, dresses, T-shirts, shirts, jeans, skirts, trousers, jackets, dungarees, coats, capris, jumpsuits, track pants,and pretty much everything else you could possibly want. Choose the best fit for yourself by sifting through items based on size and fabric, colour and print, styling details and brand, fit and budget, etc. There are various filters in place just to help you do that, all in a matter of minutes."
+        }
+      },
+      "1590404292870": {
+        "type": "image-text-block",
+        "disabled": true,
+        "settings": {
+          "layout": "left"
+        }
+      },
+      "contact": {
+        "type": "contact",
+        "settings": {
+        }
+      },
+      "1591015450372": {
+        "type": "map",
+        "disabled": true,
+        "settings": {
+          "header": "Two Elegance Location in Newyork City. Experience Fashion At Its Best.",
+          "header_color": "#ffffff",
+          "framelink": "https:\/\/snazzymaps.com\/embed\/243413"
+        }
+      },
+      "1591015489770": {
+        "type": "video-section",
+        "settings": {
+          "video_overlay_opacity": 50,
+          "video_overlay_color": "#000000",
+          "image_position": "center top",
+          "video_link": "https:\/\/www.youtube.com\/watch?v=m56i76kUtkY",
+          "height": "small"
+        }
+      },
+      "1591018476125": {
+        "type": "logo-list",
+        "blocks": {
+          "1591018476125-0": {
+            "type": "logo_image",
+            "settings": {
+              "link": ""
+            }
+          },
+          "1591018476125-1": {
+            "type": "logo_image",
+            "settings": {
+              "link": ""
+            }
+          },
+          "1591018476125-2": {
+            "type": "logo_image",
+            "settings": {
+              "link": ""
+            }
+          },
+          "1591018476125-3": {
+            "type": "logo_image",
+            "settings": {
+              "link": ""
+            }
+          },
+          "1595245600819": {
+            "type": "logo_image",
+            "settings": {
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1591018476125-0",
+          "1591018476125-1",
+          "1591018476125-2",
+          "1591018476125-3",
+          "1595245600819"
+        ],
+        "settings": {
+          "title": "",
+          "post_limit": 5,
+          "enable_carousel": false
+        }
+      },
+      "image-text-block": {
+        "type": "image-text-block",
+        "settings": {
+          "image": "",
+          "layout": "right"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "enable_newsletter": false,
+          "newform_field": ""
+        }
+      },
+      "1593410611313": {
+        "type": "image-with-text",
+        "settings": {
+          "section_height": "500px",
+          "image_overlay_opacity": 50,
+          "image_overlay_color": "#000000",
+          "slider_image_position": "center center",
+          "text_alignment": "center",
+          "title": "Lorem Ipsum",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas aliquam cursus sit morbi.",
+          "text_color": "#ffffff",
+          "button_text": "Read Blog Post",
+          "image_button_color": "#ffffff",
+          "button_link": "shopify:\/\/blogs\/news",
+          "image_buttontext_color": "#051d26"
+        }
+      },
+      "1593611492376": {
+        "type": "featured-product",
+        "disabled": true,
+        "settings": {
+          "featured_product": "women-fit-knitted-sweter"
+        }
+      },
+      "article-section": {
+        "type": "article-section",
+        "blocks": {
+          "1594021019123": {
+            "type": "text_block",
+            "settings": {
+              "slider_or_grid": "grid",
+              "parent_article": "news\/test-blog",
+              "additional_product1": "denim-jeans",
+              "additional_product2": "product-2",
+              "additional_product3": "copy-of-product-3",
+              "additional_product4": "",
+              "additional_product5": "",
+              "additional_product6": ""
+            }
+          },
+          "4c8f7a61-b1a2-44a3-9f0e-dbf193cbb134": {
+            "type": "text_block",
+            "settings": {
+              "slider_or_grid": "grid",
+              "parent_article": "",
+              "additional_product1": "",
+              "additional_product2": "",
+              "additional_product3": "",
+              "additional_product4": "",
+              "additional_product5": "",
+              "additional_product6": ""
+            }
+          }
+        },
+        "block_order": [
+          "1594021019123",
+          "4c8f7a61-b1a2-44a3-9f0e-dbf193cbb134"
+        ],
+        "settings": {
+          "section_title": "Featured Products"
+        }
+      },
+      "1594013976517": {
+        "type": "testimonial",
+        "blocks": {
+          "1594013984742": {
+            "type": "slide",
+            "settings": {
+              "review": "<p>Tortor aliquam nulla facilisi cras fermentum odio. Nunc aliquet bibendum enim facilisis. Amet volutpat consequat mauris nunc congue nisi vitae. Sed tempus urna et pharetra pharetra massa massa. Tincidunt dui ut ornare lectus sit amet. Ante metus dictum at tempor commodo ullamcorper a lacus vestibulum.<\/p>"
+            }
+          },
+          "1594014821916": {
+            "type": "slide",
+            "settings": {
+              "review": "<p>Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1594013984742",
+          "1594014821916"
+        ],
+        "disabled": true,
+        "settings": {
+          "title": "What Customers are Saying",
+          "testimonial_type": "multi_slide",
+          "show_bullets": true
+        }
+      },
+      "1594016655048": {
+        "type": "text-block",
+        "disabled": true,
+        "settings": {
+          "text": "What Our Customers Are Saying",
+          "text_color": "#ffffff",
+          "bg_color": "#222222",
+          "desc_text": "Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon",
+          "desc_text_color": "#000000",
+          "desc_bg_color": "#ffffff"
+        }
+      },
+      "text-block": {
+        "type": "text-block",
+        "settings": {
+          "text": "What Our Customers Are Saying",
+          "text_color": "#fff",
+          "bg_color": "#000",
+          "desc_text": "Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon",
+          "desc_text_color": "#fff",
+          "desc_bg_color": "#000"
+        }
+      },
+      "logo-list": {
+        "type": "logo-list",
+        "blocks": {
+          "1595230119512": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/VOGUE_LOGO_1_200x50_73314acd-d5df-43d9-a4f9-9e3c6a978428.png",
+              "link": ""
+            }
+          },
+          "1595230133756": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Vanity_Fair_Logo_1_200x50_c7a2e44e-8a8a-4418-bd02-adcc37cc2f43.png",
+              "link": ""
+            }
+          },
+          "1595230147128": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Elle-Logo_1_200x50_aadfe27a-e091-4167-9ea4-dc28e44dd73d.png",
+              "link": ""
+            }
+          },
+          "1595230158358": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Comopolitan_Magazine_Logo_1_1_200x50_bf8118d1-a863-452d-a396-1dcb1c727025.png",
+              "link": ""
+            }
+          },
+          "1598275952192": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/VOGUE_LOGO_1_200x50_73314acd-d5df-43d9-a4f9-9e3c6a978428.png",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1595230119512",
+          "1595230133756",
+          "1595230147128",
+          "1595230158358",
+          "1598275952192"
+        ],
+        "settings": {
+          "title": "",
+          "post_limit": 4,
+          "enable_carousel": true
+        }
+      },
+      "collection-banner": {
+        "type": "collection-banner",
+        "blocks": {
+          "1598276023425": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "1598276041157": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "1598276066652": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          },
+          "1598276083441": {
+            "type": "featured_collection",
+            "settings": {
+            }
+          }
+        },
+        "block_order": [
+          "1598276023425",
+          "1598276041157",
+          "1598276066652",
+          "1598276083441"
+        ],
+        "settings": {
+          "title": "Collections",
+          "description": "Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon"
+        }
+      },
+      "image-with-text": {
+        "type": "image-with-text",
+        "settings": {
+          "section_height": "500px",
+          "image": "shopify:\/\/shop_images\/image-group.jpg",
+          "image_overlay_opacity": 50,
+          "image_overlay_color": "#000000",
+          "slider_image_position": "center center",
+          "text_alignment": "center",
+          "title": "Eyes are the Best Features of Yours",
+          "text": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\".",
+          "text_color": "#ffffff",
+          "button_text": "Read Blog Post",
+          "image_button_color": "#ffffff",
+          "button_link": "shopify:\/\/blogs\/news",
+          "image_buttontext_color": "#253237"
+        }
+      },
+      "video-section": {
+        "type": "video-section",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/video-placeholder.jpg",
+          "video_overlay_opacity": 50,
+          "video_overlay_color": "#000000",
+          "image_position": "center center",
+          "video_link": "https:\/\/www.youtube.com\/watch?v=4VitdBuMeUo",
+          "height": "small"
+        }
+      },
+      "1618897097725a4f40": {
+        "type": "featured-product",
+        "settings": {
+          "featured_product": ""
+        }
+      },
+      "modal-main": {
+        "type": "modal-main",
+        "blocks": {
+          "3eac51ab-178a-4894-935f-ea8d78daf7b0": {
+            "type": "title",
+            "settings": {
+              "title_text": "Join Us"
+            }
+          },
+          "a04ef4ef-23cb-4e4a-a370-67f70a233211": {
+            "type": "para",
+            "settings": {
+              "para_text": "<p>Subscribe to score 10% off your first order, get notified about product launches, special offers and news.<\/p>"
+            }
+          },
+          "1af32161-4715-45e9-b163-c9e356661afa": {
+            "type": "form",
+            "settings": {
+              "email": "Email",
+              "submit": "Subscribe"
+            }
+          }
+        },
+        "block_order": [
+          "3eac51ab-178a-4894-935f-ea8d78daf7b0",
+          "a04ef4ef-23cb-4e4a-a370-67f70a233211",
+          "1af32161-4715-45e9-b163-c9e356661afa"
+        ],
+        "settings": {
+          "enable_modal": true,
+          "modal_position": "center",
+          "modal_color": "#ffffff",
+          "modal_text_color": "#000000",
+          "overlay_opacity": 5
+        }
+      }
+    },
+    "content_for_index": [
+      "slide-show",
+      "1591018476125",
+      "1589890238923",
+      "home-collection-product",
+      "1593410611313",
+      "home-blog",
+      "1591015489770",
+      "1593611492376",
+      "1590404292870",
+      "1591015450372",
+      "1594013976517",
+      "1594016655048",
+      "1618897097725a4f40"
+    ],
+    "color_schemes": {
+      "background-1": {
+        "settings": {
+          "color_menu": "#253237",
+          "color_header": "#253237",
+          "color_body_text": "#253237",
+          "color_error_text": "#FF6D6F",
+          "background_gradient": "",
+          "body_background": "#ffffff",
+          "footer_background": "#222222",
+          "primary_theme_color": "#79804e",
+          "secondary_theme_color": "#7d8f69",
+          "tertiary_theme_color": "#3d8361",
+          "color_button": "#253237",
+          "color_button_text": "#ffffff",
+          "color_button_two": "#000",
+          "color_button_two_text": "#000",
+          "color_text_field_text": "#76809B",
+          "color_text_field_border": "#dddddd",
+          "footer_text_color": "#fff"
+        }
+      }
+    }
+  }
+}

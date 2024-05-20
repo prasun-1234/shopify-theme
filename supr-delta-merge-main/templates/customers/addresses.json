@@ -1,0 +1,137 @@
+{
+    "sections": {
+      "info-grid": {
+        "type": "info-grid",
+        "blocks": {
+          "info_item_four": {
+            "type": "info_item",
+            "settings": {
+              "icon_image": "shopify:\/\/shop_images\/service.svg",
+              "title": "<p>Doorstep Service</p>",
+              "link_url": "",
+              "link_text": "Shop Now"
+            }
+          },
+          "info_item_two": {
+            "type": "info_item",
+            "settings": {
+              "icon_image": "shopify:\/\/shop_images\/return.svg",
+              "title": "<p>Easy returns</p>",
+              "link_url": "",
+              "link_text": "Shop Now"
+            }
+          },
+          "info_item_three": {
+            "type": "info_item",
+            "settings": {
+              "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+              "title": "<p>Faster Delivery</p>",
+              "link_url": "",
+              "link_text": "Shop Now"
+            }
+          },
+          "info_item_one": {
+            "type": "info_item",
+            "settings": {
+              "icon_image": "shopify:\/\/shop_images\/premium.svg",
+              "title": "<p>Premium Products</p>",
+              "link_url": "",
+              "link_text": "Shop Now"
+            }
+          }
+        },
+        "block_order": [
+          "info_item_four",
+          "info_item_three",
+          "info_item_two",
+          "info_item_one"
+        ],
+        "settings": {
+          "margin_top": 0,
+          "margin_bottom": 0,
+          "section_gap": 20,
+          "enable_border": false,
+          "enable_logo": true,
+          "enable_link": false,
+          "enable_box_shadow": true,
+          "style_type": "marquee",
+          "background_color": "#ffffff",
+          "content_color": "#3a3a3a"
+        }
+      },
+      "breadcrumb":{
+        "type": "breadcrumb",
+        "settings": {
+          "section_margin_top": 40,
+          "section_margin_bottom": 40,
+          "text_color": "#3A3A3A"
+        }
+      },
+      "edit_detail": {
+        "type": "main-addresses",
+        "blocks":{
+          "card": {
+            "type":"card",
+            "settings":{
+              "image": "shopify:\/\/shop_images\/product_review_banner.jpg",
+              "logo": "shopify:\/\/shop_images\/vector-black.svg"
+            }
+          }
+        },
+        "block_order":["card"],
+        "settings":{
+          "margin_top": 40,
+          "margin_bottom": 40,
+          "address_bg":"#E4E1DF",
+          "enable_border": true,
+          "border_color": "#8E8B87"
+        }
+      },
+      "instagram": {
+        "type": "instagram",
+        "blocks": {
+          "image1": {
+            "type": "image_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/insta1.jpg",
+              "link": "https:\/\/www.instagram.com\/"
+            }
+          },
+          "image2": {
+            "type": "image_block",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/insta2.jpg",
+              "link": "https:\/\/www.instagram.com\/"
+            }
+          },
+          "text1": {
+            "type": "text_block",
+            "settings": {
+              "background_color": "",
+              "image": "shopify:\/\/shop_images\/insta3.jpg",
+              "social_tag": "@DBIKES",
+              "content_color": "#ffffff",
+              "link": "https:\/\/www.instagram.com\/",
+              "button_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "image1",
+          "image2",
+          "text1"
+        ],
+        "settings": {
+          "margin_top": 0,
+          "margin_bottom": 0,
+          "equal_box": false
+        }
+      }
+    },
+    "order": [
+      "info-grid",
+      "breadcrumb",
+      "edit_detail",
+      "instagram"
+    ]
+  }

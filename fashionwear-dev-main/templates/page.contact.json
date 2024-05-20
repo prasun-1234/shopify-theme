@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "contact": {
+      "type": "main-contact",
+      "blocks": {
+        "3d659102-0e0b-4662-a5a0-26b2508e19da": {
+          "type": "card",
+          "settings": {
+            "card_title": "Visit Our Store",
+            "shop_address": "915 Heath Dr, Montgomery, AL 36108",
+            "contact": "+91-876-543",
+            "timing_one": "Monday - Friday : 10AM to 9PM",
+            "timing_two": "Saturday - Sunday : 10AM to 6PM"
+          }
+        }
+      },
+      "block_order": [
+        "3d659102-0e0b-4662-a5a0-26b2508e19da"
+      ],
+      "settings": {
+        "margin_top": 40,
+        "margin_bottom": 60,
+        "border_color": "#737373",
+        "contact_title": "Feel free to Contact Us or Write us",
+        "contact_subtext": "We're here to assist you! Whether you have a question about our products, need help with an order, or just want to say hello, we value your communication.",
+        "button_text": "Submit",
+        "contact_map": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3069.001037008358!2d-105.04277368436631!3d39.71715940581052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b80a45e5b0fcf%3A0x6356045b1cb8a5df!2s28%20S%20Quitman%20St%2C%20Denver%2C%20CO%2080219%2C%20USA!5e0!3m2!1sen!2sin!4v1676972522769!5m2!1sen!2sin"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "contact"
+  ]
+}

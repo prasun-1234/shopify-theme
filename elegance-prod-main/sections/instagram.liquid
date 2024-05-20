@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="{{ 'instagram.css' | asset_url }}">
+
+<section class="social-section">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="social-div">
+      <h2>{{ section.settings.title }}</h2>
+      <a rel="nofollow" href="{{ section.settings.social_link }}">{{ section.settings.social_link_text }}</a>
+      <div class="social-feed-div">
+        <div
+          class="swiper-social-feed swiper_main"
+          id="swiper_social"
+          data-count="{% if settings.layout == "fluid_layout" %}5.5 {% else %} {{ section.settings.slides_count }} {% endif %}"
+          data-center="{% if settings.layout == "fluid_layout" %}true{% else %}false{% endif %}"
+        >
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'social_item' %}
+                  <div class="swiper-slide social-slide" {{ block.shopify_attributes }}>
+                    <figure class="social-image">
+                      {% if block.settings.social_image %}
+                        <img
+                          srcset="
+                            {%- if block.settings.social_image.width >= 375 -%}{{ block.settings.social_image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 550 -%}{{ block.settings.social_image | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 750 -%}{{ block.settings.social_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 1100 -%}{{ block.settings.social_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 1500 -%}{{ block.settings.social_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 1780 -%}{{ block.settings.social_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 2000 -%}{{ block.settings.social_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 3000 -%}{{ block.settings.social_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if block.settings.social_image.width >= 3840 -%}{{ block.settings.social_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ block.settings.social_image | image_url }} {{ block.settings.social_image.width }}w
+                          "
+                          sizes="auto"
+                          src="{{ block.settings.social_image | image_url }}"
+                          loading="lazy"
+                          alt="{{ block.settings.social_image.alt | escape }}"
+                          width="{{ block.settings.social_image.width }}"
+                          height="auto"
+                        >
+                      {% else %}
+                        <div class="placeholder_div">
+                          {{ 'collection-3' | placeholder_svg_tag }}
+                        </div>
+                      {% endif %}
+                    </figure>
+                  </div>
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+          </div>
+
+          <div class="swiper-pagination"></div>
+
+          <div class="product-swiper">
+            <div class="swiper-button-prev">{% render 'icon-arrow-long', class: 'svg-arrow-left' %}</div>
+            <div class="swiper-button-next">{% render 'icon-arrow-long', class: 'svg-arrow-right' %}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.instagram.name",
+  "settings": [
+    {
+      "type": "text",
+      "label": "t:sections.instagram.settings.title.label",
+      "id": "title",
+      "default": "Beautiful Everyday"
+    },
+    {
+      "type": "text",
+      "id": "social_link_text",
+      "label": "t:sections.instagram.settings.social_link_text.label",
+      "default": "@chiccare"
+    },
+    {
+      "type": "url",
+      "id": "social_link",
+      "label": "t:sections.instagram.settings.social_link.label"
+    },
+    {
+      "type": "range",
+      "min": 3,
+      "max": 5,
+      "label": "t:sections.instagram.settings.slides_count.label",
+      "id": "slides_count",
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.instagram.blocks.name",
+      "limit": 6,
+      "type": "social_item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "t:sections.instagram.blocks.settings.social_image.label",
+          "id": "social_image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.instagram.presets.name",
+      "settings": {
+        "title": "Example title",
+        "social_link_text": "@social",
+        "slides_count": 4
+      },
+      "blocks": [
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        },
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        },
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        },
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        },
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        },
+        {
+          "type": "social_item",
+          "settings": {
+            "social_image": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

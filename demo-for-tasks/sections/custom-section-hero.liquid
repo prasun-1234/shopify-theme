@@ -1,0 +1,116 @@
+{{ 'custom-section-hero.css' | asset_url | stylesheet_tag }}
+{% style %}
+  .custom-{{ section.id }}{
+    margin-top: {{ section.settings.section_margin_top }}px;
+    margin-bottom: {{ section.settings.section_margin_bottom }}px;
+  }
+{% endstyle %}
+<section class=" custom-{{ section.id }} custom-section-hero">
+  <div class="page-width">
+    <span class="custom-font-text">the bag</span>
+    <div class="hero-section-row">
+      <figure class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {% if section.settings.featured_image != blank %}
+          {{
+            section.settings.featured_image
+            | image_url: width: 780
+            | image_tag: width: 780, height: 'auto', class: 'bag-image', fetchpriority: 'high', alt: 'Bag Image'
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-image-hero' }}
+        {% endif %}
+      </figure>
+      <div class="text-box">
+        <p>Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet.</p>
+        <a href="{{ section.settings.collection.url }}" class="button button-top">View Collection</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="inner-card">
+        <span>
+          {% if section.settings.product.title != blank %}
+            {{ section.settings.product.title }}
+          {% else %}
+            Product title
+          {% endif %}
+        </span>
+        <span class="product-title">
+          {% if section.settings.product.description != blank %}
+            {{ section.settings.product.description | truncatewords: 5 }}
+          {% else %}
+            Product description
+          {% endif %}
+        </span>
+        <div class="card-body">
+          <p class="product-price">
+            {% if section.settings.product != blank %}
+              {{ section.settings.product.price | money }}
+            {% else %}
+              $88.99
+            {% endif %}
+          </p>
+          {% assign card_product = section.settings.product %}
+          {% if card_product.available and card_product != blank %}
+            {% form 'product', card_product %}
+              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+              <input type="text" name="quantity" min="1" value="1" class="hidden">
+              <button type="submit" class="button button--secondary">Buy Now</button>
+            {% endform %}
+          {% else %}
+            <button type="submit" class="button button--secondary" disabled>
+              {% if card_product.available == false %} Out of Stock {% else %} Buy Now {% endif %}
+            </button>
+          {% endif %}
+        </div>
+      </div>
+      <a href="{{ section.settings.product.url }}" class="product-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M1.53033 12.1369C1.23744 12.4298 0.762563 12.4298 0.46967 12.1369C0.176777 11.844 0.176777 11.3692 0.46967 11.0763L1.53033 12.1369ZM11.6066 0.249997C12.0208 0.249997 12.3566 0.585783 12.3566 0.999997L12.3566 7.75C12.3566 8.16421 12.0208 8.5 11.6066 8.5C11.1924 8.5 10.8566 8.16421 10.8566 7.75V1.75H4.8566C4.44239 1.75 4.1066 1.41421 4.1066 0.999996C4.1066 0.585783 4.44239 0.249996 4.8566 0.249996L11.6066 0.249997ZM0.46967 11.0763L11.0763 0.469666L12.1369 1.53033L1.53033 12.1369L0.46967 11.0763Z" fill="#313131"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Custome section hero",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Margin top",
+      "max": 100,
+      "min": 0,
+      "unit": "px",
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Margin bottom",
+      "max": 100,
+      "min": 0,
+      "unit": "px",
+      "step": 10,
+      "default": 80
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured image"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Select Card product"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ]
+}
+{% endschema %}

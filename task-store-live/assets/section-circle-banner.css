@@ -1,0 +1,57 @@
+.circle-banner-section .text_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 5;
+}
+
+.circle-banner-section .text_div span {
+  max-width: 400px;
+}
+
+.circle-banner-section .circle_inner_animate {
+  max-width: 1180px;
+  margin: auto;
+  position: relative;
+  overflow: visible;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-banner-section .image_div {
+  height: 500px;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: calc(50vh - 250px);
+}
+
+.circle-banner-section .image_div img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  height: 500px;
+}
+@media screen and (max-width: 1200px) {
+  .circle-banner-section .text_div {
+    flex-direction: column;
+    gap: 0;
+  }
+  .circle-banner-section .image_div {
+    height: 400px;
+    top: calc(50vh - 200px);
+  }
+
+  .circle-banner-section .text_div span {
+    padding: 10px 0;
+  }
+  .circle-banner-section .image_div img {
+    height: 400px;
+  }
+}
+@media screen and (max-width: 980px) {
+}

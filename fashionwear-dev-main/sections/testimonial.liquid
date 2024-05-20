@@ -1,0 +1,164 @@
+{% style %}
+  .testimonial-{{ section.id }} .card{
+    padding:0px 120px;
+  }
+    .testimonial-{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom }}px;
+    }
+    @media only screen and (max-width:980px){
+      .testimonial-{{ section.id }}{
+        margin-top:{{ section.settings.section_margin_top | divided_by: 2 }}px;
+        margin-bottom:{{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+      }
+    }
+
+    @media screen and (max-width:767px){
+      .testimonial_main .swiper-slide .text{
+      font-size:1.5rem !important;
+      }
+      .testimonial-{{ section.id }} .card{
+        padding: 0px 60px;
+      }
+    }
+{% endstyle %}
+<section class="testimonial-{{ section.id }} testimonial_main">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div class="swiper relative testimonial">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <div class="swiper-slide">
+                <div class="card text-center">
+                  <div class="mb-5 lg:mb-10">
+                    <h3 class="text">{{ block.settings.text_content }}</h3>
+                  </div>
+                  <p class="mb-4">{{ block.settings.name }}</p>
+                  <div class="flex justify-center">
+                    {% if block.settings.rating != blank %}
+                      <div
+                        class="flex items-center gap-[5px] star-rating"
+                        data-star="{{ block.settings.rating }}"
+                        style="color:{{ block.settings.text_color }};"
+                      >
+                        {% render 'icon-star' %}
+                        {% render 'icon-star' %}
+                        {% render 'icon-star' %}
+                        {% render 'icon-star' %}
+                        {% render 'icon-star' %}
+                        {{- block.settings.rating -}}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      <div class="swiper-button-next !top-[35%]">{% render 'btn-swiper' %}</div>
+      <div class="swiper-button-prev !top-[35%]">{% render 'btn-swiper', class: 'rotate-180' %}</div>
+      <div class="swiper-pagination !relative m-auto !mt-[30px]"></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.testimonial.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.testimonial.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.testimonial.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "t:section.testimonial.settings.section_height",
+      "max": 100,
+      "min": 10,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.testimonial.blocks.name",
+      "limit": 5,
+      "type": "slide",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text_content",
+          "label": "t:section.testimonial.blocks.settings.text_content"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "t:section.testimonial.blocks.settings.rating",
+          "default": 4,
+          "max": 5,
+          "min": 0,
+          "step": 1
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:section.testimonial.blocks.settings.name",
+          "default": "Duis aute irure dolor "
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.testimonial.blocks.name",
+      "settings": {
+        "section_margin_top": 80,
+        "section_margin_bottom": 100,
+        "section_height": 40
+      },
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<script defer>
+  let ratingGroup = document.querySelectorAll('.star-rating');
+  ratingGroup.forEach((ratingDiv) => {
+    let rating = Number(ratingDiv.getAttribute('data-star'));
+    let stars = ratingDiv.querySelectorAll('svg');
+    for (let i = 0; i < rating; i++) {
+      stars[i].classList.add('rating-active');
+    }
+  });
+</script>

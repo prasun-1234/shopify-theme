@@ -1,0 +1,247 @@
+
+<link rel="stylesheet" href="{{ 'main-login.css' | asset_url }}">
+
+{% layout settings.customer_layout %}
+
+<section id="template" class="account-form {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="account-form-inner">
+      <div class="contact-wrapper">
+        <div class="form-div">
+          <div class="l-box reset-password-box">
+            <div id="customer" class="login-content login_left">
+              <div class="template_header">
+                <h2 class="form-title">{{ 'customer.form.login-title' | t }}</h2>
+                <p>{{ 'customer.form.login-description' | t }}</p>
+              </div>
+
+              {% form 'customer_login', class: 'pure-form login-form' %}
+                <fieldset>
+                  <div class="pure-u-1">
+                    <div id="login_email" class="clearfix large_form">
+                      <label for="customer_email" class="login">{{ 'customer.form.email' | t }} </label>
+                      <input
+                        type="email"
+                        value=""
+                        name="customer[email]"
+                        id="customer_email"
+                        class="large pure-input-1"
+                        size="30"
+                        placeholder="Email"
+                      >
+                    </div>
+                  </div>
+
+                  {% if form.password_needed %}
+                    <div class="pure-u-1">
+                      <div id="login_password" class="clearfix large_form">
+                        <label for="customer_password" class="login">{{ 'customer.form.password' | t }}</label>
+                        <input
+                          type="password"
+                          value=""
+                          name="customer[password]"
+                          id="customer_password"
+                          class="large password pure-input-1"
+                          size="16"
+                          placeholder="Password"
+                        >
+                        <div id="forgot_password" class="text-btn">
+                          <a
+                            rel="nofollow"
+                            href="#"
+                            onclick="showRecoverPasswordForm();return false;"
+                          >
+                            {{- 'customer.login.forgot_password' | t -}}
+                            {% render 'arrow-next' %}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <div class="action_bottom">
+                    {{ form.errors | default_errors }}
+                    <input
+                      class="theme-btn primary-btn"
+                      type="submit"
+                      value="Login"
+                    >
+                  </div>
+                  <div class="register-note">
+                    <p>
+                      <span>{{ 'customer.login.account' | t }}</span>
+                      <div class="text-btn">
+                        <a rel="nofollow" href="/account/register">
+                          {{- 'customer.login.sign_up' | t -}}
+                          {%- render 'arrow-next' -%}
+                        </a>
+                      </div>
+                    </p>
+                  </div>
+                </fieldset>
+              {% endform %}
+            </div>
+
+            <div id="recover-password" style="display:none">
+              <div class="template_header password-header">
+                <h2 class="form-title">{{ 'customer.form.reset-pass-title' | t }}</h2>
+                <p class="note">{{ 'customer.form.reset-pass-note' | t }}</p>
+              </div>
+
+              {% form 'recover_customer_password', class: 'pure-form' %}
+                <fieldset>
+                  <div class="pure-u-1">
+                    <div id="recover_email" class="clearfix large_form">
+                      <label for="email" class="large">{{ 'customer.form.email' | t }}</label>
+                      <input
+                        type="email"
+                        value=""
+                        size="30"
+                        name="email"
+                        id="recover-email"
+                        class="large pure-input-1"
+                        placeholder="Email"
+                      >
+                    </div>
+                  </div>
+                  {{ form.errors | default_errors }}
+                  <div class="action_bottom">
+                    <input
+                      class="theme-btn primary-btn"
+                      type="submit"
+                      value="{{ 'customer.login.submit' | t }}"
+                    >
+                    <span class="note">
+                      <a
+                        rel="nofollow"
+                        href="#"
+                        onclick="hideRecoverPasswordForm();return false;"
+                      >
+                        {{- 'customer.login.cancel' | t -}}
+                      </a>
+                    </span>
+                  </div>
+                </fieldset>
+              {% endform %}
+            </div>
+
+            {% if shop.checkout.guest_login %}
+              <div id="guest">
+                <div class="template_header">
+                  <h3 class="form-title">{{ 'customer.form.guest-login-title' | t }}</h3>
+                </div>
+                {% form 'guest_login', class: 'pure-form' %}
+                  <fieldset>
+                    <input
+                      class="theme-btn primary-btn"
+                      type="submit"
+                      value="Continue as Guest"
+                    >
+                  </fieldset>
+                {% endform %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="contact-right login-img">
+          <div class="l-box">
+            <figure>
+              <div class="banner-overlay" style="background-color: {{ section.settings.overlay_color }};"></div>
+              {% if section.settings.banner_img %}
+                <img
+                  srcset="
+                    {%- if section.settings.banner_img.width >= 375 -%}
+                      {{ section.settings.banner_img | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 550 -%}
+                      {{ section.settings.banner_img | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 750 -%}
+                      {{ section.settings.banner_img | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1100 -%}
+                      {{ section.settings.banner_img | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1500 -%}
+                      {{ section.settings.banner_img | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 1780 -%}
+                      {{ section.settings.banner_img | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 2000 -%}
+                      {{ section.settings.banner_img | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 3000 -%}
+                      {{ section.settings.banner_img | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if section.settings.banner_img.width >= 3840 -%}
+                      {{ section.settings.banner_img | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ section.settings.banner_img | image_url }} {{ section.settings.banner_img.width }}w
+                  "
+                  src="{{ section.settings.image | image_url }}"
+                  loading="lazy"
+                  alt="{{ section.settings.banner_img.alt | escape }}"
+                  height="100"
+                  width="100"
+                >
+              {% else %}
+                <img
+                  alt="Login Graphics"
+                  srcset="
+                    {{ 'login-graphics.jpg' | asset_img_url: '360x' }} 360w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '540x' }} 540w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '720x' }} 720w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1080x' }} 1080w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1296x' }} 1296w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1512x' }} 1512x,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1728x' }} 1728w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '1944x' }} 1944w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '2160x' }} 2160w,
+                    {{ 'login-graphics.jpg' | asset_img_url: '2376x' }} 2376w
+                  "
+                  loading="lazy"
+                >
+              {% endif %}
+              <h2 class="banner_title">{{ section.settings.banner_title }}</h2>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'block';
+    document.getElementById('customer').style.display = 'none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'none';
+    document.getElementById('customer').style.display = 'block';
+  }
+
+  if (window.location.hash == '#recover') {
+    showRecoverPasswordForm();
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-login.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "t:sections.main-login.settings.banner_img.label"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "default": "Give your skin a treat every season",
+      "label": "t:sections.main-login.settings.banner_title.label"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000",
+      "label": "t:sections.main-login.settings.overlay_color.label"
+    }
+  ]
+}
+{% endschema %}

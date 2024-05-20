@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="{{ 'features-grid.css' | asset_url }}">
+
+<section
+  class="features-main"
+  style="border-top:{{ section.settings.border_width }}px solid var(--primary-font-color);border-bottom:{{ section.settings.border_width }}px solid var(--primary-font-color);margin-bottom:{{ section.settings.margin_bottom }}px;background-color:{{ section.settings.features_bg_color }};height:{{ section.settings.features_height }}px;"
+>
+  {% if section.settings.features_bg_image != blank -%}
+    <figure
+      class="features_bg"
+      style="align-items:{%- case section.settings.features_bg_position %}{% when 'top' -%}flex-start{%- when 'center' -%}center{%- when 'bottom' -%}flex-end{%- else -%}{%- endcase -%};"
+    >
+      {{- section.settings.features_bg_image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+    </figure>
+  {%- endif %}
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    {% if section.settings.features_bg_image == blank %}
+      <div
+        class="placeholder_bg"
+        style="background-position-y:{% case section.settings.features_bg_position %} {% when 'top' %}0{% when 'center' %}50{% when 'bottom' %}110{% else %}{% endcase %}%;"
+      >
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder_bg' }}
+      </div>
+    {% endif %}
+    <div class="pure-g">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'feature' %}
+            <div class="pure-u-1 pure-u-sm-1-2 pure-u-xl-1-3 feature" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank -%}
+                <img
+                  alt="{{ block.settings.icon.alt | escape }}"
+                  src="{{ block.settings.icon | image_url }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="placeholder_div">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder_img' }}
+                </div>
+              {%- endif %}
+              <div class="content">
+                <h3>{{ block.settings.title }}</h3>
+                <p>{{ block.settings.feature_body }}</p>
+              </div>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:sections.features-grid.name",
+  "limit": 2,
+  "settings": [
+    {
+      "type": "range",
+      "min": 0,
+      "max": 60,
+      "step": 10,
+      "default": 0,
+      "id": "margin_bottom",
+      "unit": "px",
+      "label": "t:sections.features-grid.settings.margin_bottom"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "default": 1,
+      "label": "t:sections.features-grid.settings.border_width",
+      "max": 5,
+      "min": 0,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "min": 450,
+      "max": 600,
+      "step": 50,
+      "default": 600,
+      "id": "features_height",
+      "unit": "px",
+      "label": "t:sections.features-grid.settings.features_height.label"
+    },
+    {
+      "type": "color",
+      "default": "#F3EFE0",
+      "id": "features_bg_color",
+      "label": "t:sections.features-grid.settings.features_bg_color.label"
+    },
+    {
+      "type": "image_picker",
+      "label": "t:sections.features-grid.settings.features_bg_image.label",
+      "id": "features_bg_image",
+      "info": "1400 x 200px required"
+    },
+    {
+      "type": "select",
+      "id": "features_bg_position",
+      "label": "t:sections.features-grid.settings.features_bg_position.label",
+      "default": "bottom",
+      "options": [
+        {
+          "value": "top",
+          "label": "t:sections.features-grid.settings.features_bg_position.options.top.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.features-grid.settings.features_bg_position.options.center.label"
+        },
+        {
+          "value": "bottom",
+          "label": "t:sections.features-grid.settings.features_bg_position.options.bottom.label"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.features-grid.blocks.name",
+      "limit": 3,
+      "type": "feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "t:sections.features-grid.blocks.settings.icon.label",
+          "id": "icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.features-grid.blocks.settings.title.label",
+          "default": "All Natural"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_body",
+          "label": "t:sections.features-grid.blocks.settings.feature_body.label",
+          "default": "Mattis pellentesque id nibh tortor. Euismod lacinia at quis risus sed vulputate odio. Cursus sit amet dictum sit amet justo. Massa tincidunt nunc pulvinar sapien et ligula. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Odio tempor orci dapibus ultrices in iaculis nunc ."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.features-grid.presets.name",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

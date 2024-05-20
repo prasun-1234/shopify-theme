@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {},
+      "blocks": {
+        "title":{
+            "type": "article_title"
+        },
+        "text":{
+            "type":"article_text"
+        },
+        "link":{
+            "type":"article_link"
+        }
+      },
+      "block_order": [
+        "text",
+        "link",
+        "title"
+      ]
+    }
+  },
+  "order": ["main"]}

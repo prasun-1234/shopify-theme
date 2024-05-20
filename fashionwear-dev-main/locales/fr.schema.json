@@ -1,0 +1,1319 @@
+{
+  "section": {
+    "apps": {
+      "name": "Enveloppe d'Applications",
+      "settings": {
+        "include_padding": "Inclure le Rembourrage"
+      },
+      "presets": {
+        "name": "Enveloppe d'Applications"
+      }
+    },
+    "hero-section": {
+      "name": "Section Héroïque",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "background": "Image de Fond",
+        "text_alignment": {
+          "label": "Alignement du texte",
+          "left": "Gauche",
+          "center": "Centre",
+          "right": "Droite"
+        },
+        "overlay_color": "Couleur de superposition",
+        "overlay_opacity": "Opacité de la superposition"
+      },
+      "blocks": {
+        "title": "Titre",
+        "video": "Vidéo",
+        "settings": {
+          "title": "Titre",
+          "color": "Couleur du texte",
+          "card_background": "Image de Fond",
+          "button": "Bouton",
+          "button_url": "URL du Bouton",
+          "button_text": "Texte du Bouton",
+          "adr_text": "Texte de Publicité",
+          "adr_text_color": "Couleur du Texte de Publicité",
+          "adr_bg": "Couleur de Fond de Publicité",
+          "url": "Ajouter un lien",
+          "Advertisement": "Publicité",
+          "title_color": "Couleur du Titre"
+        }
+      },
+      "presets": {
+        "name": "Section Héroïque"
+      }
+    },
+    "info-grid": {
+      "name": "Grille d'Informations",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "section_gap": "Espacement entre les Sections",
+        "background_color": "Couleur de Fond",
+        "grid_cols": "Nombre de Colonnes"
+      },
+      "blocks": {
+        "info_item": {
+          "name": "Bloc d'Information",
+          "settings": {
+            "title": "Titre de l'Élément",
+            "logo_img": "Logo",
+            "paragraph": "Paragraphe de l'Élément",
+            "info_grid_image": "Image de l'Élément"
+          }
+        }
+      },
+      "presets": {
+        "name": "Grille d'Informations"
+      }
+    },
+    "legal": {
+      "name": "Légal",
+      "settings": {
+        "logo": "Logo"
+      }
+    },
+    "main-404": {
+      "name": "Page d'erreur 404",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "section_padding": "Rembourrage de la section",
+        "background": "Arrière-plan",
+        "enable_title": "Activer le titre",
+        "enable_subtext_title": "Activer le sous-titre",
+        "enable_button": "Activer le bouton"
+      },
+      "blocks": {
+        "featured_image": {
+          "name": "Image mise en avant",
+          "settings": {
+            "image": "Image de la section"
+          }
+        },
+        "404_title": {
+          "name": "Titre",
+          "settings": {
+            "error_heading": "Texte du titre",
+            "error_heading_color": "Couleur du texte"
+          }
+        },
+        "subtext_title": {
+          "name": "Sous-titre",
+          "settings": {
+            "error_paragraph": "Texte du paragraphe",
+            "error_paragraph_color": "Couleur du texte"
+          }
+        },
+        "banner_button": {
+          "name": "Bouton",
+          "settings": {
+            "banner_button_text": "Texte du bouton de la bannière"
+          }
+        }
+      }
+    },
+    "image-banner": {
+      "name": "Bannière Image",
+      "settings": {
+        "margin_top": "Marge supérieure de la section",
+        "margin_bottom": "Marge inférieure de la section",
+        "height": "Hauteur de la section",
+        "overlay_color": "Couleur de superposition",
+        "overlay_opacity": "Opacité de la superposition",
+        "text_align": {
+          "label": "Alignement du texte",
+          "options": {
+            "left": "Gauche",
+            "center": "Centre",
+            "right": "Droite"
+          }
+        },
+        "featured_image": "Image mise en avant",
+        "content_color": "Couleur du contenu"
+      },
+      "blocks": {
+        "title": {
+          "name": "Titre",
+          "settings": {
+            "title_text": "Texte du titre"
+          }
+        },
+        "button": {
+          "name": "Bouton",
+          "settings": {
+            "button_icon": "Icône du bouton",
+            "button_text": "Texte du bouton",
+            "button_url": "URL du bouton"
+          }
+        }
+      },
+      "presets": {
+        "name": "Bannière Image"
+      }
+    },
+    "main-addresses": {
+      "name": "Compte Client",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "address_bg": "Couleur de fond de la carte d'adresse"
+      },
+      "blocks": {
+        "card": {
+          "name": "Carte",
+          "settings": {
+            "image": "Image de la section",
+            "logo": "Logo",
+            "sale": "Vente",
+            "discount": "Remise",
+            "button": "Texte du bouton",
+            "text_color": "Couleur du texte"
+          }
+        }
+      }
+    },
+    "main-article": {
+      "name": "Article Principal",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "read_more": "Titre",
+        "enable_date": "Activer la date",
+        "enable_author": "Activer l'auteur",
+        "enable_button": "Activer le bouton",
+        "enable_review": "Activer la section des avis",
+        "submit_button": "Texte du bouton"
+      },
+      "blocks": {
+        "article_header": {
+          "name": "En-tête de l'article"
+        },
+        "article_content": {
+          "name": "Contenu de l'article"
+        },
+        "article_share": {
+          "name": "Bouton de partage"
+        }
+      }
+    },
+    "main-banner-1": {
+      "name": "Bannière Principale Un",
+      "settings": {
+        "section_margin_top": "Marge supérieure",
+        "section_margin_bottom": "Marge inférieure",
+        "background_color": "Couleur de l'arrière-plan",
+        "content_color": "Couleur du contenu",
+        "banner_text": "Titre de la section"
+      },
+      "blocks": {
+        "image_block": "Bloc d'image",
+        "text_block": "Bloc de texte",
+        "settings": {
+          "image": "Image",
+          "text_content": "Paragraphe de la section",
+          "button_text": "Texte du bouton",
+          "button_url": "URL du bouton"
+        }
+      }
+    },
+    "main-banner": {
+      "name": "Bannière Principale",
+      "settings": {
+        "banner-height": "Ajuster la hauteur de la bannière",
+        "background_image": "Sélectionner une image d'arrière-plan",
+        "overlay_color": "Couleur de superposition",
+        "overlay_opacity": "Opacité de la superposition"
+      },
+      "blocks": {
+        "banner_title": {
+          "name": "Titre",
+          "settings": {
+            "banner_heading": "Texte du titre",
+            "banner_heading_color": "Couleur du texte"
+          }
+        },
+        "banner_button": {
+          "name": "Bouton",
+          "settings": {
+            "banner_button_text": "Texte du bouton de la bannière"
+          }
+        }
+      },
+      "presets": {
+        "name": "Bannière Principale"
+      }
+    },
+    "main-blog": {
+      "name": "Page de Blog",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "featured_image": "Image mise en avant",
+        "show_date": "Afficher la date",
+        "stickey_content": "Contenu épinglé",
+        "content_color": "Couleur du contenu",
+        "show_author": "Afficher l'auteur",
+        "number_of_blog_per_page": "Nombre d'articles de blog par page"
+      }
+    },
+    "main-cart-body": {
+      "name": "Section du Panier",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "cart_total_bg": "Couleur de fond du total du panier",
+        "empty_cart_title": "Titre du panier vide",
+        "banner_button_text": "Texte du bouton du panier vide"
+      }
+    },
+    "main-cart-item": {
+      "name": "Article Principal du Panier",
+      "settings": {
+        "padding_top": "Rembourrage supérieur",
+        "padding_bottom": "Rembourrage inférieur"
+      }
+    },
+    "main-collection-banner": {
+      "name": "Bannière de Collection Principale",
+      "settings": {
+        "section_margin_top": "Marge Supérieure de la Section",
+        "section_margin_bottom": "Marge Inférieure de la Section",
+        "all_collection_page": "Page de Toutes les Collections",
+        "title": "Titre de la Section",
+        "image1": "Image Mise en Avant 1",
+        "image2": "Image Mise en Avant 2",
+        "banner_image": "Sélectionner une Image en Vedette",
+        "overlay_color": "Couleur de Superposition",
+        "overlay_opacity": "Opacité de la Superposition",
+        "collection": "Collection en Vedette",
+        "text_align": {
+          "label": "Alignement du Texte",
+          "options": {
+            "left": "Aligner le Texte à Gauche",
+            "center": "Centrer le Texte",
+            "right": "Aligner le Texte à Droite"
+          }
+        },
+        "text_color": "Couleur du Texte",
+        "btn_link": "URL du Bouton",
+        "btn_text": "Texte du Bouton"
+      },
+      "blocks": {
+        "banner-title": {
+          "name": "Titre de la Bannière",
+          "settings": {
+            "banner_title": "Titre de la Bannière"
+          }
+        },
+        "banner-text": {
+          "name": "Texte de la Bannière",
+          "settings": {
+            "banner_text": "Texte de la Bannière"
+          }
+        }
+      },
+      "presets": {
+        "name": "Bannière de Collection Principale"
+      }
+    },
+    "main-collection-card": {
+      "name": "Cartes de Collection",
+      "settings": {
+        "header": {
+          "swiper": "Swiper"
+        },
+        "padding_top": "Marge Supérieure",
+        "padding_bottom": "Marge Inférieure",
+        "heading_style": {
+          "label": "Style de Titre",
+          "style_1": "Style 1",
+          "style_2": "Style 2"
+        },
+        "section_heading": "Titre de la Section",
+        "border_top": "Activer la Bordure Supérieure",
+        "cards_height": "Hauteur des Cartes",
+        "content_color": "Couleur du Contenu",
+        "overlay_color": "Couleur de Superposition",
+        "overlay_opacity": "Opacité de la Superposition",
+        "cards_to_show": "Cartes par Rangée",
+        "slider_arrows": "Activer les Flèches du Slider",
+        "button": "Bouton",
+        "button_text": "Texte du Bouton"
+      },
+      "blocks": {
+        "card": {
+          "name": "Carte",
+          "settings": {
+            "collection": "Sélectionner la Collection",
+            "featured_image": "Image Principale de la Carte",
+            "image_position": {
+              "label": "Position de l'Image",
+              "left": "Gauche",
+              "center": "Centre",
+              "right": "Droite"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Cartes de Collection"
+      }
+    },
+    "main-collection": {
+      "name": "Collection Principale",
+      "settings": {
+        "margin_top": "Marge Supérieure",
+        "margin_bottom": "Marge Inférieure",
+        "sidebar_bg": "Couleur de Fond de la Barre Latérale"
+      }
+    },
+    "main-contact": {
+      "name": "Section de Contact",
+      "settings": {
+        "margin_top": "Marge Supérieure",
+        "margin_bottom": "Marge Inférieure",
+        "contact_title": "Titre de Contact",
+        "border_color": "Couleur de Bordure",
+        "contact_subtext": "Sous-texte de Contact",
+        "button_text": "Texte du Bouton",
+        "contact_map": "Carte",
+        "card_title": "Titre de la Carte"
+      },
+      "blocks": {
+        "card": {
+          "name": "Carte de Contact",
+          "settings": {
+            "card_title": "Titre de la Carte",
+            "shop_address": "Adresse du Magasin",
+            "contact": "Contact",
+            "timing_one": "Horaires en Semaine",
+            "timing_two": "Horaires du Weekend"
+          }
+        }
+      },
+      "presets": {
+        "name": "Section de Contact"
+      }
+    },
+    "main-customer-account": {
+      "name": "Compte Client",
+      "settings": {
+        "margin_top": "Marge Supérieure",
+        "margin_bottom": "Marge Inférieure",
+        "customer_card_bg": "Couleur de Fond de Carte Client"
+      }
+    },
+    "main-faq": {
+      "name": "FAQ",
+      "settings": {
+        "margin_top": "Marge Supérieure",
+        "margin_bottom": "Marge Inférieure",
+        "title": "Titre",
+        "subtitle": "Sous-titre",
+        "button_text": "Texte du Bouton"
+      },
+      "blocks": {
+        "accordion": {
+          "name": "Accordéon",
+          "settings": {
+            "faq_title": "Titre de la FAQ",
+            "faq_text": "Texte de la FAQ"
+          }
+        }
+      },
+      "presets": {
+        "name": "FAQ"
+      }
+    },
+    "main-list-collections": {
+      "name": "Liste des Collections",
+      "settings": {
+        "header": {
+          "grid": "Grille"
+        },
+        "section_margin_top": "Marge Supérieure de la Section",
+        "section_margin_bottom": "Marge Inférieure de la Section",
+        "heading": {
+          "label": "Titre de la Section",
+          "placeholder": "Texte du Titre"
+        },
+        "sort": {
+          "label": "Trier les Collections",
+          "options": {
+            "alphabetical": "Alphabétique",
+            "alphabetical_reversed": "Alphabétique Inversé",
+            "date": "Date",
+            "date_reversed": "Date Inversée",
+            "products_high": "Prix Élevé",
+            "products_low": "Prix Bas"
+          }
+        },
+        "cards_height": "Hauteur des Cartes",
+        "button_color": "Couleur du Bouton de la Carte",
+        "overlay_color": "Couleur de Superposition de la Carte",
+        "overlay_opacity": "Opacité de la Superposition",
+        "image_position": "Position de l'Image de la Carte",
+        "cards_to_show": "Cartes par Rangée",
+        "number_of_items": "Cartes par Page"
+      },
+      "presets": {
+        "name": "Liste des Collections"
+      }
+    },
+    "main-login": {
+      "name": "Connexion",
+      "blocks": {
+        "image": {
+          "name": "Image",
+          "settings": {
+            "form_image": "Sélectionner une image"
+          }
+        },
+        "form": {
+          "name": "Formulaire",
+          "settings": {
+            "title": "Titre",
+            "description": "Description"
+          }
+        }
+      }
+    },
+    "main-modal": {
+      "name": "Modal",
+      "settings": {
+        "enable_modal": "Activer la fenêtre modale",
+        "image": "Image de la section"
+      },
+      "blocks": {
+        "title": {
+          "name": "Titre",
+          "settings": {
+            "title_text": "Texte du titre"
+          }
+        },
+        "description": {
+          "name": "Description",
+          "settings": {
+            "description_text": "Texte de la description"
+          }
+        },
+        "form": {
+          "name": "Formulaire",
+          "settings": {
+            "button_text": "Texte du bouton"
+          }
+        }
+      },
+      "presets": {
+        "name": "Modal"
+      }
+    },
+    "main-news": {
+      "name": "Actualités principales",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "featured_blog": "Article mis en avant",
+        "show_date": "Afficher la date",
+        "show_author": "Afficher l'auteur",
+        "number_of_blog_per_page": "Nombre d'articles par page"
+      }
+    },
+    "main-page-banner": {
+      "name": "Bannière de la page",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "section_padding": "Remplissage de la section",
+        "background_image": "Image d'arrière-plan",
+        "overlay_background": "Couleur de superposition",
+        "overlay_opacity": "Opacité de la superposition"
+      },
+      "blocks": {
+        "text": {
+          "name": "Texte",
+          "settings": {
+            "text": "Texte",
+            "text_color": "Couleur du texte"
+          }
+        },
+        "title": {
+          "name": "Titre de la bannière",
+          "settings": {
+            "banner_text": "Texte de l'en-tête",
+            "banner_color": "Couleur de l'en-tête"
+          }
+        },
+        "product": {
+          "name": "Informations de contact",
+          "settings": {
+            "product_title": "Titre du produit",
+            "Product_email": "Email du produit",
+            "service_title": "Titre du service",
+            "service_email": "Email du service",
+            "tel_title": "Titre de téléphone",
+            "tel_email": "Numéro de contact",
+            "title_color": "Couleur du titre",
+            "text_color": "Couleur du texte"
+          }
+        }
+      },
+      "presets": {
+        "name": "Bannière de la page"
+      }
+    },
+    "main-page": {
+      "name": "Page principale",
+      "settings": {
+        "padding_top": "Marge supérieure",
+        "padding_bottom": "Marge inférieure"
+      }
+    },
+    "main-password": {
+      "name": "Mot de passe principal",
+      "settings": {
+        "bg_main": "Image de la section",
+        "card_bg": "Arrière-plan de la carte",
+        "text_color": "Couleur du texte",
+        "title": "Texte du titre",
+        "subtext": "Texte du paragraphe"
+      }
+    },
+    "main-product": {
+      "name": "Produit principal",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "products_per_row": "Produits par ligne",
+        "stickey_bar": "Barre collante",
+        "enable_sticky_bar": "Activer la barre collante",
+        "bar_bg": "Couleur d'arrière-plan de la barre collante",
+        "bar_content": "Couleur du contenu de la barre collante",
+        "product_zoom_feature": "Fonction de zoom du produit",
+        "enable_zoom_feature": "Activer la fonction de zoom"
+      },
+      "blocks": {
+        "title": "Titre du produit",
+        "vendor": "Fournisseur du produit",
+        "stock": "État des stocks",
+        "description": "Description du produit",
+        "info": "Information sur le produit",
+        "features": "Fonctionnalités",
+        "share": "Groupe de boutons de partage",
+        "options": {
+          "name": "Options",
+          "settings": {
+            "option_style": {
+              "label": "Style d'option de variante",
+              "options": {
+                "pill": "Pilule",
+                "dropdown": "Menu déroulant"
+              }
+            }
+          }
+        },
+        "quantity": "Quantité",
+        "price": "Prix",
+        "sizing": "Guide des tailles",
+        "pickup": "Disponibilité du retrait",
+        "payment": "Boutons de paiement"
+      },
+      "presets": {
+        "name": "Produit unique"
+      }
+    },
+    "main-activate-account": {
+      "name": "Activer le compte principal"
+    },
+    "main-register": {
+      "name": "S'enregistrer",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure"
+      },
+      "blocks": {
+        "image": {
+          "name": "Image",
+          "settings": {
+            "form_image": "Sélectionner une image"
+          }
+        },
+        "form": {
+          "name": "Formulaire",
+          "settings": {
+            "title": "Titre",
+            "description": "Description"
+          }
+        }
+      }
+    },
+    "marquee": {
+      "name": "Marquée",
+      "settings": {
+        "background": "Arrière-plan",
+        "content_color": "Couleur du contenu",
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "drop_shadow": "Ombre portée"
+      },
+      "blocks": {
+        "icons": {
+          "name": "Icône",
+          "settings": {
+            "icon_image": "Sélectionner une icône",
+            "icon_text": "Texte de l'icône"
+          }
+        }
+      },
+      "presets": {
+        "name": "Marquée"
+      }
+    },
+    "multicolumn": {
+      "name": "Multicolonnes",
+      "settings": {
+        "padding_top": "Marge supérieure",
+        "padding_bottom": "Marge inférieure",
+        "margin_bottom": "Marge inférieure",
+        "title": "Titre de la section"
+      },
+      "blocks": {
+        "collection_item": {
+          "name": "Liste de collections",
+          "settings": {
+            "heading": {
+              "label": "Saisir l'intitulé de l'élément",
+              "info": "Titre de l'élément unique",
+              "placeholder": "Saisir l'intitulé"
+            },
+            "paragraph": {
+              "label": "Saisir le paragraphe de l'élément",
+              "info": "Paragraphe de l'élément unique",
+              "placeholder": "Saisir le paragraphe"
+            },
+            "multicolumn_images": "Sélectionner des images multicolumnes"
+          }
+        }
+      },
+      "presets": {
+        "name": "Multicolonnes"
+      }
+    },
+    "newsletter": {
+      "name": "Bulletin d'information",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "heading": "Titre de la section",
+        "featured_image": "Image en vedette",
+        "background_color": "Dégradé d'arrière-plan de la section",
+        "heading_color": {
+          "label": "Couleur du titre de la section",
+          "info": "Choisissez la couleur du titre"
+        }
+      },
+      "presets": {
+        "name": "Bulletin d'information"
+      }
+    },
+    "product-details": {
+      "name": "Détails du produit",
+      "settings": {
+        "title": "Titre de la section"
+      },
+      "presets": {
+        "name": "Détails du produit"
+      }
+    },
+    "product-recommendation": {
+      "name": "Recommandation de produit",
+      "settings": {
+        "section_title": "Titre de la section",
+        "padding_top": "Marge supérieure",
+        "padding_bottom": "Marge inférieure",
+        "product_type": {
+          "label": "Type de produit",
+          "options": {
+            "related": "Lié",
+            "complementary": "Complémentaire"
+          }
+        },
+        "product_view": {
+          "label": "Vue du produit",
+          "info": "Choisissez si vous souhaitez afficher vos produits en vue 'Slider' ou 'Grille'",
+          "options": {
+            "grid": "Grille",
+            "slider": "Slider"
+          }
+        },
+        "items_number": "Nombre d'articles",
+        "post_row_limit": "Articles par ligne",
+        "slider_arrows": {
+          "label": "Activer les flèches de navigation du slider",
+          "info": "Cliquez pour activer les flèches de navigation du slider"
+        }
+      }
+    },
+    "product-review": {
+      "name": "Avis sur le produit",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "background_image": "Sélectionner une image d'arrière-plan",
+        "text_color": "Couleur du contenu"
+      },
+      "blocks": {
+        "featured_image": {
+          "name": "Image en vedette",
+          "settings": {
+            "image": "Sélectionner une image en vedette"
+          }
+        },
+        "title": {
+          "name": "Titre",
+          "settings": {
+            "title_text": {
+              "label": "Titre",
+              "placeholder": "Votre titre"
+            }
+          }
+        },
+        "button": {
+          "name": "Bouton",
+          "settings": {
+            "btn_text": {
+              "label": "Texte du bouton",
+              "placeholder": "Texte du bouton"
+            },
+            "btn_url": "URL du bouton"
+          }
+        }
+      },
+      "presets": {
+        "name": "Avis sur le produit"
+      }
+    },
+    "testimonial": {
+      "name": "Témoignage",
+      "settings": {
+        "section_margin_top": "Marge supérieure",
+        "section_margin_bottom": "Marge inférieure",
+        "section_height": "Hauteur de la section"
+      },
+      "blocks": {
+        "name": "Diapositive",
+        "settings": {
+          "text_content": "Contenu texte",
+          "rating": "Évaluation",
+          "name": "Nom"
+        }
+      }
+    },
+    "video": {
+      "name": "Section Vidéo",
+      "settings": {
+        "background_image": "Sélectionner une image d'arrière-plan",
+        "overlay_opacity": "Opacité du superposition",
+        "overlay_color": "Couleur de la superposition",
+        "demo_video": {
+          "label": "Téléchargement de vidéo",
+          "info": "Activer cette option désactivera l'option 'URL de la vidéo'"
+        },
+        "video_url": "URL de la vidéo",
+        "container_height": "Hauteur de la section",
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure"
+      },
+      "presets": {
+        "name": "Section Vidéo"
+      }
+    },
+    "about-us-banner": {
+      "name": "Bannière À Propos de Nous deux",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "section_padding": "Remplissage de la section",
+        "background_image": {
+          "label": "Sélectionner une image d'arrière-plan",
+          "info": "Si cette option est laissée vide, la couleur d'arrière-plan ci-dessus sera activée"
+        },
+        "card_color": "Couleur de la carte",
+        "button_text": "Texte du bouton",
+        "button_url": "URL du bouton"
+      },
+      "blocks": {
+        "icon": {
+          "name": "icône",
+          "settings": {
+            "image_picker": "Sélectionner une icône"
+          }
+        },
+        "title": {
+          "name": "titre",
+          "settings": {
+            "title": "Titre",
+            "title_color": "Couleur du titre"
+          }
+        },
+        "records": {
+          "name": "enregistrements",
+          "settings": {
+            "number_a": "Nombre",
+            "text_a": "Texte principal",
+            "number_b": "Nombre",
+            "text_b": "Texte principal",
+            "text_color": "Couleur du texte numérique",
+            "text_color_body": "Couleur du texte principal"
+          }
+        }
+      },
+      "presets": {
+        "name": "Bannière À Propos de Nous deux"
+      }
+    },
+    "about-us-content": {
+      "name": "Contenu",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "title": "Étiquette de l'en-tête",
+        "subtitle": "Texte du titre"
+      },
+      "blocks": {
+        "team": {
+          "settings": {
+            "collection_image_1": "Image en vedette",
+            "name": "Nom",
+            "designation": "Désignation",
+            "social_link": "Lien social"
+          }
+        }
+      }
+    },
+    "about-us": {
+      "name": "Bannière À Propos de Nous Un",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "image": {
+          "label": "Sélectionner une image d'arrière-plan",
+          "info": "Si cette option est laissée vide, la couleur d'arrière-plan ci-dessus sera activée"
+        },
+        "text_content": "Ajouter du contenu texte"
+      },
+      "presets": {
+        "name": "Bannière À Propos de Nous Un"
+      }
+    },
+    "brand-list": {
+      "name": "Liste de Marques",
+      "settings": {
+        "backgorund_color": "Sélectionner une couleur d'arrière-plan",
+        "heading_color": "Couleur du titre",
+        "heading": "Sélectionner le texte de l'en-tête",
+        "slide_limit": "Limite de diapositives"
+      },
+      "blocks": {
+        "brand_logo": {
+          "settings": {
+            "logo_image": "Sélectionner le logo de la marque",
+            "brand_link": "Lien de l'élément"
+          }
+        }
+      },
+      "presets": {
+        "name": "Liste de Marques"
+      }
+    },
+    "brands": {
+      "name": "Marques",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "section_heading": "En-tête de la section"
+      },
+      "blocks": {
+        "name": "Icône",
+        "settings": {
+          "icon": "Logo"
+        }
+      }
+    },
+    "focal-banner": {
+      "name": "Bannière Focale",
+      "settings": {
+        "margin_top": "Marge supérieure de la section",
+        "margin_bottom": "Marge inférieure de la section",
+        "background_image": "Image d'arrière-plan",
+        "overlay_color": "Couleur de superposition",
+        "overlay_opacity": "Opacité de la superposition"
+      },
+      "blocks": {
+        "name": "Point Focal",
+        "settings": {
+          "image": {
+            "label": "Image Focale",
+            "info": "Ajouter une image similaire pour le point focal avec un nom d'image différent. Si le nom de l'image est identique, la position focale reste la même."
+          },
+          "focal_product": "Sélectionner un produit focal"
+        }
+      }
+    },
+    "breadcrumb": {
+      "name": "Fil d'Ariane",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "text_color": "Couleur du texte"
+      },
+      "presets": {
+        "name": "Fil d'Ariane"
+      }
+    },
+    "cart-drawer": {
+      "name": "Tiroir du Panier",
+      "settings": {
+        "empty_cart_title": "Titre",
+        "banner_button_text": "Texte du Bouton",
+        "cart_content_color": "Couleur du Contenu du Panier",
+        "cart_bg": "Couleur d'Arrière-plan du Panier",
+        "cart_total_bg": "Couleur d'Arrière-plan Total du Panier",
+        "cart_total_content": "Couleur du Contenu Total du Panier"
+      }
+    },
+    "collection-banner": {
+      "name": "Bannière de Collection",
+      "settings": {
+        "section_margin_top": "Marge Supérieure de Section",
+        "section_margin_bottom": "Marge Inférieure de Section",
+        "section_padding": "Rembourrage de Section",
+        "collection": "Collection",
+        "custom_title": "Titre Personnalisé",
+        "title": "Afficher le Titre de la Collection",
+        "description": "Afficher la Description de la Collection",
+        "text_color": "Couleur du Contenu",
+        "overlay_color": "Couleur de Superposition",
+        "overlay_opacity": "Opacité de Superposition",
+        "text_align": {
+          "label": "Alignement du Texte",
+          "options": {
+            "left": "Alignement Gauche",
+            "center": "Alignement Centre",
+            "right": "Alignement Droit"
+          }
+        },
+        "button_text": "Texte du Bouton",
+        "header": {
+          "button": "Bouton"
+        }
+      },
+      "presets": {
+        "name": "Bannière de Collection"
+      }
+    },
+    "feature-collection": {
+      "name": "Collection Vedette",
+      "settings": {
+        "title": "Titre",
+        "section_margin_top": "Marge Supérieure de Section",
+        "section_margin_bottom": "Marge Inférieure de Section",
+        "padding": "Hauteur de Section",
+        "collection": "Collection",
+        "background_color": "Couleur d'Arrière-plan",
+        "product_view": {
+          "label": "Vue Produit",
+          "options": {
+            "slider": "Glissière",
+            "grid": "Grille"
+          }
+        },
+        "products_to_show": "Nombre de Produits",
+        "products_per_row": "Produits par Ligne dans le Slider",
+        "side_banner": "Bannière Latérale",
+        "side_banner_enable": "Activer la Bannière Latérale",
+        "image": "Bannière Latérale",
+        "side_banner_color": "Couleur de Superposition Latérale",
+        "banner_content_color": "Couleur du Contenu de la Bannière Latérale",
+        "side_banner_opacity": "Opacité de Superposition Latérale",
+        "side_banner_title": "Titre de la Bannière Latérale",
+        "banner_button_text": "Texte du Bouton",
+        "url": "URL du Bouton",
+        "enable_collection_button": "Activer le Bouton de Lien de Collection"
+      },
+      "presets": {
+        "name": "Collection Vedette"
+      }
+    },
+    "featured-product": {
+      "name": "Produit Vedette",
+      "settings": {
+        "margin_top": "Marge Supérieure",
+        "margin_bottom": "Marge Inférieure",
+        "button_text": "Texte du Bouton Inférieur"
+      },
+      "blocks": {
+        "collection": {
+          "name": "Élément de Collection",
+          "settings": {
+            "collection_1": "Sélectionner la Collection :",
+            "link_text": "Texte de Lien"
+          }
+        }
+      },
+      "presets": {
+        "name": "Produit Vedette",
+        "settings": {
+          "button_text": "Voir Toute la Collection"
+        }
+      }
+    },
+    "footer": {
+      "name": "Pied de page",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "border_top": "Activer la bordure",
+        "description": "Activer l'adresse du pied de page",
+        "footer_menu": "Menu mis en avant",
+        "background_color": "Couleur d'arrière-plan du pied de page",
+        "content_color": "Couleur du contenu du pied de page"
+      },
+      "blocks": {
+        "page_links": {
+          "name": "Liens de Menu",
+          "settings": {
+            "title": "Titre du menu",
+            "menu_links": "Menu",
+            "link_limit": "Limite de liens"
+          }
+        },
+        "collection_links": {
+          "name": "Liens de Collection",
+          "settings": {
+            "title": "Titre du menu",
+            "collection_list": "Collection",
+            "link_limit": "Limite de liens"
+          }
+        },
+        "quick_links": {
+          "name": "Liens Rapides"
+        }
+      }
+    },
+    "quickview": {
+      "name": "Aperçu rapide",
+      "settings": {
+        "bg_color": "Couleur de fond de la fenêtre modale",
+        "content_color": "Couleur du contenu de la fenêtre modale"
+      }
+    },
+    "instagram": {
+      "name": "Instagram",
+      "settings": {
+        "margin_top": "Marge supérieure",
+        "margin_bottom": "Marge inférieure",
+        "section_heading": "Titre de la section",
+        "social_tag": "Identifiant Instagram",
+        "social_url": "URL de l'identifiant social"
+      },
+      "blocks": {
+        "name": "Bloc d'image",
+        "settings": {
+          "image": "Image mise en avant",
+          "link": "Lien"
+        }
+      },
+      "presets": {
+        "name": "Instagram"
+      }
+    },
+    "header": {
+      "name": "En-tête",
+      "settings": {
+        "header_height": "Hauteur de l'en-tête",
+        "margin_bottom": "Marge inférieure",
+        "sticky_header": "Activer l'en-tête fixe",
+        "header_bg": "Couleur de fond de l'en-tête",
+        "header_bg_opacity": "Opacité du fond de l'en-tête",
+        "header_bg_blur": "Flou du fond de l'en-tête",
+        "hamburger_img": "Image de fond du menu hamburger",
+        "header_content_color": "Couleur du contenu de l'en-tête",
+        "logo_overlay": {
+          "label": "Activer le recouvrement du logo",
+          "info": "Appliquera un recouvrement au logo dans l'en-tête au survol ou en mode fixe"
+        },
+        "Responsive_link_icons": "Icône d'étiquette de deal",
+        "link_icon_1": "Icône de lien 1",
+        "link_icon_2": "Icône de lien 2",
+        "link_icon_3": "Icône de lien 3",
+        "link_icon_4": "Icône de lien 4",
+        "link_icon_5": "Icône de lien 5",
+        "link_icon_6": "Icône de lien 6",
+        "link_icon_7": "Icône de lien 7",
+        "link_icon_info": "Ajoute une icône aux liens de menu respectifs"
+      },
+      "blocks": {
+        "mega-item": {
+          "name": "Élément du méga menu",
+          "settings": {
+            "menu_index": {
+              "label": "Assigner à l'élément de menu",
+              "options": {
+                "first": "Premier élément de menu",
+                "second": "Deuxième élément de menu",
+                "third": "Troisième élément de menu",
+                "fourth": "Quatrième élément de menu",
+                "fifth": "Cinquième élément de menu",
+                "sixth": "Sixième élément de menu",
+                "seventh": "Septième élément de menu",
+                "eight": "Huitième élément de menu"
+              }
+            },
+            "mega_bottom": {
+              "label": "Type de panneau inférieur",
+              "info": "Sélectionnez le type de contenu que vous souhaitez afficher sur le panneau inférieur de ce méga menu",
+              "options": {
+                "none": "Aucun",
+                "navigation": "Navigation par défaut",
+                "menu": "Sélection de menu",
+                "collection": "Liste de collections",
+                "contact": "Informations de contact"
+              }
+            },
+            "mega_top": {
+              "label": "Type de panneau supérieur",
+              "info": "Sélectionnez le type de contenu que vous souhaitez afficher sur le panneau supérieur de ce méga menu",
+              "options": {
+                "slider": "Carrousel de produits",
+                "blog": "Blog mis en avant",
+                "Map": "Carte",
+                "banner": "Bannière"
+              }
+            },
+            "mega_menu_bottom": {
+              "content": "Contenu du bas du méga menu"
+            },
+            "bottom_title": {
+              "label": "Titre du panneau inférieur",
+              "placeholder": "Support"
+            },
+            "featured_menu": {
+              "label": "Menu mis en avant",
+              "info": "Si le 'Type de panneau inférieur' est 'Sélection de menu', veuillez utiliser cette option"
+            },
+            "featured_collections": {
+              "label": "Collections",
+              "info": "Si le 'Type de panneau inférieur' est 'Liste de collections', veuillez utiliser cette option"
+            },
+            "mega_menu_top": {
+              "content": "Contenu du haut du méga menu"
+            },
+            "image": {
+              "label": "Image mise en avant",
+              "info": "Si le 'Type de panneau supérieur' est 'Bannière', veuillez utiliser cette option"
+            },
+            "products_slider": {
+              "label": "Sélectionner la collection",
+              "info": "Si le 'Type de panneau supérieur' est 'Carrousel de produits', veuillez utiliser cette option"
+            },
+            "map": {
+              "label": "Intégration de carte",
+              "info": "Si le 'Type de panneau supérieur' est 'Carte', veuillez utiliser cette option"
+            },
+            "featured_article": {
+              "label": "Sélectionner un article",
+              "info": "Si le 'Type de panneau supérieur' est 'Article mis en avant', veuillez utiliser cette option"
+            },
+            "top_title": "Titre du haut",
+            "banner_title": {
+              "label": "Titre de la bannière",
+              "info": "Si le 'Type de panneau supérieur' est 'Bannière', veuillez utiliser cette option"
+            },
+            "banner_text_align": {
+              "label": "Alignement du texte de la bannière",
+              "options": {
+                "left": "Alignement à gauche",
+                "center": "Alignement centré",
+                "right": "Alignement à droite"
+              }
+            },
+            "banner_button_text": {
+              "label": "Texte du bouton de la bannière",
+              "info": "Si le 'Type de panneau supérieur' est 'Bannière', veuillez utiliser cette option"
+            },
+            "banner_button_url": {
+              "label": "URL du bouton de la bannière",
+              "info": "Si le 'Type de panneau supérieur' est 'Bannière', veuillez utiliser cette option"
+            }
+          }
+        }
+      }
+    },
+    "home-blog": {
+      "name": "Section des articles de blog",
+      "settings": {
+        "header": {
+          "sticky_content": "Contenu épinglé"
+        },
+        "section_margin_top": "Marge supérieure",
+        "section_margin_bottom": "Marge inférieure",
+        "background_color": "Sélectionner la couleur de fond",
+        "featured_blog": "Articles de blog mis en avant",
+        "sticky_content": {
+          "label": "Contenu épinglé",
+          "info": "Le contenu épinglé ne sera visible que lorsque a. Article de blog dans la rangée de la grille = 2 et b. Paramètres d'affichage des produits = paramètres de la grille"
+        },
+        "content_color": "Couleur du contenu",
+        "show_date": "Afficher la date",
+        "show_author": "Afficher l'auteur",
+        "post_row_limit": "Articles de blog dans la rangée de la grille",
+        "product_view": {
+          "content": "Vue des produits"
+        },
+        "slider_or_grid": {
+          "options": {
+            "grid": "Grille",
+            "slider": "Curseur"
+          },
+          "label": "Paramètres d'affichage des produits"
+        },
+        "item_limit": "Publications par page"
+      },
+      "presets": {
+        "name": "Section des articles de blog"
+      }
+    },
+    "new-marquee": {
+      "name": "Nouveau Marquee",
+      "settings": {
+        "section_margin_top": "Marge supérieure de la section",
+        "section_margin_bottom": "Marge inférieure de la section",
+        "block_background": {
+          "label": "Arrière-plan du bloc",
+          "even": "Pair",
+          "odd": "Impair"
+        },
+        "reverse_direction": "Inverser la direction",
+        "background_color": "Couleur de fond",
+        "content_color": "Couleur du contenu",
+        "marquee_speed": "Vitesse du marquage"
+      },
+      "blocks": {
+        "marquee_block": {
+          "name": "Nouveau bloc de marquage",
+          "settings": {
+            "image": "Image",
+            "title": "Titre"
+          }
+        }
+      },
+      "presets": {
+        "name": "Nouveau Marquee"
+      }
+    }
+  }
+}

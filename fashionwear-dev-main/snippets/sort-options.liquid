@@ -1,0 +1,52 @@
+{% style %}
+  #sort-by {
+    border-radius: var(--button-radius);
+    border: 1px solid var(--form-border-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
+
+{% endstyle %}
+{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+<div
+  x-data="
+    {
+      loading: false,
+      sort: '{{ sort_by }}',
+      sortCollection(){
+        this.loading = true;
+         fetch('/collections/{{ collection.handle }}?sort_by=' + this.sort)
+         .then(response => response.text())
+         .then(data => {
+           let html_div = document.createElement('div');
+           html_div.innerHTML = data;
+          let html_dom = html_div.querySelector('#productGridContainer').innerHTML;
+
+            document.querySelector('#productGridContainer').innerHTML = html_dom
+            history.replaceState(null,null,'?sort_by=' + this.sort)
+         })
+         .catch(error => console.log('Error:', error))
+         .finally(() => this.loading = false)
+      }
+    }
+  "
+>
+  {% render 'loader' %}
+  <div class=" relative ">
+    {% render 'icon-chevron-right', class: 'rotate-90 absolute right-[15px] top-0 h-full w-[8px] stroke pointer-events-none' %}
+  <select id="sort-by" x-model="sort" @change="sortCollection()" class="pl-2 pr-12 py-3">
+    {% for option in collection.sort_options %}
+      <option
+        value="{{ option.value }}"
+        {% if option.value == sort_by %}
+          selected="selected"
+        {% endif %}
+      >
+        {{ option.name }}
+      </option>
+    {% endfor %}
+  </select>
+  </div>
+</div>

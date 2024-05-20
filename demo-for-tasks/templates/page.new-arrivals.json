@@ -1,0 +1,23 @@
+{
+    "sections": {
+      "breadcrumb": {
+        "type": "breadcrumb",
+        "settings": {
+          "section_margin_top": 40,
+          "section_margin_bottom": 40,
+          "text_color": "#CBD5E1"
+        }
+      },
+      "new-arrivals":{
+        "type":"new-arrivals",
+        "settings": {
+          "collection": "new-arrivals",
+          "heading": "New arrivals"
+        }
+      }      
+  },
+  "order": [
+    "breadcrumb",
+    "new-arrivals"
+  ]
+}

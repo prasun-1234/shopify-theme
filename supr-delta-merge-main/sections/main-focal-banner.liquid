@@ -1,0 +1,226 @@
+{% style %}
+  .focal-content {
+    display: none;
+  }
+
+  @media screen and (min-width: 767px) {
+    .focal-active .focal-content {
+      display: block;
+    }
+  }
+  {% if section.settings.enable_button == true %}
+  .card svg path{
+      stroke: #fff;
+    }
+  {% else %}
+  .card svg path{
+      stroke: #5A9DE5;
+  }
+  {% endif %}
+  #{{ section.id }}{
+    margin-top:{{ section.settings.margin-top }}px;
+    margin-bottom:{{ section.settings.margin-bottom }}px;
+  }
+  @media screen and (max-width:980px){
+    #{{ section.id }}{
+    margin-top:{{ section.settings.margin-top | divided_by: 2 }}px;
+    margin-bottom:{{ section.settings.margin-bottom | divided_by: 2 }}px;
+  }
+  }
+{% endstyle %}
+
+<section
+  id="{{ section.id }}"
+>
+  <div>
+    <div class="relative overlay">
+      <!-- banner overlay -->
+      <div
+        class="banner-overlay absolute left-0 top-0 w-full h-full pointer-events-none"
+        style="background-color:{{ section.settings.overlay_color }}; opacity:calc({{ section.settings.overlay_opacity }}/10);"
+      ></div>
+      <!-- banner overlay -->
+
+      <!-- background image -->
+      <div>
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 1500
+            | image_tag:
+              loading: 'lazy',
+              sizes: '100',
+              widths: '165, 360, 535, 750, 1070, 1500',
+              class: ' object-cover w-full h-full'
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-[300px] lg:h-[400px]' }}
+        {% endif %}
+      </div>
+      <!-- background image -->
+
+      <!-- focal image -->
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'focal_point' %}
+            {% comment %} focal point {% endcomment %}
+            {% assign product = block.settings.focal_product %}
+            <div
+              class="z-50 absolute"
+              style="top :{{ block.settings.image.presentation.focal_point.y }}%; left :{{ block.settings.image.presentation.focal_point.x }}%;"
+            >
+              <div class="relative focal-point min-w-10 min-h-10 rounded-full">
+                <span class="relative inline-block h-[40px]">
+                  <a
+                    href="{{ product.url }}"
+                    rel="nofollow"
+                    class="absolute left-0 top-0 w-full h-full z-20 lg:pointer-events-none"
+                  >
+                  </a>
+                  <button class="relative">
+                    {% render 'focal-icon' %}
+                  </button>
+                </span>
+                <div
+                  class="bg-white card lg:p-[10px] md:p-[6px] focal-content lg:w-[292px] md:w-[250px] lg:h-[120px] md:h-[100px] absolute {% if block.settings.image.presentation.focal_point.x >= 50 %}right-0{% endif %} {% if block.settings.image.presentation.focal_point.y >= 50 %} bottom-0 translate-y-[-50px] translate-x-[-50px] {% endif %}"
+                  focal-attri="{{ product.url }}"
+                >
+                  <div class="flex lg:gap-[10px] md:gap-[10px] items-center lg:h-[100px] md:h-[88px]">
+                    <div class="block ">
+                      {% if product.images != blank %}
+                        {{
+                          product.images[0]
+                          | image_url: width: 1500
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '100',
+                            widths: '165, 360, 535, 750, 1070, 1500',
+                            class: ' object-cover lg:w-[100px] md:w-[80px] max-h-[100px] h-full'
+                        }}
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'w-[100px]' }}
+                      {% endif %}
+                    </div>
+                    <div class="flex flex-col justify-around {% if section.settings.enable_link == true %}  gap-[6px] {% elsif section.settings.enable_button == true %} gap-0 {% endif %}">
+                      <p class="block ">
+                        {{ product.title | truncatewords: 3 }}
+                      </p>
+                      <p class="">{{ product.price | money_with_currency }}</p>
+                      {% if section.settings.enable_link == true %}
+                        <div class="flex items-center gap-2">
+                          <a class=" text-[#5A9DE5] " href="{{ product.url }}">View Product</a>
+                          {% render 'icon-focal-arrow' %}
+                        </div>
+                      {% endif %}
+                    </div>
+                    {% if section.settings.enable_button == true %}
+                      <div class="">
+                        <a class=" py-3 px-4 bg-[#398179] inline-block rounded-full" href="{{ product.url }}">
+                          {%- render 'icon-focal-arrow' %}
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% comment %} focal point {% endcomment %}
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+      <!-- focal image -->
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Focal Banner",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin-top",
+      "max": 80,
+      "min": 0,
+      "step": 20,
+      "default": 0,
+      "unit": "px",
+      "label": "Section Margin Top"
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "max": 80,
+      "min": 20,
+      "step": 20,
+      "default": 80,
+      "unit": "px",
+      "label": "Section Margin Bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.image-banner.settings.background_image.label",
+      "info": "Recommended size for focal Image '1920 x 980' "
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.image-banner.settings.overlay_color",
+      "default": "#253237"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.image-banner.settings.overlay_opacity",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button",
+      "label": "Enable Button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_link",
+      "label": "Enable Link",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Focal Point",
+      "type": "focal_point",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Focal Image",
+          "info": "Add similar image for focal point with different image name. If the image name is same the focal position remain same."
+        },
+        {
+          "type": "product",
+          "id": "focal_product",
+          "label": "Select Focal Product"
+        }
+      ],
+      "limit": 5
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let focalPoints = document.querySelectorAll('.focal-point');
+
+  focalPoints.forEach((focalpoint) => {
+    focalpoint.querySelector('.gps_ring').addEventListener('click', () => {
+      focalpoint.classList.toggle('focal-active');
+    });
+  });
+{% endjavascript %}

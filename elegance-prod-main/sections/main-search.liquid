@@ -1,0 +1,324 @@
+<link rel="stylesheet" href="{{ 'main-search.css' | asset_url }}">
+
+{% style %}
+  #search-listing{
+    margin-top:{{ section.settings.margin_top }}px;
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+  .search_filter_modal *,.search_filter_modal *::placeholder{
+     color:{{ section.settings.filter_sidebar_content }};
+  }
+  .search_filter_modal svg path{
+    fill:{{ section.settings.filter_sidebar_content }};
+  }
+  .search_filter_modal svg.stroke path{
+    fill:transparent;
+    stroke:{{ section.settings.filter_sidebar_content }};
+  }
+  #search_filters details .price_input{
+    border-color:{{ section.settings.filter_sidebar_content }};
+  }
+
+{% endstyle %}
+
+<div id="search-listing" role="search">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-1">
+        <div class="l-box">
+          <div class="search-block">
+            <form action="/search" method="get" role="search">
+              <div class="input-group">
+                <label for="search-field" class="visually-hidden">{{ 'general.search.label' | t }}</label>
+                <input
+                  name="q"
+                  type="search"
+                  id="search-field"
+                  autofocus
+                  placeholder="Search store..."
+                  value="{{ search.terms | escape }}"
+                >
+
+                <input type="hidden" name="type" value="{{ settings.search_only }}">
+                <input type="hidden" name="options[prefix]" value="last">
+                <button type="submit" class="theme-btn primary-btn">
+                  <span class="btn-bg"></span><span class="btn-text">{{ 'main_search.btn-text' | t }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {% if search.performed %}
+          {% paginate search.results by 9 %}
+            {% if search.results_count == 0 %}
+              <h5>
+                {{ 'main_search.search_result_1' | t }}
+                <span>"{{ search.terms }}"</span> {{ 'main_search.search_result_2' | t }}
+              </h5>
+            {% else %}
+              <div class="search-section">
+                {% if section.settings.search_filter == true %}
+                  <button type="button" class="plain-button filter-button" id="search_filter_btn">
+                    {{ 'main_search.filter' | t }}
+                  </button>
+                  <aside class="search_filter_modal">
+                    {% render 'search-filters', section: section %}
+                  </aside>
+                {% endif %}
+                <div
+                  class="pure-g search-grid"
+                  style="
+                    grid-template-columns:
+                    {% case section.settings.search_row_items %}
+                          {% when "3" %}
+                            repeat(3, minmax(0, 1fr))
+                            {% when "4" %}
+                            repeat(4, minmax(0, 1fr))
+                      {% else %}
+                    {% endcase %}
+                    ; grid-gap:{{ section.settings.search_row_gap }}px
+                  "
+                >
+                  {% liquid
+                    assign no_product_found = true
+                    for item in search.results
+                      if item.object_type == 'product'
+                        assign no_product_found = false
+                        render 'product-item' with product: item, class: 'pure-u-1'
+                      endif
+                    endfor
+                  %}
+                </div>
+              </div>
+              {% if no_product_found %}
+                <p>{{ 'general.search.no_results_found' | t }}</p>
+              {% endif %}
+            {% endif %}
+
+            {% if settings['pagination-type'] == 'simple-pagination' %}
+              {% if paginate.pages > 1 %}
+                <div class="pagination-link">
+                  <nav role="navigation">
+                    <ul class="pagination">
+                      {%- if paginate.previous -%}
+                        <li>
+                          <a
+                            rel="nofollow"
+                            href="{{ paginate.previous.url }}"
+                            data-href="{{ paginate.previous.url }}"
+                            class="paginate"
+                          >
+                            <span aria-hidden="true" class="prev">{% render 'arrow-prev' %}</span>
+                            <span class="visuallyhidden"></span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- for part in paginate.parts -%}
+                        {%- if part.is_link -%}
+                          <li>
+                            <a rel="nofollow" href="{{ part.url }}" data-href="{{ part.url }}" class="paginate">
+                              <span class="visuallyhidden"></span> {{ part.title }}
+                            </a>
+                          </li>
+                        {%- else -%}
+                          {%- if part.title == paginate.current_page -%}
+                            <li class="active" aria-current="page">
+                              <span class="visuallyhidden"></span> {{ part.title }}
+                            </li>
+                          {%- else -%}
+                            <li><span class="visuallyhidden"></span> {{ part.title }}</li>
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+
+                      {%- if paginate.next -%}
+                        <li>
+                          <a
+                            rel="nofollow"
+                            href="{{ paginate.next.url }}"
+                            data-href="{{ paginate.next.url }}"
+                            class="paginate"
+                          >
+                            <span class="visuallyhidden"></span>
+                            <span aria-hidden="true" class="next">{% render 'arrow-next' %}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  </nav>
+                </div>
+              {% endif %}
+            {% else %}
+              {% render 'loader', id: 'load-more-product-spinner' %}
+              <span class="load-more-product" data-page="{{ paginate.pages }}" data-current="1"></span>
+            {% endif %}
+          {% endpaginate %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="pure-g searchgrid--footer">
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="l-box">
+          <div class="grid--footer-item">
+            {% assign no_page_found = true %}
+            <h4>{{ 'general.search.page_label' | t }}</h4>
+            <ul>
+              {% for item in search.results %}
+                {% if item.object_type == 'page' %}
+                  {% assign no_page_found = false %}
+                  <li>
+                    <a rel="nofollow" href="{{ item.url }}">{{ item.title }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+            {% if no_page_found %}
+              <p>{{ 'general.search.no_results_found' | t }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="l-box">
+          <div class="grid--footer-item">
+            <h4>{{ 'general.search.blog_label' | t }}</h4>
+            {% assign no_post_found = true %}
+            <ul>
+              {% for item in search.results %}
+                {% if item.object_type == 'article' %}
+                  {% assign no_post_found = false %}
+                  <li>
+                    <a rel="nofollow" href="{{ item.url }}">{{ item.title }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+            {% if no_post_found %}
+              <p>{{ 'general.search.no_results_found' | t }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-search.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:sections.main-search.settings.margin_top.label",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:sections.main-search.settings.margin_bottom.label",
+      "default": 40,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_filter",
+      "label": "t:sections.main-search.settings.search_filter.label",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "filter_sidebar_color",
+      "default": "#fff",
+      "label": "t:sections.main-search.settings.filter_sidebar_color.label"
+    },
+    {
+      "type": "color",
+      "id": "filter_sidebar_content",
+      "default": "#434242",
+      "label": "t:sections.main-search.settings.filter_sidebar_content.label"
+    },
+    {
+      "type": "select",
+      "label": "t:sections.main-search.settings.search_row_items.label",
+      "id": "search_row_items",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "label": "t:sections.main-search.settings.search_row_gap.label",
+      "id": "search_row_gap",
+      "min": 10,
+      "max": 40,
+      "step": 10,
+      "default": 30
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let searchFilterButton = document.querySelector('#search_filter_btn');
+  if (searchFilterButton) {
+    let searchSection = document.querySelector('#search-listing');
+    let searchSidebar = document.querySelector('.search_filter_modal');
+    searchFilterButton.addEventListener('click', (e) => {
+      searchSidebar.classList.add('modal-active');
+    });
+    let closeBtn = searchSidebar.querySelector('.close-sidebar');
+    closeBtn.addEventListener('click', (e) => {
+      searchSidebar.classList.remove('modal-active');
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.key == 'Escape') {
+        searchSidebar.classList.remove('modal-active');
+      }
+    });
+    let filterSummary = document.querySelectorAll('#search_filters summary');
+    filterSummary.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        let icon = item.querySelector('svg');
+        icon.classList.toggle('active');
+      });
+    });
+  }
+
+  let filterBtns = document.querySelectorAll('.tab-check');
+
+  if (filterBtns) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('keyup', (e) => {
+        console.log(e.target);
+        if (e.key == 'Enter' || e.key == ' ') {
+          btn.querySelector('input').click();
+        }
+      });
+    });
+  }
+{% endjavascript %}

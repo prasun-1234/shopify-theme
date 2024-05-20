@@ -1,0 +1,272 @@
+{% style %}
+  .hero-section{
+    padding-top:{{ section.settings.margin_top }}px !important;
+    padding-bottom:{{ section.settings.margin_bottom }}px !important;
+  }
+  @media screen and (max-width: 1600px){
+    .hero-section{
+      padding-top:{{ section.settings.margin_top | divided_by: 1.5 }}px !important;
+      padding-bottom:{{ section.settings.margin_bottom | divided_by: 1.5 }}px !important;
+    }
+  }
+{% endstyle %}
+{{ 'section-hero_section.css' | asset_url | stylesheet_tag }}
+<section class="hero-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="main-hero-section">
+      <div class="hero-column-left">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'link_btn' %}
+              {% if block.settings.link_url != blank and block.settings.link_text1 != blank %}
+                <a href="{{ block.settings.link_url }}" class="dashed-border link_btn" {{ block.shopify_attributes }}>
+                  {{ block.settings.link_icon | image_url: width: 100 | image_tag: class: 'icon' }}
+                  <span class="rich_type_animate">
+                    {% if block.settings.link_text1 != blank %}
+                      <p class="link_text1">
+                        {{- block.settings.link_text1 }}
+                      </p>
+                    {% endif %}
+
+                    {% if block.settings.link_text2 != blank %}
+                      <p class="link_text2">
+                        {{- block.settings.link_text2 }}
+                      </p>
+                    {% endif %}
+                    {% if block.settings.link_text3 != blank %}
+                      <p class="link_text3">
+                        {{- block.settings.link_text3 }}
+                      </p>
+                    {% endif %}
+                  </span>
+                </a>
+              {% endif %}
+            {% when 'heading' %}
+              {% if block.settings.heading_text != blank %}
+                <div {{ block.shopify_attributes }} class="heading">
+                  {{ block.settings.heading_text }}
+                </div>
+              {% endif %}
+            {% when 'paragraph' %}
+              {% if block.settings.paragraph_text != blank %}
+                <div {{ block.shopify_attributes }}>
+                  <p class="para">
+                    {{ block.settings.paragraph_text }}
+                  </p>
+                </div>
+              {% endif %}
+            {% when 'button' %}
+              {% if block.settings.button_url != blank and block.settings.button_text != blank %}
+                <a
+                  href="{{ block.settings.button_url }}"
+                  class="button button_primary"
+                  {{ block.shopify_attributes }}
+                >
+                  {% render 'button-primary', text: block.settings.button_text %}
+                </a>
+              {% endif %}
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      <div class="second-box">
+        <span
+          class="hero-column-gradient vector_el"
+          style="background-color:{{ section.settings.accent_color }};"
+        ></span>
+        {% if section.settings.image != blank %}
+          <figure class="img-box">
+            {% capture sizes %}(min-width: 750px) 500px, 150px{% endcapture %}
+            {% capture widths %}200, 400 ,600{% endcapture %}
+            {{
+              section.settings.image
+              | image_url: width: 1000
+              | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'hero-section-img'
+            }}
+          </figure>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Section margin top",
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Section margin bottom",
+      "max": 200,
+      "min": 0,
+      "step": 10,
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Feature image"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#143092"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Link button",
+      "type": "link_btn",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "link_icon",
+          "label": "Button icon"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "link_text1",
+          "label": "Button label 1",
+          "default": "Trusted by more than 400 Shopify Merchants"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "link_text2",
+          "label": "Button label 2",
+          "default": "Trusted by more than 400 Shopify Merchants"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "link_text3",
+          "label": "Button label 3",
+          "default": "Trusted by more than 400 Shopify Merchants"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Button URL"
+        }
+      ]
+    },
+    {
+      "name": "Section heading",
+      "limit": 1,
+      "type": "heading",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "heading_text",
+          "label": "Heading",
+          "default": "<h2>Your own <span>Shopify</span> Design & Development Team</h2>"
+        }
+      ]
+    },
+    {
+      "name": "Section paragraph",
+      "type": "paragraph",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "paragraph_text",
+          "label": "Body text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button label",
+          "default": "view shopify tasks"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script defer>
+  // Typing animation
+
+  let richText = document.querySelector('#{{ section.id }} .rich_type_animate');
+
+  if (richText) {
+    // These are the words we want to display
+    const txtArray = [];
+    let texts = richText.querySelectorAll(':scope > *');
+    texts.forEach((txt) => {
+      txtArray.push(txt.textContent);
+    });
+    let span = document.createElement('span');
+    span.classList.add('main_el');
+    richText.prepend(span);
+    // These are increment and decrement counters
+    let i = 0,
+      j = 0;
+
+    // This is for checking if all the characters of the word have been typed
+    let end = false;
+
+    // This will be the waiting function, to give delay after typing
+    function wait(seconds) {
+      return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+    }
+
+    // The main funcion to type and backspace multiple words
+    async function main() {
+      // Check if the value of i is less than array length of txt containg all the words
+      if (i < txtArray.length) {
+        // This is for the auto typing
+        if (end == false && j <= txtArray[i].length) {
+          span.innerHTML += txtArray[i][j];
+          j++;
+        }
+
+        //This is for backspacing the characters one by one
+        if (end == true && j <= txtArray[i].length) {
+          span.innerHTML = txtArray[i].substring(0, j - 1);
+          j--;
+        }
+
+        // This is for checking if all the characters have been typed
+        if (j == txtArray[i].length) {
+          end = true;
+          await wait(1);
+        }
+
+        // This is for going to the next word
+        if (end == true && j == 0) {
+          i++;
+          end = false;
+        }
+      }
+      // If the value of i becomes greater than
+      else i = 0;
+      setTimeout(main, 50);
+    }
+    main();
+  }
+</script>

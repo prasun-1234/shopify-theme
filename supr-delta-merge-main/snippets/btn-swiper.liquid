@@ -1,0 +1,58 @@
+{% case settings.btn_style %}
+  {% when 'style-1' %}
+    {% style %}
+      .btn-swiper svg path {
+        fill: transparent !important;
+        stroke: var(--global-font-color) !important;
+      }
+      .btn-swiper svg.body path {
+        fill: transparent !important;
+        stroke: var(--body-background) !important;
+      }
+
+      .btn-swiper {
+        border-color: var(--global-font-color) !important;
+        background-color: var(--body-background) !important;
+      }
+      .btn-swiper:hover {
+        background-color: var(--global-font-color) !important;
+      }
+    {% endstyle %}
+    <div class="{{ class }} btn-swiper px-[15px] py-[3px] rounded-full flex items-center justify-center border relative group transition duration-300 ease overflow-hidden w-[60px] flex-shrink-0">
+      {% render 'icon-swiper', class: 'group-hover:translate-x-[10rem] transition duration-300 ease' %}
+      {% render 'icon-swiper',
+        class: 'absolute top-[2px] translate-x-[-10rem] group-hover:translate-x-[0rem] transition duration-300 ease body'
+      %}
+    </div>
+  {% when 'style-2' %}
+    {% style %}
+      .btn-swiper svg path {
+        fill: transparent !important;
+        stroke: var(--global-font-color) !important;
+      }
+      .btn-swiper svg.body path {
+        fill: transparent !important;
+        stroke: var(--body-background) !important;
+      }
+
+      .btn-swiper {
+        background-color: var(--body-background) !important;
+        /* background-color: var(--body-background) !important; */
+        border-color: transparent !important;
+        box-shadow: 0px 10px 14px 0px rgba(41, 41, 41, 0.08);
+      }
+      .btn-swiper:hover {
+        background-color: var(--theme-primary-color) !important;
+        border-color: transparent !important;
+      }
+    {% endstyle %}
+    <div class="{{ class }} btn-swiper rounded-full flex items-center justify-center  relative group transition duration-300 ease overflow-hidden px-[10px] h-[48px] w-[48px] lg:px-[15px] lg:py-[15px] flex-shrink-0">
+      {% render 'icon-swiper', class: 'group-hover:translate-x-[10rem] transition duration-300 ease absolute h-full' %}
+      {% render 'icon-swiper',
+        class: 'absolute h-full translate-x-[-10rem] group-hover:translate-x-[0rem] transition duration-300 ease body scale-90 lg:scale-100'
+      %}
+    </div>
+
+  {% else %}
+
+{% endcase %}

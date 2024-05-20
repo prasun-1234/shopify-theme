@@ -1,0 +1,118 @@
+.privacy-policy-section {
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+.gradient-bg {
+  position: absolute;
+  top: -14rem;
+  right: 19.7rem;
+  width: 20.6rem;
+  height: 45rem;
+  border-radius: 38.95281rem;
+  opacity: 0.74;
+  background: #143092;
+  transform: rotate(57.725deg);
+  filter: blur(81.6500015258789px);
+}
+.page-title {
+  margin-top: 0;
+}
+
+.privacy-main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.privacy-main-div h2 {
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  margin-bottom: 1.5rem;
+  z-index: 3;
+}
+.privacy-content-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+.privacy-content-div h4 {
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  margin-bottom: 0.3rem;
+  z-index: 10;
+}
+.privacy-content-div p {
+  font-size: 1rem;
+  max-width: 88rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%;
+  text-align: justify;
+  margin-bottom: 1rem;
+  z-index: 10;
+  color: #CBD5E1;
+  letter-spacing: 0.0625rem;
+}
+.rights p {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  color: #CBD5E1;
+  margin-bottom: 0;
+}
+
+.page-placeholder-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.page-placeholder {
+  width: 52.5rem;
+  height: 52.5rem;
+}
+
+@media screen and (max-width: 980px) {
+  .privacy-content-div h4 {
+    max-width: 40rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .gradient-bg {
+    top: -40px;
+    right: 99px;
+    width: 13rem;
+    height: 23rem;
+  }
+  .privacy-content-div {
+    gap: 1.25rem;
+  }
+  .privacy-main-div h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+  }
+  .privacy-content-div h4 {
+    font-size: 1.2rem;
+  }
+  .privacy-content-div p {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+  .privacy-content-div p:last-child {
+    margin-bottom: 0;
+  }
+  .privacy-policy-section {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .privacy-content-div h4 {
+    max-width: 25rem;
+  }
+}

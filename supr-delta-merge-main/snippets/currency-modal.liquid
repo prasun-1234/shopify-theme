@@ -1,0 +1,114 @@
+{% if settings.enable_currency_switch == true %}
+  <div
+    class="bg-header scale-y-0 origin-top duration-300 ease-in-out fixed top-0 xl:absolute xl:top-full w-full z-[399] shadow-lg"
+    id="currency_modal"
+  >
+    <div
+      class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto relative py-[60px] "
+    >
+      <span id="currency_close" class="modal-body absolute right-[20px] lg:right-[40px] top-[20px]">
+        {% render 'icon-close-thin',
+          class: 'w-[20px] h-[20px] cursor-pointer ease-in-out duration-150 hover:scale-90 stroke'
+        %}
+      </span>
+      <ul class="flex flex-col lg:flex-row items-center justify-center gap-[40px]">
+        {% if localization.available_countries.size > 1 and settings.enable_currency_switch == true %}
+          <li class="modal-body">
+            <localization-form class="relative z-[299] w-[250px] inline-block border rounded-md">
+              {% form 'localization' %}
+                <div class="disclosure mx-auto lg:mx-0 select relative px-3 py-2 z-[99]">
+                  <button
+                    type="button"
+                    class="disclosure__button flex items-center justify-between w-full"
+                    aria-expanded="false"
+                    aria-controls="CountryList"
+                  >
+                    {{ localization.country.name }} ({{ localization.country.currency.iso_code }}
+                    {{ localization.country.currency.symbol }})
+
+                    {% render 'icon-arrow-down', class: 'w-[16px] h-[16px]' %}
+                  </button>
+
+                  <ul
+                    id="CountryList"
+                    role="list"
+                    class="disclosure__list select absolute left-0 top-full px-3 py-2 w-full overflow-auto max-h-[200px] translate-y-3 border"
+                    hidden
+                  >
+                    {% for country in localization.available_countries %}
+                      <li class="disclosure__item" tabindex="-1">
+                        <a
+                          href="#"
+                          class="text-[14px] flex items-baseline"
+                          {% if country.iso_code == localization.country.iso_code %}
+                            aria-current="true"
+                          {% endif %}
+                          data-value="{{ country.iso_code }}"
+                        >
+                          {{ country | image_url: width: 16 | image_tag }} - {{ country.name }} (
+                          {{- country.currency.iso_code }}
+                          {{ country.currency.symbol }})
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+
+                  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                </div>
+              {% endform %}
+            </localization-form>
+          </li>
+        {% endif %}
+        {% if localization.available_languages.size > 1 %}
+          <li class="modal-body">
+            <localization-form class="w-[250px] inline-block border rounded-md">
+              {% form 'localization', id: 'localization-language-form' %}
+                <div class="disclosure select relative px-3 py-2 z-[99]">
+                  <button
+                    type="button"
+                    class="disclosure__button flex items-center justify-between w-full"
+                    aria-expanded="false"
+                    aria-controls="LanguageList"
+                  >
+                    {{ localization.language.endonym_name | capitalize }}
+
+                    {% render 'icon-arrow-down', class: 'w-[16px] h-[16px]' %}
+                  </button>
+
+                  <ul
+                    id="LanguageList"
+                    role="list"
+                    class="disclosure__list select absolute left-0 top-full px-3 py-2 w-full overflow-auto max-h-[200px] translate-y-3 border"
+                    hidden
+                  >
+                    {% for language in localization.available_languages %}
+                      <li class="disclosure__item" tabindex="-1">
+                        <a
+                          href="#"
+                          class="text-[14px]"
+                          {% if language.iso_code == localization.language.iso_code %}
+                            aria-current="true"
+                          {% endif %}
+                          hreflang="{{ language.iso_code }}"
+                          lang="{{ language.iso_code }}"
+                          data-value="{{ language.iso_code }}"
+                        >
+                          {{ language.endonym_name | capitalize }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+
+                  <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+                </div>
+              {% endform %}
+            </localization-form>
+          </li>
+        {% endif %}
+        <li>
+          {% render 'btn-primary', src: 'Apply' %}
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endif %}

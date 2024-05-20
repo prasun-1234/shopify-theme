@@ -1,0 +1,174 @@
+<link rel="stylesheet" href="{{ 'newsletter.css' | asset_url }}">
+
+{% if section.settings.enable_newsletter %}
+  <section
+    class="newsletter"
+    style="background-color: {{ section.settings.section_bg_color }};margin-bottom:{{ section.settings.margin_bottom }}px;"
+  >
+    <div class="container">
+      <div class="pure-g">
+        <div class="pure-u-1">
+          <div class="l-box">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+                {%- when 'custom_liquid' -%}
+                  {{ block.settings.custom_liquid }}
+              {% endcase %}
+            {% endfor %}
+            <div class="newsletter-box" id="newsletter_form_main">
+              {% if section.settings.newform_field == blank %}
+                {% assign formId = 'newsletter' %}
+                {% form 'customer', class: 'contact-form form-single-field', id: formId %}
+                  <label style="color:{{ section.settings.section_text_color }}">
+                    {{- 'newsletter.label_title' | t -}}
+                  </label>
+                  <input type="hidden" name="contact[tags]" value="{{ 'newsletter.label_title' | t }}">
+                  <div class="input-group {% if form.errors %} input-group--error{% endif %}">
+                    <label for="newsletter_email_input" class="visually-hidden">{{- 'newsletter.email' | t -}}</label>
+                    <input
+                      type="email" 
+                      name="contact[email]"
+                      id="newsletter_email_input"
+                      class="newsletter-input input-group__field{% if form.errors %} input--error{% endif %}"
+                      value="{{ form.email }}"
+                      placeholder="Your Email "
+                      aria-label="email"
+                      tabindex="0"
+                      aria-required="true"
+                      style="color: {{ section.settings.section_text_color }};border-bottom:1px solid {{ section.settings.section_text_color }};"
+                      autocapitalize="off"
+                      {% if form.errors %}
+                        aria-invalid="true"
+                        aria-describedby="{{ formId }}-email-error"
+                        data-form-status
+                      {% endif %}
+                      required
+                    >
+                    <span class="input-group__btn">
+                      <button type="submit" class="btn" name="commit">
+                        {% render 'arrow-next', color: section.settings.section_text_color %}
+                      </button>
+                    </span>
+                  </div>
+                  {%- if form.errors contains 'email' -%}
+                    <span id="{{ formId }}-email-error" class="input-error-message">
+                      <span class="err-msg">{{ 'newsletter.email_error' | t }}</span>
+                    </span>
+                  {%- endif -%}
+                  {%- if form.posted_successfully? -%}
+                    <p class="form-message form-message--success" tabindex="-1" data-form-status>
+                      {{ 'newsletter.success_msg' | t }}
+                    </p>
+                  {%- else -%}
+                  {%- endif -%}
+                {% endform %}
+              {% endif %}
+
+              {% if section.settings.newform_field != blank %}
+                {{ section.settings.newform_field }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "t:sections.newsletter.settings.section_bg_color",
+      "default": "#222"
+    },
+    {
+      "type": "color",
+      "id": "section_text_color",
+      "label": "t:sections.newsletter.settings.section_text_color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:sections.newsletter.settings.margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 10,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "t:sections.newsletter.enable_newsletter.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Third-party snippet",
+      "info": "t:sections.newsletter.header.info"
+    },
+    {
+      "type": "html",
+      "id": "newform_field",
+      "label": "t:sections.newsletter.newform_field.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.newsletter.settings.paragraph"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "section_bg_color": "#222222",
+        "section_text_color": "#ffffff",
+        "margin_bottom": 0,
+        "enable_newsletter": true,
+        "newform_field": ""
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  function newsletterErrorHandle() {
+    let form = document.querySelector('#newsletter_form_main > form');
+    let formEmail = document.querySelector('#newsletter_email_input');
+
+    form.addEventListener('click', (e) => {
+      if (formEmail.value == ' ') {
+        e.preventDefault();
+      }
+    });
+  }
+
+  newsletterErrorHandle();
+{% endjavascript %}
+
+
+

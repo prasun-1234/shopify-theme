@@ -1,0 +1,224 @@
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<section class="mt-[60px]">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    {% if cart.item_count > 0 %}
+      <h3
+        class=" mb-[60px] xxs:max-sm:flex xxs:max-sm:flex-col xxs:max-sm:justify-center xxs:max-sm:items-center   leading-nones tracking-[0.08em]"
+      >
+        {{ 'main-cart-item.cart' | t }}
+        <span class=" text-[#666666] tracking-[0em]">(2 {{ 'main-cart-item.items' | t }})</span>
+      </h3>
+      <form
+        action="{{ routes.cart_url }}"
+        class=""
+        method="post"
+        id="cart"
+      >
+        <div
+          class="cart__items"
+          id="main-cart-items"
+          data-id="{{ section.id }}"
+        >
+          <div class="flex justify-around gap-16 lg:flex-row flex-col">
+            <!-- cart section -->
+
+            <div class="flex flex-col lg:w-6/12 w-12/12">
+              <table class="border-b border-[#666666] border-opacity-50 w-full">
+                <tbody>
+                  {% for item in cart.items %}
+                    {%- if cart != empty -%}
+                      {% liquid
+                        assign collection_url = item.product.collections.last.url
+                        if collection_url == '/collections/frontpage' or collection_url == blank
+                          assign collection_url = '/collections/all'
+                        endif
+
+                        if forloop.first
+                        endif
+                      %}
+                      <tr>
+                        <td class="flex mb-[40px]">
+                          <a rel="nofollow" href="{{ collection.url }}{{ item.url }}">
+                            {{
+                              item.variant.featured_image
+                              | image_url: width: 1500
+                              | image_tag:
+                                loading: 'lazy',
+                                sizes: '100',
+                                widths: '165, 360, 535, 750, 1070, 1500',
+                                class: 'h-[150px] w-[150px] object-cover'
+                            }}
+                          </a>
+                          <div class="ml-[20px] cart-content flex justify-between w-full">
+                            <div class="details">
+                              <h5>
+                                <a rel="nofollow" href="{{ collection_url }}{{ item.url }}">
+                                  {{ item.product.title }}
+                                </a>
+                              </h5>
+
+                              {% unless item.product.has_only_default_variant %}
+                                {% for option in item.options_with_values %}
+                                  <p class="mb-[20px]">
+                                    {{ option.name }}:
+                                    <span class="inline-block shrink-0 pl-8">{{ option.value }}</span>
+                                  </p>
+                                {% endfor %}
+                              {% endunless %}
+
+                              <div class="wrapper flex justify-center space-x-4 items-center text-center pb-7 pt-7 ">
+                                <span class="minus ">-</span>
+                                <span class="num pl-4 pr-4">1</span>
+                                <span class="plus ">+</span>
+                              </div>
+                            </div>
+                            <div class="action_and_price flex flex-col justify-between items-center">
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M16.875 5.625L15.7551 16.3961C15.7193 16.7002 15.5731 16.9806 15.3443 17.1841C15.1155 17.3876 14.8199 17.5 14.5137 17.5H5.48672C5.1805 17.5 4.88494 17.3876 4.65611 17.1841C4.42728 16.9806 4.2811 16.7002 4.24531 16.3961L3.125 5.625"
+                                  stroke="#242424"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                                <path
+                                  d="M18.125 2.5H1.875C1.52982 2.5 1.25 2.77982 1.25 3.125V5C1.25 5.34518 1.52982 5.625 1.875 5.625H18.125C18.4702 5.625 18.75 5.34518 18.75 5V3.125C18.75 2.77982 18.4702 2.5 18.125 2.5Z"
+                                  stroke="#242424"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                                <path
+                                  d="M12.1875 9.375L7.8125 13.75"
+                                  stroke="#242424"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                                <path
+                                  d="M12.1875 13.75L7.8125 9.375"
+                                  stroke="#242424"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                              </svg>
+                              <p class="w-[100px]">{{ item.original_price | money }}</p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+
+              <div class="bg-[#9F7979] bg-opacity-20 w-full pl-[32px] rounded-md  py-[16px] mb-[60px]">
+                <div class="flex justify-between">
+                  <p>{{ 'main-cart-item.leave_note' | t }}</p>
+                  <span class="pl-4 relative">
+                    <button onclick="addTextInput()">
+                      <svg
+                        class="absolute top-[6px] right-[18px]"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5.99902 1.00024V10.9999"
+                          stroke="#403B3A"
+                          stroke-width="1.5"
+                          stroke-linecap="round" />
+                        <path
+                          d="M10.9995 6.00049H0.999843"
+                          stroke="#403B3A"
+                          stroke-width="1.5"
+                          stroke-linecap="round" />
+                      </svg>
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <button
+                class="py-2.5 pl-5 pr-[22px] mr-2 mb-4 text-[#9F7979] font-semibold hover:shadow-lg focus:shadow-lg rounded-md border border-[#9F7979] p-3  w-full "
+              >
+                {{ 'main-cart-item.add_items' | t }}
+              </button>
+            </div>
+            <!-- cart section -->
+
+            <!-- billing section -->
+            <div class="lg:w-6/12 w-12/12">
+              <p class="mb-2">{{ 'main-cart-item.shipping_placeholder' | t }}</p>
+              <div class="w-full bg-[#666666] bg-opacity-20 rounded-full h-1">
+                <div class="bg-[#666666] h-1 rounded-full" style="width: 50%;"></div>
+              </div>
+
+              <div class="bg-[#F2F2F2] sm:py-[60px] py-[40px] sm:px-[60px] px-[20px] mt-[40px] rounded-md">
+                <div class="flex justify-between lg:px-[10px]">
+                  <p>{{ 'main-cart-item.total' | t }}</p>
+                  <p>$199.99</p>
+                </div>
+                <div class="flex flex-col justify-center items-center mt-[20px]">
+                  <p class="mb-[20px] text-center">{{ 'main-cart-item.shipping_msg' | t }}</p>
+                  <button
+                    type="button"
+                    class=" w-4/6 p-3 btn-1  font-normal rounded-md hover:opacity-90 ease-in-out duration-300 leading-normal"
+                  >
+                    {{ 'main-cart-item.checkout' | t }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- billing section -->
+          </div>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-cart-item.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-cart-item.settings.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-cart-item.settings.padding_bottom",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,231 @@
+<link rel="stylesheet" href="{{ 'image-text-block.css' | asset_url }}">
+
+<section class="image-text-block">
+  {% capture image_layout %}
+    <div class="pure-u-1 pure-u-md-1-2 l-box">
+      <div class="feature-image-wrapper {% if settings.enable_animation %}scrollmagic-element{% endif %}" style="{% case section.settings.layout %}{% when 'left' %}padding-left:80px;margin-right:-80px; {% when 'right' %}padding-right:80px;margin-left:-80px;{% else %}{% endcase %}{% if section.settings.image == blank %}min-height: 500px;{% endif %}">
+        {%- if section.settings.image != blank -%}
+        <div class="feature-image">
+          <div class="image-overlay" style="background-color:{{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"></div>
+          <figure>          
+                 <img  srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                      {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                      {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+                                    sizes="auto"
+                                    src="{{ section.settings.image | image_url: width: 1500 }}"
+                                    loading="lazy"
+                                    alt="{{ section.settings.image.alt | escape }}"
+                                    width="{{ section.settings.image.width }}"
+                                    height="auto">
+          </figure>
+        </div>
+        {%- else -%}
+        <div class="placeholder-background img-bg">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+        {%- endif -%}
+      <div class="feature-image-wrapper feature-image-sm" style="{% case section.settings.layout %}{% when 'left' %}left:0; {% when 'right' %}right:0;{% else %}{% endcase %}{% if section.settings.image == blank %}height: 255px;width:200px{% endif %}">
+        {%- if section.settings.image_2 != blank -%}
+        <div class="feature-image">
+          <figure>            
+                 <img  srcset="{%- if section.settings.image_2.width >= 375 -%}{{ section.settings.image_2 | image_url: width: 375 }} 375w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 550 -%}{{ section.settings.image_2 | image_url: width: 550 }} 550w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 750 -%}{{ section.settings.image_2 | image_url: width: 750 }} 750w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 1100 -%}{{ section.settings.image_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 1500 -%}{{ section.settings.image_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 1780 -%}{{ section.settings.image_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 2000 -%}{{ section.settings.image_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 3000 -%}{{ section.settings.image_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                      {%- if section.settings.image_2.width >= 3840 -%}{{ section.settings.image_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                      {{ section.settings.image_2 | image_url }} {{ section.settings.image_2.width }}w"
+                                    sizes="auto"
+                                    src="{{ section.settings.image_2 | image_url: width: 1500 }}"
+                                    loading="lazy"
+                                    alt="{{ section.settings.image_2.alt | escape }}"
+                                    width="{{ section.settings.image_2.width }}"
+                                    height="auto">
+          </figure>
+        </div>
+        {%- else -%}
+        <div class="placeholder-background img-sm">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+        {%- endif -%}
+      </div>
+        
+      </div>
+  </div>
+  {% endcapture %}
+
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    <div class="pure-g align-center">
+      {% if section.settings.layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="l-box">
+          <div class="text-block ">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'image_title' %}
+                  <h3 {{ block.shopify_attributes }}>
+                    {{ block.settings.title }}
+                  </h3>
+                {% when 'image_text' %}
+                  <p {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {% when 'image_button' %}
+                  <a
+                    rel="nofollow"
+                    {{ block.shopify_attributes }}
+                    href="{{ block.settings.button_link }}"
+                    class="theme-btn "
+                  >
+                    <div class="btn-overlay"></div>
+                    <div class="btn-text">{{- block.settings.button_label -}}</div>
+                  </a>
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% if section.settings.layout == 'right' %}
+        {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.image-text-block.name",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-text-block.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "t:sections.image-text-block.settings.image_2.label"
+    },
+    {
+      "type": "color",
+      "default": "#fff",
+      "id": "overlay_color",
+      "label": "t:sections.image-text-block.settings.overlay_color.label"
+    },
+    {
+      "type": "range",
+      "default": 2,
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "t:sections.image-text-block.settings.overlay_opacity.label"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.image-text-block.settings.layout.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-text-block.settings.layout.options.left.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-text-block.settings.layout.options.right.label"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.image-text-block.blocks.title.name",
+      "type": "image_title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.image-text-block.blocks.title.settings.title.label",
+          "default": "The best winter skin care secrets"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.image-text-block.blocks.image_text.name",
+      "type": "image_text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.image-text-block.blocks.image_text.settings.text.label",
+          "default": "Sit amet massa vitae tortor condimentum lacinia quis vel. In nibh mauris cursus mattis molestie a iaculis. Convallis aenean et tortor at risus viverra adipiscing at. At quis risus sed vulputate odio. Ullamcorper a lacus vestibulum sed."
+        }
+      ]
+    },
+    {
+      "name": "t:sections.image-text-block.blocks.image_button.name",
+      "type": "image_button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.image-text-block.blocks.image_button.settings.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.image-text-block.blocks.image_button.settings.button_link.label"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "t:sections.image-text-block.presets.name",
+      "category": "Image",
+      "settings": {
+        "image": "",
+        "image_2": "",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 2,
+        "layout": "left"
+      },
+      "blocks": [
+        {
+          "type": "image_title"
+        },
+        {
+          "type": "image_text"
+        },
+        {
+          "type": "image_button",
+          "settings": {
+            "button_label": "Explore Products",
+            "button_link": "#"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

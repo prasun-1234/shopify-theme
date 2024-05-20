@@ -1,0 +1,117 @@
+{{ 'faq-section-style.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .faq-section{
+      padding-top: {{ section.settings.paddingTop }};
+      padding-bottom: {{ section.settings.paddingBottom }};
+  }
+{% endstyle %}
+
+<section class="faq-section ">
+  <div class="page-width faq-main">
+    <div class="faq-image-div">
+      {% if section.settings.image != blank %}
+        <figure class="img-figure">
+          <img src="{{  section.settings.image | image_url: width: 1000  }}" alt="image" height="600" width="600">
+        </figure>
+      {% endif %}
+    </div>
+
+    <div class="faq-content-div">
+      <h2 class="faq-content-header">Frequently asked Questions</h2>
+      <div class="faq-accordian-div">
+        {% for block in section.blocks %}
+          <div class="accordians">
+            {% case block.type %}
+              {% when 'accordion_block' %}
+                <button class="questions-icon-div">
+                  {% if block.settings.faq_questions != blank %}
+                    <h4>{{ block.settings.faq_questions }}</h4>
+                  {% endif %}
+                  {% render 'new-plus-icon' %}
+                  {% render 'new-minus-icon' %}
+                </button>
+                {% if block.settings.faq_answers != blank %}
+                  <div class="questions-content-div">
+                    <p>
+                      {{ block.settings.faq_answers }}
+                    </p>
+                  </div>
+                {% endif %}
+            {% endcase %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script defer>
+  document.addEventListener('DOMContentLoaded', function () {
+    const accordion = document.querySelectorAll('.accordians');
+    accItem = document.querySelectorAll('.questions-content-div');
+
+    accordion[0].classList.add('active');
+    accordion.forEach((item) => {
+      item.addEventListener('click', () => {
+        accordion.forEach((accItem) => {
+          accItem.classList.remove('active');
+        });
+        item.classList.toggle('active');
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.image-banner.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "paddingTop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "paddingBottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Faq section",
+      "type": "accordion_block",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "faq_questions",
+          "label": "Faq Questions"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "faq_answers",
+          "label": "Faq Answers"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

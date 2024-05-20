@@ -1,0 +1,319 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "about-us-content": {
+      "type": "about-us-content",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "section_title": "Continue To"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "text_1": "Prove",
+            "text_2": "Ourself"
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "heading",
+        "links"
+      ],
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "image": "shopify:\/\/shop_images\/about-us.jpg",
+        "background_position": "right"
+      }
+    },
+    "about-us-team": {
+      "type": "about-us-team",
+      "blocks": {
+        "person1": {
+          "type": "team",
+          "settings": {
+            "collection_image_1": "shopify:\/\/shop_images\/team1.jpg",
+            "name": "John Doe",
+            "designation": "CEO",
+            "social_link": "#"
+          }
+        },
+        "person2": {
+          "type": "team",
+          "settings": {
+            "collection_image_1": "shopify:\/\/shop_images\/team.jpg",
+            "name": "Terra Lee",
+            "designation": "CMO",
+            "social_link": "#"
+          }
+        },
+        "person3": {
+          "type": "team",
+          "settings": {
+            "collection_image_1": "shopify:\/\/shop_images\/team3.jpg",
+            "name": "Terry Williams",
+            "designation": "CTO",
+            "social_link": "#"
+          }
+        },
+        "person4": {
+          "type": "team",
+          "settings": {
+            "collection_image_1": "shopify:\/\/shop_images\/team4.jpg",
+            "name": "Chris Carter",
+            "designation": "CFO",
+            "social_link": "#"
+          }
+        },
+        "person5": {
+          "type": "team",
+          "settings": {
+            "collection_image_1": "shopify:\/\/shop_images\/team5.jpg",
+            "name": "Jenny Evans",
+            "designation": "CBDO",
+            "social_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "person1",
+        "person2",
+        "person3",
+        "person4",
+        "person5"
+      ],
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "subtitle": "Our Team"
+      }
+    },
+    "new-marquee": {
+      "type": "new-marquee",
+      "blocks": {
+        "marquee-one": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/marquee-one.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        },
+        "marquee-two": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-2.jpg",
+            "title": "HAPPY TO HELP"
+          }
+        },
+        "marquee-three": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-3.jpg",
+            "title": "MODERN & STYLISH"
+          }
+        },
+        "marquee-four": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-4.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        },
+        "marquee-five": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-5.jpg",
+            "title": "BICYCLE EXPERTS"
+          }
+        },
+        "marquee-six": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-6.jpg",
+            "title": "EASY RETURNS"
+          }
+        },
+        "marquee-seven": {
+          "type": "marquee_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/new-marquee-7.jpg",
+            "title": "QUICK SHIPPING"
+          }
+        }
+      },
+      "block_order": [
+        "marquee-one",
+        "marquee-two",
+        "marquee-three",
+        "marquee-four",
+        "marquee-five",
+        "marquee-six",
+        "marquee-seven"
+      ],
+      "settings": {
+        "section_margin_top": 80,
+        "section_margin_bottom": 80
+      }
+    },
+    "about-us-features": {
+      "type": "about-us-features",
+      "blocks": {
+        "icon": {
+          "type": "icon",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/chain-icon.svg"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title": "ALWAYS AT YOUR SERVICE",
+            "title_color": "#ffffff"
+          }
+        },
+        "records": {
+          "type": "records",
+          "settings": {
+            "number_a": "200k",
+            "text_a": "Happy Customers",
+            "number_b": "300k",
+            "text_b": "Product Delivered",
+            "text_color": "#ffffff",
+            "text_color_body": "#dddddd"
+          }
+        },
+        "button":{
+          "type": "button",
+          "settings": {
+            "button_text": "Shop Now",
+            "button_url": "",
+            "text_color":"#fff",
+            "icon": ""
+          } 
+        }
+      },
+      "block_order": [
+        "icon",
+        "title",
+        "records",
+        "button"
+      ],
+      "settings": {
+        "margin_top": 80,
+        "margin_bottom": 80,
+        "section_padding": 80,
+        "background_image": "shopify:\/\/shop_images\/about-banner.jpg",
+        "card_color": "#3a3a3a"
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "blocks": {
+        "image1": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta1.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "image2": {
+          "type": "image_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta2.jpg",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        },
+        "text1": {
+          "type": "text_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/insta3.jpg",
+            "social_tag": "@DBIKES",
+            "content_color": "#fff",
+            "link": "https:\/\/www.instagram.com\/"
+          }
+        }
+      },
+      "block_order": [
+        "image1",
+        "image2",
+        "text1"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "about-us-content",
+    "about-us-team",
+    "new-marquee",
+    "about-us-features",
+    "instagram"
+  ]
+}

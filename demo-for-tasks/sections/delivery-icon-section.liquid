@@ -1,0 +1,22 @@
+{{ 'delivery-icon-style.css' | asset_url | stylesheet_tag }}
+
+<div class="custom-icon-section">
+  <div class="icon-main page-width ">
+    <div class="icon-boxes">
+      {% render 'icon-easy-exchange' %}
+      <p>Easy Exchange</p>
+    </div>
+    <div class="icon-boxes">
+      {% render 'icon-easy-return' %}
+      <p>Easy Return</p>
+    </div>
+    <div class="icon-boxes">
+      {% render 'icon-fast-shiping' %}
+      <p>Fast Shipping</p>
+    </div>
+    <div class="icon-boxes">
+      {% render 'icon-genuin-product' %}
+      <p>Genuine Products</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu1": {
+          "type": "collection_links",
+          "settings": {
+            "title": "Shop",
+            "collection_list": [
+              "swimwear",
+              "shapewear",
+              "bikini",
+              "lingerie"
+            ],
+            "link_limit": 7
+          }
+        },
+        "menu2": {
+          "type": "page_links",
+          "settings": {
+            "title": "Store",
+            "menu_links": "footer",
+            "link_limit": 4
+          }
+        },
+        "menu3": {
+          "type": "page_links",
+          "settings": {
+            "title": "Legal",
+            "menu_links": "legal",
+            "link_limit": 3
+          }
+        },
+        "menu4": {
+          "type": "quick_links",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "menu1",
+        "menu2",
+        "menu3",
+        "menu4"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "footer_title": "Elevate Your Style: Chic Fashionwear for Every Occasion",
+        "border_top": true,
+        "footer_menu": "footer",
+        "background_color": "linear-gradient(90deg, rgba(39, 39, 42, 1), rgba(39, 39, 42, 1) 100%)",
+        "content_color": "#ffffff",
+        "enable_follow_on_shop": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

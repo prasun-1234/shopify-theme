@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#cbd5e1"
+      }
+    },
+    "countdown-timer": {
+      "type": "countdown-timer",
+      "settings": {
+        "background_image": "shopify://shop_images/countdown-bg.jpg",
+        "countdown_target_date": "2024-12-20"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "countdown-timer"
+  ]
+}

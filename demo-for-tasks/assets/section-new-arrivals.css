@@ -1,0 +1,36 @@
+.new-arrivals-custom{
+    margin-bottom: 80;
+}
+.new-arrivals-custom .swiper-button-next, .new-arrivals-custom .swiper-button-prev {
+    height: 50px;
+    width: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 36px #00000014;
+    transition: .3s ease;
+}
+.new-arrivals-custom .swiper-button-next:hover{
+    background-color: #313131;
+}
+.new-arrivals-custom .swiper-button-prev:hover{
+    background-color: #313131;
+}
+.new-arrivals-custom .swiper-button-next:hover svg path{
+    fill: white;
+}
+.new-arrivals-custom .swiper-button-prev:hover svg path{
+    fill: white;
+}
+.new-arrivals-custom .arrow-icon{
+    width: 15px;
+}
+.new-arrivals-custom .section-heading{
+    margin-bottom: 24px;
+}
+.swiper.newArrivals{
+    padding-bottom: 36px;
+    margin-bottom: 60px;
+}
+.swiper-pagination-bullet-active{
+    background: #313131 !important;
+}

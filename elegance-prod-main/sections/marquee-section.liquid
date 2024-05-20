@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="{{ 'marquee-section.css' | asset_url }}">
+
+<section class="marquee-section" style="margin-bottom:{{ section.settings.margin_bottom }}px;">
+  {% render 'marquee-one', section: section %}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.marquee.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.marquee.settings.header.content"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_1",
+      "default": "skin care",
+      "label": "t:sections.marquee.settings.marquee_text_1.label"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_2",
+      "default": "hair care",
+      "label": "t:sections.marquee.settings.marquee_text_2.label"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_3",
+      "default": "skin hydration",
+      "label": "t:sections.marquee.settings.marquee_text_3.label"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text_4",
+      "default": "anti aging",
+      "label": "t:sections.marquee.settings.marquee_text_4.label"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "default": 0,
+      "label": "t:sections.marquee.settings.margin_bottom.label",
+      "max": 60,
+      "min": 0,
+      "info": "t:sections.marquee.settings.margin_bottom.info",
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.marquee.settings.marquee_bg_color.label",
+      "id": "marquee_bg_color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.marquee.settings.marquee_content_color.label",
+      "id": "marquee_content_color",
+      "default": "#A9AF7E"
+    },
+    {
+      "type": "range",
+      "min": 90,
+      "max": 140,
+      "step": 10,
+      "default": 90,
+      "label": "t:sections.marquee.settings.marquee_height.label",
+      "unit": "px",
+      "id": "marquee_height"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.marquee.presets.name",
+      "settings": {
+        "marquee_text_1": "",
+        "marquee_text_2": "",
+        "marquee_text_3": "",
+        "marquee_text_4": "",
+        "margin_bottom": 0,
+        "marquee_bg_color": "#222222",
+        "marquee_content_color": "#A9AF7E",
+        "marquee_height": 90
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#cbd5e1"
+      }
+    },
+    "before-after-image": {
+      "type": "before-after-image",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "slider_height": 600,
+        "heading": "Our bags are handmade using strong fiber",
+        "text": "Our bags are meticulously crafted by skilled artisans, employing durable fiber for longevity and strength.",
+        "image_1": "shopify:\/\/shop_images\/before_image.jpg",
+        "text_1": "Pink Purse",
+        "image_2": "shopify:\/\/shop_images\/after_image.jpg",
+        "text_2": "Brown Purse",
+        "accent_1": "#313131",
+        "accent_2": "#fff"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "before-after-image"
+  ]
+}

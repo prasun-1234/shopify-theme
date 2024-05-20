@@ -1,0 +1,333 @@
+<link rel="stylesheet" href="{{ 'main-article.css' | asset_url }}">
+
+<div class="progress-bar"></div>
+<section class="blog-wrapper single-b-wrapper {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} container-elegance-blog"
+  >
+    <div class="section_1">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'article_title' %}
+            <h1 {{ block.shopify_attributes }}>
+              {{ article.title }}
+            </h1>
+
+          {% when 'article_info' %}
+            <div class="article-info" {{ block.shopify_attributes }}>
+              {%- if block.settings.enable_date == true -%}
+                <p>
+                  <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                    {{- article.published_at | date: '%b %d, %Y' -}}
+                  </time>
+                </p>
+              {% endif %}
+              {% if article.tags.size > 0 and block.settings.enable_tags == true %}
+                <p>
+                  <span class="article-tags">
+                    {% for tag in article.tags %}
+                      {%- unless forloop.last -%}
+                        {{- tag -}}
+                        ,
+                      {% else %}
+                        {{ tag }}
+                      {%- endunless %}
+                    {% endfor %}
+                  </span>
+                </p>
+              {% endif %}
+              {%- if block.settings.enable_author == true -%}
+                <p class="author">
+                  {{ 'main_article.about-writer.author_info' | t }}
+                  <span>
+                    {{ article.author }}
+                  </span>
+                </p>
+              {%- endif -%}
+              {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                <p class="comment-count">
+                  {{ article.comments_count }}
+                  {{ article.comments_count | pluralize: 'comment', 'comments' }}
+                </p>
+              {%- endif -%}
+            </div>
+
+          {% when 'image' %}
+            <figure class="blog-img" {{ block.shopify_attributes }}>
+              {% if article.image %}
+                <img
+                  srcset="
+                    {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if article.image.width >= 750 -%}{{ article.image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if article.image.width >= 1100 -%}{{ article.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if article.image.width >= 1780 -%}{{ article.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if article.image.width >= 2000 -%}{{ article.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if article.image.width >= 3000 -%}{{ article.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if article.image.width >= 3840 -%}{{ article.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ article.image | image_url }} {{ article.image.width }}w
+                  "
+                  sizes="auto"
+                  src="{{ article.image | image_url: width: 1500 }}"
+                  loading="lazy"
+                  alt="{{ article.image.alt | escape }}"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height | divided_by: article.image.aspect_ratio }}"
+                >
+              {% else %}
+                <div class="placeholder-background">
+                  <span class="overlay"></span>
+                  {{ 'lifestyle-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              <span
+                class="overlay_image"
+                style="background-color:{{ block.settings.overlay_color }};opacity:calc({{ block.settings.overlay_opacity }}/10);"
+              ></span>
+            </figure>
+
+          {% when 'content' %}
+            <div class="section_2" {{ block.shopify_attributes }}>
+              <div>
+                <p>{{ article.excerpt_or_content }}</p>
+              </div>
+            </div>
+
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    <div class="comments" id="comment">
+      <div class="section_3">
+        <div>
+          <h3>
+            {{ article.comments_count }}
+            {{ 'main_article.comments' | t }}
+          </h3>
+        </div>
+      </div>
+      {% paginate article.comments by 5 %}
+        {%- if blog.comments_enabled? and article.comments_count > 0 -%}
+          <ul>
+            {% for singleComment in article.comments %}
+              <li id="{{ singleComment.id }}">
+                {{ singleComment.content }}
+                <h4>{{ singleComment.author }} on {{ singleComment.created_at | date: '%B %d, %Y' }}</h4>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+
+    {% form 'new_comment', article %}
+      <div class="commentForm">
+        <fieldset>
+          <h3>{{ 'main_article.commentform' | t }}</h3>
+          {{ form.errors | default_errors }}
+          <div class="grids">
+            <div class="grid__item large--one-half">
+              <label for="CommentAuthor">{{ 'article.form.label.name' | t }}</label>
+              <input
+                type="text"
+                name="comment[author]"
+                id="CommentAuthor"
+                required="required"
+                placeholder="Your name"
+                class="input-full{% if form.errors contains 'author' %} error{% endif %}"
+                value="{{ form.author }}"
+                autocapitalize="words"
+              >
+            </div>
+            <div class="grid__item large--one-half">
+              <label for="CommentEmail">{{ 'article.form.label.email' | t }}</label>
+              <input
+                type="email"
+                name="comment[email]"
+                id="CommentEmail"
+                required="required"
+                placeholder="your@email.com"
+                class="input-full{% if form.errors contains 'email' %} error{% endif %}"
+                value="{{ form.email }}"
+                autocorrect="off"
+                autocapitalize="off"
+              >
+            </div>
+            <div class="grid__item large--one-half">
+              <label for="CommentBody">{{ 'article.form.label.message' | t }}</label>
+              <textarea
+                name="comment[body]"
+                id="CommentBody"
+                class="input-full{% if form.errors contains 'body' %} error{% endif %}"
+                required="required"
+                placeholder="Write a message"
+              >{{ form.body }}</textarea>
+            </div>
+          </div>
+          {% if blog.moderated? %}
+            <p>{{ 'blogs.comments.moderated' | t }}</p>
+          {% endif %}
+          <button class="theme-btn" type="submit">
+            <span class="btn-bg"></span><span class="btn-text">{{ 'main_article.btn-text' | t }}</span>
+          </button>
+        </fieldset>
+      </div>
+    {% endform %}
+    {%- if blog.next_article or blog.previous_article -%}
+      <div class="article-pagination {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+        <div class="article-prev">
+          {%- if blog.previous_article -%}
+            <div class="text-btn">
+              <a
+                rel="nofollow"
+                href="{{ blog.previous_article.url }}"
+                class="article-pagination-prev {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                {%- render 'arrow-prev' -%}
+                {{- 'main_article.article-pagination-prev' | t -}}
+              </a>
+            </div>
+            <div class="blog-pagination-info">
+              <a
+                rel="nofollow"
+                href="{{ blog.previous_article.url }}"
+                class="article-pagination-prev {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                <span>{{ blog.previous_article.title }}</span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="article-next">
+          {%- if blog.next_article -%}
+            <div class="text-btn">
+              <a
+                rel="nofollow"
+                href="{{ blog.next_article.url }}"
+                class="article-pagination-next {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                {{- 'main_article.article-pagination-next' | t -}}
+                {%- render 'arrow-next' -%}
+              </a>
+            </div>
+            <div class="blog-pagination-info">
+              <a
+                rel="nofollow"
+                href="{{ blog.next_article.url }}"
+                class="article-pagination-next {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+              >
+                <span>{{ blog.next_article.title }}</span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ shop.url | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      {% assign image_size = article.image.width | append: 'x' %}
+      "image": [
+        {{ article | image_url: image_size | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      {% if settings.logo %}
+        {% assign image_size = settings.logo.width | append: 'x' %}
+        "logo": {{ settings.logo | image_url: image_size | prepend: "https:" | json }},
+      {% endif %}
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-article.name",
+  "settings": [],
+  "blocks": [
+    {
+      "name": "t:sections.main-article.blocks.article_title.name",
+      "limit": 1,
+      "type": "article_title"
+    },
+    {
+      "name": "t:sections.main-article.blocks.article_info.name",
+      "limit": 1,
+      "type": "article_info",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_author",
+          "default": true,
+          "label": "t:sections.main-article.blocks.article_info.settings.enable_author_info.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_date",
+          "default": true,
+          "label": "t:sections.main-article.blocks.article_info.settings.enable_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_tags",
+          "default": true,
+          "label": "t:sections.main-article.blocks.article_info.settings.enable_tags.label"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.main-article.blocks.image.name",
+      "type": "image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "default": "#000",
+          "label": "t:sections.main-article.blocks.image.settings.overlay_color.label"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "t:sections.main-article.blocks.image.settings.overlay_opacity.label",
+          "step": 1,
+          "default": 6,
+          "max": 10,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "name": "t:sections.main-article.blocks.content.name",
+      "type": "content",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

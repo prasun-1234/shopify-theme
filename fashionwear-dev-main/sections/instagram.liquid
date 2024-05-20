@@ -1,0 +1,147 @@
+{% style %}
+  .{{ section.id }}{
+    margin-top:{{ section.settings.margin_top }}px;
+    margin-bottom:{{ section.settings.margin_bottom }}px;
+  }
+  @media only screen and (min-width: 1024px) {
+    .card-container .card:nth-child(even) {
+      margin-top: 80px;
+    }
+  }
+  @media only screen and (max-width: 1024px){
+    .{{ section.id }}{
+      margin-top:{{ section.settings.margin_top | divided_by: 2 }}px;
+      margin-bottom:{{ section.settings.margin_bottom | divided_by: 2 }}px;
+    }
+  }
+   @media only screen and (min-width: 640px) {
+    .card-container .card:nth-child(even) {
+    }
+  }
+{% endstyle %}
+<section class="{{ section.id }}">
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto ">
+    <div class="flex justify-center items-center">
+      <h2 class="lg:leading-[0.6] leading-[1.4]">{{ section.settings.section_heading }}</h2>
+    </div>
+    <div class="card-container z-10 flex lg:flex-row flex-col lg:gap-10 gap-5 h-auto relative">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image_block' %}
+            <div class="card w-full md:max-h-[420px] max-h-[360px] lg:max-h-[520px] lg:group/image overflow-hidden">
+              <a href="{{ block.settings.link }}" rel="nofollow" class="h-full inline-block w-full">
+                <figure class="w-full overflow-hidden h-full">
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'object-cover w-full h-full group-hover/image:scale-110 card duration-500 ease-in-out object-top',
+                        loading: 'lazy'
+                    }}
+                  {% else %}
+                    {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-gray-300 brightness-75' }}
+                  {% endif %}
+                </figure>
+              </a>
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <div class="mt-10 flex justify-center items-center">
+      <div class="text-center">
+        <p>{{ 'instagram.follow_us_instagram' | t }}</p>
+        <a class="font-semibold" rel="nofollow" href="{{ section.settings.social_url }}">
+          {% render 'hover-link', src: section.settings.social_tag, class: 'inline-block' %}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.instagram.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:section.instagram.settings.margin_top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:section.instagram.settings.margin_bottom",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "t:section.instagram.settings.section_heading",
+      "default": "Instagram"
+    },
+    {
+      "type": "text",
+      "id": "social_tag",
+      "label": "t:section.instagram.settings.social_tag",
+      "default": "@womenswear"
+    },
+    {
+      "type": "url",
+      "id": "social_url",
+      "label": "t:section.instagram.settings.social_url"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.instagram.blocks.name",
+      "type": "image_block",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:section.instagram.blocks.settings.image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:section.instagram.blocks.settings.link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.instagram.presets.name",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 80,
+        "section_heading": "Instagram",
+        "social_tag": "@womenswear",
+        "social_url": "https://www.instagram.com/"
+      },
+      "blocks": [
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "image_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

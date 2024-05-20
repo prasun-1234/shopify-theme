@@ -1,0 +1,342 @@
+{% style %}
+  .featured-collection-main{
+    background-color: {{ section.settings.background_color }};
+    padding:{{ section.settings.padding }}px 0;
+  }
+  .delta-slider-button{
+      right:0px;
+      top:38px;
+  }
+  .delta-slider-button .swiper-button-prev{
+      left: -129px;
+      right: auto;
+  }
+  .side-banner-button{
+    min-width: 200px !important;
+  }
+  {% if section.settings.side_banner_enable == false %}
+  #feature-{{ section.id }}-collection .productSwiper{
+                padding-top:80px;
+              }
+              {% endif %}
+  @media only screen and (max-width: 980px){
+  #feature-{{ section.id }}-collection{
+    margin-top: {{ section.settings.section_margin_top | divided_by: 2 }}px !important;
+    margin-bottom: {{ section.settings.section_margin_bottom | divided_by: 2 }}px !important;
+    }
+    {% if section.settings.side_banner_enable == false %}
+  #feature-{{ section.id }}-collection .productSwiper{
+                padding-top:0;
+              }
+              {% endif %}
+  }
+  {% if section.settings.side_banner_enable == true %}
+              #feature-{{ section.id }}-collection .feature-top{
+                padding-top:80px;
+              }
+            {% endif %}
+            @media screen and (max-width:980px){
+              {% if section.settings.side_banner_enable == true %}
+              #feature-{{ section.id }}-collection .feature-top{
+                padding-top:0;
+              }
+            {% endif %}
+            }
+{% endstyle %}
+
+{% capture product_banner %}
+  <div class="shrink-[1] group/text w-full h-full" id="featured_collection_banner">
+  <div class="h-full relative">
+    {% if section.settings.image != blank %}
+    {{ section.settings.image | image_url: width: 1500 | image_tag: alt: section.settings.image.alt,
+        loading: 'lazy',
+        sizes: '100',
+        widths: '165, 360, 535, 750, 1070, 1500',
+        class: 'features-img object-cover h-full w-full object-center max-h-[300px] lg:max-h-[800px]' }}
+    {% else %}
+    {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-[#ccc]' }}
+    {% endif %}
+    <span class=" absolute top-0 left-0 w-full h-full" style="background:{{ section.settings.side_banner_color }};"></span>
+  </div>
+  <div class="absolute top-0 left-0 h-full w-full flex items-center justify-end gap-5 flex-col py-[40px] px-[15px] ">
+    <h2 class="text-center duration-300 ease" style="color:{{ section.settings.banner_content_color }};">
+       {% if section.settings.side_banner_title != blank %}
+       {{ section.settings.side_banner_title }}
+        {% else %}
+        {{ 'feature-collection.card_title' | t }}
+       {% endif %}
+      </h2>
+    <a class="duration-300 ease-in" href="{{ section.settings.url }}">
+      {% render 'btn-secondary' src: section.settings.banner_button_text, class: 'side-banner-button custom', color: section.settings.banner_content_color, wrapper: 'featured_collection_banner', icon: 'Arrow right.png' %}
+    </a>
+  </div>
+  </div>
+{% endcapture %}
+
+{% assign featured_collection = section.settings.collection %}
+<section
+  id="feature-{{ section.id }}-collection"
+  class="featured-collection-main xl:pt-0 lg:pt-0 pt-20"
+  style="margin-top:{{ section.settings.section_margin_top }}px; margin-bottom:{{ section.settings.section_margin_bottom }}px;"
+>
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div
+      class="relative"
+    >
+      <h2 class="lg:absolute pointer-events-none lg:top-0 top-[-60px] left-0 z-20 w-full text-center md:text-left lg:mb-0 mb-5">
+        {{ section.settings.title }}
+      </h2>
+      <div class="{% if section.settings.side_banner_enable == true %}flex lg:gap-[20px] gap-[40px] lg:flex-row flex-col{% endif %}">
+        {% if section.settings.side_banner_enable == true
+          and section.settings.product_view == 'slider'
+          and section.settings.collection != blank
+        %}
+          <div
+            class="lg:w-1/2 flex items-end overflow-hidden max-h-[300px] lg:max-h-[800px] relative feature-top"
+          >
+            {{ product_banner }}
+          </div>
+        {% endif %}
+        {% if featured_collection != blank %}
+          {% if section.settings.product_view == 'slider' %}
+            <div
+              class="swiper productSwiper relative feature-top"
+              data-col="{% if section.settings.side_banner_enable == true %}2{% else %}{{ section.settings.products_per_row }}{% endif %}"
+            >
+              <div class="swiper-wrapper relative">
+                {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+                  <div class="swiper-slide">
+                    {% render 'product-item', product: product, section: section %}
+                  </div>
+                {%- endfor -%}
+              </div>
+              {% if settings.btn_style == 'style-1' %}
+                <div class="absolute product-btn justify-between xl:justify-start top-[40%] xl:!top-0 md:right-0 xl:pl-0 pl-[2px] w-full xl:w-auto flex items-center gap-[15px] pr-[5px] h-[32px]">
+                  <div class="slider-2-button swiper-button-prev sm:!left-auto !left-[2px] !top-auto !mt-0 !relative">
+                    {% render 'btn-swiper', class: 'rotate-180' %}
+                  </div>
+                  <div class="slider-2-button swiper-button-next  !top-auto !mt-0 !relative md:!right-auto sm:!right-[24px] !right-[2px]">
+                    {% render 'btn-swiper' %}
+                  </div>
+                </div>
+              {% else %}
+                <div class="w-full product-btn">
+                  <div class="slider-2-button swiper-button-prev !left-0 {% if section.settings.side_banner_enable == true %}!top-[40%]{% else %}!top-[40%] lg:!top-[50%]{% endif %}">
+                    {% render 'btn-swiper', class: 'rotate-180' %}
+                  </div>
+                  <div class="slider-2-button swiper-button-next !right-0 !top-[40%] {% if section.settings.side_banner_enable == true %}!top-[40%]{% else %}!top-[40%] lg:!top-[50%]{% endif %}">
+                    {% render 'btn-swiper' %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% elsif section.settings.product_view == 'grid' %}
+            {% assign item_per_grid = section.settings.products_per_row %}
+            <div class="grid grid-cols-12 gap-4 pt-[80px] w-full">
+              {% if section.settings.side_banner_enable == true
+                and section.settings.product_view == 'grid'
+                and section.settings.collection != blank
+              %}
+                <div class=" group/text relative overflow-hidden max-h-[300px] lg:max-h-[500px] {% if section.settings.side_banner_enable == true %} xl:col-span-4 sm:col-span-6 col-span-12 {% else %}{% case item_per_grid %} {% when 4 %} xl:col-span-3 {% when 3 %} lg:col-span-4 {% when 2 %} md:col-span-6 {% when 1 %}md:col-span-12 {% else %} {% endcase %}{% endif %}">
+                  {% if section.settings.side_banner_enable == true %}
+                    {{ product_banner }}
+                  {% endif %}
+                </div>
+              {% endif %}
+              {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+                <div class=" col-span-12 sm:col-span-6 {% if section.settings.side_banner_enable == true %} xl:col-span-4 sm:col-span-6 col-span-12{% else %}{% case item_per_grid %} {% when 4 %} xl:col-span-3 {% when 3 %} lg:col-span-4 {% when 2 %} md:col-span-6 {% when 1 %}md:col-span-12 {% else %} {% endcase %}{% endif %}">
+                  {% render 'product-item', product: product, section: section %}
+                </div>
+              {%- endfor -%}
+            </div>
+          {% endif %}
+        {% else %}
+          {% assign item_per_grid = section.settings.products_per_row %}
+          <div class="grid grid-cols-12 gap-4 pt-[80px] w-full">
+            {% if section.settings.side_banner_enable == true %}
+              <div class="relative col-span-12 sm:col-span-6 overflow-hidden max-h-[300px] lg:max-h-[500px] {% case item_per_grid %}{% when 4 %} lg:col-span-3 {% when 3 %} md:col-span-4 {% when 2 %} md:col-span-6 {% when 1 %}md:col-span-12 {% else %} {% endcase %}">
+                {{ product_banner }}
+              </div>
+            {% endif %}
+            {%- for i in (1..6) -%}
+              <div class="col-span-12 sm:col-span-6 {% case item_per_grid %}{% when 4 %} lg:col-span-3 {% when 3 %} md:col-span-4 {% when 2 %} md:col-span-6 {% when 1 %}md:col-span-12 {% else %} {% endcase %}">
+                {% render 'product-item' %}
+              </div>
+            {%- endfor -%}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if section.settings.enable_collection_button == true %}
+      <div class="flex justify-center mt-5">
+        <a href="{{ section.settings.collection.url }}" class="inline-block">
+          {% render 'btn-primary', src: 'View More' %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.feature-collection.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:section.feature-collection.settings.title"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "t:section.feature-collection.settings.section_margin_top",
+      "default": 0,
+      "max": 100,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "t:section.feature-collection.settings.section_margin_bottom",
+      "default": 0,
+      "max": 100,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "t:section.feature-collection.settings.padding",
+      "default": 0,
+      "max": 80,
+      "step": 10,
+      "min": 0,
+      "unit": "px"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:section.feature-collection.settings.collection.label",
+      "info": "t:section.feature-collection.settings.collection.info"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:section.feature-collection.settings.background_color.label",
+      "info": "t:section.feature-collection.settings.background_color.info"
+    },
+    {
+      "type": "radio",
+      "id": "product_view",
+      "default": "slider",
+      "label": "t:section.feature-collection.settings.product_view.label",
+      "options": [
+        {
+          "value": "slider",
+          "label": "t:section.feature-collection.settings.product_view.options.slider"
+        },
+        {
+          "value": "grid",
+          "label": "t:section.feature-collection.settings.product_view.options.grid"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "label": "t:section.feature-collection.settings.products_to_show"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:section.feature-collection.settings.products_per_row"
+    },
+    {
+      "type": "header",
+      "content": "t:section.feature-collection.settings.side_banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "side_banner_enable",
+      "label": "t:section.feature-collection.settings.side_banner_enable"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Secondary Button Icon for Side Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:section.feature-collection.settings.image"
+    },
+    {
+      "type": "color_background",
+      "id": "side_banner_color",
+      "label": "t:section.feature-collection.settings.side_banner_color",
+      "default": "linear-gradient(0deg, rgba(64,59,58,1) 0%, rgba(64,59,58,0) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "banner_content_color",
+      "label": "t:section.feature-collection.settings.banner_content_color",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "side_banner_title",
+      "default": "25%OFF ON ACCESSORIES",
+      "label": "t:section.feature-collection.settings.side_banner_title"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "default": "View Collection",
+      "label": "t:section.feature-collection.settings.banner_button_text"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "t:section.feature-collection.settings.url"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_collection_button",
+      "label": "t:section.feature-collection.settings.enable_collection_button",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.feature-collection.presets.name",
+      "settings": {
+        "title": "Featured Collection",
+        "section_margin_top": 60,
+        "section_margin_bottom": 60,
+        "collection": "bicycles",
+        "background_color": "#ffffff",
+        "product_view": "slider",
+        "products_to_show": 4,
+        "products_per_row": 4,
+        "side_banner_enable": false,
+        "image": "shopify:\/\/shop_images\/girl.jpg",
+        "side_banner_color": "linear-gradient(0deg, rgba(64,59,58,1) 0%, rgba(64,59,58,0) 100%)",
+        "banner_content_color": "#ffffff",
+        "side_banner_title": "25% OFF ON ACCESSORIES",
+        "enable_collection_button": false
+      }
+    }
+  ]
+}
+{% endschema %}

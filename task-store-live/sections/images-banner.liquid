@@ -1,0 +1,124 @@
+{{ 'section-images-banner.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #{{ section.id }} .images-heading span{
+    background: {{ section.settings.heading_gradient }};
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight:bold !important;
+    -webkit-text-fill-color: transparent;
+  }
+{% endstyle %}
+
+<section class="images-banner-section" id="{{ section.id }}">
+  <div class="container">
+    <div class="inner-images-banner border-gradient">
+      <div class="images-banner-container">
+        <div class="body-content">
+          <div class="content">
+            <h2 class="h2 images-heading">{{ section.settings.heading }}</h2>
+            <p class="body-text">
+              {{ section.settings.text }}
+            </p>
+            {% if section.settings.button_url != blank and section.settings.button_label != blank %}
+              {% if section.settings.enable_quote == true %}
+                <button
+                  type="button"
+                  aria-controls="getQuoteForm"
+                  aria-expanded="false"
+                  class="button button_primary get_quote_btn"
+                >
+                  {% render 'button-primary', text: section.settings.button_label | escape %}
+                </button>
+              {% else %}
+                <a
+                  href="{{ section.settings.button_url }}"
+                  class="button button_primary get_quote_btn"
+                >
+                  {% render 'button-primary', text: section.settings.button_label | escape %}
+                </a>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="images-board">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'background' %}
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '800',
+                      widths: '260, 400, 600, 800',
+                      class: 'images-banner-section-image'
+                  -}}
+                {% endif %}
+              {% else %}
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Images banner",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Building the <span>future</span> of web design"
+    },
+    {
+      "type": "color_background",
+      "id": "heading_gradient",
+      "label": "Heading gradient",
+      "info": "Apply a '<span></span>' tag for the 'Section heading' input to enable this feature",
+      "default": "linear-gradient(90deg, rgba(109,255,193,1) 38%, rgba(189,158,255,1) 82%)"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Section paragraph",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "id": "enable_quote",
+      "type": "checkbox",
+      "label": "Enable quote form button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Button"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Background images",
+      "type": "background",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

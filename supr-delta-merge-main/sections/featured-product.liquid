@@ -1,0 +1,157 @@
+{% style %}
+   @media only screen and (max-width: 980px){
+    #featured-product{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+<section
+  id="featured-product"
+  class="bg-center featured_product"
+  style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-bottom: {{ section.settngs.margin_top }};"
+>
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    {% if section.blocks != blank %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'collection' %}
+            {% assign num = forloop.index | modulo: 2 %}
+            {% assign collection = block.settings.collection_1 %}
+            {% if collection != blank %}
+              <div
+                {{ block.shopify_attributes }}
+                class="flex flex-col {% if num == 0 %}lg:flex-row{% else %}lg:flex-row-reverse{% endif %} mx-auto justify-center items-center gap-[40px] pt-[60px]"
+                id="product_cols"
+                data-handle="{{ collection.handle }}"
+              >
+                <div class="flex flex-col">
+                  <h2 class=" leading-[50px] sm:block">
+                    {{ collection.title }}
+                  </h2>
+                  <div class="pt-4 opacity-80 mb-[40px] lg:mb-[60px] xl:w-[670px]">
+                    {{ collection.description }}
+                  </div>
+                  {% render 'link-btn', href: collection.url, rel: 'nofollow', text: block.settings.link_text %}
+                </div>
+                {{
+                  collection.featured_image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'object-cover lg:h-[480px] lg:w-[470px] h-[340px] w-full'
+                }}
+              </div>
+            {% else %}
+              <div
+                {{ block.shopify_attributes }}
+                class="flex flex-col {% if num == 0 %}lg:flex-row{% else %}lg:flex-row-reverse{% endif %} mx-auto justify-center items-center gap-[40px] pt-[60px]"
+                id="product_cols"
+                data-handle="{{ collection.handle }}"
+              >
+                <div class="flex flex-col">
+                  <h2 class=" leading-[50px] sm:block">
+                    <h2>{{ 'featured-product.title' | t }}</h2>
+                  </h2>
+                  <div class="pt-4 opacity-80 mb-[40px] lg:mb-[60px] xl:w-[670px]">
+                    <p>{{ 'featured-product.body_text' | t }}</p>
+                  </div>
+                  {% render 'link-btn', text: 'Link Button' %}
+                </div>
+                {{ 'collection-4' | placeholder_svg_tag: 'w-full max-w-[320px]' }}
+              </div>
+            {% endif %}
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    {% else %}
+
+    {% endif %}
+    <div class="flex items-center justify-center py-[60px]">
+      <a href="{{ routes.collections_url }}">
+        {% render 'btn-primary', src: section.settings.button_text %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.featured-product.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.featured-product.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.featured-product.settings.margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:section.featured-product.settings.button_text.label",
+      "default": "View All Collection",
+      "info": "t:section.featured-product.settings.button_text.info",
+      "placeholder": "t:section.featured-product.settings.button_text.placeholder"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.featured-product.blocks.collection.name",
+      "type": "collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection_1",
+          "label": "t:section.featured-product.blocks.collection.settings.collection_1"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:section.featured-product.blocks.collection.settings.link_text",
+          "default": "View Collection"
+        }
+      ],
+      "limit": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.featured-product.presets.name",
+      "settings": {
+        "margin_bottom": 0,
+        "button_text": "t:section.featured-product.presets.settings.button_text"
+      },
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+.about-us-content{
+    margin-block: 40px;
+}
+
+.about-us-content .about-title{
+    margin-bottom: 20px;
+}
+
+.about-us-content span,.about-us-content span *{
+    line-height: 1.8;
+}

@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "title": {
+          "type": "article_title",
+          "settings": {
+          }
+        },       
+        "article_info": {
+          "type": "article_info",
+          "settings": {
+            "enable_tags": true,
+            "enable_author": true,
+            "enable_date": true
+          }
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "overlay_color": "#000000",
+            "overlay_opacity": 6
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "publish_info",
+        "article_info",
+        "image",
+        "content"
+      ],
+      "settings": {
+      }
+    },
+    "article-product": {
+      "type": "article-section",
+      "blocks": {
+        "188458e4-0fde-4bc9-b922-5b7b4b14dd79": {
+          "type": "text_block",
+          "settings": {
+            "slider_or_grid": "grid",
+            "parent_article": "",
+            "additional_product1": "",
+            "additional_product2": "",
+            "additional_product3": "",
+            "additional_product4": "",
+            "additional_product5": "",
+            "additional_product6": ""
+          }
+        }
+      },
+      "block_order": [
+        "188458e4-0fde-4bc9-b922-5b7b4b14dd79"
+      ],
+      "settings": {
+        "section_title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "article-product"
+  ]
+}

@@ -1,0 +1,104 @@
+<div class="search-result-wrapper {{ id }}">
+  <div class="container">
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <div class="search-availaible">
+          <div class="show-search-products search-item" style="display:none">
+            <h3 class="header">{{ 'general.search.products' | t }}</h3>
+            <ul>
+              <li class="clone" style="display:none">
+                <a rel="nofollow" href="">
+                  <div class="search-results">
+                    <div class="product-img">
+                      <img
+                        src="{{ default-img.jpg | asset_img_url }}"
+                        alt="image"
+                        width="auto"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    </div>
+                    <div class="product-details">
+                      <h3 class="title"></h3>
+                      <p class="price"></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="show-search-collections search-item" style="display:none">
+            <h3 class="header">{{ 'general.search.collection_label' | t }}</h3>
+            <ul>
+              <li class="clone wow fadeInLeft" style="display:none">
+                <a rel="nofollow" href="">
+                  <div class="search-results">
+                    <div class="product-img">
+                      <img
+                        src="{{ default-img.jpg | asset_img_url }}"
+                        alt="image"
+                        width="auto"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    </div>
+                    <div class="product-details">
+                      <h3 class="title"></h3>
+                      <p class="price"></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="show-search-pages search-item" style="display:none">
+            <h3 class="header">{{ 'general.search.page_label' | t }}</h3>
+            <ul class="search-pages">
+              <li class="clone wow fadeInLeft" style="display:none">
+                <a rel="nofollow" href="">
+                  <div class="search-results">
+                    <div class="product-details">
+                      <h3 class="title"></h3>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="show-search-blogs search-item" style="display:none">
+            <h3 class="header">{{ 'general.search.blog_label' | t }}</h3>
+            <ul>
+              <li class="clone" style="display:none">
+                <a rel="nofollow" href="">
+                  <div class="search-results">
+                    <div class="product-img">
+                      <img
+                        src="{{ default-img.jpg | asset_img_url }}"
+                        alt="image"
+                        width="auto"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    </div>
+                    <div class="product-details">
+                      <h3 class="title"></h3>
+                      <span class="blog-meta">
+                        {{- 'general.search.by' | t }}
+                        <span class="blog-author"></span>, <span class="blog-published-date"></span
+                      ></span>
+                      <div class="blog-content">
+                        <p>{{ 'general.search.blog_desc' | t }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="no-product-found" style="display:none">{{ 'general.search.no_search' | t }}</p>
+      </div>
+    </div>
+  </div>
+</div>

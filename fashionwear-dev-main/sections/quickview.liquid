@@ -1,0 +1,141 @@
+{% style %}
+  #quickView *:not(.product-buy,.product-buy *){
+      color:{{ section.settings.content_color }} !important;
+      border-color:{{ section.settings.content_color }} !important;
+  }
+  #quickView svg path{
+      fill:{{ section.settings.content_color }};
+  }
+  #quickView svg.stroke path{
+    fill:transparent !important;
+      stroke:{{ section.settings.content_color }};
+  }
+  #quickView .radio_input label,#quickView .radio_input label{
+    color:{{ section.settings.content_color }};
+  }
+  #quickView .radio_input label:before,#quickView .radio_input label:before{
+    background-color:{{ section.settings.content_color }};
+    opacity:0.2;
+  }
+  #quickView .radio_input input:hover ~ label .val,#quickView .radio_input input:checked ~ label .val{
+       color:{{ section.settings.bg_color }} !important;
+  }
+  #quickView .radio_input input:hover ~ label:before,#quickView .radio_input input:checked ~ label:before{
+       opacity:1;
+  }
+  #quickView .product-add .hover-link:before{
+    background-color:{{ section.settings.content_color }};
+  }
+{% endstyle %}
+
+<section
+  id="quickView"
+  class="fixed top-0 left-0 w-full h-screen z-[1999] bg-[#00000050] ease-in-out duration-500 p-0  flex justify-center items-center "
+  data-money-quickview="{{ shop.money_format }}"
+>
+  <div
+    class="xl:max-w-[600px] sm:max-w-[32rem] w-full p-5 lg:p-10 sm:absolute sm:right-0 sm:top-0 h-full quickbar overflow-auto ease-in-out duration-500 "
+    style="background-color: {{ section.settings.bg_color }};"
+  >
+    {% render 'icon-close-thin',
+      class: 'w-4 h-4 absolute right-5 lg:top-11 top-7 modal-close stroke hover:scale-90 ease-in-out duration-300 cursor-pointer'
+    %}
+    <form
+      method="post"
+      action="/cart/add"
+      accept-charset="UTF-8"
+      class="shopify-product-form"
+      enctype="multipart/form-data"
+    >
+      <input type="hidden" name="form_type" value="product">
+      <input
+        id="quickview_product_id"
+        type="hidden"
+        name="id"
+      >
+      <div class="flex flex-col gap-7 ">
+        <h4>{{ 'quickview.options' | t }}</h4>
+        <div class="flex gap-4">
+          <figure class="lg:h-48 lg:w-48 sm:w-36 sm:h-36 w-32 h-36 relative overflow-hidden">
+            <img src="" alt="" width="100" height="100" loading="lazy" class="product_image object-cover w-full h-full">
+          </figure>
+          <div class="flex flex-col gap-2  justify-center ">
+            <h4 class="product_title"></h4>
+            <p class="flex items-center gap-3 product_price"></p>
+            <p class="flex items-center gap-2">
+              {% render 'icon-stock', class: 'w-5 h-5 stroke' %}
+              <span class="product_stock"></span>
+            </p>
+          </div>
+        </div>
+        <div class="product_options" id="quickview_options">
+          <select name="id" class="hidden" id="quickview_variant_select"></select>
+          <div class="product_options_list"></div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <p class="flex items-center gap-2 font-semibold">{{ 'quickview.quantity' | t }}</p>
+          <div class="quantity-counter">
+            <div class="inner-wrapper !border-none">
+              <span
+                class="absolute w-full h-full left-0 top-0 opacity-20"
+                style="background-color: {{ section.settings.content_color }};"
+              ></span>
+              <button
+                type="button"
+                class="decrease h-full bg-transparent outline-none cursor-pointer"
+                id="decrement-count"
+              >
+                {% render 'icon-minus', class: 'stroke' %}
+              </button>
+              <input
+                class="quantity max-w-[40px] !border-none !bg-transparent h-full !m-0"
+                type="number"
+                name="quantity"
+                id="quickview_quantity"
+                value="1"
+                min="1"
+                max=""
+              >
+              <button
+                type="button"
+                class="increase h-full bg-transparent outline-none cursor-pointer"
+                id="increment-count"
+              >
+                {% render 'icon-plus', class: 'stroke' %}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">{{ 'quickview.description' | t }}:</p>
+          <div class="product_description"></div>
+        </div>
+        {% render 'btn-secondary', src: 'Buy Now', type: 'submit', class: 'product-buy' %}
+        <button type="submit" class="product-add flex items-center justify-center gap-2 font-semibold">
+          {% render 'icon-cart', class: 'w-5 h-5 stroke' %}
+          {% render 'hover-link', class: 'text', src: 'Add to Cart' %}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.quickview.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "t:section.quickview.settings.bg_color",
+      "default": "#27272A"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "t:section.quickview.settings.content_color",
+      "default": "#fff"
+    }
+  ]
+}
+{% endschema %}

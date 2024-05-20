@@ -1,0 +1,198 @@
+{% style %}
+  .circle-text-wrap span{
+    color:{{ section.settings.video_text_color }}
+  }
+{% endstyle %}
+<link rel="stylesheet" href="{{ 'video-section-2.css' | asset_url }}">
+<section
+  id="video_2"
+  class="video-2 video-div"
+  tabindex="0"
+  style="height:{{ section.settings.banner_height }}px;margin-bottom:{{ section.settings.margin_bottom }}px;"
+>
+  <figure class="video_image">
+    {% if section.settings.video_image != blank -%}
+      {{ section.settings.video_image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+    {%- endif %}
+  </figure>
+  {%- if section.settings.video_image == blank -%}
+    <div class="video-image" tabindex="-1">
+      <div class="placeholder_main">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    </div>
+  {% endif %}
+
+  <div
+    class="banner-overlay"
+    tabindex="-1"
+    style="background-color: {{ section.settings.overlay_bg_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+  ></div>
+  <div class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %} video-content">
+    <div class="play-btn">
+      {% if section.settings.button_text_active %}
+        <p class="circle-text-wrap" tabindex="-1">
+          {{ section.settings.circle_text | truncatewords: 10 }}
+          {{ section.settings.circle_text | truncatewords: 10 }}
+          {{ section.settings.circle_text | truncatewords: 10 }}
+        </p>
+      {% endif %}
+      <button class="video-btn" type="button" id="video_2_btn">
+        {% render 'icon-play-bg', color: section.settings.btn_color %}
+      </button>
+    </div>
+  </div>
+  <div class="video-wrapper" id="video_2_url" tabindex="-1">
+    {%- if section.settings.video_link != blank and section.settings.video == blank -%}
+      {%- if section.settings.video_link.type == 'youtube' -%}
+        <iframe
+          class="lazyload load-video video"
+          id="video-{{ section.id }}"
+          width="1280"
+          height="720"
+          loading="lazy"
+          title="{{ shop.name }}-video"
+          data-src="https://www.youtube.com/embed/{{ section.settings.video_link.id }}"
+        ></iframe>
+      {%- elsif section.settings.video_link.type == 'vimeo' -%}
+        <iframe
+          class="lazyload load-video video"
+          id="video-{{ section.id }}"
+          width="1280"
+          height="720"
+          loading="lazy"
+          title="{{ shop.name }}-video"
+          data-src="https://player.vimeo.com/video/{{ section.settings.video_link.id }}"
+        ></iframe>
+      {%- endif -%}
+    {% elsif section.settings.video_link == blank and section.settings.video == blank %}
+      <iframe
+        width="1264"
+        height="711"
+        src="https://www.youtube.com/embed/_9VUPq3SxOc"
+        title="{{ shop.name }}-video"
+        frameborder="0"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    {%- endif -%}
+    {% if section.settings.video != blank %}
+      {% assign video = section.settings.video %}
+      {{ video | video_tag: loop: true, autoplay: false, controls: true, muted: false }}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.video-section-2.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "min": 0,
+      "max": 60,
+      "step": 10,
+      "default": 0,
+      "label": "t:sections.map.settings.banner-margin-bottom.label",
+      "unit": "px",
+      "id": "margin_bottom"
+    },
+    {
+      "type": "image_picker",
+      "label": "t:sections.video-section-2.settings.video_image.label",
+      "id": "video_image"
+    },
+    {
+      "type": "video_url",
+      "id": "video_link",
+      "label": "t:sections.video-section-2.settings.video_link.label",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+      "info": "This input will not be taken if video is uploaded below"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video-section-2.settings.video.label"
+    },
+    {
+      "type": "range",
+      "min": 550,
+      "max": 800,
+      "default": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "t:sections.video-section-2.settings.banner_height.label",
+      "id": "banner_height"
+    },
+    {
+      "type": "text",
+      "label": "t:sections.video-section-2.settings.circle_text.label",
+      "id": "circle_text",
+      "default": "Watch Video"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.video-section-2.settings.video_text_color.label",
+      "default": "#fff",
+      "id": "video_text_color"
+    },
+    {
+      "type": "color",
+      "label": "t:sections.video-section-2.settings.overlay_bg_color.label",
+      "default": "#000",
+      "id": "overlay_bg_color"
+    },
+    {
+      "type": "range",
+      "label": "t:sections.video-section-2.settings.overlay_opacity.label",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "id": "overlay_opacity"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "checkbox",
+      "label": "t:sections.video-section-2.settings.button_text_active.label",
+      "id": "button_text_active",
+      "default": true
+    },
+    {
+      "type": "color",
+      "label": "t:sections.video-section-2.settings.btn_color.label",
+      "default": "#fff",
+      "id": "btn_color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.video-section.presets.name.section2",
+      "settings": {
+        "margin_bottom": 0,
+        "video_image": "",
+        "video_link": "",
+        "banner_height": 800,
+        "circle_text": "Watch Video",
+        "video_text_color": "#ffffff",
+        "overlay_bg_color": "#000000",
+        "overlay_opacity": 4,
+        "button_text_active": true,
+        "btn_color": "#ffffff"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+
+

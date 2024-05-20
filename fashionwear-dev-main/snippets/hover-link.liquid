@@ -1,0 +1,34 @@
+{% style %}
+  .hover-link {
+    font-weight: 600;
+    font-size: 1rem !important;
+    color: var(--title-text-color);
+  }
+  .hover-link::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    transition: 0.3s ease;
+    bottom: 0px;
+    background: var(--title-text-color);
+  }
+  .hover-link:hover::before {
+    width: 100%;
+  }
+  @media only screen and (max-width: 767px) {
+    .hover-link {
+      font-size: 14px !important;
+    }
+  }
+{% endstyle %}
+
+{% if buttonType == 'button' %}
+  <button type="{{ type }}" id="{{ id }}" {{ attr }} class="{{ class }} hover-link relative cursor-pointer w-fit">
+    {{ src }}
+  </button>
+{% else %}
+  <p id="{{ id }}" class="{{ class }} hover-link relative w-fit">{{ src }}</p>
+{% endif %}

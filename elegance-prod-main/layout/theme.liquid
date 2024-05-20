@@ -1,0 +1,349 @@
+<!doctype html>
+
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_default_theme }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_base_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title -}}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% else %}
+      <meta name="description" content="Elegance 2.0 - A Shopify Theme">
+    {% endif %}
+
+    {%- render 'open-graph-tags' -%}
+    {%- render 'twitter-card' -%}
+
+    {%- liquid
+      assign header1_font = settings.type_header_font_h1
+      assign header2_font = settings.type_header_font_h2
+      assign header3_font = settings.type_header_font_h3
+      assign header4_font = settings.type_header_font_h4
+      assign header5_font = settings.type_header_font_h5
+      assign base_font = settings.type_base_font
+      assign secondary_font = settings.type_secondary_font
+    %}
+
+    {%- liquid
+      assign body_font_bold = base_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = base_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = base_font | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+        {{ body_font_italic | font_face: font_display: 'swap' }}
+        {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+        {{ base_font | font_face: font_display: 'swap' }}
+          {{ secondary_font | font_face: font_display: 'swap' }}
+          {{ header1_font | font_face: font_display: 'swap' }}
+          {{ header2_font | font_face: font_display: 'swap' }}
+          {{ header3_font | font_face: font_display: 'swap' }}
+          {{ header4_font | font_face: font_display: 'swap' }}
+          {{ header5_font | font_face: font_display: 'swap' }}
+
+          {% for scheme in settings.color_schemes -%}
+          {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+          {% if forloop.index == 1 -%}
+            :root,
+          {%- endif %}
+          .color-{{ scheme.id }} {
+            --body-background: {{ scheme.settings.body_background }};
+          {% if scheme.settings.background_gradient != empty %}
+            --gradient-background: {{ scheme.settings.background_gradient }};
+          {% else %}
+            --gradient-background: {{ scheme.settings.body_background }};
+          {% endif %}
+          --primary-font-color: {{ scheme.settings.color_body_text }};
+          --secondary-font-color: {{ scheme.settings.color_header }};
+          --error-font-color: {{ scheme.settings.color_error_text }};
+          --menu-color: {{ scheme.settings.color_menu }};
+          --primary-theme-color: {{ scheme.settings.primary_theme_color }};
+          --secondary-theme-color: {{ scheme.settings.secondary_theme_color }};
+          --tertiary-theme-color: {{ scheme.settings.tertiary_theme_color }};
+          --tertiary-theme-color-rgb: {{ scheme.settings.tertiary_theme_color | color_to_rgb | replace: 'rgb(', "" | replace: ')', "" }};
+          --color-btn-primary: {{ scheme.settings.color_button }};
+          --color-btn-primary-text: {{ scheme.settings.color_button_text }};
+          --color-btn-secondary: {{ scheme.settings.color_button_two }};
+          --color-btn-secondary-text: {{ scheme.settings.color_button_two_text }};
+          --icons-color: {{ scheme.settings.color_body_text }};
+          --links-color: {{ scheme.settings.color_body_text }};
+          --color-form-text: {{ scheme.settings.color_text_field_text }};
+          --color-form-input-border: {{ scheme.settings.color_text_field_border }};
+          --footer-background: {{ scheme.settings.footer_background }};
+          --footer-text-color: {{ scheme.settings.footer_text_color }};
+        }
+        {% endfor %}
+
+          :root
+          {
+            --height-small: 500px;
+            --height-medium: 650px;
+            --height-large: 750px;
+            --height-full: 100vh;
+            --padding-small: 40px 0;
+            --padding-small-top: 40px;
+            --padding-small-bottom: 40px;
+            --no-padding: 0;
+            --margin-small: 40px 0;
+            --margin-small-top: 40px;
+            --margin-small-bottom: 40px;
+            --no-margin: 0;
+            --line-height: 40px;
+            --grid-container: 1200px;
+            --slider-color: {{ settings.slider_arr_color }};
+            --slider-bg-color: {{ settings.slider_arr_bg_color }};
+            --page-link-color: {{ settings.page_link_color }};
+            --page-link-color-hover: {{ settings.page_link_color_hover }};
+            --overlay-bg-color: {{ settings.overlay_color }};
+            --overlay-opacity: {{ settings.overlay_opacity }};
+            --product-overlay-color: {{ settings.product_overlay_color }};
+            --product-overlay-opacity: {{ settings.product_overlay_opacity }};
+            --slider-overlay-bg-color: {{ settings.overlay_color }};
+            --slider-overlay-opacity: {{ settings.overlay_opacity }};
+            --nav-font-size: {{ settings.type_menu_font_size }}px;
+            --primary-font-family: {{ base_font.family }}, {{ base_font.fallback_families }};
+
+            --primary-font-size: {{ settings.type_base_size }}px;
+            --secondary-font-family: {{ secondary_font.family }}, {{ secondary_font.fallback_families }};
+            --secondary-h1-font-family: {{ header1_font.family }}, {{ header1_font.fallback_families }};
+            --secondary-h1-font-size: {{ settings.type_header_base_size }}px;
+            --secondary-h2-font-family: {{ header2_font.family }}, {{ header2_font.fallback_families }};
+            --secondary-h2-font-size: {{ settings.type_header_base_size_h2 }}px;
+            --secondary-h3-font-family: {{ header3_font.family }}, {{ header3_font.fallback_families }};
+            --secondary-h3-font-size: {{ settings.type_header_base_size_h3 }}px;
+            --secondary-h4-font-family: {{ header4_font.family }}, {{ header4_font.fallback_families }};
+            --secondary-h4-font-size: {{ settings.type_header_base_size_h4 }}px;
+            --secondary-h5-font-family: {{ header5_font.family }}, {{ header5_font.fallback_families }};
+            --secondary-h5-font-size: {{ settings.type_header_base_size_h5 }}px;
+            --small-font-size: {{ settings.type_small_size }}px;
+            --medium-font-size: {{ settings.type_medium_size }}px;
+            --large-font-size: {{ settings.type_large_size }}px;
+            --letter-spacing:{{ settings.heading_letter-spacing }}px;
+            --overlay-color: {{ settings.overlay_color }};
+            --icon-opacity: {{ settings.icon_opacity }};
+            --link-opacity: {{ settings.link_opacity }};
+            --sidebar-content-color: {{ settings.sidebar_content_color }};
+            --button-radius: {{ settings.button_radius }}px;
+            --heading-letter-spacing: {{ settings.heading_letter_spacing }}px;
+
+            --placeholder-bg: #e3e3e3;
+
+            /* SVG Vectors */
+
+            --down-arrow: {{ 'down-arrow.svg' | asset_url }};
+            --more-arrow: {{ 'more-arrow.svg' | asset_url }};
+            --color-all: {{ "color-all.png" | asset_url }};
+            --mega-menu-dropdown: {{ 'mega-menu-drop-down.svg' | asset_url }};
+            --modal-bg: {{ 'modal-bg.jpg' | asset_url }};
+            --quote: url('{{ 'quote.png' | asset_url }}');
+            --l-arrow: {{ 'l-arrow.svg' | asset_url }};
+            --r-arrow: {{ 'r-arrow.svg' | asset_url }};
+            --close: {{ 'close.svg' | asset_url }};
+
+            --hn-text-align: {{ settings.ab_text_alignment }};
+          }
+          body {
+            padding: 0;
+            margin: 0;
+            color: var(--secondary-font-color);
+            font-family: var(--primary-font-family);
+            font-size: var(--primary-font-size);
+            letter-spacing: 0.5px;
+            -webkit-font-smoothing: antialiased;
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-weight: 400;
+            margin: 0;
+            color: var(--secondary-font-color);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            letter-spacing:var(--letter-spacing);
+          }
+          a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: inherit;
+          }
+
+          select{
+            background-image:url('{{ 'chevron-down.svg' | asset_url }}');
+          }
+
+          .product_option .product-variant-option:not(.hasStock){
+            background-image:url('{{ 'disabled-x.svg' | asset_url }}');
+          }
+    {% endstyle %}
+
+    {{ 'pure-min.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'swiper_bundle.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'library.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag: preload: true }}
+
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="true" async="true"></script>
+    <style>
+      {{ settings.custom_css }}
+    </style>
+
+    <script>
+      !(function (t) {
+        'use strict';
+        t.loadCSS || (t.loadCSS = function () {});
+        var e = (loadCSS.relpreload = {});
+        if (
+          ((e.support = (function () {
+            var e;
+            try {
+              e = t.document.createElement('link').relList.supports('preload');
+            } catch (t) {
+              e = !1;
+            }
+            return function () {
+              return e;
+            };
+          })()),
+          (e.bindMediaToggle = function (t) {
+            var e = t.media || 'all';
+            function a() {
+              t.addEventListener ? t.removeEventListener('load', a) : t.attachEvent && t.detachEvent('onload', a),
+                t.setAttribute('onload', null),
+                (t.media = e);
+            }
+            t.addEventListener ? t.addEventListener('load', a) : t.attachEvent && t.attachEvent('onload', a),
+              setTimeout(function () {
+                (t.rel = 'stylesheet'), (t.media = 'only x');
+              }),
+              setTimeout(a, 3e3);
+          }),
+          (e.poly = function () {
+            if (!e.support())
+              for (var a = t.document.getElementsByTagName('link'), n = 0; n < a.length; n++) {
+                var o = a[n];
+                'preload' !== o.rel ||
+                  'style' !== o.getAttribute('as') ||
+                  o.getAttribute('data-loadcss') ||
+                  (o.setAttribute('data-loadcss', !0), e.bindMediaToggle(o));
+              }
+          }),
+          !e.support())
+        ) {
+          e.poly();
+          var a = t.setInterval(e.poly, 500);
+          t.addEventListener
+            ? t.addEventListener('load', function () {
+                e.poly(), t.clearInterval(a);
+              })
+            : t.attachEvent &&
+              t.attachEvent('onload', function () {
+                e.poly(), t.clearInterval(a);
+              });
+        }
+        'undefined' != typeof exports ? (exports.loadCSS = loadCSS) : (t.loadCSS = loadCSS);
+      })('undefined' != typeof global ? global : this);
+    </script>
+
+    {%- if template contains 'customers' -%}
+      <script src="{{ "shopify_common.js" | shopify_asset_url }}" defer="defer"></script>
+      <script src="{{ "customer_area.js" | shopify_asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {{ content_for_header }}
+  </head>
+
+  <body
+    id="{{ page_title | handle }}"
+    class="custom-scroll page-load {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}"
+    data-shop="{{ shop.url }}"
+    data-animation="{% if settings.enable_animation %}true{% else %}false{% endif %}"
+    data-secondary-button="{{ settings.secondary_button_style }}"
+  >
+    {% if settings.enable_page_transition %}
+      <div
+        id="page_loader"
+        style="background-color:{{ settings.loader_color }};opacity:calc({{ settings.loader_opacity }}/10);"
+        tabindex="-1"
+        class="loading"
+      >
+        {% if settings.loader_svg != blank %}
+          {{ settings.loader_svg }}
+        {% else %}
+          <img
+            alt="Lazy Loader"
+            src="{{ 'loader.gif' | asset_img_url }}"
+            alt="loader-gif"
+            width="100"
+            height="100"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <a rel="nofollow" class="visuallyhidden focusable skip-link" href="#main">
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
+
+    {% section 'modal-main' %}
+
+    <header class="t-header">
+      {%- section 'announcement-bar' -%}
+      <div id="header-inner">
+        {%- sections 'header-group' -%}
+      </div>
+    </header>
+
+    {% if settings.enable_breadcrumbs == true %}
+      {% render 'breadcrumbs' %}
+    {% endif %}
+    <main id="main" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    <footer>
+      {% sections 'footer-group' %}
+    </footer>
+
+    <script src="{{ 'alpine.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'jquery-2.1.4.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'swiper.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'app.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script
+      id="animate_js"
+      class="animate-script {% if settings.enable_section_animate %} section-animate {% endif %}"
+      src="{{ 'app2.js' | asset_url }}"
+      defer="defer"
+    ></script>
+    {%- if template == 'collection' -%}
+      <script src="{{ 'collections.js' | asset_url }}" defer="defer"></script>
+    {%- else -%}
+      <script src="{{ 'url-parse.min.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </body>
+</html>

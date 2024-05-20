@@ -1,0 +1,232 @@
+<link rel="stylesheet" href="{{ 'modal-main.css' | asset_url }}">
+
+<section
+  class="modal-main"
+  id="modal_main"
+  style="
+      {% case section.settings.modal_position %}
+          {% when "center" %}
+
+         align-items:center;
+         justify-content:center;
+
+         {% when "bottom" %}
+
+          align-items:flex-end;
+          justify-content:flex-end;
+
+          {% else %}
+
+      {% endcase %}
+      {% if section.settings.enable_modal != true %}
+      display:none !important;
+    {% endif %}
+  "
+>
+  <div class="modal-overlay" style="opacity:calc({{ section.settings.overlay_opacity }}/10)"></div>
+  <div class="pure-g modal-inner" style="background-color:{{ section.settings.modal_color }}">
+    <div class="close-btn" id="modal_close">{% render 'icon-close' %}</div>
+    <div class="pure-u-1-1 pure-u-md-3-5 modal-info modal-col">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'title' %}
+            <h3 {{ block.shopify_attributes }} style="color:{{ section.settings.modal_text_color }}">
+              {{ block.settings.title_text }}
+            </h3>
+
+          {% when 'para' %}
+            <div {{ block.shopify_attributes }} style="color:{{ section.settings.modal_text_color }}">
+              {{ block.settings.para_text }}
+            </div>
+
+          {% when 'form' %}
+            <div {{ block.shopify_attributes }}>
+              {% form 'contact' %}
+                {{ form.errors | default_errors }}
+
+                <div class="email form-input">
+                  <label for="email" style="color:{{ section.settings.modal_text_color }}">
+                    {{- block.settings.email -}}
+                  </label>
+
+                  <input
+                    style="border:1px solid {{ section.settings.modal_text_color }}"
+                    type="email"
+                    name="contact[email]"
+                    id="email"
+                    placeholder="{{ block.settings.email }}"
+                  >
+                </div>
+
+                <div class="submit form-input">
+                  <button class="theme-btn primary-btn">
+                    <div class="btn-bg"></div>
+                    <div class="btn-text">
+                      {{ block.settings.submit }}
+                    </div>
+                  </button>
+                </div>
+                {%- if form.posted_successfully? -%}
+                  <h4 class="success-message" autofocus> {{ 'password.success-message' | t }}</h4>
+                {%- endif -%}
+              {% endform %}
+            </div>
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <div class="pure-u-1-1 pure-u-md-2-5 modal-image modal-col">
+      <figure>
+        {% if section.settings.modal_image != blank %}
+          <img
+            srcset="
+              {%- if section.settings.modal_image.width >= 300 -%}{{ section.settings.modal_image | image_url: width: 300 }} 300w,{%- endif -%}
+              {%- if section.settings.modal_image.width >= 550 -%}{{ section.settings.modal_image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if section.settings.modal_image.width >= 750 -%}{{ section.settings.modal_image | image_url: width: 750 }} 750w{%- endif -%}
+            "
+            sizes="(max-width: 320px) 280px,(max-width: 640px) 580px"
+            src="{{ section.settings.modal_image | image_url: width: 100 }}"
+            loading="lazy"
+            width="100"
+            height="100"
+            alt="{{ section.settings.modal_image.alt }}"
+          >
+        {% else %}
+          <div class="placeholder_div">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder_img' }}
+          </div>
+        {% endif %}
+      </figure>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.modal.title",
+  "blocks": [
+    {
+      "name": "t:sections.modal.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:sections.modal.blocks.title.title_label",
+          "default": "t:sections.modal.blocks.title.title_default"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.modal.blocks.text.name",
+      "type": "para",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "para_text",
+          "label": "t:sections.modal.blocks.text.para_label",
+          "default": "t:sections.modal.blocks.text.para_default"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.modal.blocks.form.name",
+      "type": "form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "email",
+          "label": "t:sections.modal.blocks.form.form_email_label",
+          "default": "t:sections.modal.blocks.form.form_email_default"
+        },
+        {
+          "type": "text",
+          "id": "submit",
+          "label": "t:sections.modal.blocks.form.form_button_label",
+          "default": "t:sections.modal.blocks.form.form_button_default"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "default": false,
+      "label": "t:sections.modal.settings.enable_modal"
+    },
+    {
+      "type": "select",
+      "label": "t:sections.modal.settings.modal_position",
+      "id": "modal_position",
+      "default": "center",
+      "options": [
+        {
+          "label": "t:sections.modal.settings.center",
+          "value": "center"
+        },
+        {
+          "label": "t:sections.modal.settings.bottom",
+          "value": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "modal_image",
+      "label": "t:sections.modal.settings.modal_image"
+    },
+    {
+      "type": "color",
+      "id": "modal_color",
+      "default": "#fff",
+      "label": "t:sections.modal.settings.modal_color"
+    },
+    {
+      "type": "color",
+      "id": "modal_text_color",
+      "default": "#000",
+      "label": "t:sections.modal.settings.modal_text_color"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "default": 5,
+      "label": "t:sections.modal.settings.overlay_opacity.name",
+      "step": 1,
+      "max": 10,
+      "min": 0,
+      "info": "t:sections.modal.settings.overlay_opacity.info"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  let closeBtn = document.querySelector('#modal_close');
+  let modalMain = document.querySelector('#modal_main');
+
+  setTimeout(() => {
+    modalMain.classList.add('modal-active');
+  }, 7000);
+
+  closeBtn.addEventListener('click', () => {
+    modalMain.classList.add('hide-modal');
+    sessionStorage.setItem('modalStatus', 'hidden');
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key == 'Escape') {
+      modalMain.classList.add('hide-modal');
+      sessionStorage.setItem('modalStatus', 'hidden');
+    }
+  });
+
+  if (sessionStorage.getItem('modalStatus') == 'hidden') {
+    modalMain.classList.add('hide-modal');
+  }
+{% endjavascript %}

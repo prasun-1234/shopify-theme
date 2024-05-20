@@ -1,0 +1,315 @@
+{% style %}
+  .scroll-bar::-webkit-scrollbar{
+    height:5px !important;
+    margin-top: 10px !important;
+  }
+  .info_grid_main *{
+    color:{{ section.settings.content_color }};
+  }
+  .info_grid_main svg.stroke path{
+    stroke:{{ section.settings.content_color }} !important;
+  }
+  {% if section.settings.enable_border == true %}
+  .info_scroll .info_item:not(:last-child)::before{
+    width:1px;
+    height:50%;
+    content:'';
+    display:inline-block;
+    position:absolute;
+    top:25%;
+    right:0;
+    opacity:50%;
+    background:{{ section.settings.content_color }};
+  }
+  {% endif %}
+  .info_scroll .info_item:nth-last-child(1):after{
+    width:0 !important;
+  }
+  #section-{{ section.id }}-info{
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+
+@media screen and (max-width:980px) {
+  #section-{{ section.id }}-info{
+    margin-top: {{ section.settings.margin_top | divided_by: 2 }}px;
+    margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px;
+    }
+}
+
+{% endstyle %}
+
+<section
+id="section-{{ section.id }}-info"
+class="info_grid_main marquee relative z-10 {% if section.settings.enable_box_shadow == true %} drop-shadow-xl {% endif %} sectionanimation" 
+style="background: {{ section.settings.background_color }};padding:{{ section.settings.section_gap }}px 0;"
+>
+{% assign style_type = section.settings.style_type %}
+<div class="flex justify-center {% if style_type == "marquee" %} xl:px-[120px] {% endif %} {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+  <div
+    class=" 
+      {% case style_type %}
+      {% when "scroll_bar" %} scroll-bar overflow-x-auto flex items-center {% when "marquee" %}overflow-hidden flex items-center justify-center {% else %}{% endcase %}
+    "
+  >
+    <ul class="overflow-x-auto flex items-center flex-shrink-0 {% if style_type == "marquee" %}mini-add-loop{% endif %} info_scroll">
+      {% if section.blocks != blank %}
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when 'info_item' -%}
+              <li class="relative shrink-1 sm:px-16 px-12 info_item" {{ block.shopify_attributes }}>
+                <div class="flex items-center gap-4">
+                  {% if section.settings.enable_logo == true %}
+                    {% if block.settings.icon_image != blank %}
+                      <figure class="" width="23" height="30">
+                        {{
+                          block.settings.icon_image
+                          | image_url: width: 24
+                          | image_tag: loading: 'lazy', sizes: '100', widths: '32, 24,'
+                        }}
+                      </figure>
+                    {% else %}
+                      <div>{{ 'product-1' | placeholder_svg_tag: 'w-[60px]' }}</div>
+                    {% endif %}
+                  {% endif %}
+                  <div class="flex flex-col items-center gap-2">
+                    {% if block.settings.title != blank %}
+                      <h4 class="body-font !text-[1.125rem]">
+                        <a href="{{ block.settings.link_url }}">{{ block.settings.title }} </a>
+                      </h4>
+                    {% endif %}
+                    {% if block.settings.link_url != blank and section.settings.enable_link == true %}
+                      <a class="hover:underline flex items-center gap-1" href="{{ block.settings.link_url }}">
+                        <p>
+                          {% if block.settings.link_text != blank %}
+                            {{ block.settings.link_text }}
+                          {% else %}
+                            {{ 'info-grid.title_default' | t }}
+                          {% endif %}
+                        </p>
+                        {% render 'icon-arrow', class: 'brightness-0 stroke' %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+          {%- endcase -%}
+        {% endfor %}
+      {% else %}
+        <li class="relative shrink-0 px-10  info_item">
+          <div class="flex flex-col items-center gap-3">
+            <h4 class="font-semibold body-font !text-[1.125rem]">{{ 'info-grid.title_default' | t }}</h4>
+            <a class="hover:underline flex items-center gap-1" href="#">
+              <p>{{ 'info-grid.button_default' | t }}</p>
+              {% render 'icon-arrow', class: 'brightness-0 stroke' %}
+            </a>
+          </div>
+        </li>
+      {% endif %}
+    </ul>
+
+    {% if style_type == 'marquee' %}
+      {% for i in (1..5) %}
+        <ul class="extra-marquee 2xl:hidden  flex items-center flex-shrink-0 {% if style_type == "marquee" %}mini-add-loop{% endif %} info_scroll">
+          {% if section.blocks != blank %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'info_item' -%}
+                  <li class="relative shrink-0 sm:px-16 px-12 info_item" {{ block.shopify_attributes }}>
+                    <div class="flex items-center gap-4">
+                      {% if section.settings.enable_logo == true %}
+                        {% if block.settings.icon_image != blank %}
+                          <figure class="" width="23" height="30">
+                            {{
+                              block.settings.icon_image
+                              | image_url: width: 24
+                              | image_tag: loading: 'lazy', sizes: '100', widths: '32, 24,'
+                            }}
+                          </figure>
+                        {% else %}
+                          <div>{{ 'product-1' | placeholder_svg_tag: 'w-[60px]' }}</div>
+                        {% endif %}
+                      {% endif %}
+                      <div class="flex flex-col items-center gap-3">
+                        {% if block.settings.title != blank %}
+                          <h4 class="body-font !text-[1.125rem]">
+                            <a href="{{ block.settings.link_url }}">{{ block.settings.title }} </a>
+                          </h4>
+                        {% endif %}
+                        {% if block.settings.link_url != blank and section.settings.enable_link == true %}
+                          <a class="hover:underline flex items-center gap-1" href="{{ block.settings.link_url }}">
+                            <p>
+                              {% if block.settings.link_text != blank %}
+                                {{ block.settings.link_text }}
+                              {% else %}
+                                {{ 'info-grid.title_default' | t }}
+                              {% endif %}
+                            </p>
+                            {% render 'icon-arrow', class: 'brightness-0 stroke' %}
+                          </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </li>
+              {%- endcase -%}
+            {% endfor %}
+          {% else %}
+            <li class="relative shrink-0 px-10 info_item">
+              <div class="flex flex-col items-center gap-3">
+                <h4 class="font-semibold body-font !text-[1.125rem]">{{ 'info-grid.title_default' | t }}</h4>
+                <a class="hover:underline flex items-center gap-1" href="#">
+                  <p>{{ 'info-grid.button_default' | t }}</p>
+                  {% render 'icon-arrow', class: 'brightness-0 stroke' %}
+                </a>
+              </div>
+            </li>
+          {% endif %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+</section>
+{% schema %}
+{
+"name": "t:section.info-grid.name",
+"max_blocks": 4,
+"settings": [
+  {
+    "type": "range",
+    "id": "margin_top",
+    "min": 0,
+    "max": 100,
+    "step": 10,
+    "unit": "px",
+    "label": "t:section.info-grid.settings.margin_top",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "margin_bottom",
+    "min": 0,
+    "max": 100,
+    "step": 10,
+    "unit": "px",
+    "label": "t:section.info-grid.settings.margin_bottom",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "section_gap",
+    "label": "t:section.info-grid.settings.section_gap",
+    "max": 50,
+    "min": 10,
+    "step": 10,
+    "default": 20,
+    "unit": "px"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_border",
+    "default": true,
+    "label": "t:section.info-grid.settings.enable_border"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_logo",
+    "default": true,
+    "label": "t:section.info-grid.settings.enable_logo"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_link",
+    "default": true,
+    "label": "t:section.info-grid.settings.enable_link"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_box_shadow",
+    "default": true,
+    "label": "t:section.info-grid.settings.enable_box_shadow"
+  },
+  {
+    "type": "select",
+    "id": "style_type",
+    "label": "t:section.info-grid.settings.style_type.label",
+    "default": "scroll_bar",
+    "options": [
+      {
+        "label": "t:section.info-grid.settings.style_type.options.scroll_bar",
+        "value": "scroll_bar"
+      },
+      {
+        "label": "t:section.info-grid.settings.style_type.options.marquee",
+        "value": "marquee"
+      }
+    ]
+  },
+  {
+    "type": "color",
+    "id": "background_color",
+    "label": "t:section.info-grid.settings.background_color",
+    "default": "#F2EFEB"
+  },
+  {
+    "type": "color",
+    "id": "content_color",
+    "label": "t:section.info-grid.settings.content_color",
+    "default": "#3F2E3E"
+  }
+],
+"blocks": [
+  {
+    "type": "info_item",
+    "name": "t:section.info-grid.blocks.info_item.name",
+    "limit": 4,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "icon_image",
+        "label": "t:section.marquee.blocks.icons.settings.icon_image"
+      },
+      {
+        "type": "richtext",
+        "id": "title",
+        "label": "t:section.info-grid.blocks.info_item.settings.title",
+        "default": "<p>Text Title</p>"
+      },
+      {
+        "type": "url",
+        "id": "link_url",
+        "label": "t:section.info-grid.blocks.info_item.settings.link_url"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "t:section.info-grid.blocks.info_item.settings.link_text",
+        "default": "Shop Now"
+      }
+    ]
+  }
+],
+"presets": [
+  {
+    "name": "t:section.info-grid.presets.name",
+    "settings": {
+      "margin_top": 0,
+      "margin_bottom": 0,
+      "section_gap": 20,
+      "background_color": "#F2EFEB"
+    },
+    "blocks": [
+      {
+        "type": "info_item"
+      },
+      {
+        "type": "info_item"
+      },
+      {
+        "type": "info_item"
+      }
+    ]
+  }
+]
+}
+{% endschema %}

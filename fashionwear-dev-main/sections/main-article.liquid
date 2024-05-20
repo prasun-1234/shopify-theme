@@ -1,0 +1,304 @@
+{% style %}
+  .share-btn svg path{
+    fill:var(--global-font-color);
+  }
+
+  #{{ section.id }}{
+    margin-top: {{ section.settings.margin_top }}px !important;
+    margin-bottom: {{ section.settings.margin_bottom }}px !important;
+    }
+
+  @media screen and (max-width:980px) {
+    #{{ section.id }}{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+{% endstyle %}
+
+<section class="main-article">
+  <div
+    id="{{ section.id }}"
+    style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+  >
+    {% assign full_url = request.host | append: request.path %}
+    <div class="{% if settings.container == 'boxed' %} container {% else %} container{% endif %} mx-auto">
+      <article class="flex flex-col gap-10">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'article_header' %}
+              <div class="flex lg:grid lg:grid-cols-12 flex-col gap-10">
+                <div class="lg:col-span-6 col-span-12 flex flex-col justify-center lg:items-start items-center lg:text-left text-center">
+                  <h3
+                    class="mb-5 md:mb-10"
+                    style="color:{{ block.settings.article_heading_color }};"
+                  >
+                    {{ article.title | escape }}
+                  </h3>
+
+                  {% if section.settings.enable_date == true and section.settings.enable_author == true %}
+                    <span
+                      class="flex items-center md:justify-start justify-center gap-3"
+                      {{ block.shopify_attributes }}
+                    >
+                      {% if section.settings.enable_date == true %}
+                        <time
+                          class="lg:text-left text-center font-normal tracking-[1px] "
+                          style="color:{{ block.settings.date_color }};"
+                          datetime="{{ article.published_at | date: '%d %b %Y' }}"
+                        >
+                          {{- article.published_at | date: '%d %b %Y' }},
+                        </time>
+                      {% endif %}
+                      {% if section.settings.enable_author == true %}
+                        <span
+                          class="lg:text-left text-center font-normal tracking-[1px] "
+                          style="color:{{ block.settings.author_color }};"
+                        >
+                          {{- article.author -}}
+                        </span>
+                        <span>
+                            {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                              <span>Reviews: {{ article.comments_count }}</span>
+                            {%- endif -%}
+                        </span>
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                </div>
+
+                {% if article.image != blank %}
+                  <figure class="lg:col-span-6 col-span-12 md:max-h-[500px] max-h-[300px] h-full overflow-hidden hover:rounded-lg hover:lg:rounded-[100px] ease-in-out duration-500 hover:grayscale">
+                    {{
+                      article.image
+                      | image_url: width: 1500
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '100',
+                        widths: '165, 360, 535, 750, 1070, 1500',
+                        class: 'w-full h-full object-cover'
+                    }}
+                  </figure>
+                {% else %}
+                  <span class="lg:col-span-6 col-span-12 bg-gray-300 hover:rounded-[100px] ease-in-out duration-500 hover:grayscale">
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full md:max-h-[500px] max-h-[300px]' }}
+                  </span>
+                {% endif %}
+              </div>
+            {% when 'article_content' %}
+              <span
+                class=" text-justify article-content"
+              >
+                {{ article.excerpt_or_content }}
+              </span>
+            {% when 'article_share' %}
+              <button type="button" class="flex items-center gap-2 share_main cursor-pointer w-fit">
+                {% render 'icon-share-btn' %}
+                {% assign text = 'main-article.share' | t %}
+                {% render 'hover-link', src: text %}
+              </button>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </article>
+
+      {% if section.settings.enable_review == true %}
+        <div class="my-5">
+          {% if blog.comments_enabled? %}
+            {% if article.comments_count > 0 %}
+              <div>
+                {% paginate article.comments by 5 %}
+                  {% for comments in article.comments %}
+                    <div class="border-b py-3 mb-3">
+                      <h4 class=" ">{{ comments.author }}</h4>
+                      <span class="opacity-80 my-3  inline-block">
+                        {{- comments.created_at | date: format: 'date_at_time' -}}
+                      </span>
+                      <div class="">
+                        <p>{{ comments.content }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  {% if paginate.pages > 1 %}
+                    {% render 'pagination', pagination: paginate %}
+                  {% endif %}
+                {% endpaginate %}
+              </div>
+            {% else %}
+              <p class=" text-center">{{ 'main-article.no_comment' | t }}</p>
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="mt-10">
+          <h3 class="mb-[40px]  lg:text-left text-center">{{ 'main-article.post_comments' | t }}</h3>
+          {% form 'new_comment', article %}
+            <div class="flex justify-center md:flex-row flex-col gap-[15px] items-center">
+              <div class="w-full">
+                <label for="firstname" class="">{{ 'main-contact.first_name' | t }}</label>
+                <input
+                  class="w-full pl-4 py-[12px] rounded-[6px] mt-2 border"
+                  id="comment_author"
+                  name="comment[author]"
+                  type="text"
+                  placeholder="Full Name"
+                  required
+                >
+              </div>
+              <div class="w-full ">
+                <label for="email" class="">{{ 'main-contact.email' | t }}</label>
+                <input
+                  class="w-full pl-4 py-[12px] rounded-[6px] mt-2 border"
+                  id="comment_email"
+                  name="comment[email]"
+                  type="email"
+                  placeholder="Email"
+                  required
+                >
+              </div>
+            </div>
+            <div class="my-5">
+              <label for="comment" class="">{{ 'main-article.comment' | t }}</label>
+              <textarea
+                class="w-full border pl-4 pt-4 mt-2"
+                name="comment[body]"
+                id="comment_content"
+                cols="100"
+                rows="4"
+                placeholder="Write a review"
+                required
+              ></textarea>
+            </div>
+            <div class="flex md:justify-start justify-center">
+              {% render 'btn-primary', type: 'submit', src: 'Post comments', class: '' %}
+            </div>
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ request.origin | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image": [
+        {{ article | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:section.main-article.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-article.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-article.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "read_more",
+      "default": "Read More",
+      "label": "t:section.main-article.settings.read_more"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_date",
+      "label": "t:section.main-article.settings.enable_date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_author",
+      "label": "t:section.main-article.settings.enable_author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_review",
+      "label": "t:section.main-article.settings.enable_review",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "submit_button",
+      "label": "t:section.main-article.settings.submit_button",
+      "default": "Submit"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_header",
+      "name": "t:section.main-article.blocks.article_header.name",
+      "limit": 1
+    },
+    {
+      "type": "article_content",
+      "name": "t:section.main-article.blocks.article_content.name",
+      "limit": 1
+    },
+    {
+      "type": "article_share",
+      "name": "t:section.main-article.blocks.article_share.name",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}
+
+<script defer >
+let article = {{ article | json }}
+  const shareData = {
+    title: '',
+    text: `${article.title}`,
+    url: '{{ full_url }}',
+  };
+  const btn = document.querySelector('.share_main');
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.log(`Error: ${err}`);
+    }
+  });
+</script>
+

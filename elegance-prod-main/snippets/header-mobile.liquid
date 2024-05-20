@@ -1,0 +1,242 @@
+<div class="header-mobile ">
+  <div class="container">
+    <div class="pure-g align-center">
+      <div class="pure-u-1 pure-u-md-1-1 l-box">
+        <div class="header-mobile-grid-left">
+          <div class="hamburger-menu">
+            <button type="button" aria-label="hamburger-btn">{% render 'icon-menu' %}</button>
+          </div>
+          <div class="logo-container {% if settings.enable_animation %}scrollmagic-element-fade-in-1{% endif %}">
+            {%- if settings.logo -%}
+              <a href="#" style="width: {{ settings.logo_max_width }}px" rel="nofollow">
+                <img
+                  srcset="{{ settings.logo | image_url: width: 500 }}"
+                  loading="lazy"
+                  alt="logo"
+                  width="100"
+                  height="100"
+                >
+              </a>
+            {%- else -%}
+              <h1>
+                <a rel="nofollow" id="mobile-site-title" href="/">
+                  {{ shop.name }}
+                </a>
+              </h1>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="header-right">
+          <ul>
+            <li class="search-user" title="Search">
+              <button type="button">{% render 'icon-search' %}</button>
+            </li>
+            {%- if shop.customer_accounts_enabled -%}
+              <li title="{{ customer.first_name }}'s Account'">
+                {%- if customer -%}
+                  <span class="acc-log">
+                    <span
+                      ><a href="/account" rel="nofollow">{{ customer.first_name }}</a></span
+                    >
+                    <span class="icon-log"
+                      ><a href="/account/logout" rel="nofollow">{% render 'icon-log-out' %}</a></span
+                    >
+                  </span>
+                {% else %}
+                  <a href="/account/login" rel="nofollow">{% render 'icon-user' %}</a>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+            <li class="cart-icon" title="{{ 'header.my_cart' | t }}">
+              {%- if settings.enable_cart_drawer -%}
+                <a
+                  {% if settings.cart_settings == 'page' %}
+                    href="/cart"
+                  {% else %}
+                    href="#"
+                  {% endif %}
+                  class="open-drawer"
+                  rel="nofollow"
+                  aria-label="My Cart: {{ cart.item_count }}"
+                >
+                  {% render 'icon-cart' %}
+                  <span hidden>{{ 'header.my_cart' | t }}</span>
+                  <span class="cart-count">{{ cart.item_count }}</span>
+                </a>
+              {%- else -%}
+                <a
+                  {% if settings.cart_settings == 'page' %}
+                    href="/cart"
+                  {% else %}
+                    href="#"
+                  {% endif %}
+                  {% if settings.cart_settings != 'page' %}
+                    class="open-drawer"
+                  {% endif %}
+                  rel="nofollow"
+                  aria-label="My Cart"
+                >
+                  {% render 'icon-cart' %}
+                  <span hidden>{{ 'header.my_cart' | t }}</span>
+                  <span class="cart-count">{{ cart.item_count }}</span>
+                </a>
+              {%- endif -%}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-mobile-inner">
+    <div class="header-mobile-top">
+      {%- if settings.logo -%}
+        <a href="/" rel="nofollow">
+          <img srcset="{{ settings.logo | image_url: width: 400 }}" alt="logo" loading="lazy">
+        </a>
+      {%- else -%}
+        <h1>
+          <a rel="nofollow" id="mobile-site-title2" href="/">
+            {{ shop.name }}
+          </a>
+        </h1>
+      {%- endif -%}
+      <div class="currency-wrap">
+        {% if settings.enable_currency %}
+          <div class="top-location-currency">
+            <div class="mx-auto">
+              <div class="flex flex-wrap items-center">
+                <div class="w-full lg:w-2/3">
+                  <div class="right-value-box">
+                    <div class="value-box">
+                      <div class="small-box">
+                        <span class="location">{{ localization.language.endonym_name }}</span> -
+                        <span class="currency">{{ localization.country.iso_code }}</span>
+                        <span class="arrow"
+                          ><img
+                            alt="shopify"
+                            src="{{ 'd-down.png' | asset_url }}"
+                            srcset="{{ 'd-down.png' | asset_url }}, {{ 'd-down.png' | asset_url }}.5x, {{ 'd-down.png' | asset_url }}.2x"
+                            loading="lazy"
+                            width="62"
+                            height="32"
+                            class="down-arrow"
+                        ></span>
+                      </div>
+                    </div>
+                    {% form 'localization', id: 'mobile_localization' %}
+                      <div
+                        class="location-currency-wrapper"
+                        style="background-color: {{ section.settings.currency_wrapper_bg }};"
+                      >
+                        <div class="location-currency-tracker">
+                          <button type="button" class="tracker-close">{% render 'icon-close' %}</button>
+                          <div class="location-wrap">
+                            <h4>{{ 'header-mobile.location-currency' | t }}</h4>
+                            <div class="select-wrap">
+                              <select name="country_code" aria-label="Country Code">
+                                {% for country in localization.available_countries %}
+                                  <option
+                                    value="{{ country.iso_code }}"
+                                    {%- if country == localization.country %}
+                                      selected="selected"
+                                    {% endif %}
+                                  >
+                                    {{ country.name }} ({{ country.iso_code }}) - {{ country.currency.symbol }}
+                                  </option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="location-wrap">
+                            <h4>{{ 'header-mobile.location-language' | t }}</h4>
+                            <div class="select-wrap">
+                              <select name="language_code">
+                                {% for language in localization.available_languages %}
+                                  <option
+                                    value="{{ language.iso_code }}"
+                                    {%- if language == localization.language %}
+                                      selected="selected"
+                                    {% endif %}
+                                  >
+                                    {{ language.endonym_name }}
+                                  </option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <input type="submit" value="Submit" class="theme-btn primary-btn">
+                        </div>
+                      </div>
+                    {% endform %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="menu {% if settings.select_menu == 'normal-menu' %}default-nav{% endif %}">
+      <nav class="main-navigation {% if settings.select_menu == 'normal-menu' %}default-site-nav{% endif %} {% if settings.select_menu == 'mega-menu' %}mega-menu-enabled{% endif %}">
+        <div class="wrapper">
+          <ul class="menu-list-view" id="header_mobile">
+            {% for link in linklists['main-menu'].links %}
+              <li
+                class="
+                  mega-menu-main-{{ forloop.index }}
+                  {% if link.links != empty and settings.select_menu == 'normal-menu' %}simple-dropdown{% endif %}
+                "
+                data-mega="{{ forloop.index }}"
+              >
+                <a href="{{ link.url }}" class="open-mobile-mega-menu" rel="nofollow">{{ link.title }}</a>
+                {% if link.links != empty and settings.select_menu == 'normal-menu' %}
+                  <span class="menu_dropdown">{% render 'icon-small-arrow' %}</span>
+                  <input type="checkbox" id="drop-1">
+                  <ul class="dropdown-menu">
+                    {% for child_menu_2 in link.links %}
+                      <li class="simple-dropdown-submenu">
+                        <a href="{{ child_menu_2.url }}" rel="nofollow">{{ child_menu_2.title }}</a>
+                        {% if child_menu_2.links != empty %}
+                          <span class="submenu_dropdown">{% render 'icon-small-arrow' %}</span>
+                          <ul class="simple-dropdown-menu">
+                            {% for child_menu_3 in child_menu_2.links %}
+                              <li class="">
+                                <a href="{{ child_menu_3.url }}" rel="nofollow">{{ child_menu_3.title }}</a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                {% render 'chevron-down' %}
+              </li>
+            {% endfor %}
+          </ul>
+          {% if settings.select_menu == 'mega-menu' %}
+            <ul id="mega_menu_mobile">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'menu-item' %}
+                    {% render 'mega-menu-main', block: block, index: forloop.index, class: 'mega-menu-mobile' %}
+                  {% else %}
+
+                {% endcase %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+    <div class="social-icons-wrap">
+      {% render 'social-icons' %}
+    </div>
+    <span class="mobile-menu-close">
+      {% render 'icon-remove-black' %}
+    </span>
+  </div>
+  {% if settings.cart_settings == 'mini' %}
+    {%- render 'icon-cart' -%}
+  {% endif %}
+</div>

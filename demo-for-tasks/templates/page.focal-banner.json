@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#CBD5E1"
+      }
+    },
+    "focal-banner": {
+      "type": "focal-banner",
+      "blocks": {
+        "focal-point": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/focal-banner-1.jpg",
+            "focal_product": "light-brown-bag-4"
+          }
+        },
+        "focal-point-two": {
+          "type": "focal_point",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/focal-banner-2.jpg",
+            "focal_product": "gucci-bag"
+          }
+        }
+      },
+      "block_order": [
+        "focal-point",
+        "focal-point-two"
+      ],
+      "settings": {
+        "margin-top": 0,
+        "margin-bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/focal-banner.jpg"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "focal-banner"
+  ]
+}

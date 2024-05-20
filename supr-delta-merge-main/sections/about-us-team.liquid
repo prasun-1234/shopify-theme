@@ -1,0 +1,184 @@
+{% style %}
+  .card-box:nth-child(even) {
+    margin-top: 100px;
+  }
+  @media only screen and (max-width: 640px) {
+    .card-box:nth-child(even) {
+      margin-top: 0px;
+    }
+  }
+  @media only screen and (max-width: 980px){
+    #about-us-content{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+
+  .about-socials svg path{
+    fill:var(--global-font-color);
+  }
+  .about-socials svg.stroke path{
+    fill:none;
+    stroke:var(--global-font-color);
+  }
+{% endstyle %}
+
+<section
+  id="about-us-content"
+  style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    <div class="flex flex-col gap-[20px]">
+      <h2 class="font-semibold lg:text-left text-center uppercase" style="color: {{ section.settings.subtitle_color }}">
+        {{ section.settings.subtitle }}
+      </h2>
+      <div class="grid grid-cols-10 gap-[20px]">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'team' %}
+              <div
+                class="col-span-10 md:col-span-5 xl:col-span-2 card-box sm:w-auto w-full"
+                {{ block.shopify_attributes }}
+              >
+                <div class="card group">
+                  <div class="relative block overflow-hidden">
+                    {% if block.settings.collection_image_1 %}
+                      {{
+                        block.settings.collection_image_1
+                        | image_url: width: 1500
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '100',
+                          widths: '165, 360, 535, 750, 1070, 1500',
+                          class: 'object-cover w-full w-full md:h-[270px] h-[240px] group-hover:grayscale-0 grayscale duration-200 ease-in-out'
+                      }}
+                    {% else %}
+                      <div class="placeholder_div">
+                        {{ 'image' | placeholder_svg_tag: 'w-full scale-[2]' }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="flex justify-between gap-[10px] pt-[16px]">
+                    <div class="flex flex-col ">
+                      <p
+                        class="text-lg"
+                        style="color: {{ block.settings.name_color }}"
+                      >
+                        {{ block.settings.name }}
+                      </p>
+                      <p class="opacity-80" style="color: {{ block.settings.designation_color }}">
+                        {{ block.settings.designation }}
+                      </p>
+                    </div>
+                    {% if block.settings.social_link != blank %}
+                      <div class="about-socials">
+                        <a
+                          href="{{ block.settings.social_link }}"
+                          rel="nofollow"
+                          class="flex"
+                        >
+                          {% render 'icon-instagram',
+                            class: 'w-[20px] h-[20px] duration-200 ease-in-out hover:scale-90'
+                          -%}
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.about-us-content.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us-content.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.about-us-content.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:section.about-us-content.settings.subtitle",
+      "default": "Our Team"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "team",
+      "name": "t:section.about-us-content.blocks.team.name",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "collection_image_1",
+          "label": "t:section.about-us-content.blocks.team.settings.collection_image_1",
+          "info": "280px x 290px  recommended"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:section.about-us-content.blocks.team.settings.name",
+          "default": "Terra Lee"
+        },
+        {
+          "type": "text",
+          "id": "designation",
+          "label": "t:section.about-us-content.blocks.team.settings.designation",
+          "default": "COO"
+        },
+        {
+          "type": "url",
+          "id": "social_link",
+          "label": "t:section.about-us-content.blocks.team.settings.social_link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.about-us-content.presets.name",
+      "settings": {
+        "margin_top": 60,
+        "margin_bottom": 0,
+        "subtitle": "Our Team"
+      },
+      "blocks": [
+        {
+          "type": "team"
+        },
+        {
+          "type": "team"
+        },
+        {
+          "type": "team"
+        },
+        {
+          "type": "team"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

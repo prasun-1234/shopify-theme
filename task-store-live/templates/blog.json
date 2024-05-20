@@ -1,0 +1,59 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "blogHeading": "Shopify Dev and design journal",
+        "blogSubHead": "All Shopify and development related Journal here",
+        "featured_image": "shopify:\/\/shop_images\/journal-background-banner.png",
+        "all_journal_text": "View all journals",
+        "layout": "collage",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "card_bg": "#fff",
+        "card_text": "#3A3A3A",
+        "number_of_blog_per_page": 6
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "New era of design & development starts now"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Get A Quote , put your email we will get back to you<\/p>"
+          }
+        },
+        "email_form": {
+          "type": "email_form",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
+      "settings": {
+        "gradient": "shopify:\/\/shop_images\/newsletter-gradient.svg",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter"
+  ]
+}

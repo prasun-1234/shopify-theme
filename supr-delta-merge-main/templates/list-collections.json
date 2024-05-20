@@ -1,0 +1,211 @@
+{
+  "sections": {
+    "info-grid": {
+      "type": "info-grid",
+      "blocks": {
+        "info_item_four": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/service.svg",
+            "title": "<p>Doorstep Service</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_two": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/return.svg",
+            "title": "<p>Easy returns</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_three": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/delivery.svg",
+            "title": "<p>Faster Delivery</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        },
+        "info_item_one": {
+          "type": "info_item",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/premium.svg",
+            "title": "<p>Premium Products</p>",
+            "link_url": "",
+            "link_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "info_item_four",
+        "info_item_three",
+        "info_item_two",
+        "info_item_one"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_gap": 20,
+        "enable_border": false,
+        "enable_logo": true,
+        "enable_link": false,
+        "style_type": "marquee",
+        "background_color": "#ffffff",
+        "content_color": "#3a3a3a"
+      }
+    },
+    "collection-banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "banner-title": {
+          "type": "banner-title",
+          "settings": {
+            "banner_title": "SHOP APPARELS"
+          }
+        },
+        "banner-text": {
+          "type": "banner-text",
+          "settings": {
+            "banner_text": "Aliquet lectus proin nibh nisl condimentum id. Vel quam elementum pulvinar etiam non quam lacus suspendisse aliquet lectus"
+          }
+        }
+      },
+      "block_order": [
+        "banner-title",
+        "banner-text"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "banner_image": "shopify:\/\/shop_images\/list-collection-banner.jpg",
+        "overlay_color": "#fff",
+        "overlay_opacity": 3,
+        "text_align": "left",
+        "text_color": "#403B3A",
+        "btn_link": "#",
+        "btn_text": "Explore Collection"
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "logo": {
+          "type": "logo",
+          "settings": {
+            "logo_img": "shopify:\/\/shop_images\/BLACK.svg"
+          }
+        },
+        "top-text": {
+          "type": "text",
+          "settings": {
+            "top_text": "FRIDAY SALE"
+          }
+        },
+        "link-text": {
+          "type": "link",
+          "settings": {
+            "link_url": "",
+            "link_text": "25% OFF"
+          }
+        }
+      },
+      "block_order": [
+        "logo",
+        "top-text",
+        "link-text"
+      ],
+      "settings": {
+        "top_bar_bg": "shopify:\/\/shop_images\/topbar.jpg",
+        "overlay_color": "#000000",
+        "overlay_value": 4,
+        "content_color": "#ffffff"
+      }
+    },
+    "main_list_collection": {
+      "type": "main-list-collections",
+      "settings": {
+        "section_margin_top": 60,
+        "section_margin_bottom": 40,
+        "heading": "COLLECTIONS LIST",
+        "sort": "alphabetical",
+        "cards_height": 450,
+        "button_color": "#fff",
+        "enable_banner":false,
+        "image_position": 70,
+        "cards_to_show": 4,
+        "number_of_items": 4
+      }
+    },
+    "main-banner-1": {
+      "type": "main-banner-1",
+      "blocks": {
+        "banner1": {
+          "type": "banner_one",
+          "settings": {
+            "banner_title": "TRENDING",
+            "bg_image": "shopify:\/\/shop_images\/banner_trending.jpg",
+            "text_img": "shopify:\/\/shop_images\/trending.png",
+            "background": "linear-gradient(0deg, rgba(64,59,58,1) 0%, rgba(64,59,58,0) 100%)",
+            "banner_heading_color": "#ffffff",
+            "slider_text_alignment": "center",
+            "button_text": "Shop Now",
+            "banner_button_url": "shopify:\/\/collections\/trending-stock"
+          }
+        },
+        "banner2": {
+          "type": "banner_two",
+          "settings": {
+            "banner_bg": "linear-gradient(90deg, rgba(255, 242, 219, 1), rgba(255, 251, 195, 1) 100%)",
+            "featured_image": "shopify:\/\/shop_images\/arrivals_bg.jpg",
+            "slider_text_alignment": "flex-start",
+            "banner_para": "CHECK OUR NEW ARRIVALS",
+            "primary_button_text": "Shop Now",
+            "banner_button_url": "shopify:\/\/collections\/new-arrival"
+          }
+        }
+      },
+      "block_order": [
+        "banner1",
+        "banner2"
+      ],
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_height": 650
+      }
+    },
+    "feature-collection": {
+      "type": "feature-collection",
+      "settings": {
+        "title": "You May Also Like",
+        "section_margin_top": 60,
+        "section_margin_bottom": 60,
+        "collection": "bicycles",
+        "background_color": "#ffffff",
+        "product_view": "slider",
+        "products_to_show": 6,
+        "products_per_row": 4,
+        "side_banner_enable": false,
+        "image": "shopify:\/\/shop_images\/girl.jpg",
+        "side_banner_color": "#ffffff",
+        "banner_content_color": "#ffffff",
+        "side_banner_title": "25% OFF ON ACCESSORIES",
+        "banner_button_text": "View Collection",
+        "url": "",
+        "enable_collection_button": false
+      }
+    }
+  },
+  "order": [
+    "info-grid",
+    "collection-banner",
+    "announcement-bar",
+    "main_list_collection",
+    "main-banner-1",
+    "feature-collection"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-login",
+      "settings": {
+        "banner_img": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

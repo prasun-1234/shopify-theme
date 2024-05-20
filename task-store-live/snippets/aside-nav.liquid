@@ -1,0 +1,88 @@
+<nav class="{% if section.blocks == blank %}padding_none{% endif %} sidebar_inner">
+  <ul class="sidebar-icons">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'icon' %}
+          {% if block.settings.image.alt != blank %}
+            {% assign alt = block.settings.image.alt %}
+          {% else %}
+            {% assign alt = 'icon' %}
+          {% endif %}
+          <li data-index="{{ block.settings.icon_index }}">
+            <img
+              src="{{ block.settings.image | image_url: width: 100 }}"
+              alt="{{ alt }}"
+              width="100"
+              height="100"
+              loading="lazy"
+              class="icon"
+            >
+          </li>
+
+        {% else %}
+
+      {% endcase %}
+    {% endfor %}
+  </ul>
+  <ul role="list" class="sidebar-menu">
+    {%- for link in section.settings.menu.links limit: 8 -%}
+      <li data-index="{{ forloop.index }}">
+        {%- if link.links != blank -%}
+          <div id="{{ forloop.index }}">
+            <ul class="{% if link.levels == 1 %} link-level-1 {% endif %}" role="list">
+              {%- for childlink in link.links -%}
+                <li>
+                  <a
+                    id="aside-menu-{{ link.handle }}-{{ childlink.handle }}"
+                    href="{{ childlink.url }}"
+                    class="{% if childlink.current %} childlink {% endif %}"
+                    {% if childlink.current %}
+                      aria-current="page"
+                    {% endif %}
+                    title="{{ link.title }}"
+                  >
+                    {{ childlink.title | escape }}
+                  </a>
+                  {%- if childlink.links != blank -%}
+                    <ul class="list-unstyled" role="list">
+                      {%- for grandchildlink in childlink.links -%}
+                        <li>
+                          <a
+                            id="aside-menu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                            href="{{ grandchildlink.url }}"
+                            class="mega-menu__link link{% if grandchildlink.current %} grandchildlink-link{% endif %}"
+                            {% if grandchildlink.current %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            {{ grandchildlink.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- else -%}
+          <a
+            id="HeaderMenu-{{ link.handle }}"
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item link link--text focus-inset"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+            title="{{ link.title }}"
+          >
+            <p
+              class="{%- if link.current %} header__active-menu-item {% endif %} span aside-link-text"
+            >
+              {{- link.title | escape -}}
+            </p>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

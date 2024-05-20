@@ -1,0 +1,154 @@
+<div id="collection_filter_main" x-data="
+{
+  loading: false
+}
+"
+@filter-updated.window="
+$nextTick(()=>{
+  const queryString = new URLSearchParams(new FormData($refs.filter_form)).toString()
+  console.log('filter updated', queryString)
+
+  loading = true;
+  fetch('/collections/{{ collection.handle }}?' + queryString)
+  .then(response => response.text())
+  .then(data => {
+   let html_div = document.createElement('div');
+   html_div.innerHTML = data;
+
+   let html_dom = html_div.querySelector('#productGridContainer').innerHTML;
+   document.querySelector('#productGridContainer').innerHTML = html_dom;
+   history.replaceState(null, null, '?' + queryString);
+  })
+  .catch(error => console.log('Error:', error))
+  .finally(() => loading = false)
+})
+">
+{% render 'loader1' %}
+  <form class="filter-form" x-ref="filter_form">
+    {%- for filter in collection.filters -%}
+      <details class="filter-group">
+        <summary class="filter-group-summary">
+          <div>
+            <span>{{ filter.label }}</span>
+  
+            {%- if filter.active_values.size > 0 -%}
+              <span>({{ filter.active_values.size }})</span>
+            {%- endif -%}
+          </div>
+          {% render 'dropdown-icon' %}
+        </summary>
+  
+        <div class="filter-group-display">
+          <div class="filter-group-display__header">
+            <span class="filter-group-display__header-selected">{{ filter.active_values.size }} {{ 'filter_options.header-selected' | t }}</span>
+  
+            {%- if filter.active_values.size > 0 -%}
+              <a rel="nofollow" href="{{ filter.url_to_remove }}" class="filter-group-display__header-reset">{{ 'filter_options.header-reset' | t }}</a>
+            {%- endif -%}
+          </div>
+  
+          {%- case filter.type -%}
+            {%- when 'boolean' or 'list' -%}
+              <ul class="filter-group-display__list">
+                {%- for filter_value in filter.values -%}
+                  {% assign color_swatch = filter_value.label | append: '.jpg' %}
+                  <li class="filter-group-display__list-item">
+                    <div class="filter-check tab-check {% if filter.label == 'Color' %}color-check{% endif %}" tabindex="0">
+                      <input type="checkbox"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        @change="$dispatch('filter-updated')"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}checked{%- endif %}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                      />
+                        <span class="check-icon">
+                          {% if filter.label == 'Color' %}
+                          <span
+                          style="background:url('{{ color_swatch | file_img_url }}');"
+                         class="color-box"></span>
+                         {% else %}
+                         {% render 'check-icon' %}
+                        {% endif -%}
+                        </span>
+                    </div> 
+                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">{{ filter_value.label }}</label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+  
+              <button type="button" class="filter-group-display__submit text-btn">
+                <a rel="nofollow" tabindex="0"><input type="submit" value="Apply">{% render 'arrow-next' %}</a>
+              </button>
+            {%- when 'price_range' -%}
+              <div class="filter-group-display__price-range">
+                <div class="filter-group-display__price-range-from">
+                  <label for="Filter-{{ filter.min_value.param_name }}">{{ 'filter_options.price-range-from' | t }}</label>
+                  <span class="curr-icon">{{ cart.currency.symbol }}</span>
+  
+                  <input name="{{ filter.min_value.param_name }}"
+                    id="Filter-{{ filter.min_value.param_name }}"
+                    {% if filter.min_value.value -%}
+                      value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                    {%- endif %}
+                    type="number"
+                    placeholder="0"
+                    @change="$dispatch('filter-updated')"
+                    min="0"
+                    max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  >
+  
+                </div>
+                <div class="filter-group-display__price-range-to">
+                  <label for="Filter-{{ filter.max_value.param_name }}">{{ 'filter_options.price-range-to' | t }}</label>
+                  <span class="curr-icon">{{ cart.currency.symbol }}</span>
+  
+                  <input name="{{ filter.max_value.param_name }}"
+                    id="Filter-{{ filter.max_value.param_name }}"
+                    {% if filter.max_value.value -%}
+                      value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                    {%- endif %}
+                    type="number"
+                    @change="$dispatch('filter-updated')"
+                    placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    min="0"
+                    tabindex="0"
+                    max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  >
+  
+                </div>
+              </div>
+  
+              
+  
+              <div class="filter-group-display__submit text-btn">
+                <a rel="nofollow"><input type="submit" value="Apply">{% render 'arrow-next' %}</a>
+              </div>
+          {%- endcase -%}
+        </div>
+      </details>
+    {%- endfor -%}
+  
+    <div class="active-filters">
+      <a rel="nofollow" href="{{ collection.url }}?sort_by={{ collection.sort_by }}" class="active-filters__clear">{{ 'filter_options.active-filters__clear' | t }}</a>
+  
+      {%- for filter in collection.filters -%}
+        {%- if filter.type == "price_range" -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            <a rel="nofollow" class="active-filters__remove-filter" href="{{ filter.url_to_remove }}">
+              {%- assign min_value = filter.min_value.value | default: 0 -%}
+              {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+              {{ min_value | money }} - {{ max_value | money }} X
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          {%- for filter_value in filter.active_values -%}
+            <a rel="nofollow" class="active-filters__remove-filter" href="{{ filter_value.url_to_remove }}">
+              {{ filter.label }}: {{ filter_value.label }} X
+            </a>
+          {%- endfor -%}
+        {%- endif- %}
+      {%- endfor -%}
+    </div>
+  </form>
+</div>

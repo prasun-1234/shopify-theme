@@ -1,0 +1,200 @@
+{% style %}
+  #{{ section.id }}.image-banner-main{
+    min-height:{{ section.settings.height }}px;
+  }
+
+  @media screen and (max-width:767px){
+    #{{ section.id }}.image-banner-main{
+    min-height:550px;
+  }
+  }
+{% endstyle %}
+<section
+  style="margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px;background-image: url('{{ section.settings.featured_image | image_url: width: 1000 }}');"
+  class="relative bg-cover bg-no-repeat flex items-center justify-center image-banner-main"
+  id="{{ section.id }}"
+>
+  {% if section.settings.featured_image == blank %}
+    <span
+      class="absolute left-0 top-0 h-full w-full"
+    >
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full bg-gray-300 brightness-75' }}
+    </span>
+  {% endif %}
+  <span
+    class="absolute left-0 top-0 h-full w-full z-20"
+    style="background-color: {{ section.settings.overlay_color }};opacity:calc({{ section.settings.overlay_opacity }}/10);"
+  ></span>
+  <div
+    class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto py-10 relative z-40 flex flex-col gap-3"
+    style="align-items: {% case section.settings.text_align %}{% when "left" %}flex-start{% when "center" %}center{% when "right" %}flex-end{% else %}{% endcase %};"
+  >
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'title' %}
+          <h3
+            class="!text-[2.5rem] lg:!text-[4rem]"
+            style="color:{{ section.settings.content_color }};text-align:{{ section.settings.text_align }};"
+          >
+            {{ block.settings.title_text | escape }}
+          </h3>
+        {% when 'button' %}
+          {% if block.settings.button_url != blank %}
+            {% render 'link-btn',
+              text: block.settings.button_text,
+              href: block.settings.button_url,
+              icon: block.settings.button_icon,
+              color: section.settings.content_color
+            %}
+          {% endif %}
+        {% else %}
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.image-banner.name",
+  "settings": [
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "id": "margin_top",
+      "step": 10,
+      "label": "t:section.image-banner.settings.margin_top",
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "id": "margin_bottom",
+      "step": 10,
+      "label": "t:section.image-banner.settings.margin_bottom",
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "min": 500,
+      "max": 800,
+      "id": "height",
+      "step": 50,
+      "label": "t:section.image-banner.settings.height",
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:section.image-banner.settings.overlay_color",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "min": 0,
+      "max": 10,
+      "id": "overlay_opacity",
+      "step": 1,
+      "label": "t:section.image-banner.settings.overlay_opacity",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "t:section.image-banner.settings.text_align.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:section.image-banner.settings.text_align.options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:section.image-banner.settings.text_align.options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:section.image-banner.settings.text_align.options.right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "t:section.image-banner.settings.featured_image"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "t:section.image-banner.settings.content_color",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.image-banner.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "t:section.image-banner.blocks.title.settings.title_text",
+          "default": "Formal wears Up to 30% Off"
+        }
+      ]
+    },
+    {
+      "name": "t:section.image-banner.blocks.button.name",
+      "type": "button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "button_icon",
+          "label": "t:section.image-banner.blocks.button.settings.button_icon"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:section.image-banner.blocks.button.settings.button_text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:section.image-banner.blocks.button.settings.button_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.image-banner.presets.name",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 60,
+        "height": 800,
+        "overlay_color": "#000000",
+        "overlay_opacity": 4,
+        "text_align": "center",
+        "featured_image": "shopify:\/\/shop_images\/image-banner.jpg",
+        "content_color": "#ffffff"
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,97 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 40,
+        "section_margin_bottom": 40,
+        "text_color": "#CBD5E1"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "featured_image": {
+          "type": "featured_image",
+          "settings": {
+            "image_height": "adapt"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "blog_show_date": true,
+            "blog_show_author": false
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share this journal"
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "featured_image",
+        "content",
+        "share"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 40
+      }
+    },
+    "related-article": {
+      "type": "related-article",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "blog_limit": 6
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "New era of design & development starts now"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Get A Quote , put your email we will get back to you<\/p>"
+          }
+        },
+        "email_form": {
+          "type": "email_form",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
+      "settings": {
+        "gradient": "shopify:\/\/shop_images\/newsletter-gradient.svg",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main",
+    "related-article",
+    "newsletter"
+  ]
+}

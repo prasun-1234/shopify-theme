@@ -1,0 +1,207 @@
+<link rel="stylesheet" href="{{ 'mega-menu-settings-1.css' | asset_url }}">
+
+{% style %}
+  a.child-menu-link{
+    text-decoration: underline!important;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px!important;
+    color: var(--tertiary-theme-color)!important;
+  }
+
+  a.child-menu-link:hover{
+    text-decoration-thickness: 2px!important;
+  }
+{% endstyle %}
+
+
+<div
+  {{ block.shopify_attributes }}
+  class="mega-menu mega-menu-dropdown {{ class }} mega-menu-div-{{ index }}"
+  data-mega="{{ block.settings.menu_index }}"
+>
+  <div class="container">
+    <div class="pure-g">
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-5-12 l-box">
+        <div class="mega-menu-wrap">
+          <div class="mega-menu-box">
+            <div class="menu-list">
+              {%- assign mega_menu = block.settings.mega_menu -%}
+              <nav class="mega-menu-top-block">
+                <ul class="parent-link">
+                  <span class="menu-title upper-menu"
+                    ><span class="menu-back">{% render 'back-arrow' %}</span>
+                  </span>
+                  {% if linklists[mega_menu].links != empty %}
+                    {% for child_menu_1 in linklists[mega_menu].links %}
+                      <li class="child-menu-1 {% if child_menu_1.links != empty %}has-submenu {% endif %}">
+                        {% if child_menu_1.links == empty %}
+                          <a
+                            style="color:{{ section.settings.title_color }};"
+                            rel="nofollow"
+                            href="{{ child_menu_1.url }}"
+                          >
+                            {{- child_menu_1.title -}}
+                          </a>
+                        {% else %}
+                          <button type="button">
+                            <h4 style="color:{{ section.settings.title_color }};">
+                              {{ child_menu_1.title }}
+                              <span class="arrow">
+                                {%- render 'more-arrow', color: section.settings.title_color -%}
+                              </span>
+                            </h4>
+                          </button>
+                        {% endif %}
+                        {% if child_menu_1.links != empty %}
+                          <ul class="child-link">
+                            {% for child_menu_2 in child_menu_1.links %}
+                              {% if forloop.index == 1 %}
+                                <span class="menu-title"
+                                  ><button type="button" class="menu-back">{% render 'back-arrow' %}</button>
+                                  {{ child_menu_1.title -}}
+                                </span>
+                              {% endif %}
+                              <li class="child-menu-2  {% if child_menu_2.links != empty %}has-sub-submenu {% endif %}">
+                                <a class="child-menu-link" rel="nofollow" href="{{ child_menu_2.url }}">{{ child_menu_2.title }}</a>
+                                {% if child_menu_2.links != empty %}
+                                  <ul class="grandchild-link" data-simplebar>
+                                    {% for child_menu_3 in child_menu_2.links %}
+                                      <li class="child-menu-3">
+                                        <a rel="nofollow" href="{{ child_menu_3.url }}">{{ child_menu_3.title }} </a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-7-12 l-box mega-right">
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-sm-1 pure-u-lg-3-4 l-box">
+            {% if block.settings.select_block == 'collection' %}
+              {% if block.settings.menu_collection != blank %}
+                <div class="menu-banners">
+                  <div class="menu-banners-image">
+                    <a href="{{ collections[block.settings.menu_collection].url }}" rel="nofollow">
+                      <img
+                        srcset="
+                          {%- if collections[block.settings.menu_collection].image.width >= 375 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 550 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 750 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 1100 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 1500 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 1780 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 2000 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 3000 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if collections[block.settings.menu_collection].image.width >= 3840 -%}{{ collections[block.settings.menu_collection].image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ collections[block.settings.menu_collection].image | image_url }} {{ collections[block.settings.menu_collection].image.width }}w
+                        "
+                        src="{{ collections[block.settings.menu_collection].image | image_url }}"
+                        alt="{{ collections[block.settings.menu_collection].image.alt }}"
+                        width="100"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    </a>
+                  </div>
+                  <div class="menu-banners-cont">
+                    <h4>
+                      <a href="{{ collections[block.settings.menu_collection].url }}" rel="nofollow">
+                        {{- collections[block.settings.menu_collection].title -}}
+                      </a>
+                    </h4>
+                    <div class="space2"></div>
+                    <p>{{ collections[block.settings.menu_collection].description | strip_html | truncate: 80 }}</p>
+                    <div class="space1"></div>
+                    <div class="text-btn">
+                      <a href="{{ collections[block.settings.menu_collection].url }}" rel="nofollow">
+                        {{- 'menu.button_label.view_collection' | t -}}
+                        {%- render 'arrow-next' -%}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="menu-banners">
+                  <div class="menu-banners-image">
+                    <a href="{{ shop.url }}/collections" rel="nofollow" class="placeholder_div">
+                      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-img' }}
+                    </a>
+                  </div>
+                  <div class="menu-banners-cont">
+                    <h4>
+                      {{ 'general.mega_menu.collection.title' | t }}
+                    </h4>
+                    <div class="space2"></div>
+                    <p>{{ 'general.mega_menu.collection.body_text' | t | truncate: 80 }}</p>
+                    <div class="space1"></div>
+                    <div class="text-btn">
+                      <a href="{{ shop.url }}/collections" rel="nofollow">
+                        {{- 'menu.button_label.view_collection' | t -}}
+                        {%- render 'arrow-next' -%}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+            {% if block.settings.select_block == 'article' %}
+              {% if block.settings.menu_article != blank %}
+                <div class="menu-banners">
+                  <div class="menu-banners-image">
+                    <a href="{{ articles[block.settings.menu_article].url }}" rel="nofollow">
+                      <img
+                        srcset="
+                          {%- if articles[block.settings.menu_article].image.width >= 375 -%}{{ articles[block.settings.menu_article].image | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 550 -%}{{ articles[block.settings.menu_article].image | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 750 -%}{{ articles[block.settings.menu_article].image | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 1100 -%}{{ articles[block.settings.menu_article].image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 1500 -%}{{ articles[block.settings.menu_article].image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 1780 -%}{{ articles[block.settings.menu_article].image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 2000 -%}{{ articles[block.settings.menu_article].image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 3000 -%}{{ articles[block.settings.menu_article].image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if articles[block.settings.menu_article].image.width >= 3840 -%}{{ articles[block.settings.menu_article].image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ articles[block.settings.menu_article].image | image_url }} {{ articles[block.settings.menu_article].image.width }}w
+                        "
+                        src="{{ articles[block.settings.menu_article].image.src | image_url }}"
+                        alt="{{ articles[block.settings.menu_article].image.alt }}"
+                        width="100"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    </a>
+                  </div>
+                  <div class="menu-banners-cont">
+                    <h4>
+                      <a href="{{ articles[block.settings.menu_article].url }}" rel="nofollow">
+                        {{- articles[block.settings.menu_article].title -}}
+                      </a>
+                    </h4>
+                    <div class="space2"></div>
+                    <p>{{ articles[block.settings.menu_article].excerpt | truncatewords: 20 }}</p>
+                    <div class="text-btn">
+                      <a href="{{ articles[block.settings.menu_article].url }}" rel="nofollow">
+                        {{- 'menu.button_label.view_article' | t -}}
+                        {%- render 'arrow-next' -%}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

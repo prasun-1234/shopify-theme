@@ -1,0 +1,270 @@
+{% style %}
+  .collection-card-title *{
+    line-height: 0.6;
+  }
+  .{{ section.id }}{
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+  }
+
+  @media screen and (max-width:980px) {
+    .{{ section.id }}{
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 2 }}px !important;
+      }
+  }
+
+
+  @media only screen and (max-width:1024px){
+
+    .collection-card-title *{
+      line-height: 1.4;
+    }
+  }
+{% endstyle %}
+<section
+  id="main-collection-card"
+  class="global_border_color {{ section.id }}"
+  style="{% if section.settings.border_top == true %}border-top-width:1px;{% endif %}"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto {% if section.settings.heading_style == "style1" %}md:pt-10{% endif %}">
+    {% case section.settings.heading_style %}
+      {% when 'style1' %}
+        <span class="text-center collection-card-title">
+          {{ section.settings.section_heading }}
+        </span>
+      {% when 'style2' %}
+        <span class="text-center mb-5 block">
+          {{ section.settings.section_heading }}
+        </span>
+      {% else %}
+
+    {% endcase %}
+
+    <div class="swiper collectionCardSwiper" data-count="{{ section.settings.cards_to_show }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'card' %}
+              <div
+                class="swiper-slide"
+                {{ block.shopify_attributes -}}
+                data-handle="{{ block.settings.collection.handle }}"
+              >
+                {% render 'card-collection2',
+                  card_collection: block.settings.collection,
+                  section: section,
+                  block: block,
+                  image: block.settings.featured_image
+                %}
+              </div>
+            {% else %}
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+      {% if section.settings.slider_arrows == true %}
+        <div class="swiper-button-prev !top-[40%] lg:!top-[50%] !left-0 lg:!left-[10px]">
+          {% render 'btn-swiper', class: 'rotate-180' %}
+        </div>
+        <div class="swiper-button-next !top-[40%] lg:!top-[50%] !right-0 lg:!right-[10px]">
+          {% render 'btn-swiper' %}
+        </div>
+      {% endif %}
+      <div class="swiper-pagination !relative m-auto !mt-[60px]"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-collection-card.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-collection-card.settings.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-collection-card.settings.padding_bottom",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "t:section.main-collection-card.settings.heading_style.style_1"
+        },
+        {
+          "value": "style2",
+          "label": "t:section.main-collection-card.settings.heading_style.style_2"
+        }
+      ],
+      "default": "style1",
+      "label": "t:section.main-collection-card.settings.heading_style.label"
+    },
+    {
+      "type": "richtext",
+      "id": "section_heading",
+      "label": "t:section.main-collection-card.settings.section_heading",
+      "default": "<h4>Shop by Collection</h4>"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "t:section.main-collection-card.settings.border_top",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "cards_height",
+      "label": "t:section.main-collection-card.settings.cards_height",
+      "max": 800,
+      "min": 100,
+      "step": 50,
+      "default": 800,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:section.main-collection-card.settings.header.swiper"
+    },
+    {
+      "type": "range",
+      "id": "cards_to_show",
+      "label": "t:section.main-collection-card.settings.cards_to_show",
+      "max": 4,
+      "min": 1,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_arrows",
+      "label": "t:section.main-collection-card.settings.slider_arrows",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:section.main-collection-card.settings.button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:section.main-collection-card.settings.button_text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-collection-card.blocks.card.name",
+      "type": "card",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:section.main-collection-card.blocks.card.settings.collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "featured_image",
+          "label": "t:section.main-collection-card.blocks.card.settings.featured_image"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "t:section.main-collection-card.blocks.card.settings.image_position.label",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:section.main-collection-card.blocks.card.settings.image_position.left"
+            },
+            {
+              "value": "center",
+              "label": "t:section.main-collection-card.blocks.card.settings.image_position.center"
+            },
+            {
+              "value": "right",
+              "label": "t:section.main-collection-card.blocks.card.settings.image_position.right"
+            }
+          ],
+          "default": "right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-collection-card.presets.name",
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "heading_style": "style1",
+        "section_heading": "<h2>Collection<\/h2>",
+        "border_top": false,
+        "cards_height": 500,
+        "cards_to_show": 2,
+        "slider_arrows": true
+      },
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  var swiper = new Swiper('.collectionCardSwiper', {
+    slidesPerView: document.querySelector('.collectionCardSwiper').getAttribute('data-count'),
+    spaceBetween: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+      },
+      767: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1280: {
+        slidesPerView: document.querySelector('.collectionCardSwiper').getAttribute('data-count'),
+        spaceBetween: 20,
+      },
+    },
+  });
+{% endjavascript %}

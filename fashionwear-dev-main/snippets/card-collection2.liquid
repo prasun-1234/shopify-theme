@@ -1,0 +1,126 @@
+{% style %}
+  .collection_card_content {
+    padding: var(--collection-card-padding);
+  }
+  .collection_card2 {
+    height: {{ section.settings.cards_height }}px;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .collection_card2 {
+      height: 600px;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .collection_card2 {
+      height: 400px;
+    }
+  }
+{% endstyle %}
+{% if card_collection != blank %}
+  <div class="collection_card_main collection_card2 group/collection overflow-hidden">
+    <div class="overflow-hidden relative h-full flex justify-center items-center">
+      {% if image != blank %}
+        {{
+          image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'h-full w-full object-cover absolute left-0 bottom-0 ease-in-out duration-200 group-hover/collection:grayscale grayscale-100 brightness-80',
+            loading: 'lazy'
+        }}
+      {% else %}
+        {% if card_collection.featured_image != blank %}
+          {{
+            card_collection.featured_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'h-full w-full object-cover absolute left-0 bottom-0 ease-in-out duration-200 group-hover/collection:grayscale grayscale-100 brightness-80',
+              loading: 'lazy'
+          }}
+        {% else %}
+          {{ 'collection-2' | placeholder_svg_tag: 'w-full h-full bg-gray-300 brightness-75' }}
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div
+      class="collection_card_content absolute w-full h-full left-0 bottom-0 z-[50]"
+    >
+      <div
+        class="collection_card_inner flex items-start h-full w-full"
+      >
+        <div
+          class="flex flex-col items-center justify-center gap-5 px-5 h-full w-full"
+          style="{% case settings.collection_card_text_alignment %}{% when 'left' %}align-items: flex-start;text-align:left;{% when 'center' %}align-items: center;text-align:center;{% when 'right' %}align-items: flex-end;text-align:right;{% else %}{% endcase %}"
+        >
+          <span
+            class="w-full flex"
+            style="justify-content:{% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% else %}{% endcase %} !important;"
+          >
+            <span class="inline-block px-4">
+              {%- if card_collection.title != blank -%}
+                <h4
+                  class="card-title"
+                  style="color:{{ settings.collection_card_content_color }};"
+                >
+                  {{- card_collection.title | escape -}}
+                </h4>
+              {%- else -%}
+                <h4
+                  {% if settings.enable_hover_collection == true %}
+                    class="card-title"
+                  {% endif %}
+                  style="color:{{ settings.collection_card_content_color }};"
+                >
+                  {{ 'card-collection.no_title' | t }}
+                </h4>
+              {%- endif -%}
+            </span>
+          </span>
+          <div class="lg:group-hover/collection:scale-100 lg:scale-0 lg:group-hover/collection:opacity-100 collection_card_button lg:opacity-0 duration-300 ease-in-out isFocused">
+            <a
+              href="{{ card_collection.url }}"
+              rel="nofollow"
+              aria-label="Visit {{ card_collection.title }}"
+            >
+              {% render 'btn-secondary', src: 'Shop Collection' %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="collection_card_main collection_card2 group/collection overflow-hidden">
+    <div class="overflow-hidden relative h-full flex justify-center items-center">
+      {{
+        'collection-1'
+        | placeholder_svg_tag: 'h-full w-full object-cover absolute left-0 bottom-0 bg-gray-300 brightness-90'
+      }}
+      <div class="collection_card_content absolute w-full h-full left-0 bottom-0 z-50">
+        <div
+          class="collection_card_inner flex items-start h-full w-full"
+          style="justify-content: {% case settings.collection_card_text_alignment %}{% when 'left' %}flex-start{% when 'center' %}center{% when 'right' %}flex-end{% else %}{% endcase %};"
+        >
+          <div class="flex flex-col justify-center gap-5 py-10 px-5 h-full">
+            <h4
+              class="w-full py-2 px-4 !text-white"
+              style="text-align:{% case settings.collection_card_text_alignment %}{% when 'left' %}left{% when 'center' %}center{% when 'right' %}right{% else %}{% endcase %} !important;"
+            >
+              {{ 'card-collection.sample_title' | t }}
+            </h4>
+
+            <a
+              href="#"
+              rel="nofollow"
+              class="group-hover/collection:scale-100 scale-0 group-hover/collection:opacity-100 opacity-0 collection_card_button duration-300 ease-in-out isFocused"
+            >
+              {% render 'btn-secondary', src: 'Shop Now', class: 'm-auto' %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

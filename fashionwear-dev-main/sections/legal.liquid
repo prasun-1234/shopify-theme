@@ -1,0 +1,93 @@
+{% style %}
+    #legal{
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+      }
+
+
+  @media screen and (max-width:767px) {
+    #legal{
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px;
+      }
+  }
+{% endstyle %}
+
+<section id="legal" class="">
+  <div class="flex flex-col gap-10">
+    {% if page.handle == 'refund' %}
+      <div class=" sm:text-center text-justify {% if settings.container == 'boxed' %} container {% else %} container {% endif %} mx-auto">
+        <h3 class=" text-center mb-[20px] ">
+          {{ pages.refund.title }}
+        </h3>
+        <span class="text-justify">
+          {{ pages.refund.content }}
+        </span>
+      </div>
+
+    {% elsif page.handle == 'privacy-policy' %}
+      <div class=" sm:text-center text-justify  {% if settings.container == 'boxed' %} container {% else %} container {% endif %} mx-auto">
+        <h3 class="text-center mb-[20px]">
+          {{ pages['privacy-policy'].title }}
+        </h3>
+
+        <span class="text-justify">
+          {{ pages['privacy-policy'].content }}
+        </span>
+      </div>
+
+    {% elsif page.handle == 'faqs' %}
+      <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+        <h2 class=" font-medium text-center">{{ pages.faqs.title }}</h2>
+        <span class="text-justify">
+          {{ pages.faqs.content }}
+        </span>
+      </div>
+
+    {% elsif page.handle == 'terms-of-services' %}
+      <div class="sm:text-center text-justify  {% if settings.container == 'boxed' %} container {% else %} container {% endif %} mx-auto">
+        <h3 class="text-center mb-[20px]">
+          {{ pages['terms-of-services'].title }}
+        </h3>
+
+        <span class="text-justify">
+          {{ pages['terms-of-services'].content }}
+        </span>
+      </div>
+    {% endif %}
+    {% if page.handle != 'faqs' %}
+      <div class="flex flex-col items-center gap-2 border-t global_border_color pt-10">
+        {% if section.settings.logo_icon != blank %}
+          {{ section.settings.logo_icon | image_url: width: 100 | image_tag: class: 'min-w-[200px] object-contain' }}
+        {% else %}
+          <h2 class="!text-[1.54rem]">{{ shop.name }}</h2>
+        {% endif %}
+        <span class="font-semibold" style="color: {{ section.settings.content_color }}">
+          &copy; {{ 'now' | date: '%Y' }}
+          {{ 'copyright.copyright' | t -}}
+        </span>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.legal.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_icon",
+      "label": "t:section.legal.settings.logo"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:section.main-faq.settings.margin_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    }
+  ]
+}
+{% endschema %}

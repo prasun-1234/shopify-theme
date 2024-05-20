@@ -1,0 +1,10 @@
+<div class="top-bar-1">
+    <div  class="bar-1-row">
+        {% if icon != blank %}
+            {{ icon | image_url: width: '30px' | image_tag }}
+            {% else %}
+        {% endif %}
+        {% if content %} <span>{{ content }}</span>{% endif %}
+        {% if link_text %}{{ link_text |  link_to: url, class: 'link_url', rel: 'nofollow' }}{% endif %}
+    </div>
+</div>

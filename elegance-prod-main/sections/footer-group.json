@@ -1,0 +1,95 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu1": {
+          "type": "footer_menu_list",
+          "settings": {
+            "footer_menu_title": "Shop",
+            "footer_menu_type": "collection_types",
+            "menu_links": "",
+            "collection_list": [
+
+            ],
+            "collection": "",
+            "link_limit": 4
+          }
+        },
+        "menu3": {
+          "type": "footer_menu_list",
+          "settings": {
+            "footer_menu_title": "Quick Links",
+            "footer_menu_type": "page_links",
+            "menu_links": "",
+            "collection_list": [
+
+            ],
+            "collection": "women",
+            "link_limit": 3
+          }
+        },
+        "menu4": {
+          "type": "footer_menu_list",
+          "settings": {
+            "footer_menu_title": "Collection",
+            "footer_menu_type": "collection_links",
+            "menu_links": "",
+            "collection_list": [
+              "hair-care",
+              "perfume",
+              "skincare",
+              "soap"
+            ],
+            "collection": "",
+            "link_limit": 5
+          }
+        },
+        "menu5": {
+          "type": "footer_menu_list",
+          "settings": {
+            "footer_menu_title": "Socials",
+            "footer_menu_type": "social_links",
+            "menu_links": "",
+            "collection_list": [
+
+            ],
+            "collection": "",
+            "link_limit": 3
+          }
+        },
+        "menu6": {
+          "type": "footer_menu_list",
+          "settings": {
+            "footer_menu_title": "Region\/Currency",
+            "footer_menu_type": "currency",
+            "menu_links": "",
+            "collection_list": [
+
+            ],
+            "collection": "",
+            "link_limit": 3
+          }
+        }
+      },
+      "block_order": [
+        "menu1",
+        "menu3",
+        "menu4",
+        "menu5",
+        "menu6"
+      ],
+      "settings": {
+        "footer_style": "footer_style_two",
+        "menu_header_one": "",
+        "footer_menu_one": "main-menu",
+        "enable_follow_on_shop": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

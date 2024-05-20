@@ -1,0 +1,430 @@
+<link rel="stylesheet" href="{{ 'collection-filter.css' | asset_url }}">
+
+{% style %}
+  .sort-div select {
+    background-image: url('{{ 'arrow-down.svg' | asset_url }}');
+  }
+{% endstyle %}
+
+<div class="collection-top {% if collection.products.size > 0 %}collection_empty_main{% endif %}">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'collection_banner' %}
+        <div
+          class="collection-banner"
+          id="productBanner"
+          style="min-height:{{ block.settings.collection_banner_height }}px;"
+          {{ block.shopify_attributes }}
+        >
+          {% if collection.image != blank %}
+            <img
+              src="{{ collection.image.src | image_url: width: 100 }}"
+              width="100"
+              height="100"
+              loading="lazy"
+              srcset="
+                {%- if collection.image.width >= 375 -%}{{ collection.image | image_url: width: 375 }} 250w,{%- endif -%}
+                {%- if collection.image.width >= 550 -%}{{ collection.image | image_url: width: 550 }} 450w,{%- endif -%}
+                {%- if collection.image.width >= 768 -%}{{ collection.image | image_url: width: 768 }} 640w,{%- endif -%}
+                {%- if collection.image.width >= 980 -%}{{ collection.image | image_url: width: 980 }} 850w,{%- endif -%}
+                {%- if collection.image.width >= 1020 -%}{{ collection.image | image_url: width: 1020 }} 1100w,{%- endif -%}
+                {%- if collection.image.width >= 1350 -%}{{ collection.image | image_url: width: 1350 }} 1400w,{%- endif -%}
+                {{ collection.image | image_url }} {{ collection.image }}w
+              "
+              sizes="(max-width: 640px) 290px,33vw"
+              alt="collection_banner_img"
+              class="collection_banner_img"
+              style="object-position: {{ block.settings.collection_banner_position }}; min-height:{{ block.settings.collection_banner_height }}px;"
+            >
+          {% elsif block.settings.banner_image != blank %}
+            <img
+              src="{{ block.settings.banner_image | image_url: width: 100 }}"
+              width="100"
+              height="100"
+              srcset="
+                {%- if block.settings.banner_image.width >= 375 -%}{{ block.settings.banner_image | image_url: width: 375 }} 250w,{%- endif -%}
+                {%- if block.settings.banner_image.width >= 550 -%}{{ block.settings.banner_image | image_url: width: 550 }} 450w,{%- endif -%}
+                {%- if block.settings.banner_image.width >= 768 -%}{{ block.settings.banner_image | image_url: width: 768 }} 640w,{%- endif -%}
+                {%- if block.settings.banner_image.width >= 980 -%}{{ block.settings.banner_image | image_url: width: 980 }} 850w,{%- endif -%}
+                {%- if block.settings.banner_image.width >= 1020 -%}{{ block.settings.banner_image | image_url: width: 1020 }} 1100w,{%- endif -%}
+                {%- if block.settings.banner_image.width >= 1350 -%}{{ block.settings.banner_image | image_url: width: 1350 }} 1400w,{%- endif -%}
+                {{ block.settings.banner_image | image_url }} {{ block.settings.banner_image }}w
+              "
+              sizes="(max-width: 640px) 290px,33vw"
+              loading="lazy"
+              alt="collection_banner_img"
+              class="collection_banner_img"
+              style="object-position: {{ block.settings.collection_banner_position }}; min-height:{{ block.settings.collection_banner_height }}px;"
+            >
+          {% else %}
+            <div class="placeholder-background">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+          <div
+            class="banner-overlay"
+            style="background-color:{{ block.settings.banner_overlay_color }};opacity:calc({{ block.settings.banner_overlay_opacity }}/10);"
+          ></div>
+          <div class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}">
+            <div class="coll-banner">
+              <div class="banner-inner">
+                <div class="left">
+                  <h3 style="color:{{ block.settings.banner_text_color }}; text-transform: lowercase;">
+                    {{ collection.title }}
+                  </h3>
+                </div>
+                <div class="right">
+                  <p style="color:{{ block.settings.banner_text_color }};">
+                    {{ collection.description | truncate: 120 }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% when 'collection_grid' %}
+        <div class="collection-grid" {{ block.shopify_attributes }}>
+          <div
+            class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+          >
+            <div class="collection-filter-div">
+              <div class="pure-g">
+                <div class="pure-u">
+                  {% if collection.products.size > 0 %}
+                    <a rel="nofollow" href="#!" id="collection_options">
+                      {{ block.settings.filter_by_label }}
+                    </a>
+
+                  {% else %}
+
+                  {% endif %}
+                </div>
+                <div class="pure-u">
+                  {% if collection.products.size > 0 and settings.enable_sort %}
+                    <div class="sort-div">
+                      <p>{{ block.settings.sort_by_label }}</p>
+                      {% render 'sort-options' %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+              <aside id="collection_sidebar">
+                <div class="sidebar-outer" style="background-color:{{ block.settings.sidebar_bg_color }};">
+                  <div class="sidebar-inner">
+                    <div
+                      class="filter-div"
+                      x-data="
+                                {
+                                  loading: false,
+                                  filterCollection(event){
+                                    event.preventDefault();
+                                     let handle = event.target.getAttribute('data-handle')
+                                     fetch('/collections/' + handle)
+                        .then(response => response.text())
+                        .then(data => {
+                         let html_div = document.createElement('div');
+                         html_div.innerHTML = data;
+                         let html_dom = html_div.querySelector('#productGridContainer').innerHTML;
+                         let html_banner = html_div.querySelector('#productBanner').innerHTML;
+                         let html_filter = html_div.querySelector('#collection_filter_main').innerHTML;
+                         let html_breadcrumb = html_div.querySelector('.breadcrumbs_section').innerHTML;
+                         let title = html_div.querySelector('#collectionTitle').innerHTML;
+                         document.querySelector('#productGridContainer').innerHTML = html_dom;
+                         document.querySelector('#productBanner').innerHTML = html_banner;
+                         document.querySelector('#collection_filter_main').innerHTML = html_filter;
+                         document.querySelector('#collectionTitle').innerHTML = title;
+                         document.querySelector('.breadcrumbs_section').innerHTML = html_breadcrumb;
+                         history.replaceState(null,null, '/collections/' + handle);
+                        })
+                        .catch(error => console.log('Error:', error))
+                        .finally(() => loading = false)
+                                  }
+                                }
+                      "
+                    >
+                      {% render 'loader1' %}
+                      <div class="filter-header">
+                        <h4 id="collectionTitle">{{ 'products.product.filter' | t }}</h4>
+                        <button type="button" class="close-1" id="sidebar_close">
+                          {% render 'icon-remove' %}
+                        </button>
+                      </div>
+                      <form name="filter-collection" id="filter_by_collection">
+                        <details class="filter-group">
+                          <summary class="filter-group-summary">
+                            <div>
+                              <span>{{ 'template_collection.filter-group' | t }}</span>
+                            </div>
+                            {% render 'dropdown-icon' %}
+                          </summary>
+
+                          <div class="filter-group-display">
+                            <ul class="filter-group-display__list">
+                              {% for collection in collections %}
+                                {% if collection.products.size > 0 %}
+                                  <li class="filter-group-display__list-item tab-check" tabindex="0">
+                                    <div class="filter-check">
+                                      <input
+                                        type="radio"
+                                        name="collection_filter"
+                                        @change="filterCollection($event)"
+                                        style="background-color:{{ block.settings.sidebar_bg_color }}"
+                                        value="{{ collection.url }}"
+                                        id="{{ collection.title }}"
+                                        data-handle="{{ collection.handle }}"
+                                      >
+                                      <span class="check-icon">{% render 'check-icon' %}</span>
+                                    </div>
+                                    <label for="{{ collection.title }}">{{ collection.title }}</label>
+                                  </li>
+                                {% endif %}
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </details>
+                      </form>
+                      {% render 'filter-options' %}
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+            <div id="productGridContainer">
+              {% paginate collection.products by 12 %}
+                {% if collection.products.size > 0 %}
+                  <div
+                    class="product-grid-main"
+
+                    style="grid-template-columns:{% case block.settings.collection_row_items %}{% when 1 %}repeat(1, minmax(0, 1fr)){% when 2 %}repeat(2, minmax(0, 1fr)){% when 3 %}repeat(3, minmax(0, 1fr)){% endcase %};grid-gap:{{ block.settings.collection_row_gap }}px"
+                  >
+                    {% for product in collection.products %}
+                      {% render 'product-item', product: product, class: 'product-grid-single' %}
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <div class="empty-collection">
+                    <p class="no-product-found">{{ 'template_collection.empty-collection' | t }}</p>
+                    <a rel="nofollow" href="{{ shop.url }}/{{ block.settings.empty_url }}" class="theme-btn">
+                      <div class="btn-bg"></div>
+                      <div class="btn-text">{{ block.settings.empty_link_label }}</div>
+                    </a>
+                  </div>
+                {% endif %}
+                <div class="paginate">
+                  {{ paginate | default_pagination }}
+                </div>
+              {% endpaginate %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.template-collection.name",
+  "blocks": [
+    {
+      "name": "t:sections.template-collection.blocks.collection_banner.name",
+      "type": "collection_banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Collection Banner"
+        },
+
+        {
+          "type": "color",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.banner_overlay_color.label",
+          "id": "banner_overlay_color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.banner_text_color.label",
+          "id": "banner_text_color",
+          "default": "#fff"
+        },
+        {
+          "type": "range",
+          "min": 1,
+          "max": 10,
+          "default": 4,
+          "step": 1,
+          "id": "banner_overlay_opacity",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.banner_overlay_opacity.label"
+        },
+        {
+          "type": "number",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_height.label",
+          "id": "collection_banner_height",
+          "default": 20
+        },
+        {
+          "type": "select",
+          "id": "collection_banner_position",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.label",
+          "default": "center_center",
+          "options": [
+            {
+              "value": "left_top",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.left_top.label"
+            },
+            {
+              "value": "right_top",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.right_top.label"
+            },
+            {
+              "value": "center_top",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.center_top.label"
+            },
+            {
+              "value": "left_bottom",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.left_bottom.label"
+            },
+            {
+              "value": "right_bottom",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.right_bottom.label"
+            },
+            {
+              "value": "center_bottom",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.center_bottom.label"
+            },
+            {
+              "value": "left _center",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.left_center.label"
+            },
+            {
+              "value": "right_center",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.right_center.label"
+            },
+            {
+              "value": "center_center",
+              "label": "t:sections.template-collection.blocks.collection_banner.settings.collection_banner_position.options.center_center.label"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "t:sections.template-collection.blocks.collection_banner.settings.banner_image.label"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.template-collection.blocks.collection_grid.name",
+      "type": "collection_grid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Collection Grid"
+        },
+        {
+          "type": "text",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.sort_by_label.label",
+          "default": "Sort by:",
+          "id": "sort_by_label"
+        },
+        {
+          "type": "text",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.filter_by_label.label",
+          "default": "Filters",
+          "id": "filter_by_label"
+        },
+        {
+          "type": "text",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.empty_link_label.label",
+          "default": "Check other Collections",
+          "id": "empty_link_label"
+        },
+        {
+          "type": "url",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.empty_url.label",
+          "id": "empty_url"
+        },
+        {
+          "type": "color",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.sidebar_bg_color.label",
+          "default": "#fff",
+          "id": "sidebar_bg_color"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.collection_row_items.label",
+          "id": "collection_row_items",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "label": "t:sections.template-collection.blocks.collection_grid.settings.collection_row_gap.label",
+          "id": "collection_row_gap",
+          "min": 10,
+          "max": 40,
+          "step": 10,
+          "default": 30
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  Shopify.queryParams = {};
+
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+  const next = document.querySelector('.next');
+  if (next != null) {
+    let nextContent = next.children[0];
+    nextContent.innerHTML = `
+    <img src="https://cdn.shopify.com/s/files/1/0441/3027/1389/files/navigation_next.svg?v=1673520127" width="" height="" loading="lazy" alt="shopify">
+    `;
+  }
+
+  const prev = document.querySelector('.prev');
+  if (prev != null) {
+    let prevContent = prev.children[0];
+    prevContent.innerHTML = `
+    <img src="https://cdn.shopify.com/s/files/1/0441/3027/1389/files/navigation.svg?v=1673519308" width="" height="" loading="lazy" alt="shopify">
+    `;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      let sidebar = document.querySelector('#collection_sidebar');
+      if (sidebar) {
+        sidebar.setAttribute('class', '');
+      }
+    }
+  });
+
+  let filterBtns = document.querySelectorAll('.tab-check');
+
+  if (filterBtns) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('keyup', (e) => {
+        if (e.key == 'Enter' || e.key == ' ') {
+          btn.querySelector('input').click();
+        }
+      });
+    });
+  }
+{% endjavascript %}

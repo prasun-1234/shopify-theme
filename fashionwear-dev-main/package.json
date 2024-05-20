@@ -1,0 +1,22 @@
+{
+  "name": "shopify-dev-boilerplate",
+  "version": "1.0.0",
+  "description": "shopify boilerplate",
+  "main": "app.js",
+  "scripts": {
+    "watch": "npx tailwindcss -i ./assets/tailwind_input.css -o ./assets/tailwind_output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quadrant-dev/Shopify-Dev-Boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quadrant-dev/Shopify-Dev-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/quadrant-dev/Shopify-Dev-Boilerplate#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}

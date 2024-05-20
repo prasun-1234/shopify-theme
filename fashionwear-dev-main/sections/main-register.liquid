@@ -1,0 +1,211 @@
+{% style %}
+  .main-register{
+    border-top: 1px solid var(--form-border-color);
+    border-bottom: 1px solid var(--form-border-color);
+    margin-top: {{ section.settings.section_margin_top }}px;
+    margin-bottom: {{ section.settings.section_margin_bottom }}px;
+  }
+  .main-register .form-image{
+    border-left: 1px solid var(--form-border-color);
+  }
+{% endstyle %}
+<section class="main-register">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid px-0 {% endif %} mx-auto">
+    <div class="w-full flex lg:flex-row flex-col-reverse justify-around items-stretch">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'image' %}
+            <div class="w-full form-image lg:w-1/2">
+              {% if block.settings.form_image %}
+                {{
+                  block.settings.form_image
+                  | image_url: width: 1500
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '100',
+                    widths: '165, 360, 535, 750, 1070, 1500',
+                    class: 'object-contain lg:object-cover w-full h-full'
+                }}
+              {% else %}
+                {{
+                  'lifestyle-2'
+                  | placeholder_svg_tag: 'object-cover w-full lg:h-[700px] md:h-[400px] h-[320px] bg-[#ccc]'
+                }}
+              {% endif %}
+            </div>
+          {% when 'form' %}
+            <div class="w-full lg:w-1/2">
+              <div class="flex flex-col gap-[20px] text-center p-10 lg:text-left max-w-[800px] mx-auto ">
+                <h3 class="">{{ block.settings.title }}</h3>
+                <span>{{ block.settings.description }}</span>
+                {%- form 'create_customer', novalidate: 'novalidate', class: 'flex flex-col gap-[24px]' -%}
+                  {%- if form.errors -%}
+                    <ul>
+                      {%- for field in form.errors -%}
+                        <li class="error_main">
+                          {%- if field == 'form' -%}
+                            {{ form.errors.messages[field] }}
+                          {%- else -%}
+                            <a rel="nofollow" href="#RegisterForm-{{ field }}">
+                              {{ form.errors.translated_fields[field] | capitalize }}
+                              {{ form.errors.messages[field] }}
+                            </a>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                  <div class="field text-left">
+                    <label for="RegisterForm-FirstName" class="">{{ 'main-register.first_name' | t }}</label>
+                    <input
+                      type="text"
+                      name="customer[first_name]"
+                      id="RegisterForm-FirstName"
+                      {% if form.first_name %}
+                        value="{{ form.first_name }}"
+                      {% endif -%}
+                      autocomplete="given-name"
+                      placeholder="First Name"
+                      class="px-3 py-[14px] border shadow-sm block w-full rounded-md  mt-2"
+                    >
+                  </div>
+                  <div class="field text-left">
+                    <label for="RegisterForm-LastName" class="">{{ 'main-register.last_name' | t }}</label>
+                    <input
+                      type="text"
+                      name="customer[last_name]"
+                      id="RegisterForm-LastName"
+                      {% if form.first_name %}
+                        value="{{ form.last_name }}"
+                      {% endif -%}
+                      autocomplete="given-name"
+                      placeholder="Last Name"
+                      class="px-3 py-[14px] border shadow-sm block w-full rounded-md  mt-2"
+                    >
+                  </div>
+                  <div class="field text-left">
+                    <label for="RegisterForm-email" class="">{{ 'main-register.email' | t }}</label>
+                    <input
+                      type="email"
+                      name="customer[email]"
+                      id="RegisterForm-email"
+                      {% if form.email %}
+                        value="{{ form.email }}"
+                      {% endif -%}
+                      spellcheck="false"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      aria-required="true"
+                      {% if form.errors contains 'email' %}
+                        aria-invalid="true"aria-describedby="RegisterForm-email-error"
+                      {% endif -%}
+                      placeholder="Email"
+                      class="px-3 py-[14px] border shadow-sm block w-full rounded-md mt-2"
+                    >
+                  </div>
+                  {%- if form.errors contains 'email' -%}
+                    <span id="RegisterForm-email-error" class="form__message error_main">
+                      {{ 'main-register.errors' | t }}
+                      {{ form.errors.messages.email }}.
+                    </span>
+                  {%- endif -%}
+                  <div class="field text-left">
+                    <label for="RegisterForm-password" class="">{{ 'main-register.password' | t }}</label>
+                    <input
+                      type="password"
+                      name="customer[password]"
+                      id="RegisterForm-password"
+                      aria-required="true"
+                      {% if form.errors contains 'password' %}
+                        aria-invalid="true"aria-describedby="RegisterForm-password-error"
+                      {% endif -%}
+                      placeholder="Password"
+                      class="px-3 py-[14px] border shadow-sm block w-full rounded-md mt-2"
+                    >
+                  </div>
+                  {%- if form.errors contains 'password' -%}
+                    <span id="RegisterForm-password-error" class="form__message error_main">
+                      <svg aria-hidden="true" focusable="false">
+                        <use href="#icon-error" />
+                      </svg>
+                      {{ 'main-register.errors' | t }}
+                      {{ form.errors.messages.password }}.
+                    </span>
+                  {%- endif -%}
+                  <span class="flex w-full justify-center">
+                    {% render 'btn-primary', src: 'Create Account', type: 'submit', class: 'w-full' %}
+                  </span>
+                  {% capture sign_in %} {{ 'main-register.sign_in' | t }} {% endcapture %}
+                  <div class="m-auto justify-center w-full flex items-center gap-3">
+                    <span class="opacity-80 text-sm md:text-base">{{ 'main-register.account_status' | t }}</span>
+                    <a href="{{ routes.account_login_url }}" rel="nofollow">{% render 'hover-link', src: sign_in %}</a>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-register.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-register.settings.margin_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "limit": 1,
+      "name": "t:section.main-register.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "form_image",
+          "label": "t:section.main-register.blocks.image.settings.form_image"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "limit": 1,
+      "name": "t:section.main-register.blocks.form.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Create an account ",
+          "label": "t:section.main-register.blocks.form.settings.title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:section.main-register.blocks.form.settings.description",
+          "default": "<p>Create an account, and start your journey </p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,155 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "section_margin_top": 20,
+        "section_margin_bottom": 20,
+        "text_color": "#3a3a3a"
+      }
+    },
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "stock": {
+          "type": "stock",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "pickup": {
+          "type": "pickup",
+          "settings": {
+          }
+        },
+        "options": {
+          "type": "options",
+          "settings": {
+            "option_style": "pill"
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+          }
+        },
+        "sizing": {
+          "type": "sizing",
+          "settings": {
+          }
+        },
+        "payment_buttons": {
+          "type": "payment",
+          "settings": {
+          }
+        },
+        "features": {
+          "type": "features",
+          "settings": {
+          }
+        },
+        "info": {
+          "type": "info",
+          "settings": {
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+          }
+        },
+        "90af440c-7f34-4613-be76-776c56ab8b43": {
+          "type": "complementary",
+          "settings": {
+            "title": "Pairs well with",
+            "complementary_product_show": 3
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "stock",
+        "description",
+        "pickup",
+        "options",
+        "quantity",
+        "sizing",
+        "payment_buttons",
+        "features",
+        "info",
+        "share",
+        "90af440c-7f34-4613-be76-776c56ab8b43"
+      ],
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 60,
+        "products_per_row": 3,
+        "enable_sticky_bar": true,
+        "bar_bg": "#27272a",
+        "bar_content": "#ffffff",
+        "enable_zoom_feature": true
+      }
+    },
+    "collection-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "section_margin_top": 100,
+        "section_margin_bottom": 100,
+        "image": "shopify:\/\/shop_images\/hero_section_image_2.jpg",
+        "section_padding": 330,
+        "custom_title": "<h3>Bikini collection Up to 30% Off<\/h3>",
+        "title": false,
+        "description": false,
+        "collection": "bikini",
+        "text_color": "#ffffff",
+        "overlay_color": "#3a3a3a",
+        "overlay_opacity": 2,
+        "text_align": "center",
+        "button_text": "Shop Now"
+      }
+    },
+    "product-review": {
+      "type": "product-review",
+      "settings": {
+        "section_margin_top": 0,
+        "section_margin_bottom": 80,
+        "text_color": "#ffffff"
+      }
+    },
+    "related-product": {
+      "type": "product-recommendation",
+      "settings": {
+        "section_title": "Similar",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "product_type": "related",
+        "product_view": "slider",
+        "items_number": 6,
+        "post_row_limit": 3,
+        "slider_arrows": true
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main-product",
+    "collection-banner",
+    "product-review",
+    "related-product"
+  ]
+}

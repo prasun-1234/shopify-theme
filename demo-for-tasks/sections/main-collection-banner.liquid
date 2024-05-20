@@ -1,0 +1,115 @@
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .{{ section.id }} .collection-hero__inner{
+
+  }
+  .{{ section.id }} .collection-hero__inner{
+    background: url('{{ collection.featured_image |  image_url: width: 1920 }}') no-repeat ;
+    background-size: contain;
+    background-position: right center;
+    justify-content: {{ section.settings.text_align }};
+    text-align: {{ section.settings.text_align }};
+    background-color: {{ section.settings.background_color }};
+  }
+  @media screen and (max-width:1280px) {
+    .{{ section.id }} .collection-hero__inner{
+      background-size: cover;
+    }
+  }
+  @media screen and (max-width:425px) {
+    .{{ section.id }} .collection-hero__inner{
+      background-position: -38rem 0rem;
+    }
+  }
+  .{{ section.id }} .collection-hero__title, .collection-hero__description{
+    color: {{ section.settings.content_color }}
+  }
+{%- endstyle -%}
+
+{% if collection.featured_image != blank and section.settings.show_collection_image == true %}
+  <section class="collection-hero {{ section.id }} {% if section.settings.show_collection_image and collection.image %} collection-hero--with-image {% else %} color-{{ section.settings.color_scheme }} gradient {% endif %} ">
+    <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <div class="collection-hero__text-wrapper">
+        <div class="collection-text-header">
+          <h1 class="collection-hero__title visually-hidden">
+            <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+            {{- collection.title | escape -}}
+          </h1>
+          {%- if section.settings.show_collection_description -%}
+            {{ collection.description }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content Color",
+      "default": "#313131"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FAFAFA"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "collection buttons"
+    }
+  ]
+}
+{% endschema %}

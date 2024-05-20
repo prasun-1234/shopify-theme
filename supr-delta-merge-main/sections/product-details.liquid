@@ -1,0 +1,52 @@
+<section>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto mb-[60px]">
+    <h3 class="mb-[20px] uppercase font-semibold sm:text-left text-center mt-[60px] ">{{ section.settings.title }}</h3>
+    {% if product.metafields.product_card.value.value != blank %}
+      <div class="grid grid-cols-12 sm:gap-[30px] gap-y-[40px]">
+        {% for metaobject in product.metafields.product_card.value.value %}
+          <div class="grid grid-cols-12 col-span-12 lg:col-span-6 gap-[15px]">
+            <div class="col-span-12 md:col-span-6">
+              {% if metaobject.info_image != blank %}
+                {{
+                  metaobject.info_image
+                  | image_url: width: 1000
+                  | image_tag: class: 'w-full max-h-[220px] h-full object-cover'
+                }}
+              {% else %}
+                {{ 'collection-2' | placeholder_svg_tag: 'w-full max-h-[220px] h-full object-cover bg-[#ccc]' }}
+              {% endif %}
+            </div>
+            <div class="col-span-12 md:col-span-6 flex flex-col justify-center sm:text-left text-center">
+              <h3>{{ metaobject.info_title }}</h3>
+              <p>{{ metaobject.info_text }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h4 class="sm:text-left text-center ">{{ 'product-details.no_products' | t }}</h4>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.product-details.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Detail Info",
+      "label": "t:section.product-details.settings.title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.product-details.presets.name",
+      "settings": {
+        "title": "Detail Info"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,316 @@
+{
+  "sections": {
+    "about-hero": {
+      "type": "about-hero",
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "heading_1": "Engaging",
+        "heading_2": "Development",
+        "image_1": "shopify:\/\/shop_images\/circle.png",
+        "image_2": "shopify:\/\/shop_images\/task.png"
+      }
+    },
+    "about-image-with-text": {
+      "type": "about-image-with-text",
+      "blocks": {
+        "text_block": {
+          "type": "text_block",
+          "settings": {
+            "heading": "Building the future of web design",
+            "button_text": "GET A QUOTE"
+          }
+        },
+        "featured_image": {
+          "type": "featured_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/furniture-img.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "text_block",
+        "featured_image"
+      ],
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "background_image": "shopify:\/\/shop_images\/bg-about.jpg"
+      }
+    },
+    "counter-section": {
+      "type": "counter-section",
+      "blocks": {
+        "counter-1": {
+          "type": "counter",
+          "settings": {
+            "number": "120+"
+          }
+        },
+        "counter-2": {
+          "type": "counter",
+          "settings": {
+            "number": "700"
+          }
+        },
+        "counter-3": {
+          "type": "counter",
+          "settings": {
+            "number": "$25,000"
+          }
+        },
+        "counter-4": {
+          "type": "counter",
+          "settings": {
+            "number": "43"
+          }
+        }
+      },
+      "block_order": [
+        "counter-1",
+        "counter-2",
+        "counter-3",
+        "counter-4"
+      ],
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "heading": "10+ years of shopify development & integration",
+        "para": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "image_gradient": "shopify:\/\/shop_images\/counter-gradient.svg",
+        "text_gradient": "linear-gradient(90deg, #6DFFC1 16.07%, #BD9EFF 79.76%)"
+      }
+    },
+    "static-cards": {
+      "type": "static-cards",
+      "blocks": {
+        "image_block": {
+          "type": "image_block",
+          "settings": {
+            "bg_color": "#1E293B",
+            "icon": "shopify:\/\/shop_images\/static-icon.png",
+            "heading": "Shopify 2.0 OS",
+            "para": "Built for Shopify OS 2.0. Use drag and drop editor with sections and blocks to create and customize Shopify pages.",
+            "btn_label": "Get a quote",
+            "btn_url": "shopify:\/\/pages\/contact-us",
+            "image": "shopify:\/\/shop_images\/static-card-img.jpg"
+          }
+        },
+        "icon_block": {
+          "type": "icon_block",
+          "settings": {
+            "bg_color": "#1E293B",
+            "icon-1": "shopify:\/\/shop_images\/yellow-u.png",
+            "icon-2": "shopify:\/\/shop_images\/vitals.png",
+            "icon-3": "shopify:\/\/shop_images\/box-about.png",
+            "icon-4": "shopify:\/\/shop_images\/shop.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_block",
+        "icon_block"
+      ],
+      "settings": {
+        "padding_bottom": 100
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "comment-1": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit. Mi in nulla posuere sollicitudin aliquam ultrices”",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-2": {
+          "type": "comments",
+          "settings": {
+            "rating": 5,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit. Mi in nulla posuere sollicitudin aliquam ultrices,volutpat maecenas volutpat blandit aliquam etiam erat velit.”",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-3": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.",
+            "author_name": "John Doe"
+          }
+        },
+        "comment-4": {
+          "type": "comments",
+          "settings": {
+            "rating": 4,
+            "body_text": "“Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit.",
+            "author_name": "John Doe"
+          }
+        }
+      },
+      "block_order": [
+        "comment-1",
+        "comment-2",
+        "comment-3",
+        "comment-4"
+      ],
+      "settings": {
+        "heading": "What customer say about us",
+        "body_text": "with at least 200+ reviews, our average rating is 4.8 out of 5"
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your own Shopify Design & Development Team"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Design-led digital products<\/p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "View shopify task",
+            "button_link": "shopify:\/\/collections\/all",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "heading",
+        "button"
+      ],
+      "settings": {
+        "bg_1": "#143092",
+        "bg_2": "#EA580C",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "circle-banner": {
+      "type": "circle-banner",
+      "blocks": {
+        "slide1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/circle_img.jpg"
+          }
+        },
+        "slide2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/animate_slide2.png"
+          }
+        },
+        "slide3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/animate_slide3.png"
+          }
+        },
+        "slide4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/animate_slide4.png"
+          }
+        },
+        "slide5": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/animate_slide5.png"
+          }
+        }
+      },
+      "block_order": [
+        "slide1",
+        "slide2",
+        "slide3",
+        "slide4",
+        "slide5"
+      ],
+      "settings": {
+        "text_1": "<h2>Dedicated to<\/h2>",
+        "text_2": "<h2>delivering<\/h2>"
+      }
+    },
+    "tasks-banner": {
+      "type": "tasks-banner",
+      "blocks": {
+        "marquee_block-1": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Supr",
+            "image": "shopify:\/\/shop_images\/marquee-arrow.svg"
+          }
+        },
+        "marquee_block-2": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "tasks",
+            "image": "shopify:\/\/shop_images\/marquee-arrow.svg"
+          }
+        },
+        "marquee_block-3": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Supr",
+            "image": "shopify:\/\/shop_images\/marquee-arrow.svg"
+          }
+        },
+        "marquee_block-4": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "tasks",
+            "image": "shopify:\/\/shop_images\/marquee-arrow.svg"
+          }
+        },
+        "marquee_block-5": {
+          "type": "marquee_blocks",
+          "settings": {
+            "marquee_text": "Supr",
+            "image": "shopify:\/\/shop_images\/marquee-arrow.svg"
+          }
+        }
+      },
+      "block_order": [
+        "marquee_block-1",
+        "marquee_block-2",
+        "marquee_block-3",
+        "marquee_block-4",
+        "marquee_block-5"
+      ],
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 50,
+        "background_image": "shopify:\/\/shop_images\/taskst-banner.jpg",
+        "text_color": "#020617",
+        "featured_image_1": "shopify:\/\/shop_images\/taskst-1.jpg",
+        "featured_image_2": "shopify:\/\/shop_images\/taskst-2.jpg",
+        "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+        "button_label": "VIEW SHOPIFY TASKS",
+        "button_url": "#"
+      }
+    }
+  },
+  "order": [
+    "about-hero",
+    "about-image-with-text",
+    "counter-section",
+    "static-cards",
+    "testimonial",
+    "rich-text",
+    "circle-banner",
+    "tasks-banner"
+  ]
+}

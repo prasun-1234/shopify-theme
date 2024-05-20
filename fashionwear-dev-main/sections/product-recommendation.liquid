@@ -1,0 +1,227 @@
+<section class="product-recommendations" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent={{ section.settings.product_type }}"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto">
+    <div
+      {% if section.settings.product_view == 'grid' %}
+        class="product-grid-view-inner"
+      {% endif %}
+    >
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        <div class="product-recommendations-inner pt-0 xl:pt-10">
+          {% liquid
+            assign product_view = section.settings.product_view
+            assign items_number = section.settings.items_number
+            assign items_row = section.settings.post_row_limit | plus: 0
+          %}
+          {% if product_view == 'grid' %}
+            <h2 class="lg:leading-[0.6] sm:leading-none leading-[1.4] text-center">
+              {{ section.settings.section_title }}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 {% case items_row %}{% when '1' %}lg:grid-cols-1{% when '2' %}lg:grid-cols-2{% when '3' %}lg:grid-cols-3{% when '4' %}lg:grid-cols-4{% endcase %}  gap-[20px]">
+              {% for product in recommendations.products limit: items_number %}
+                {% if product.available %}
+                  <div>
+                    {% render 'product-item' with product: product %}
+                  </div>
+                {% endif %}
+              {%- endfor -%}
+            </div>
+          {% elsif product_view == 'slider' %}
+            <h2 class="lg:leading-[0.6] sm:leading-none leading-[1.4] text-center">
+              {{ section.settings.section_title }}
+            </h2>
+            <div
+              class="swiper recommendedSwiper"
+              data-count="{{ items_row }}"
+              id="recommendations-swiper"
+            >
+              <div class="swiper-wrapper sm:pb-10 pb-16">
+                {% for product in recommendations.products limit: items_number %}
+                  {% if product.available %}
+                    <div class="swiper-slide">
+                      {% render 'product-item', product: product %}
+                    </div>
+                  {% endif %}
+                {%- endfor -%}
+              </div>
+
+              {% if section.settings.slider_arrows %}
+                <div class="absolute sm:top-[40%] sm:right-0 slider-5 flex w-full items-center sm:gap-5 justify-between top-[40%]">
+                  <div class="swiper-button-prev !relative">
+                    {% render 'btn-swiper', class: 'rotate-180' %}
+                  </div>
+                  <div class="swiper-button-next !relative">
+                    {% render 'btn-swiper' %}
+                  </div>
+                </div>
+              {% endif %}
+              <div class="swiper-pagination !mt-[60px]"></div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.product-recommendation.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "default": "t:section.product-recommendation.settings.section_title",
+      "id": "section_title",
+      "label": "Section Title"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-recommendation.settings.padding_top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.product-recommendation.settings.padding_bottom",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "product_type",
+      "default": "related",
+      "label": "t:section.product-recommendation.settings.product_type.label",
+      "options": [
+        {
+          "label": "t:section.product-recommendation.settings.product_type.options.related",
+          "value": "related"
+        },
+        {
+          "label": "t:section.product-recommendation.settings.product_type.options.complementary",
+          "value": "complementary"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "product_view",
+      "default": "slider",
+      "label": "t:section.product-recommendation.settings.product_view.label",
+      "info": "t:section.product-recommendation.settings.product_view.info",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:section.product-recommendation.settings.product_view.options.grid"
+        },
+        {
+          "value": "slider",
+          "label": "t:section.product-recommendation.settings.product_view.options.slider"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "default": 6,
+      "id": "items_number",
+      "label": "t:section.product-recommendation.settings.items_number",
+      "step": 1,
+      "min": 3,
+      "max": 9
+    },
+    {
+      "type": "range",
+      "default": 3,
+      "id": "post_row_limit",
+      "label": "t:section.product-recommendation.settings.post_row_limit",
+      "step": 1,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "type": "checkbox",
+      "label": "t:section.product-recommendation.settings.slider_arrows.label",
+      "default": true,
+      "id": "slider_arrows",
+      "info": "t:section.product-recommendation.settings.slider_arrows.info"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then((response) => response.text())
+      .then((text) => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        }
+        if (document.querySelector('.recommendedSwiper')) {
+          var swiper = new Swiper('.recommendedSwiper', {
+            slidesPerView: document.querySelector('.recommendedSwiper').getAttribute('data-count'),
+            spaceBetween: 20,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              767: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1280: {
+                slidesPerView: document.querySelector('.recommendedSwiper').getAttribute('data-count'),
+                spaceBetween: 20,
+              },
+            },
+          });
+        }
+        document.querySelectorAll('.recommendedSwiper .quick_view_btn').forEach((btn, index) => {
+          btn.addEventListener('click', (e) => {
+            let quickViewModal = document.querySelector('#quickView');
+            let product = btn.getAttribute('data-handle');
+            if (product) {
+              quickViewModal.classList.add('quickview_active');
+              quickView(product);
+            }
+          });
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 200px 0px' });
+
+  window.addEventListener('load', () => {
+    observer.observe(productRecommendationsSection);
+  });
+{% endjavascript %}

@@ -1,0 +1,204 @@
+<link rel="stylesheet" href="{{ 'main-blog.css' | asset_url }}">
+
+{% style %}
+    {% if section.settings.show_author == true %}
+  span.circle-divider {
+    border-right: 1px solid var(--secondary-theme-color);
+    padding-right: 6px;
+  }
+  {% endif %}
+{% endstyle %}
+
+<section class="blog-wrapper main_blog blog-section">
+  <div
+    class="{%- if settings.layout == 'box_layout' -%}container{% endif %}{%- if settings.layout == 'fluid_layout' -%}container-fluid{% endif %}"
+  >
+    {% if blog.articles.size > 0 %}
+      {%- paginate blog.articles by 4 -%}
+        <div class="pure-g blog-title">
+          <div class="pure-u-1 l-box {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+            {%- if current_tags -%}
+              <h2 class="section-header {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                {{ blog.title | link_to: blog.url -}}
+                <span> - {{ current_tags.first }}</span>
+              </h2>
+            {%- else -%}
+              <h2 class="section-header {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+                {{ blog.title }}
+              </h2>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="pure-g">
+          {%- for article in blog.articles -%}
+            <div class="pure-u-1 pure-u-md-1-2 article-{{ forloop.index }} {% if settings.enable_animation %}scrollmagic-element{% endif %}">
+              <div class="blog-box l-box {% if settings.enable_animation %}scrollmagic-element{% endif %} blog-box-{{ forloop.index }}">
+                {% if article.image %}
+                  <figure>
+                    <a href="{{ article.url }}" rel="nofollow">
+                      <img
+                        srcset="
+                          {%- if article.width >= 375 -%}{{ article | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if article.width >= 550 -%}{{ article | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if article.width >= 750 -%}{{ article | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if article.width >= 1100 -%}{{ article | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if article.width >= 1500 -%}{{ article | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if article.width >= 1780 -%}{{ article | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if article.width >= 2000 -%}{{ article | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if article.width >= 3000 -%}{{ article | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if article.width >= 3840 -%}{{ article | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ article | image_url }} {{ article.width }}w
+                        "
+                        sizes=""
+                        src="{{ article | image_url: width: 1500 }}"
+                        loading="lazy"
+                        alt="{{ article.alt | escape }}"
+                        width="{{ article.width }}"
+                        height="{{ article.height | divided_by: article.aspect_ratio }}"
+                      >
+                    </a>
+                  </figure>
+                {% else %}
+                  <div class="placeholder-background">
+                    <a
+                      rel="nofollow"
+                      class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}"
+                      href="{{ article.url }}"
+                    >
+                      <span class="overlay"></span>
+                      {{ 'lifestyle-1' | placeholder_svg_tag }}
+                    </a>
+                  </div>
+                {% endif %}
+                <div class="blog-box-content">
+                  {% for block in section.blocks %}
+                    {% case block.type %}
+                      {% when 'article_title' %}
+                        <h3 class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-2{% endif %}">
+                          <a href="{{ article.url }}" rel="nofollow">{{ article.title }}</a>
+                        </h3>
+                      {% when 'article_text' %}
+                        <p class="{% if settings.enable_animation %}scrollmagic-element-fade-in-up-4{% endif %}">
+                          {{ article.excerpt_or_content | truncatewords: 20 }}
+                        </p>
+                      {% when 'article_link' %}
+                        <div class="text-btn {% if settings.enable_animation %}scrollmagic-element-fade-in-up-5{% endif %}">
+                          <a class="" href="{{ article.url }}" rel="nofollow">
+                            {{- 'main_blog.article_link' | t }}
+                            {% render 'arrow-next' -%}
+                          </a>
+                        </div>
+                      {% else %}
+
+                    {% endcase %}
+                  {% endfor %}
+                  <div class="article-card__info caption-with-letter-spacing h5">
+                    {% if section.settings.show_date == true %}
+                      <span class="circle-divider">{{ article.published_at | time_tag: format: 'date' }}</span>
+                    {% endif %}
+
+                    {% if section.settings.show_author == true %}
+                      <span>{{ article.author }}</span>
+                    {% endif %}
+                  </div>
+                  {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                    <span class="comment-count">
+                      {{ article.comments_count }}
+                      {{ article.comments_count | pluralize: 'comment', 'comments' -}}
+                    </span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination-link ">
+            <nav role="navigation {% if settings.enable_animation %}scrollmagic-element-fade-in-up-1{% endif %}">
+              <ul class="pagination">
+                {%- if paginate.previous -%}
+                  <li class="prev-arrow">
+                    <a rel="nofollow" href="{{ paginate.previous.url }}">
+                      <span aria-hidden="true" class="prev">{% render 'icon-arrow-long' %}</span>
+                      <span class="visuallyhidden"></span>
+                    </a>
+                  </li>
+                {%- endif -%}
+
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <li>
+                      <a rel="nofollow" href="{{ part.url }}">
+                        <span class="visuallyhidden"></span> {{ part.title }}
+                      </a>
+                    </li>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <li class="active" aria-current="page"><span class="visuallyhidden"></span> {{ part.title }}</li>
+                    {%- else -%}
+                      <li><span class="visuallyhidden"></span> {{ part.title }}</li>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if paginate.next -%}
+                  <li class="next-arrow">
+                    <a rel="nofollow" href="{{ paginate.next.url }}">
+                      <span class="visuallyhidden"></span>
+                      <span aria-hidden="true" class="next">{% render 'icon-arrow-long' %}</span>
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </nav>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {% else %}
+      <p>{{ 'blogs.blog_listing.empty' | t }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "t:sections.main-blog.settings.show_date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "t:sections.main-blog.settings.show_author",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.main-blog.blocks.article_title.name",
+      "type": "article_title",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.main-blog.blocks.article_text.name",
+      "type": "article_text",
+      "limit": 1
+    },
+    {
+      "name": "t:sections.main-blog.blocks.article_link.name",
+      "type": "article_link",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

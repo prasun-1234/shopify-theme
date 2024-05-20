@@ -1,0 +1,81 @@
+<div
+  id="{{ id }}"
+  class="fixed top-0 left-0 w-full h-full question_form z-[1299] opacity-0 pointer-events-none ease-in-out duration-300 flex items-center justify-center !text-left"
+>
+  <div class="relative flex items-center justify-center w-full h-full">
+    <span class="bg-black left-0 top-0 absolute w-full h-full opacity-40 overlay"></span>
+    <div class="sm:p-5 p-0 w-full h-full flex items-center justify-center">
+      <div class="question_modal lg:max-w-6xl w-full h-full lg:h-auto p-5 lg:p-10 bg-body relative z-20 ease-in-out duration-300 overflow-hidden flex flex-col justify-center min-h-[320px]">
+        {% render 'icon-close-thin',
+          class: 'absolute right-4 top-4 w-5 h-5 hover:scale-90 ease-in-out duration-200 question_close cursor-pointer'
+        %}
+        <h4 class="mb-4 contact-tile">Ask a Question</h4>
+        {% form 'contact',
+          class: 'w-full flex flex-col gap-5 overflow-auto lg:overflow-hidden lg:pb-0 pb-6 h-fit px-1 relative'
+        %}
+          {{ form.errors | default_errors }}
+          {% if form.posted_successfully? %}
+            {% style %}
+              .submit-customer-form,
+              .input-div,
+              .contact-tile {
+                display: none;
+              }
+            {% endstyle %}
+          {% endif %}
+          <div class="flex flex-col gap-2 input-div">
+            <label for="first-name">First name</label>
+            <input type="text" name="contact[first_name]" id="first-name" placeholder="First Name" class="border">
+          </div>
+          <div class="flex flex-col gap-2 input-div">
+            <label for="last-name">Last name</label>
+            <input type="text" name="contact[last_name]" id="last-name" placeholder="Last Name" class="border">
+          </div>
+          <div class="flex flex-col gap-2 input-div">
+            <label for="phone">Phone</label>
+            <input type="tel" name="contact[phone]" id="phone" placeholder="Phone" class="border">
+          </div>
+          <div class="flex flex-col gap-2 input-div">
+            <label for="email">Email</label>
+            <input type="email" name="contact[email]" id="email" placeholder="Email" class="border">
+          </div>
+          <div class="flex flex-col gap-2 input-div">
+            <label for="message">Message</label>
+            <textarea name="contact[body]" id="message" placeholder="Your question here"></textarea>
+          </div>
+
+          <div class="flex items-center justify-center gap-6 submit-customer-form">
+            {% render 'btn-primary', src: 'Submit', type: 'submit' %}
+            <button type="reset" class="question_close flex items-center justify-center gap-3">
+              <span>{% render 'icon-close-thin' %}</span>
+              {{ 'main-addresses.cancel' | t }}
+            </button>
+          </div>
+          <div class="mt-5">
+            {%- if form.posted_successfully? -%}
+              <h5 class=" flex flex-col w-full text-center gap-5 items-center" tabindex="-1" autofocus>
+                {% render 'icon-success', class: 'w-5 h-5' %}
+                We will get Back to you soon! Thank You
+              </h5>
+            {%- elsif form.errors -%}
+              <div class="">
+                <h5 class="text-red-400 text-body " role="alert" tabindex="-1" autofocus>Submitted Failed !</h5>
+              </div>
+              <ul>
+                {% for error in form.errors %}
+                  <li class="error_main">
+                    {% if error == 'form' %}
+                      {{ form.errors.messages[error] }}
+                    {% else %}
+                      {{ form.errors.translated_fields[error] }} - {{ form.errors.messages[error] }}
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {%- endif -%}
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>

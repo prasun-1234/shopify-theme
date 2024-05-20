@@ -1,0 +1,261 @@
+{{ "snippets-top-bar-1.css" |  asset_url | stylesheet_tag }}
+{% style %}
+    .top-bar-container{
+        position: relative;
+    }
+    .top-bar-container:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after{
+        display: none
+    }
+{% endstyle %}
+    {% case template %}
+        {% when 'index' %}
+            {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+            {% style %}
+                .top-bar-container{
+                    Background: #313131;
+                }
+                .topBarSlide{
+                    max-width: 720px;
+                }
+                .next-icon, .prev-icon{
+                    max-width: 16px;
+                }
+            {% endstyle %}
+            <div class="top-bar-container">
+                <div class="swiper topBarSlide">
+                    <div class="swiper-wrapper">
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                                {% when "top_bar_info" %}
+                                    <div class="swiper-slide">
+                                        {% render 'top-bar-1', 
+                                        link_text: block.settings.link_text,
+                                        url: block.settings.url,
+                                        content: block.settings.content,
+                                        icon: block.settings.icon
+                                        %}
+                                    </div>
+                                {% else %}
+                                    <p>Content link</p>
+                            {% endcase %}
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next">{% render 'next-arrow' class: 'next-icon' %}</div>
+                    <div class="swiper-button-prev">{% render 'prev-arrow' class: 'prev-icon' %}</div>
+                </div>
+            </div>
+            <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+        {% when 'blog' %}
+            {% style %}
+                .top-bar-container{
+                    Background: #8651BA {% if section.settings.background_image != blank %} url("{{ section.settings.background_image | image_url }}") no-repeat center center {% endif %};
+                }
+                .top-bar-container:before{
+                    background-color: #00000080;
+                }
+            {% endstyle %}
+            <div class="top-bar-container">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when "top_bar_info" %}
+                            {% if forloop.index == 1 %}
+                                {% render 'top-bar-1', 
+                                link_text: block.settings.link_text,
+                                url: block.settings.url,
+                                content: block.settings.content,
+                                background: "#8651BA"
+                                %}
+                            {% endif %}
+                        {% else %}
+                            <p>Content link</p>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        {% when 'article' %}
+            {% style %}
+                .top-bar-container{
+                    Background: #8651BA;
+                }
+            {% endstyle %}
+            <div class=" top-bar-container">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when "top_bar_info" %}
+                            {% if forloop.index == 1 %}
+                                {% render 'top-bar-1', 
+                                link_text: block.settings.link_text,
+                                url: block.settings.url,
+                                content: block.settings.content,
+                                %}
+                            {% endif %}
+                        {% else %}
+                            <p>Content link</p>
+                    {% endcase %}
+                {% endfor %}
+            </div>     
+        {% else %}
+        <div class="top-bar-container top-bar-marquee">
+            {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+            {% style %}
+                .top-bar-container{
+                    Background: #313131;
+                }
+                .swiperMarquee .swiper-wrapper{
+                    transition-timing-function : linear;
+                }
+            {% endstyle %}
+              <div class="swiper swiperMarquee">
+                <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when "top_bar_info" %}
+                                {% for i in (1..5) %}
+                                    <div class="swiper-slide">
+                                    {% render 'top-bar-1', 
+                                    content: block.settings.content,
+                                    icon: block.settings.icon
+                                    %}
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>Content link</p>
+                        {% endcase %}
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+        </div>
+        <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script> 
+    {% endcase %}
+{% schema %}
+{
+    "name": "Customizable top bar",
+    "class": "Customizable-top-bar",
+    "tag": "section",
+    "settings": [
+        {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image"
+            },
+            {
+                "type": "color",
+                "id": "bg_color",
+                "label": "Background Color"
+            },
+            {
+                "type": "range",
+                "id": "overlay_value",
+                "label": "Overlay Value",
+                "max": 100,
+                "step": 10,
+                "min": 0,
+                "default": 40
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Top bar information",
+                "type": "top_bar_info",
+                "settings": [
+                    {
+                        "type": "color",
+                        "id": "text_color",
+                        "default": "#ffffff",
+                        "label": "Text color"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "inline_richtext",
+                        "id": "content",
+                        "label": "Content",
+                        "default": "Women’s Day sale is live"
+                    },
+                    {
+                        "type": "text",
+                        "id": "link_text",
+                        "label": "Link text",
+                        "default": "Shop now"
+                    },
+                    {
+                        "type": "url",
+                        "id": "url",
+                        "label": "URL"
+                    }
+                ]
+            }
+        ]
+}
+{% endschema %}
+{% javascript %}
+    window.addEventListener('load', ()=> {
+        if (document.querySelector('.topBarSlide')) {
+            const topBarSlide = new Swiper(".topBarSlide", {
+            autoplay: {
+              delay: 1800,
+              disableOnInteraction: true
+            },
+            spaceBetween: 30,
+            loop: true,
+            speed: 2400,   
+             navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              },
+            });   
+        }   
+        if (document.querySelector('.swiperMarquee')) {
+            const topBarMarquee = new Swiper(".swiperMarquee", {
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                  delay: 1,
+                  disableOnInteraction: true
+                },
+                speed: 10000,
+                grabCursor: true,
+                mousewheelControl: true,
+                keyboardControl: true,
+                breakpoints: {
+                    320: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 20,
+                    },
+                    425: {
+                      slidesPerView: 1.5,
+                      spaceBetween: 20,
+                    },  
+                    570: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    980: {
+                      slidesPerView: 3,
+                      spaceBetween: 20,
+                    },
+                    1280: {
+                      slidesPerView: 4,
+                      spaceBetween: 40,
+                    },
+                    1536: {
+                      slidesPerView: 5,
+                      spaceBetween: 50,
+                    },
+                },
+            });   
+        }
+    })
+{% endjavascript %}

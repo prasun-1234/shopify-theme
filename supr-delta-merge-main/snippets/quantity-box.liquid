@@ -1,0 +1,89 @@
+{% style %}
+  .quantity-counter svg path {
+    fill: var(--global-font-color);
+  }
+{% endstyle %}
+<div class="quantity-counter">
+  <div class="wrapper">
+    <button
+      type="button"
+      class="decrease rounded-l-lg bg-transparent outline-none cursor-pointer"
+      id="decrement-count">
+      {% render 'icon-minus' %}
+    </button>
+    <input
+      class="quantity max-w-[40px]"
+      type="number"
+      name="{% if name != blank %}{{ name }}{% else %}quantity{% endif %}"
+      value="{% if value != blank %}{{ value }}{% else %}1{% endif %}"
+      min="1"
+      max="{{ product.selected_or_first_available_variant.inventory_quantity }}">
+    <button
+      type="button"
+      class="increase rounded-r-lg bg-transparent outline-none cursor-pointer"
+      id="increment-count">
+      {% render 'icon-plus' %}
+    </button>
+  </div>
+</div>
+
+<script defer>
+  const quantityCounters = document.querySelectorAll('.quantity-counter');
+  quantityCounters.forEach((counter) => {
+                                const decreaseButton = counter.querySelector('.decrease');
+                                const increaseButton = counter.querySelector('.increase');
+                                const quantityInput = counter.querySelector('.quantity');
+                                                                    
+                                const totalCount = document.getElementById("total-count");
+                                const incrementCount = document.getElementById("increment-count");
+                                const decrementCount = document.getElementById("decrement-count");
+                                
+                                var count = 1;
+                                totalCount.innerHTML = count;
+                            
+                                const handleIncrement = () => {
+                                count++;
+                                totalCount.innerHTML = count;
+                                };
+                          
+                                const handleDecrement = () => {
+                                count--;
+                                totalCount.innerHTML = count;
+                                };
+                      
+                      
+                                incrementCount.addEventListener("click", handleIncrement);
+                                decrementCount.addEventListener("click", handleDecrement);
+                      
+                      
+                      
+                                                                                    
+                                                                      decreaseButton.addEventListener('click', () => {
+                                                                                          let quantity = parseInt(quantityInput.value);
+                                                                                          quantity = Math.max(1, quantity - 1);
+                                                                                          quantityInput.value = quantity;
+                                                                                          toggleButtonState(quantity, decreaseButton, increaseButton);
+                                                                                        });
+                                                                                    
+                                                                                        increaseButton.addEventListener('click', () => {
+                                                                                          let quantity = parseInt(quantityInput.value);
+                                                                                          quantity = Math.min(100, quantity + 1);
+                                                                                          quantityInput.value = quantity;
+                                                                                          toggleButtonState(quantity, decreaseButton, increaseButton);
+                                                                                          //quantitySpan.innerText = quantity;
+                                                                                        });
+                                                                                    
+                                                                                        quantityInput.addEventListener('input', () => {
+                                                                                          toggleButtonState(parseInt(quantityInput.value), decreaseButton, increaseButton);
+                                                                                          //quantitySpan.innerText = quantityInput.value;
+                                                                                        });
+                                                                                    
+                                                                                        toggleButtonState(parseInt(quantityInput.value), decreaseButton, increaseButton);
+                                                                                    
+                                                                                        
+                                                                                      });
+                                                                                    
+                                                                                      function toggleButtonState(quantity, decreaseButton, increaseButton) {
+                                                                                        decreaseButton.disabled = quantity <= 1;
+                                                                                        increaseButton.disabled = quantity >= 100;
+  }</script>

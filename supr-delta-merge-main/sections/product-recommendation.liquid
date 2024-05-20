@@ -1,0 +1,193 @@
+<section
+  class="product-recommendations"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent={{ section.settings.product_type }}"
+>
+  <div class="{% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto my-[60px]">
+    <div class="{% if section.settings.product_view == 'grid' %}product-grid-view-inner{% endif %}">
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        <div class="product-recommendations-inner">
+          {% liquid
+            assign product_view = section.settings.product_view
+            assign items_number = section.settings.items_number
+            assign items_row = section.settings.post_row_limit | plus: 0
+          %}
+          {% if product_view == 'grid' %}
+            <h2 class=" lg:mb-[40px] sm:mb-[32px] mb-[20px] sm:text-left text-center">
+              {{ section.settings.section_title }}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 {% case items_row %}{% when '1' %}lg:grid-cols-1{% when '2' %}lg:grid-cols-2{% when '3' %}lg:grid-cols-3{% when '4' %}lg:grid-cols-4{% endcase %}  gap-[20px]">
+              {% for product in recommendations.products limit: items_number %}
+                {% if product.available %}
+                  <div>
+                    {% render 'product-item' with product: product %}
+                  </div>
+                {% endif %}
+              {%- endfor -%}
+            </div>
+          {% elsif product_view == 'slider' %}
+            <div
+              class="swiper recommendedSwiper !p-[20px]"
+              data-count="{{ items_row }}"
+              id="recommendations-swiper"
+            >
+              <h2 class="sm:text-left text-center mb-[40px]">{{ section.settings.section_title }}</h2>
+              <div class="swiper-wrapper pb-10">
+                {% for product in recommendations.products limit: items_number %}
+                  {% if product.available %}
+                    <div class="swiper-slide">
+                      {% render 'product-item', product: product %}
+                    </div>
+                  {% endif %}
+                {%- endfor -%}
+              </div>
+
+              {% if section.settings.slider_arrows %}
+                <div class="absolute sm:top-[45px] sm:right-[2px] slider-5 flex items-center sm:gap-[20px] h-[30px] sm:justify-start justify-between sm:w-auto w-[90%] top-[40%]">
+                  <div class="swiper-button-prev !relative !left-auto !right-auto">
+                    {% render 'btn-swiper', class: 'rotate-180' %}
+                  </div>
+                  <div class="swiper-button-next !relative !left-auto !right-auto">
+                    {% render 'btn-swiper' %}
+                  </div>
+                </div>
+              {% endif %}
+              <div class="swiper-pagination"></div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.product-recommendation.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "default": "Recommended Products",
+      "id": "section_title",
+      "label": "t:section.product-recommendation.settings.section_title"
+    },
+    {
+      "type": "select",
+      "id": "product_type",
+      "default": "related",
+      "label": "t:section.product-recommendation.settings.product_type.label",
+      "options": [
+        {
+          "label": "t:section.product-recommendation.settings.product_type.options.related",
+          "value": "related"
+        },
+        {
+          "label": "t:section.product-recommendation.settings.product_type.options.complementary",
+          "value": "complementary"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "product_view",
+      "default": "slider",
+      "label": "t:section.product-recommendation.settings.product_view.label",
+      "info": "t:section.product-recommendation.settings.product_view.info",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:section.product-recommendation.settings.product_view.options.grid"
+        },
+        {
+          "value": "slider",
+          "label": "t:section.product-recommendation.settings.product_view.options.slider"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "default": 6,
+      "id": "items_number",
+      "label": "t:section.product-recommendation.settings.items_number",
+      "step": 1,
+      "min": 3,
+      "max": 9
+    },
+    {
+      "type": "range",
+      "default": 3,
+      "id": "post_row_limit",
+      "label": "t:section.product-recommendation.settings.post_row_limit",
+      "step": 1,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "type": "checkbox",
+      "label": "t:section.product-recommendation.settings.slider_arrows.label",
+      "default": true,
+      "id": "slider_arrows",
+      "info": "t:section.product-recommendation.settings.slider_arrows.info"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then((response) => response.text())
+      .then((text) => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        }
+
+        var swiper = new Swiper('.recommendedSwiper', {
+          slidesPerView: document.querySelector('.recommendedSwiper').getAttribute('data-count'),
+          spaceBetween: 20,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            767: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1280: {
+              slidesPerView: document.querySelector('.recommendedSwiper').getAttribute('data-count'),
+              spaceBetween: 20,
+            },
+          },
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 200px 0px' });
+
+  window.addEventListener('load', () => {
+    observer.observe(productRecommendationsSection);
+  });
+{% endjavascript %}

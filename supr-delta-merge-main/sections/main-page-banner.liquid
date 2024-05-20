@@ -1,0 +1,364 @@
+{% style %}
+   #main-{{ section.id }}-banner {
+     margin-top: {{ section.settings.margin_top }}px;
+     margin-bottom: {{ section.settings.margin_bottom }}px;
+     height:{{ section.settings.section_height }}px;
+   }
+
+  #main-{{ section.id }}-banner .banner_info > div:after{
+    content:'';
+    height:1.5rem;
+    width:1px;
+    display:inline-block;
+    margin-left:1rem;
+  }
+  #main-{{ section.id }}-banner .banner_info > div:nth-last-child(1):after{
+    display:none !important;
+  }
+
+   @media screen and (max-width:980px){
+     #main-{{ section.id }}-banner {
+       padding-top:80px;
+       padding-bottom:80px;
+       min-height:280px;
+       height:100%;
+     }
+     #main-{{ section.id }}-banner{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+   }
+   @media screen and (max-width:767px){
+    #main-{{ section.id }}-banner .banner_info > div:after{
+      display:none;
+    }
+   }
+{% endstyle %}
+{% assign backgroundImage = section.settings.background_image %}
+<section
+  id="main-{{ section.id }}-banner"
+  class="contact_banner relative overflow-hidden bg-no-repeat bg-cover flex items-center"
+  style="background-image: url('{{ backgroundImage | image_url }}');"
+>
+  {% if backgroundImage == blank %}
+    <div
+      class="
+        w-full h-full absolute
+        top-0 left-0
+      "
+    >
+      <div class="w-full h-full flex justify-center items-center">
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'w-full h-[400px]' }}
+      </div>
+    </div>
+  {% endif %}
+
+  <span
+    class="absolute left-0 top-0 w-full h-full z-20 pointer-events-none"
+    style="background-color: {{ section.settings.overlay_background }};opacity: calc({{ section.settings.overlay_opacity }} / 10)"
+  ></span>
+  <div
+    class="
+      {% if settings.container == 'boxed' %}container{% else %}container-fluid{% endif %} mx-auto z-20 relative flex flex-col gap-[15px]
+      {% if section.settings.content_align == 'left' %} md:items-start items-center {% elsif section.settings.content_align == 'center' %} items-center {% else %} items-end {% endif %}
+    "
+  >
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'text' %}
+          <p
+            class=" text-center md:text-left"
+            {{ block.shopify_attributes }}
+            style="color:{{ block.settings.text_color }};"
+          >
+            {{ block.settings.text }}
+          </p>
+        {% when 'title' %}
+          {% style %}
+            #main-{{ section.id }}-banner #{{ block.id }} *{
+              color:{{ block.settings.banner_color }} !important;
+            }
+          {% endstyle %}
+          <span
+            {{ block.shopify_attributes -}}
+            id="{{ block.id }}"
+            class="
+              lg:w-full md:max-w-[50%] !leading-[1.1] font-semibold page-title
+              {% if section.settings.content_align == 'left' %} text-center md:text-left  {% elsif section.settings.content_align == 'center' %} text-center {% else %} text-right {% endif %}
+            "
+          >
+            {{ block.settings.banner_text }}
+          </span>
+        {% when 'product' %}
+          <div
+            id="{{ block.id }}"
+            class="banner_info flex  flex-col md:flex-row gap-x-[30px] gap-y-[20px] {% if section.settings.content_align == 'left' %} text-center md:text-left  items-center {% elsif section.settings.content_align == 'center' %} items-center text-center {% else %} items-center text-center {% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {% style %}
+              #main-{{ section.id }}-banner #{{ block.id }} > div:after{
+                background:{{ block.settings.title_color }};
+              }
+            {% endstyle %}
+            {% if block.settings.product_title != blank and block.settings.Product_email != blank %}
+              <div
+                class="flex product_title {% if section.settings.content_align == 'left' %} items-center {% elsif section.settings.content_align == 'center' %} items-center {% else %} items-center {% endif %}"
+              >
+                <div>
+                  {% if block.settings.product_title != blank %}
+                    <p class="text-sm sm:text-base" style="color:{{ block.settings.title_color }};">
+                      {{ block.settings.product_title }}
+                    </p>
+                  {% endif %}
+                  {% if block.settings.Product_email != blank %}
+                    <h6 class=" font-semibold text-base sm:text-lg" style="color:{{ block.settings.text_color }};">
+                      {{ block.settings.Product_email }}
+                    </h6>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            {% if block.settings.service_title != blank and block.settings.service_email != blank %}
+              <div
+                class="
+                  flex
+                  {% if section.settings.content_align == 'left' %} items-center  {% elsif section.settings.content_align == 'center' %} items-center {% else %} items-center {% endif %}
+                "
+              >
+                <div>
+                  {% if block.settings.service_title != blank %}
+                    <p class="text-sm sm:text-base" style="color:{{ block.settings.title_color }};">
+                      {{ block.settings.service_title }}
+                    </p>
+                  {% endif %}
+                  {% if block.settings.service_email != blank %}
+                    <h6 class="font-semibold text-base sm:text-lg" style="color:{{ block.settings.text_color }};">
+                      {{ block.settings.service_email }}
+                    </h6>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            {% if block.settings.tel_title != blank and block.settings.tel_email != blank %}
+              <div
+                class="
+                  flex
+                  {% if section.settings.content_align == 'left' %} items-center {% elsif section.settings.content_align == 'center' %} items-center {% else %} items-center {% endif %}
+                "
+              >
+                <div>
+                  {% if block.settings.tel_title != blank %}
+                    <p class="text-sm sm:text-base" style="color:{{ block.settings.title_color }};">
+                      {{ block.settings.tel_title }}
+                    </p>
+                  {% endif %}
+                  {% if block.settings.tel_email != blank %}
+                    <h6 class="text-base sm:text-lg font-semibold" style="color:{{ block.settings.text_color }};">
+                      {{ block.settings.tel_email }}
+                    </h6>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-page-banner.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-page-banner.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-page-banner.settings.margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "t:section.main-page-banner.settings.section_padding",
+      "max": 700,
+      "min": 400,
+      "step": 50,
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:section.main-page-banner.settings.background_image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_background",
+      "label": "t:section.main-page-banner.settings.overlay_background",
+      "default": "#253237"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:section.main-page-banner.settings.overlay_opacity",
+      "max": 10,
+      "min": 0,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content Align",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.main-page-banner.blocks.text.name",
+      "limit": 1,
+      "type": "text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Question & Queries",
+          "label": "t:section.main-page-banner.blocks.text.settings.text"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "default": "#fff",
+          "label": "t:section.main-page-banner.blocks.text.settings.text_color"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-page-banner.blocks.title.name",
+      "type": "title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "banner_text",
+          "label": "t:section.main-page-banner.blocks.title.settings.banner_text",
+          "default": "<h2>GET SERVICING AT YOUR DOOORSTEP</h2>"
+        },
+        {
+          "type": "color",
+          "id": "banner_color",
+          "label": "t:section.main-page-banner.blocks.title.settings.banner_color",
+          "default": "#fff"
+        }
+      ]
+    },
+    {
+      "name": "t:section.main-page-banner.blocks.product.name",
+      "type": "product",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "t:section.main-page-banner.blocks.product.settings.product_title",
+          "default": "Product related queries"
+        },
+        {
+          "type": "text",
+          "id": "Product_email",
+          "label": "t:section.main-page-banner.blocks.product.settings.Product_email",
+          "default": "Support@demo.co.in"
+        },
+        {
+          "type": "text",
+          "id": "service_title",
+          "label": "t:section.main-page-banner.blocks.product.settings.service_title",
+          "default": "Service related queries"
+        },
+        {
+          "type": "text",
+          "id": "service_email",
+          "label": "t:section.main-page-banner.blocks.product.settings.service_email",
+          "default": "Support@demo.co.in"
+        },
+        {
+          "type": "text",
+          "id": "tel_title",
+          "label": "t:section.main-page-banner.blocks.product.settings.tel_title",
+          "default": "Call Us"
+        },
+        {
+          "type": "text",
+          "id": "tel_email",
+          "label": "t:section.main-page-banner.blocks.product.settings.tel_email",
+          "default": "+81-123-789"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "t:section.main-page-banner.blocks.product.settings.title_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:section.main-page-banner.blocks.product.settings.text_color",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:section.main-page-banner.presets.name",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "section_height": 500,
+        "background_image": "shopify:\/\/shop_images\/contact-banner.jpg",
+        "overlay_background": "#253237",
+        "overlay_opacity": 0
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

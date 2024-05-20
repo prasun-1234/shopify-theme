@@ -1,0 +1,101 @@
+{
+  "current": {
+    "logo_header": "shopify:\/\/shop_images\/style_couture_white.svg",
+    "container": "full_width",
+    "type_header_font": "americana_n4",
+    "type_body_font": "maven_pro_n4",
+    "color_scheme": "background-1",
+    "search_only": "product_page_article",
+    "enable_page_transition": false,
+    "loader_opacity": 10,
+    "favicon": "shopify:\/\/shop_images\/fashionwear-fav-icon.png",
+    "share_image": "shopify:\/\/shop_images\/geometric-glass-city-architecture.jpg",
+    "product_card_style": "slider",
+    "enable_swatch": true,
+    "enable_product_range": false,
+    "heading_scale": 100,
+    "primary_theme_color": "#E20000",
+    "color_button": "#E20000",
+    "color_button_text": "#FFFFFF",
+    "color_button_two": "#403B3A",
+    "color_button_two_text": "#403B3A",
+    "button_background_color": "#d3e6e6",
+    "border_thickness": 1,
+    "corner_radius": 50,
+    "sections": {
+      "main-modal": {
+        "type": "main-modal",
+        "blocks": {
+          "title": {
+            "type": "title",
+            "settings": {
+              "title_text": "Sign Up and save"
+            }
+          },
+          "text": {
+            "type": "description",
+            "settings": {
+              "description_text": "<p>Entice customers to sign up for your mailing list with discounts or exclusive offers.<\/p>"
+            }
+          },
+          "form": {
+            "type": "form",
+            "settings": {
+              "button_text": "Submit"
+            }
+          }
+        },
+        "block_order": [
+          "title",
+          "text",
+          "form"
+        ],
+        "settings": {
+          "enable_modal": true,
+          "image": "shopify:\/\/shop_images\/newsletter.jpg"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "empty_cart_title": "Your cart is empty",
+          "banner_button_text": "Add Item",
+          "cart_bg": "#27272a",
+          "cart_content_color": "#ffffff",
+          "cart_total_bg": "#525252",
+          "cart_total_content": "#ffffff"
+        }
+      },
+      "quickview": {
+        "type": "quickview",
+        "settings": {
+          "bg_color": "#27272A",
+          "content_color": "#fff"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ],
+    "color_schemes": {
+      "background-1": {
+        "settings": {
+          "color_header": "#253237",
+          "color_body_text": "#253237",
+          "color_error_text": "#ff6d6f",
+          "body_background": "#ffffff",
+          "background_gradient": "",
+          "primary_theme_color": "#27272a",
+          "secondary_theme_color": "#5a9de5",
+          "primary_button": "#27272a",
+          "primary_button_text": "#ffffff",
+          "secondary_button": "#FFF0E1",
+          "secondary_button_text": "#27272a",
+          "color_text_field_text": "#27272a",
+          "color_text_field_border": "#d4d4d4",
+          "global_border_color": "#737373"
+        }
+      }
+    }
+  }
+}

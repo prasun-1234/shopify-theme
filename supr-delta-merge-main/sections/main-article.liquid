@@ -1,0 +1,395 @@
+{% style %}
+  #info_grid_cols {
+    {% case section.settings.grid_cols %}
+      {% when '3' %}
+      grid-template-columns: auto auto auto;
+      {% when '4' %}
+      grid-template-columns: auto auto auto auto;
+    {% endcase %}
+  }
+
+   .related_single{
+    background-color:var(--theme-primary-color);
+   }
+
+  @media screen and (max-width:1200px) {
+    #info_grid_cols {
+      grid-template-columns: auto auto;
+    }
+  }
+  @media screen and (max-width:980px) {
+    #main-article{
+      margin-top: {{ section.settings.margin_top | divided_by: 2 }}px !important;
+      margin-bottom: {{ section.settings.margin_bottom | divided_by: 2 }}px !important;
+      }
+  }
+  @media screen and (max-width:540px) {
+    #info_grid_cols {
+      grid-template-columns: auto;
+    }
+  }
+  .share-btn svg path{
+    fill:var(--global-font-color);
+  }
+{% endstyle %}
+
+<section>
+  <div
+    id="main-article"
+    style="margin-bottom: {{ section.settings.margin_bottom }}px; margin-top: {{ section.settings.margin_top }}px;"
+  >
+    <div class="lg:mb-20 mb-10">
+      {% if article.image != blank %}
+        <figure class="w-full md:h-[500px] h-[320px]">
+          {{
+            article.image
+            | image_url: width: 1500
+            | image_tag:
+              loading: 'lazy',
+              sizes: '100',
+              widths: '165, 360, 535, 750, 1070, 1500',
+              class: 'w-full h-full object-cover'
+          }}
+        </figure>
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      {% endif %}
+
+      <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto text-center md:text-left">
+        {% if settings.blog_card_style == 'style-1' %}
+          <article class="flex flex-col gap-[20px] mt-[40px]">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'article_title' %}
+                  <a href="{{ article.url }}" {{ block.shopify_attributes }} rel="nofollow">
+                    <h3
+                      class="text-[40px] leading-none font-semibold  "
+                      style="color:{{ block.settings.article_heading_color }};"
+                    >
+                      {{ article.title | escape }}
+                    </h3>
+                  </a>
+
+                {% when 'article_info' %}
+                  {% if section.settings.enable_date == true and section.settings.enable_author == true %}
+                    <span
+                      class="flex items-center md:justify-start justify-center gap-[10px]  "
+                      {{ block.shopify_attributes }}
+                    >
+                      {% if section.settings.enable_date == true %}
+                        <time
+                          class="lg:text-left text-center font-normal tracking-[1px] opacity-80"
+                          style="color:{{ block.settings.date_color }};"
+                          datetime="{{ article.published_at | date: '%Y-%m-%d' }}"
+                        >
+                          {{- article.published_at | date: format: 'date' }},
+                        </time>
+                      {% endif %}
+                      {% if section.settings.enable_author == true %}
+                        <span
+                          class="lg:text-left text-center font-normal tracking-[1px] opacity-80"
+                          style="color:{{ block.settings.author_color }};"
+                        >
+                          By&nbsp;
+                          {{- article.author -}}
+                        </span>
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                {% when 'article_content' %}
+                  <p
+                    class="text-base font-normal opacity-80 mb-8 article_content"
+                    style="color: {{ block.settings.content_color }};"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ article.excerpt_or_content }}
+                  </p>
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+
+            <div class="flex justify-between items-center flex-col md:flex-row gap-10">
+              {% if section.settings.enable_author %}
+                <div class="flex items-center gap-5">
+                  <div>
+                    {% if article.metafields.author_image.value.value %}
+                      {{
+                        article.metafields.author_image.value.value
+                        | image_url: width: 100
+                        | image_tag: class: 'w-[50px] h-[50px] rounded-full object-cover'
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'w-[120px]' }}
+                    {% endif %}
+                  </div>
+                  <div>
+                    <h5>{{ article.author }}</h5>
+                    <p>{{ 'main-article.editor' | t }}</p>
+                  </div>
+                </div>
+              {% endif %}
+              {% if section.settings.enable_cta == true %}
+                <div class="flex flex-col items-center sm:flex-row gap-10">
+                  <button
+                    type="button"
+                    class="share_main cursor-pointer share-btn flex items-center gap-[10px] duration-150 ease-in-out hover:opacity-80"
+                  >
+                    {% render 'icon-share', class: 'w-[30px] h-[30px] stroke' %}
+                    <p class="text-lg font-medium">{{ 'main-article.share' | t }}</p>
+                  </button>
+                  {% if section.settings.enable_button %}
+                    <a rel="nofollow" href="{{ blog.url }}">
+                      {% assign btn_text = 'Back to ' | append: blog.title %}
+                      {%- render 'btn-secondary', src: btn_text -%}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% else %}
+          <article class="flex flex-col gap-[20px] mt-[40px]">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'article_title' %}
+                  <a href="{{ article.url }}" {{ block.shopify_attributes }} rel="nofollow">
+                    <h3
+                      class="text-[40px] leading-none "
+                      style="color:{{ block.settings.article_heading_color }};"
+                    >
+                      {{ article.title | escape }}
+                    </h3>
+                  </a>
+
+                {% when 'article_info' %}
+                  {% if section.settings.enable_date == true and section.settings.enable_author == true %}
+                    <span
+                      class="flex items-center justify-start gap-[10px]"
+                      {{ block.shopify_attributes }}
+                    >
+                      {% if section.settings.enable_date == true %}
+                        <time
+                          class="lg:text-left text-center font-normal tracking-[1px] opacity-80"
+                          style="color:{{ block.settings.date_color }};"
+                          datetime="{{ article.published_at | date: '%Y-%m-%d' }}"
+                        >
+                          {{- article.published_at | date: format: 'date' }},
+                        </time>
+                      {% endif %}
+                      {% if section.settings.enable_author == true %}
+                        <span
+                          class="lg:text-left text-center font-normal tracking-[1px] opacity-80"
+                          style="color:{{ block.settings.author_color }};"
+                        >
+                          By&nbsp;
+                          {{- article.author -}}
+                        </span>
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                {% when 'article_content' %}
+                  <p
+                    class="text-base font-normal opacity-80 mb-8 article_content"
+                    style="color: {{ block.settings.content_color }};"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ article.excerpt_or_content }}
+                  </p>
+                {% else %}
+
+              {% endcase %}
+            {% endfor %}
+            <div class="border-t flex items-center gap-8">
+              {% if section.settings.enable_author %}
+                <div class="flex items-center gap-5  mt-[40px] hidden">
+                  <div>
+                    {% if article.metafields.author_image.value.value %}
+                      {{
+                        article.metafields.author_image.value.value
+                        | image_url: width: 100
+                        | image_tag: class: 'w-[50px] h-[50px] rounded-full object-cover'
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'w-[120px]' }}
+                    {% endif %}
+                  </div>
+                  <div>
+                    <h5>{{ article.author }}</h5>
+                    <p>{{ 'main-article.editor' | t }}</p>
+                  </div>
+                </div>
+              {% endif %}
+              {% if section.settings.enable_cta == true %}
+                <div class="flex items-center gap-[4px] mt-[40px] share_main cursor-pointer w-fit">
+                  <p class="underline font-semibold">Share this blog</p>
+                  {% render 'icon-share-blog' %}
+                </div>
+              {% else %}
+
+              {% endif %}
+            </div>
+          </article>
+        {% endif %}
+        <div class="my-5">
+          {% if blog.comments_enabled? %}
+            {% if article.comments_count > 0 %}
+              <div>
+                {% paginate article.comments by 5 %}
+                  {% for comments in article.comments %}
+                    <div class="border-b py-3 mb-3">
+                      <h4 class=" text-lg font-semibold">{{ comments.author }}</h4>
+                      <span class="text-sm opacity-80 my-3 font-light inline-block">
+                        {{- comments.created_at | date: format: 'default' -}}
+                      </span>
+                      <div class="md:text-base text-xs">{{ comments.content }}</div>
+                    </div>
+                  {% endfor %}
+                  {% if paginate.pages > 1 %}
+                    {% render 'pagination', pagination: paginate %}
+                  {% endif %}
+                {% endpaginate %}
+              </div>
+            {% else %}
+              <p class="text-lg text-center">{{ 'main-article.no_comment' | t }}</p>
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="mt-10">
+          <h2 class="mb-[40px] md:text-2xl text-lg">{{ 'main-article.post_comments' | t }}</h2>
+          {% form 'new_comment', article %}
+            <div class="flex justify-center md:flex-row flex-col gap-[15px] items-center">
+              <div class="w-full">
+                <input
+                  class="w-full pl-4 py-[12px] rounded-[6px]"
+                  id="comment_author"
+                  name="comment[author]"
+                  type="text"
+                  placeholder="Full Name"
+                  required
+                >
+              </div>
+              <div class="w-full ">
+                <input
+                  class="w-full pl-4 py-[12px] rounded-[6px]"
+                  id="comment_email"
+                  name="comment[email]"
+                  type="email"
+                  placeholder="Email"
+                  required
+                >
+              </div>
+            </div>
+            <div class="my-5">
+              <textarea
+                class="w-full border pl-4 pt-4"
+                name="comment[body]"
+                id="comment_content"
+                cols="100"
+                rows="4"
+                placeholder="Comments"
+                required
+              ></textarea>
+            </div>
+            <div class="flex md:justify-start justify-center">
+              {% render 'btn-primary', type: 'submit', src: 'Post comments', class: '' %}
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:section.main-article.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-article.settings.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "t:section.main-article.settings.margin_bottom",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_date",
+      "label": "t:section.main-article.settings.enable_date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_author",
+      "label": "t:section.main-article.settings.enable_author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button",
+      "label": "t:section.main-article.settings.enable_button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cta",
+      "label": "t:section.main-article.settings.enable_cta",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_title",
+      "name": "t:section.main-article.blocks.article_title.name",
+      "limit": 1
+    },
+    {
+      "type": "article_info",
+      "name": "t:section.main-article.blocks.article_info.name",
+      "limit": 1
+    },
+    {
+      "type": "article_content",
+      "name": "t:section.main-article.blocks.article_content.name",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}
+
+<script
+  defer
+>
+  
+  
+  
+  
+let article = {{ article | json }}
+
+  const shareData = {
+    title: '',
+    text: `${article.title}`,
+    url: '{{ full_url }}',
+  };
+  const btn = document.querySelector('.share_main');
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.log(`Error: ${err}`);
+    }
+  });
+</script>

@@ -1,0 +1,109 @@
+{% style %}
+  .{{ section.id }}{
+      margin-top:{{ section.settings.section_margin_top }}px;
+      margin-bottom:{{ section.settings.section_margin_bottom }}px;
+  }
+  @media only screen and (max-width:1024px){
+      .{{ section.id }}{
+          margin-top:{{ section.settings.section_margin_top | divided_by: 2 }}px;
+          margin-bottom:{{ section.settings.section_margin_bottom | divided_by: 2 }}px;
+      }
+  }
+{% endstyle %}
+<section class="{{ section.id }}">
+  <div class="{% if settings.container == 'boxed' %} container {% else %} container-fluid {% endif %} mx-auto">
+    <div class="mb-5">
+      <h2 class="text-center">{{ section.settings.section_heading }}</h2>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 sm:gap-20">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'icon' %}
+            <li {{ block.shopify_attributes }} class="col-span-1">
+              <figure class="w-full overflow-hidden h-full">
+                {% if block.settings.icon != blank %}
+                  {{
+                    block.settings.icon
+                    | image_url: width: 500
+                    | image_tag:
+                      class: 'object-contain w-full h-full max-h-[60px] md:max-h-[80px] brightness-0 hover:brightness-100 mx-auto duration-300 ease'
+                  }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full bg-gray-300' }}
+                {% endif %}
+              </figure>
+            </li>
+          {% when 'liquid' %}
+            {{ block.settings.custom_liquid }}
+          {% when '@app' %}
+            {% render block %}
+          {% else %}
+
+        {% endcase %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:section.brands.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "default": 0,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.brands.settings.section_margin_top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "default": 60,
+      "max": 100,
+      "min": 0,
+      "step": 10,
+      "label": "t:section.brands.settings.section_margin_bottom",
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "t:section.brands.settings.section_heading"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:section.brands.blocks.name",
+      "limit": 10,
+      "type": "icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "t:section.brands.blocks.settings.icon",
+          "info": "t:section.brands.blocks.settings.size"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "name": "Custom Block",
+      "type": "liquid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Block",
+          "info": "Add app snippets or other liquid code to create advanced customizations."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
